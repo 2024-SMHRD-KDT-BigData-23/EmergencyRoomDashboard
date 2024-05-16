@@ -3,7 +3,7 @@ import { Container, Row, Col, Form, FormGroup, Label, Input, Button } from 'reac
 import axios from 'axios';
 
 const PageForm = () => {
-    const SERVER_URL = "${BACKEND_URL}";
+    const SERVER_URL = "http://localhost:8080";
 
     const [formData, setFormData] = useState({
         name: '',
