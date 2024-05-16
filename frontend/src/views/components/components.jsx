@@ -21,6 +21,8 @@ import TooltipPopover from "./sections/tooltip-popover.jsx";
 import Typography from "./sections/typography.jsx";
 import JsComponents from "./sections/js-components.jsx";
 import CallToAction from "../../components/call-to-action/CallToAction"
+import ChartExample from "./sections/chart.jsx";
+
 
 
 const Components = () => {
@@ -30,6 +32,7 @@ const Components = () => {
             <div className="page-wrapper">
                 <div className="container-fluid">
                     <HeaderBanner />
+                    <ChartExample /> 
                     <Buttons />
                     <Labels />
                     <PagePagination />
@@ -43,6 +46,7 @@ const Components = () => {
                     <TooltipPopover />
                     <Typography />
                     <JsComponents />
+                    
                     <CallToAction />
                 </div>
             </div>
