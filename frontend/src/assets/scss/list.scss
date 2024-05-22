@@ -1,0 +1,19 @@
+.patient-table {
+    background: rgba(255, 255, 255, 0.1); // 배경을 반투명으로 설정
+    color: white; // 텍스트 색상을 흰색으로 설정
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+  
+    th {
+      background: rgba(255, 255, 255, 0.2);
+      font-weight: bold;
+      text-align: center;
+    }
+  
+    td {
+      text-align: center;
+    }
+  }
+  
