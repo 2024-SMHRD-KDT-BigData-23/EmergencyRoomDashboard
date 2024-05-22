@@ -1,0 +1,25 @@
+.patient-card {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 5px;
+  background-color: rgba(255, 255, 255, 0.8); /* 배경을 투명하게 변경 */
+  text-align: center;
+  cursor: move;
+  color: black; /* 텍스트 색상 명시 */
+}
+
+.dragging {
+  opacity: 0.5;
+}
+
+.patient-area {
+  border: 2px solid #ccc;
+  padding: 10px;
+  min-height: 300px;
+  margin: 10px;
+  background-color: rgba(255, 255, 255, 0.5); /* 배경을 투명하게 변경 */
+}
+
+.patient-area.over {
+  background-color: rgba(224, 247, 250, 0.7); /* 배경을 투명하게 변경 */
+}

@@ -23,20 +23,30 @@ const Header = () => {
                         <NavbarToggler onClick={toggle}><span className="ti-menu"></span></NavbarToggler>
                         <Collapse isOpen={isOpen} navbar className="hover-dropdown font-14 justify-content-end" id="h6-info">
                             <Nav navbar className="ms-auto">
-                                <NavItem>
+                            <NavItem>
                                     <Link className="nav-link" to={"/"}>
-                                        Components
+                                        NamNam
                                     </Link>
                                 </NavItem>
                                 <NavItem>
-                                    <Link className="nav-link" to={"/custom-components"}>
-                                        Custom-Components
+                                    <Link className="nav-link" to={"/List"}>
+                                        List
                                     </Link>
                                 </NavItem>
+                                <NavItem>
+                                    <Link className="nav-link" to={"/Detail"}>
+                                    Detail
+                                    </Link>
+                                </NavItem>
+                                <NavItem>
+                                    <Link className="nav-link" to={"/Table"}>
+                                        Table
+                                    </Link>
+                                </NavItem>
+                                
+                                
                             </Nav>
-                            <div className="act-buttons">
-                                <Link to="/#coming" className="btn btn-success-gradiant font-14">Upgrade To Pro</Link>
-                            </div>
+                            
                         </Collapse>
                     </Navbar>
                 </Container>
