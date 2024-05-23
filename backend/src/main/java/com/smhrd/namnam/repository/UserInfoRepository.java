@@ -9,7 +9,5 @@ import java.util.Optional;
 
 @Repository
 public interface UserInfoRepository extends JpaRepository<UserInfo, String> {
-    // Optional
-    // -> CrudRepository에서 이미 정의된 findById(ID) 메소드와 충돌을 방지
     UserInfo findUserInfoByUserId(String id);
 }
