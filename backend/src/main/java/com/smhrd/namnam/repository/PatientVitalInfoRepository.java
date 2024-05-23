@@ -1,10 +1,9 @@
 package com.smhrd.namnam.repository;
 
-import com.smhrd.namnam.entity.User;
+import com.smhrd.namnam.entity.PatientVitalInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
-    User findByUsername(String username);
+public interface PatientVitalInfoRepository extends JpaRepository<PatientVitalInfo, String> {
 }
