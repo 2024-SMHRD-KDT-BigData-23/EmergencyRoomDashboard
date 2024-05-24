@@ -15,8 +15,8 @@ public class HospitalInfo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "hosp_id", columnDefinition = "INT UNSIGNED")
-    private Integer hospId;
+    @Column(name = "hosp_id")
+    private Long hospId;
 
     @Column(name = "hosp_name", nullable = false, length = 50)
     private String hospName;

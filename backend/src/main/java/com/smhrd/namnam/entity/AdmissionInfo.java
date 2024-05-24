@@ -16,10 +16,10 @@ public class AdmissionInfo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "admission_id", columnDefinition = "INT UNSIGNED")
-    private Integer hoptId;
+    @Column(name = "admission_id")
+    private Long hoptId;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "ptnt_id", nullable = false)
     private PatientInfo patientInfo;
 

@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "tb_deep")
+@Table(name = "deep_info")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,10 +18,10 @@ public class DeepInfo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "deep_id", columnDefinition = "INT UNSIGNED")
-    private Integer deepId;
+    @Column(name = "deep_id")
+    private Long deepId;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "vital_id", nullable = false)
     private PatientVitalInfo patientVitalInfo;
 

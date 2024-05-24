@@ -2,6 +2,7 @@ package com.smhrd.namnam.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
@@ -9,16 +10,17 @@ import java.sql.Timestamp;
 
 @Entity
 @Table(name = "patient_vital_info")
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class PatientVitalInfo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "vital_id", columnDefinition = "INT UNISIGNED")
-    private Integer vitalId;
+    @Column(name = "vital_id")
+    private Long vitalId;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "hopt_id", nullable = false)
     private AdmissionInfo admissionInfo;
 
@@ -49,7 +51,7 @@ public class PatientVitalInfo {
     @Column(name = "chief_complaint", nullable = false, columnDefinition = "TEXT")
     private String chiefComplaint;
 
-    @Column(name = "created_at", nullable = true)
+    @Column(name = "created_at", nullable = false)
     private Timestamp createdAt;
 
 }

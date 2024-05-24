@@ -26,7 +26,7 @@ public class PatientInfo {
     @Column(name = "disease_history", nullable = false, columnDefinition = "TEXT")
     private String diseaseHistory;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "staff_id", nullable = false)
     private StaffInfo staffInfo;
 

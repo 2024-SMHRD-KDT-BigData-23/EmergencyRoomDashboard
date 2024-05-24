@@ -22,7 +22,7 @@ public class StaffInfo {
     @Column(name = "staff_role", nullable = false, length = 30)
     private String staffRole;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "hospital_id", nullable = false)
     private HospitalInfo hospitalInfo;
 
