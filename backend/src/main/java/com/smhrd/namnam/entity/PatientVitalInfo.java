@@ -1,22 +1,32 @@
 package com.smhrd.namnam.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
+import java.math.BigDecimal;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "patient_vital_info")
-@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class PatientVitalInfo {
 
     @Id
-    @Column(name = "stay_id", nullable = false, length = 20)
-    private String stayId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "vital_id", columnDefinition = "INT UNISIGNED")
+    private Integer vitalId;
+
+    @ManyToOne
+    @JoinColumn(name = "hopt_id", nullable = false)
+    private AdmissionInfo admissionInfo;
 
     @Column(name = "sex", nullable = false, length = 10)
     private String sex;
 
-    @Column(name = "temperature", nullable = false)
-    private float temperature;
+    @Column(name = "temperature", nullable = false, precision = 4, scale = 1)
+    private BigDecimal temperature;
 
     @Column(name = "hr", nullable = false)
     private int hr;
@@ -24,8 +34,8 @@ public class PatientVitalInfo {
     @Column(name = "respiratory_rate", nullable = false)
     private int respiratoryRate;
 
-    @Column(name = "spo2", nullable = false)
-    private float spo2;
+    @Column(name = "spo2", nullable = false, precision = 4, scale = 1)
+    private BigDecimal spo2;
 
     @Column(name = "nibp_s", nullable = false)
     private int nibpS;
@@ -36,10 +46,10 @@ public class PatientVitalInfo {
     @Column(name = "pain", nullable = false)
     private int pain;
 
-    @Column(name = "chief_complaint", nullable = false, length = 100)
+    @Column(name = "chief_complaint", nullable = false, columnDefinition = "TEXT")
     private String chiefComplaint;
 
-    @ManyToOne
-    @JoinColumn(name = "stay_id", referencedColumnName = "stay_id", insertable = false, updatable = false)
-    private PatientInfo patientInfo;
+    @Column(name = "created_at", nullable = true)
+    private Timestamp createdAt;
+
 }
