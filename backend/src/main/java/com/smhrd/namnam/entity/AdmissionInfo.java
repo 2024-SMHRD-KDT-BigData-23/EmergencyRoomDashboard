@@ -19,7 +19,6 @@ public class AdmissionInfo {
 
     // 입원 식별자
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "admission_id", length = 30)
     private String admissionId;
 

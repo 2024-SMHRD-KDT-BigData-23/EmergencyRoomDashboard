@@ -1,8 +1,8 @@
 package com.smhrd.namnam.service;
 
-import com.smhrd.namnam.entity.AdmissionListView;
+// import com.smhrd.namnam.entity.AdmissionListView;
 import com.smhrd.namnam.entity.StaffInfo;
-import com.smhrd.namnam.repository.AdmissionListViewRepository;
+// import com.smhrd.namnam.repository.AdmissionListViewRepository;
 import com.smhrd.namnam.repository.StaffInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

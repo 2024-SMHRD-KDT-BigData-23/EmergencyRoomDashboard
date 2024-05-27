@@ -1,8 +1,8 @@
 package com.smhrd.namnam.controller;
 
-import com.smhrd.namnam.entity.AdmissionListView;
+// import com.smhrd.namnam.entity.AdmissionListView;
 import com.smhrd.namnam.entity.StaffInfo;
-import com.smhrd.namnam.service.AdmissionListService;
+// import com.smhrd.namnam.service.AdmissionListService;
 import com.smhrd.namnam.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -28,8 +28,8 @@ public class UserController {
         }
     }
 
-    @Autowired
-    private AdmissionListService admissionListService;
+//    @Autowired
+//    private AdmissionListService admissionListService;
 
 //    @GetMapping("/admissionList")
 //    public Optional<AdmissionListView> getAdmissionDetails(@PathVariable Long admissionId) {
