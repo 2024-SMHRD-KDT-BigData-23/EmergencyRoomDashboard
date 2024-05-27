@@ -12,17 +12,22 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class StaffInfo {
 
+    // -- 의료진 정보 --
+
+    // 의료진 아이디
     @Id
     @Column(name = "staff_id", length = 30)
     private String staffId;
 
+    // 비밀번호
     @Column(name = "staff_pw", nullable = false, length = 255)
     private String staffPw;
 
+    // 직위
     @Column(name = "staff_role", nullable = false, length = 30)
     private String staffRole;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    // HospitalInfo의 병원 식별자
     @JoinColumn(name = "hospital_id", nullable = false)
     private HospitalInfo hospitalInfo;
 

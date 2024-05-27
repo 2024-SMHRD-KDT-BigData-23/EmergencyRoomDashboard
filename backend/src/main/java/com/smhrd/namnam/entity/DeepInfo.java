@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenerationTime;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -16,21 +17,25 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 public class DeepInfo {
 
+    // -- 딥러닝 분석 결과 정보 --
+
+    // 분석 결과 식별자
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "deep_id")
     private Long deepId;
 
+    // Patientvital의 vital 식별자
     @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "vital_id", nullable = false)
     private PatientVitalInfo patientVitalInfo;
 
-    @Column(name = "ktas", nullable = false, precision = 4, scale = 1)
-    private BigDecimal ktas;
+    // 위험도
+    @Column(name = "ncdss", nullable = false)
+    private String ncdss;
 
-    @Column(name = "deep_result", nullable = false, columnDefinition = "TEXT")
-    private String deepResult;
-
+    // 등록 날짜
+    @UpdateTimestamp
     @Column(name = "created_at", nullable = false)
     private Timestamp createdAt;
 
