@@ -16,6 +16,6 @@ public class StaffInfoVO {
     // 직위
     private String staffRole;
     // HospitalInfo의 병원 식별자
-    private Long hospId;
+    private Long hospitalId;
 
 }

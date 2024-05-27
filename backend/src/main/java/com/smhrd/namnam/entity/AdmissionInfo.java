@@ -24,7 +24,7 @@ public class AdmissionInfo {
 
     // PatientInfo의 환자 식별자
     @ManyToOne(cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "ptnt_id", nullable = false)
+    @JoinColumn(name = "patient_id", nullable = false)
     private PatientInfo patientInfo;
 
     // 입원 여부
@@ -32,20 +32,20 @@ public class AdmissionInfo {
     private String admissionState;
 
     // 도착 시간
-    @Column(name = "in_time")
-    private Timestamp inTime;
+    @Column(name = "admission_in_time")
+    private Timestamp admissionInTime;
 
     // 퇴원 시간
-    @Column(name = "out_time")
-    private Timestamp outTime;
+    @Column(name = "admission_out_time")
+    private Timestamp admissionoutTime;
 
     // 등록 일자
     @UpdateTimestamp
-    @Column(name = "created_at", nullable = false)
-    private Timestamp createdAt;
+    @Column(name = "admission_created_at", nullable = false)
+    private Timestamp admissionCreatedAt;
 
     // 실제 배치 결과
-    @Column(name = "result_ward", length = 20)
-    private String resultWard;
+    @Column(name = "admission_result_ward", length = 20)
+    private String admissionResultWard;
 
 }

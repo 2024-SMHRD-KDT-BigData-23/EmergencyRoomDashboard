@@ -14,9 +14,9 @@ public class DeepInfoVO {
     // 분석 결과 식별자
     private Long deepId;
     // Patientvital의 vital 식별자
-    private Long vitalId;
+    private Long patientVitalId;
     // 위험도
-    private String ncdss;
+    private String deepNcdss;
     // 등록 날짜
-    private Timestamp createAt;
+    private Timestamp deepCreatedAt;
 }

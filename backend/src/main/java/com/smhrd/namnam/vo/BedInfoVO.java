@@ -12,7 +12,7 @@ public class BedInfoVO {
     // 병상 식별자
     private Long bedId;
     // 구역
-    private String ward;
+    private String bedWard;
     // 병상 번호
     private int bedNum;
     // 위치도

@@ -10,15 +10,15 @@ import lombok.NoArgsConstructor;
 public class PatientInfoVO {
 
     // 환자 식별자
-    private String ptntId;
+    private String patientId;
     // 환자 이름
-    private String ptntName;
+    private String patientName;
     // 성별
-    private String sex;
+    private String patientSex;
     // 생년월일
-    private java.sql.Date birthdate;
+    private java.sql.Date patientBirthdate;
     // 과거 병력
-    private String diseaseHistory;
+    private String patientDiseaseHistory;
     // 담당 의사
     private String staffId;
 }

@@ -16,7 +16,7 @@ public class MapInfoVO {
     // BedInfo의 병상 식별자
     private Long bedId;
     // 등록 날짜
-    private Timestamp createAt;
+    private Timestamp mapCreatedAt;
     // AdmissionInfo의 입원 식별자
     private String admisssionId;
 }

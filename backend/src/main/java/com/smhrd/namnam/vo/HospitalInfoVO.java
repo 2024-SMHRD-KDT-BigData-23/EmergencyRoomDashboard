@@ -10,13 +10,13 @@ import lombok.NoArgsConstructor;
 public class HospitalInfoVO {
 
     // 병원 식별자
-    private Long hospId;
+    private Long hospitalId;
     // 병원명
-    private String hospName;
+    private String hospitalName;
     // 병원 주소
-    private String hospAddr;
+    private String hospitalAddr;
     // 병원 전화번호
-    private String hospTel;
+    private String hospitalTel;
     // 병원 병상수
-    private int hospBedCnt;
+    private int hospitalBedCnt;
 }

@@ -15,15 +15,15 @@ public class AdmissionInfoVO {
     // 입원 식별자
     private String admissionId;
     // PatientInfo의 환자 식별자
-    private String ptntId;
+    private String patientId;
     // 입원 여부
     private String admissionState;
     // 도착 시간
-    private Timestamp inTime;
+    private Timestamp admissionInTime;
     // 퇴원 시간
-    private Timestamp outTime;
+    private Timestamp admissionoutTime;
     // 등록 일자
-    private Timestamp createAt;
+    private Timestamp admissionCreatedAt;
     // 실제 배치 결과
-    private String resultVard;
+    private String admissionResultWard;
 }

@@ -28,8 +28,8 @@ public class MapInfo {
 
     // 등록 날짜
     @UpdateTimestamp
-    @Column(name = "created_at", nullable = false)
-    private Timestamp createdAt;
+    @Column(name = "map_created_at", nullable = false)
+    private Timestamp mapCreatedAt;
 
     // AdmissionInfo의 입원 식별자
     @ManyToOne(cascade = CascadeType.REMOVE)
