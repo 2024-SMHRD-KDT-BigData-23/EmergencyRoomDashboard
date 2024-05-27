@@ -28,7 +28,8 @@ public class StaffInfo {
     private String staffRole;
 
     // HospitalInfo의 병원 식별자
-    @JoinColumn(name = "hospital_id", nullable = false)
+    @ManyToOne(cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "hosp_id", nullable = false)
     private HospitalInfo hospitalInfo;
 
 }

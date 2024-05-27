@@ -26,7 +26,7 @@ public class PatientVitalInfo {
 
     // AdmissionInfo의 입원 식별자
     @ManyToOne(cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "hopt_id", nullable = false)
+    @JoinColumn(name = "admission_id", nullable = false)
     private AdmissionInfo admissionInfo;
 
     // 성별

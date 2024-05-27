@@ -21,7 +21,7 @@ public class AdmissionInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "admission_id")
-    private Long hoptId;
+    private Long admissionId;
 
     // PatientInfo의 환자 식별자
     @ManyToOne(cascade = CascadeType.REMOVE)
