@@ -20,8 +20,8 @@ public class AdmissionInfo {
     // 입원 식별자
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "admission_id")
-    private Long admissionId;
+    @Column(name = "admission_id", length = 30)
+    private String admissionId;
 
     // PatientInfo의 환자 식별자
     @ManyToOne(cascade = CascadeType.REMOVE)

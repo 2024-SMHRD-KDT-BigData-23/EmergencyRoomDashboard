@@ -19,7 +19,7 @@ public class MapInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "map_id")
-    private Long id;
+    private Long mapId;
 
     // BedInfo의 병상 식별자
     @ManyToOne(cascade = CascadeType.REMOVE)
