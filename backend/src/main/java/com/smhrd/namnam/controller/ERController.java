@@ -23,3 +23,7 @@ public class ERController {
         return erService.findMedicalPatients();
     }
 }
+
+
+
+
