@@ -16,4 +16,12 @@ public class ERService {
     public List<AdmissionListView> findMedicalPatients() {
         return admissionViewRepo.findAll();
     }
+
+    public List<AdmissionListView> findMedicalPatientsByPatientVitalAcuity(int acuity) {
+        return admissionViewRepo.findAllByPatientVitalAcuity(acuity);
+    }
+
+    public List<AdmissionListView> findMedicalPatientsByDeepNcdss(String deepNcdss) {
+        return admissionViewRepo.findAllByDeepNcdss(deepNcdss);
+    }
 }
