@@ -57,28 +57,28 @@ public class AdmissionListViewVO {
     private BigDecimal patientVitalTemperature;
 
     // 심박수
-    private Integer patientVitalHr;
+    private int patientVitalHr;
 
     // 호흡수
-    private Integer patientVitalRespiratoryRate;
+    private int patientVitalRespiratoryRate;
 
     // 산소포화도
     private BigDecimal patientVitalSpo2;
 
     // 수축혈압
-    private Integer patientVitalNibpS;
+    private int patientVitalNibpS;
 
     // 이완혈압
-    private Integer patientVitalNibpD;
+    private int patientVitalNibpD;
 
     // 통증수준
-    private Integer patientVitalPain;
+    private int patientVitalPain;
 
     // 주요증상
     private String patientVitalChiefComplaint;
 
     // mimic데이터의 acuity컬럼 값
-    private Integer patientVitalAcuity;
+    private int patientVitalAcuity;
 
     // 위험도
     private String deepNcdss;

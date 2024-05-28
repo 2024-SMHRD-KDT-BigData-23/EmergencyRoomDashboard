@@ -79,11 +79,11 @@ public class AdmissionListView {
 
     // 심박수
     @Column(name = "patient_vital_hr")
-    private Integer patientVitalHr;
+    private int patientVitalHr;
 
     // 호흡수
     @Column(name = "patient_vital_respiratory_rate")
-    private Integer patientVitalRespiratoryRate;
+    private int patientVitalRespiratoryRate;
 
     // 산소포화도
     @Column(name = "patient_vital_spo2")
@@ -91,15 +91,15 @@ public class AdmissionListView {
 
     // 수축혈압
     @Column(name = "patient_vital_nibp_s")
-    private Integer patientVitalNibpS;
+    private int patientVitalNibpS;
 
     // 이완혈압
     @Column(name = "patient_vital_nibp_d")
-    private Integer patientVitalNibpD;
+    private int patientVitalNibpD;
 
     // 통증수준
     @Column(name = "patient_vital_pain")
-    private Integer patientVitalPain;
+    private int patientVitalPain;
 
     // 주요증상
     @Column(name = "patient_vital_chief_complaint")
@@ -107,7 +107,7 @@ public class AdmissionListView {
 
     // mimic데이터의 acuity컬럼 값
     @Column(name = "patient_vital_acuity")
-    private Integer patientVitalAcuity;
+    private int patientVitalAcuity;
 
     // 위험도
     @Column(name = "deep_ncdss")
