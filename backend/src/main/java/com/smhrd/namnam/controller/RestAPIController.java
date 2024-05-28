@@ -29,7 +29,7 @@
 //
 ////    @ApiOperation(value = "특정 회원 조회", notes = "특정 회원을 조회한다.")
 //    @GetMapping("/list/{id}")
-//    public Optional<Member> memberListOne(@PathVariable Long id) {
+//    public Optional<Member> memberListOne(@PathVariable("id") Long id) {
 //        return memberService.findOne(id);
 //    }
 //
