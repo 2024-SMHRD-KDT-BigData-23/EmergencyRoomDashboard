@@ -23,7 +23,7 @@ public class AdmissionListView {
     // 입원 식별자
     @Id
     @Column(name = "admission_id")
-    private Long admissionId;
+    private String admissionId;
 
     // 생체 데이터 등록 일자
     @Column(name = "patient_vital_created_at")
@@ -70,8 +70,8 @@ public class AdmissionListView {
     private int patientVitalNibpD;
 
     // 위험도
-    @Column(name = "patient_vital_ncdss")
-    private String patientVitalNcdss;
+    @Column(name = "deep_ncdss")
+    private String deepNcdss;
 
     // 실제 배치 결과
     @Column(name = "admission_result_ward")

@@ -15,7 +15,7 @@ import java.sql.Timestamp;
 public class AdmissionListViewVO {
 
     // 입원 식별자
-    private Long admissionId;
+    private String admissionId;
 
     // 생체 데이터 등록 일자
     private Timestamp patientVitalCreatedAt;
@@ -51,7 +51,7 @@ public class AdmissionListViewVO {
     private int patientVitalNibpD;
 
     // 위험도
-    private String patientVitalNcdss;
+    private String deepNcdss;
 
     // 실제 배치 결과
     private String admissionResultWard;
