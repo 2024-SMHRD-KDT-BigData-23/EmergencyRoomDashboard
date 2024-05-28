@@ -37,7 +37,7 @@ public class AdmissionInfo {
 
     // 퇴원 시간
     @Column(name = "admission_out_time")
-    private Timestamp admissionoutTime;
+    private Timestamp admissionOutTime;
 
     // 등록 일자
     @UpdateTimestamp
