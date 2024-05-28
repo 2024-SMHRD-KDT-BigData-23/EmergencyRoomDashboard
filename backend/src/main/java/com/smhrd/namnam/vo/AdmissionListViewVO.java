@@ -42,7 +42,7 @@ public class AdmissionListViewVO {
     private int patientVitalRespiratoryRate;
 
     // 산소포화도
-    private BigDecimal patientVitalspo2;
+    private BigDecimal patientVitalSpo2;
 
     // 수축 혈압
     private int patientVitalNibpS;

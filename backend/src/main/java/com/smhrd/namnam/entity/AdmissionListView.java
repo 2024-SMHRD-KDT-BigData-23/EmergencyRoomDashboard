@@ -55,7 +55,7 @@ public class AdmissionListView {
 
     // 산소포화도
     @Column(name = "patient_vital_spo2")
-    private BigDecimal patientVitalspo2;
+    private BigDecimal patientVitalSpo2;
 
     // 수축 혈압
     @Column(name = "patient_vital_nibp_s")
