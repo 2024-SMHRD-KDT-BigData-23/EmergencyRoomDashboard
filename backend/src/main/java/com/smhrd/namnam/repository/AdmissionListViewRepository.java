@@ -12,4 +12,10 @@ public interface AdmissionListViewRepository extends JpaRepository<AdmissionList
     List<AdmissionListView> findAllByPatientVitalAcuity(int acuity);
 
     List<AdmissionListView> findAllByDeepNcdss(String ncdss);
+
+    // 특정 입원코드에 대한 상세 정보
+    List<AdmissionListView> findPatientDetailByAdmissionId(String admissionId);
+
+    // 특정 이름에 대한 입원 내역 정보(검색)
+    List<AdmissionListView> searchNameByPatientName(String patientName);
 }
