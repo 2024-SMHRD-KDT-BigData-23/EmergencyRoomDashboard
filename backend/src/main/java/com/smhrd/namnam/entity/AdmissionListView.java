@@ -49,6 +49,10 @@ public class AdmissionListView {
     @Column(name = "admission_result_ward")
     private String admissionResultWard;
 
+    // 환자 식별자
+    @Column(name = "patient_id")
+    private String patientId;
+
     // 환자 이름
     @Column(name = "patient_name")
     private String patientName;

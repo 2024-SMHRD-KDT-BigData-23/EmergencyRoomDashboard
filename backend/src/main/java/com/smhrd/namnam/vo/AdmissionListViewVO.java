@@ -35,6 +35,9 @@ public class AdmissionListViewVO {
     // 실제 배치 결과
     private String admissionResultWard;
 
+    // 환자 식별자
+    private String patientId;
+
     // 환자 이름
     private String patientName;
 
