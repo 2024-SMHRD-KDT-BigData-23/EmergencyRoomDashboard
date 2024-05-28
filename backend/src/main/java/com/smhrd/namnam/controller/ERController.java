@@ -1,15 +1,15 @@
 package com.smhrd.namnam.controller;
 
+import com.smhrd.namnam.entity.AdmissionInfo;
 import com.smhrd.namnam.entity.AdmissionListView;
 import com.smhrd.namnam.service.ERService;
+import com.smhrd.namnam.vo.AdmissionInfoVO;
 import com.smhrd.namnam.vo.AdmissionListViewVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/ER")
@@ -34,6 +34,12 @@ public class ERController {
     @GetMapping("/search-ncdss/medical-patients/{ncdss}")
     public List<AdmissionListView> findMedicalPatientsByDeepNcdss(@PathVariable("ncdss") String deepNcdss) {
         return erService.findMedicalPatientsByDeepNcdss(deepNcdss);
+    }
+
+    // 응급실 진료 후 result_ward 수정
+    @PatchMapping("/set/medical-patients/{admissionId}")
+    public Optional<AdmissionInfoVO> saveMedicalPatientsByAdmissionId(@PathVariable("admissionId") String admissionId, @RequestBody AdmissionInfoVO vo) {
+        return erService.saveMedicalPatientsByAdmissionId(admissionId, vo);
     }
 }
 
