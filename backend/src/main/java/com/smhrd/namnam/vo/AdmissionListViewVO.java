@@ -14,23 +14,44 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 public class AdmissionListViewVO {
 
+    // 뷰의 식별자
+    private Long id;
+
     // 입원 식별자
     private String admissionId;
 
-    // 생체 데이터 등록 일자
-    private Timestamp patientVitalCreatedAt;
+    // 등록 일자
+    private Timestamp admissionCreatedAt;
 
-    // 입원 상태
+    // 도착 시간
+    private Timestamp admissionInTime;
+
+    // 퇴원 시간
+    private Timestamp admissionOutTime;
+
+    // 입원 여부
     private String admissionState;
+
+    // 실제 배치 결과
+    private String admissionResultWard;
 
     // 환자 이름
     private String patientName;
 
-    // 환자 성별
-    private String PatientSex;
+    // 성별
+    private String patientSex;
+
+    // 생년월일
+    private java.sql.Date patientBirthdate;
+
+    // 과거 병력
+    private String patientDiseaseHistory;
 
     // 구역
     private String bedWard;
+
+    // 등록 일자
+    private Timestamp patientVitalCreatedAt;
 
     // 체온
     private BigDecimal patientVitalTemperature;
@@ -44,15 +65,21 @@ public class AdmissionListViewVO {
     // 산소포화도
     private BigDecimal patientVitalSpo2;
 
-    // 수축 혈압
+    // 수축혈압
     private int patientVitalNibpS;
 
-    // 이완 혈압
+    // 이완혈압
     private int patientVitalNibpD;
+
+    // 통증수준
+    private int patientVitalPain;
+
+    // 주요증상
+    private String patientVitalChiefComplaint;
+
+    // mimic데이터의 acuity컬럼 값
+    private int patientVitalAcuity;
 
     // 위험도
     private String deepNcdss;
-
-    // 실제 배치 결과
-    private String admissionResultWard;
 }

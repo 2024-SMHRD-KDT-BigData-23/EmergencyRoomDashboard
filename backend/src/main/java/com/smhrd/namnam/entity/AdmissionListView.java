@@ -20,6 +20,7 @@ import java.sql.Timestamp;
 @Immutable
 public class AdmissionListView {
 
+    // 뷰의 식별자
     @Id
     @Column(name = "id")
     private Long id;
@@ -28,25 +29,49 @@ public class AdmissionListView {
     @Column(name = "admission_id")
     private String admissionId;
 
-    // 생체 데이터 등록 일자
-    @Column(name = "patient_vital_created_at")
-    private Timestamp patientVitalCreatedAt;
+    // 등록 일자
+    @Column(name = "admission_created_at")
+    private Timestamp admissionCreatedAt;
 
-    // 입원 상태
+    // 도착 시간
+    @Column(name = "admission_in_time")
+    private Timestamp admissionInTime;
+
+    // 퇴원 시간
+    @Column(name = "admission_out_time")
+    private Timestamp admissionOutTime;
+
+    // 입원 여부
     @Column(name = "admission_state")
     private String admissionState;
+
+    // 실제 배치 결과
+    @Column(name = "admission_result_ward")
+    private String admissionResultWard;
 
     // 환자 이름
     @Column(name = "patient_name")
     private String patientName;
 
-    // 환자 성별
+    // 성별
     @Column(name = "patient_sex")
-    private String PatientSex;
+    private String patientSex;
+
+    // 생년월일
+    @Column(name = "patient_birthdate")
+    private java.sql.Date patientBirthdate;
+
+    // 과거 병력
+    @Column(name = "patient_disease_history")
+    private String patientDiseaseHistory;
 
     // 구역
     @Column(name = "bed_ward")
     private String bedWard;
+
+    // 등록 일자
+    @Column(name = "patient_vital_created_at")
+    private Timestamp patientVitalCreatedAt;
 
     // 체온
     @Column(name = "patient_vital_temperature")
@@ -64,19 +89,27 @@ public class AdmissionListView {
     @Column(name = "patient_vital_spo2")
     private BigDecimal patientVitalSpo2;
 
-    // 수축 혈압
+    // 수축혈압
     @Column(name = "patient_vital_nibp_s")
     private int patientVitalNibpS;
 
-    // 이완 혈압
+    // 이완혈압
     @Column(name = "patient_vital_nibp_d")
     private int patientVitalNibpD;
+
+    // 통증수준
+    @Column(name = "patient_vital_pain")
+    private int patientVitalPain;
+
+    // 주요증상
+    @Column(name = "patient_vital_chief_complaint")
+    private String patientVitalChiefComplaint;
+
+    // mimic데이터의 acuity컬럼 값
+    @Column(name = "patient_vital_acuity")
+    private int patientVitalAcuity;
 
     // 위험도
     @Column(name = "deep_ncdss")
     private String deepNcdss;
-
-    // 실제 배치 결과
-    @Column(name = "admission_result_ward")
-    private String admissionResultWard;
 }
