@@ -4,12 +4,10 @@ import com.smhrd.namnam.entity.AdmissionInfo;
 import com.smhrd.namnam.entity.AdmissionListView;
 import com.smhrd.namnam.service.ERService;
 import com.smhrd.namnam.vo.AdmissionInfoVO;
-import com.smhrd.namnam.vo.AdmissionListViewVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/ER")
@@ -38,8 +36,9 @@ public class ERController {
 
     // 응급실 진료 후 result_ward 수정
     @PatchMapping("/set/medical-patients/{admissionId}")
-    public Optional<AdmissionInfoVO> saveMedicalPatientsByAdmissionId(@PathVariable("admissionId") String admissionId, @RequestBody AdmissionInfoVO vo) {
-        return erService.saveMedicalPatientsByAdmissionId(admissionId, vo);
+    public AdmissionInfo saveMedicalPatientsByAdmissionId(@PathVariable("admissionId") String admissionId, @RequestBody AdmissionInfoVO vo) {
+        vo.setAdmissionId(admissionId);
+        return erService.saveMedicalPatientsByAdmissionId(vo);
     }
 }
 

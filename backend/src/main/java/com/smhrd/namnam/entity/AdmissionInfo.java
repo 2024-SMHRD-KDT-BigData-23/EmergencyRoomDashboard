@@ -1,5 +1,6 @@
 package com.smhrd.namnam.entity;
 
+import com.smhrd.namnam.vo.AdmissionInfoVO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -48,4 +49,8 @@ public class AdmissionInfo {
     @Column(name = "admission_result_ward", length = 20)
     private String admissionResultWard;
 
+    public AdmissionInfo(AdmissionInfoVO vo) {
+        this.admissionId = vo.getAdmissionId();
+        this.admissionResultWard = vo.getAdmissionResultWard();
+    }
 }

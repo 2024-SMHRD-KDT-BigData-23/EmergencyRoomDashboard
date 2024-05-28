@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AdmissionInfoRepository extends JpaRepository<AdmissionInfo, Long> {
+    AdmissionInfo findByAdmissionId(String admissionId);
 }
