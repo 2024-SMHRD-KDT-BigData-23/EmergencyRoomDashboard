@@ -21,6 +21,7 @@ public interface AdmissionListViewRepository extends JpaRepository<AdmissionList
     // 특정 입원코드에 대한 상세 정보
     List<AdmissionListView> findPatientDetailByAdmissionId(String admissionId);
 
+
     // 특정 이름에 대한 입원 내역 정보(검색, 가장최신)
     @Query(value = "SELECT a.* FROM admission_list_view a " +
             "JOIN (SELECT admission_id, MAX(patient_vital_created_at) AS max_vital_time " +
@@ -31,6 +32,8 @@ public interface AdmissionListViewRepository extends JpaRepository<AdmissionList
             "WHERE a.patient_name = :patientName",
             nativeQuery = true)
     List<AdmissionListView> searchByPatientName(String patientName);
+
+
 
     // 특정 id에 대한 입원 내역 정보(검색, 가장최신)
     @Query(value = "SELECT a.* FROM admission_list_view a " +

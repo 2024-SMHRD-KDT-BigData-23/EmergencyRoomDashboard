@@ -31,9 +31,11 @@ public class ERService {
         return admissionViewRepo.findAllByAdmissionResultWardIsNullAndDeepNcdss(deepNcdss);
     }
 
+
     public AdmissionInfo saveMedicalPatientsByAdmissionId(AdmissionInfoVO vo) {
         AdmissionInfo entity = admissionRepo.findByAdmissionId(vo.getAdmissionId());
         entity.setAdmissionResultWard(vo.getAdmissionResultWard());
         return admissionRepo.save(entity);
     }
+
 }

@@ -23,6 +23,7 @@ public class ERController2 {
         return erService2.findPatientDetailsByAdmissionId(admissionId);
     }
 
+
     // 특정 이름에 대한 입원 내역 정보(검색, 가장최신)
     @GetMapping("/search/patient-name/{patientName}")
     public List<AdmissionListView> searchByPatientName(@PathVariable("patientName") String patientName){
