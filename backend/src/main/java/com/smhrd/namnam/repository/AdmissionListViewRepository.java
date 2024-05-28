@@ -9,13 +9,16 @@ import java.util.List;
 @Repository
 public interface AdmissionListViewRepository extends JpaRepository<AdmissionListView, Long> {
 
-    List<AdmissionListView> findAllByPatientVitalAcuity(int acuity);
+    List<AdmissionListView> findAllByAdmissionResultWardIsNull();
 
-    List<AdmissionListView> findAllByDeepNcdss(String ncdss);
+    List<AdmissionListView> findAllByAdmissionResultWardIsNullAndPatientVitalAcuity(int acuity);
+
+    List<AdmissionListView> findAllByAdmissionResultWardIsNullAndDeepNcdss(String ncdss);
 
     // 특정 입원코드에 대한 상세 정보
     List<AdmissionListView> findPatientDetailByAdmissionId(String admissionId);
 
     // 특정 이름에 대한 입원 내역 정보(검색)
     List<AdmissionListView> searchNameByPatientName(String patientName);
+
 }
