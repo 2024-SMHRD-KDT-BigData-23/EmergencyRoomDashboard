@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface AdmissionListViewRepository extends JpaRepository<AdmissionListView, String> {
+public interface AdmissionListViewRepository extends JpaRepository<AdmissionListView, Long> {
 
 }

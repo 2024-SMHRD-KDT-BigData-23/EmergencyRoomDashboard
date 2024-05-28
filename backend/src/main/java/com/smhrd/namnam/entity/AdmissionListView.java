@@ -20,8 +20,11 @@ import java.sql.Timestamp;
 @Immutable
 public class AdmissionListView {
 
-    // 입원 식별자
     @Id
+    @Column(name = "id")
+    private Long id;
+
+    // 입원 식별자
     @Column(name = "admission_id")
     private String admissionId;
 
