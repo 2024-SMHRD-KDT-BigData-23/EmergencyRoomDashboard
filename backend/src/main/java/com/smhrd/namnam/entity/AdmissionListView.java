@@ -1,5 +1,6 @@
 package com.smhrd.namnam.entity;
 
+import com.smhrd.namnam.vo.AdmissionListViewVO;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -116,4 +117,15 @@ public class AdmissionListView {
     // 위험도
     @Column(name = "deep_ncdss")
     private String deepNcdss;
+
+
+//    public static AdmissionListViewVO toVo(AdmissionListView admissionListView) {
+//
+//        AdmissionListViewVO vo = new AdmissionListViewVO();
+//
+//
+//
+//        return vo;
+//
+//    }
 }
