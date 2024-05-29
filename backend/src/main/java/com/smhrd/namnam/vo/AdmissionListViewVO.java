@@ -1,5 +1,6 @@
 package com.smhrd.namnam.vo;
 
+import com.smhrd.namnam.entity.AdmissionListView;
 import jakarta.persistence.Column;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
