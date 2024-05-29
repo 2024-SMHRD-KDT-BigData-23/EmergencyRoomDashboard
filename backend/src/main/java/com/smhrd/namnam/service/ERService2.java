@@ -19,14 +19,9 @@ public class ERService2 {
     }
 
 
-    // 특정 이름에 대한 입원 내역 정보(검색, 가장최신)
-    public List<AdmissionListView> searchByPatientName(String patientName){
-        return admissionListViewRepo.searchByPatientName(patientName);
+    // 특정 patient의 name, id에 대한 입원 내역 정보 검색(각 입원코드마다 가장최신)
+    public List<AdmissionListView> searchByPatientNameId(String patient){
+        return admissionListViewRepo.searchByPatientNameId(patient);
     }
 
-    // 특정 id에 대한 입원 내역 정보(검색, 가장최신)
-    public List<AdmissionListView> searchByPatientId(String patientId) {
-        return admissionListViewRepo.searchByPatienId(patientId);
-
-    }
 }

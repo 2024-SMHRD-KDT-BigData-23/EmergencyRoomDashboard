@@ -16,19 +16,19 @@ public class ERController {
     @Autowired
     private ERService erService;
 
-    // 응급실 진료 중인 환자들 전체 조회
+    // 응급실 진료 중인 환자들 전체 조회(각 입원코드마다 가장최신)
     @GetMapping("/medical-patients")
     public List<AdmissionListView> findMedicalPatients() {
         return erService.findMedicalPatients();
     }
 
-    // 응급실 진료 중인 환자들 중 acuity 검색
-    @GetMapping("/search-acuity/medical-patients/{acuity}")
-    public List<AdmissionListView> findMedicalPatientsByAcuity(@PathVariable("acuity") int acuity) {
-       return erService.findMedicalPatientsByPatientVitalAcuity(acuity);
+    // 응급실 진료 중인 환자들 중 bed_ward 검색(각 입원코드마다 가장최신)
+    @GetMapping("/search-acuity/medical-patients/{ward}")
+    public List<AdmissionListView> findMedicalPatientsByWard(@PathVariable("ward") String ward) {
+       return erService.findMedicalPatientsByPatientVitalWard(ward);
     }
 
-    // 응급실 진료 중인 환자들 중 ncdss 검색
+    // 응급실 진료 중인 환자들 중 ncdss 검색(각 입원코드마다 가장최신)
     @GetMapping("/search-ncdss/medical-patients/{ncdss}")
     public List<AdmissionListView> findMedicalPatientsByDeepNcdss(@PathVariable("ncdss") String deepNcdss) {
         return erService.findMedicalPatientsByDeepNcdss(deepNcdss);

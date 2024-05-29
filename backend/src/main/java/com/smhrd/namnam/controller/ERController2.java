@@ -24,16 +24,10 @@ public class ERController2 {
     }
 
 
-    // 특정 이름에 대한 입원 내역 정보(검색, 가장최신)
-    @GetMapping("/search/patient-name/{patientName}")
-    public List<AdmissionListView> searchByPatientName(@PathVariable("patientName") String patientName){
-        return erService2.searchByPatientName(patientName);
-    }
-
-    // 특정 id에 대한 입원 내역 정보(검색, 가장최신)
-    @GetMapping("/search/patient-id/{patientId}")
-    public List<AdmissionListView> searchByPatientId(@PathVariable("patientId") String patientId){
-        return erService2.searchByPatientId(patientId);
-    }
+    // 특정 patient의 name, id에 대한 입원 내역 정보 검색(각 입원코드마다 가장최신)
+    @GetMapping("/search/patient-name-id/{patient}")
+    public List<AdmissionListView> searchByPatientNameId(@PathVariable("patient") String patient){
+            return erService2.searchByPatientNameId(patient);
+        }
 
 }
