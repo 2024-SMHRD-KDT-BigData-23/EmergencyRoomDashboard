@@ -1,0 +1,60 @@
+ /* 화면 중앙 정렬을 위한 스타일 */
+//  body{
+//     height: 100%;
+//     margin: 0;
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+// }
+
+/* div 박스 스타일 */
+.loginbox {
+    width: 600px;
+    height: 500px;
+    box-sizing: border-box; /* 테두리까지 포함한 크기 지정 */
+    position: absolute; /* 절대 위치 */
+    top: 50%; /* 상단에서 50% 떨어져서 */
+    left: 50%; /* 좌측에서 50% 떨어진 위치에서부터 */
+    transform: translate(-50%, -50%); /* 위치 조정 */
+    box-shadow: 0px 0px 10px 20px rgba(0, 0, 0, 0.5); /* 그림자 효과 */
+    color: white;
+    text-align: center;
+    font-size : 70px;
+    font-weight: 700;
+    padding: 20px;
+}
+
+.idpwbox {
+    width: 400px;
+    height : 200px;
+    box-sizing: border-box; /* 테두리까지 포함한 크기 지정 */
+    font-size : 25px;
+    text-align: left;
+    margin-left: 80px;
+    margin-top : 30px;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+/* 로그인 버튼 스타일 */
+button[type="submit"] {
+    width: 100%; /* 버튼이 전체 너비를 차지하도록 설정 */
+    background-color: #333633;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover {
+    background-color: #9ca19c;
+}
