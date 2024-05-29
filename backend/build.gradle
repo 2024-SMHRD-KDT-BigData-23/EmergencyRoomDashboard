@@ -28,13 +28,14 @@ dependencies {
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'com.mysql:mysql-connector-j'
-	//lombok컴파일시
-	compileOnly 'org.projectlombok:lombok'
 	//주석처러기를 통한 기능 활성화
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	//security(0521failure)
 	//implementation 'org.springframework.boot:spring-boot-starter-security'
+
+	// 더미 데이터 생성 라이브러리
+	implementation 'net.datafaker:datafaker:2.2.2'
 }
 
 tasks.named('test') {

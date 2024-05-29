@@ -2,10 +2,12 @@ package com.smhrd.namnam.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "patient_info")
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class PatientInfo {
