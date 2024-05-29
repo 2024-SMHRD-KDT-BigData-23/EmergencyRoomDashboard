@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Immutable;
+import org.hibernate.annotations.Subselect;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -19,6 +20,43 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 @NoArgsConstructor
 @Immutable
+/* @Subselect("SELECT \n" +
+        "    ROW_NUMBER() OVER () AS id,\n" +
+        "    ai.admission_id,\n" +
+        "    ai.admission_created_at,\n" +
+        "    ai.admission_in_time,\n" +
+        "    ai.admission_out_time,\n" +
+        "    ai.admission_state,\n" +
+        "    ai.admission_result_ward,\n" +
+        "    pi.patient_id,\n" +
+        "    pi.patient_name, \n" +
+        "    pi.patient_sex, \n" +
+        "    pi.patient_birthdate,\n" +
+        "    pi.patient_disease_history,\n" +
+        "    bi.bed_ward, \n" +
+        "    pvi.patient_vital_created_at,\n" +
+        "    pvi.patient_vital_temperature, \n" +
+        "    pvi.patient_vital_hr, \n" +
+        "    pvi.patient_vital_respiratory_rate, \n" +
+        "    pvi.patient_vital_spo2, \n" +
+        "    pvi.patient_vital_nibp_s, \n" +
+        "    pvi.patient_vital_nibp_d,\n" +
+        "    pvi.patient_vital_acuity,\n" +
+        "    pvi.patient_vital_pain,\n" +
+        "    pvi.patient_vital_chief_complaint,\n" +
+        "    di.deep_ncdss\n" +
+        "FROM \n" +
+        "    admission_info ai\n" +
+        "JOIN \n" +
+        "    patient_info pi ON ai.patient_id = pi.patient_id\n" +
+        "JOIN \n" +
+        "    patient_vital_info pvi ON ai.admission_id = pvi.admission_id\n" +
+        "JOIN \n" +
+        "    map_info mi ON ai.admission_id = mi.admission_id\n" +
+        "JOIN \n" +
+        "    bed_info bi ON mi.bed_id = bi.bed_id\n" +
+        "JOIN \n" +
+        "    deep_info di ON pvi.patient_vital_id = di.patient_vital_id") */
 public class AdmissionListView {
 
     // 뷰의 식별자
