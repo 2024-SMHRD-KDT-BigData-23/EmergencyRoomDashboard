@@ -31,6 +31,7 @@ ChartJS.register(
 
 
 const DetailComponent = () => {
+
         // 선택된 라인의 인덱스를 저장하는 state입니다.
     const [selectedLine, setSelectedLine] = useState(null);
 
@@ -85,6 +86,10 @@ const DetailComponent = () => {
 
     // 차트의 옵션을 정의합니다.
     const options = {
+        maintainAspectRatio: false, // maintainAspectRatio를 false로 설정하여 차트가 지정한 크기로 고정됩니다.
+        responsive: true, // 차트가 반응형으로 동작하도록 설정합니다.
+        aspectRatio: 2, // 차트의 가로/세로 비율을 설정합니다
+
         plugins: {
             datalabels: {
                 display: true,
@@ -119,6 +124,17 @@ const DetailComponent = () => {
             </button>
         ));
     };
+
+    /* 테이블 map */
+    const headers = Array.from({ length: 6 }, () => 100);
+    const rows = [];
+    for (let i = 90; i >= 10; i -= 10) {
+      rows.push(Array.from({ length: 6 }, () => i));
+    }
+  
+    // 각 열의 글자 색깔 배열
+    const columnTextColors = ["#FF0000", "#00FF00", "#0000FF", "#FFA500", "#800080", "#008080"];
+
 
 
 
@@ -162,8 +178,13 @@ const DetailComponent = () => {
                     </div>
 
                     {/* 오른쪽 병원이름 드롭다운 */}
-                    <div className="hopitalUser">
-                        <span className="hopitalUserLable">스마트병원</span>
+                    <div class="dropdown">
+                    <button class="btn hopitalUser" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        스마트병원
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Logout</a></li>
+                    </ul>
                     </div>
 
                 </div>
@@ -201,8 +222,37 @@ const DetailComponent = () => {
                 <div className='topOnearea'>
 
                 {/* Graph choice 함수 */}
-                <div className="list-group GraphChoice" style={{ marginRight: '20px' }}>
+                <div className="list-group GraphChoice" style={{ marginRight: '' }}>
                 {renderLabelButtons()}
+                </div>
+
+
+                {/* Graph Point 표  */}
+                <div className='GraphPoint'>
+
+                <table className="table table-borderless tableGraphPoint">
+                <thead>
+                    <tr>
+                    {headers.map((header, index) => (
+                        <td key={`header-${index}`} style={{ color: columnTextColors[index] }}>
+                        {header}
+                        </td>
+                    ))}
+                    </tr>
+                </thead>
+                <tbody>
+                    {rows.map((row, rowIndex) => (
+                    <tr key={`row-${rowIndex}`}>
+                        {row.map((cell, cellIndex) => (
+                        <td key={`cell-${rowIndex}-${cellIndex}`} style={{ color: columnTextColors[cellIndex] }}>
+                            {cell}
+                        </td>
+                        ))}
+                    </tr>
+                    ))}
+                </tbody>
+                </table>
+
                 </div>
 
 
@@ -212,7 +262,7 @@ const DetailComponent = () => {
                 <div className='topTwoarea'>
                 
                 {/* Graph 함수 */}
-                <div className='GraphArea' style={{ flexGrow: 1, width: '1200px', height :'40vh', overflow: 'hidden' }}>
+                <div className='GraphArea' style={{ flexGrow: 1, width: '100%', height :'40vh', padding : '10px',overflow: 'hidden' }}>
                 <Line data={lineData} options={options} />
                 </div>
 
@@ -229,7 +279,7 @@ const DetailComponent = () => {
             <table className="table table-dark table-striped detailTableTitle" >
                 <thead>
                     <tr>
-                    <th>Inspection Time</th>
+                    <th className='inspectionTimeTitle'>Inspection Time</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -249,7 +299,13 @@ const DetailComponent = () => {
                     <th>nibp_s</th>
                     </tr>
                     <tr>
-                    <th>nibp_d</th  >
+                    <th>nibp_d</th >
+                    </tr>
+                    <tr>
+                    <th>NCDSS</th  >
+                    </tr>
+                    <tr>
+                    <th>Dispostion</th  >
                     </tr>
                 </tbody>
                 </table>
@@ -257,6 +313,122 @@ const DetailComponent = () => {
             </div>
             {/* 실제 데이터 공간 */}
             <div className='detailTwoBottom'>
+
+            <table class="table detailTwoBottomTable">
+            <thead>
+                <tr className='detailTwoBottomDate'>
+                <td>24.05.30 <br />16:30:12</td>
+                <td>24.05.30 <br />16:30:12</td>
+                <td>24.05.30 <br />16:30:12</td>
+                <td>24.05.30 <br />16:30:12</td>
+                <td>24.05.30 <br />16:30:12</td>
+                <td>24.05.30 <br />16:30:12</td>
+                <td>24.05.30 <br />16:30:12</td>
+                <td>24.05.30 <br />16:30:12</td>
+                <td>24.05.30 <br />16:30:12</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                <td>37.5°C</td>
+                <td>37.5°C</td>
+                <td>37.5°C</td>
+                <td>37.5°C</td>
+                <td>37.5°C</td>
+                <td>37.5°C</td>
+                <td>37.5°C</td>
+                <td>37.5°C</td>
+                <td>37.5°C</td>
+                </tr>
+                <tr>
+                <td>66</td>
+                <td>66</td>
+                <td>66</td>
+                <td>66</td>
+                <td>66</td>
+                <td>66</td>
+                <td>66</td>
+                <td>66</td>
+                <td>66</td>
+                </tr>
+                <tr>
+                <td>77</td>
+                <td>77</td>
+                <td>77</td>
+                <td>77</td>
+                <td>77</td>
+                <td>77</td>
+                <td>77</td>
+                <td>77</td>
+                <td>77</td>
+                </tr>
+                <tr>
+                <td>77</td>
+                <td>77</td>
+                <td>77</td>
+                <td>77</td>
+                <td>77</td>
+                <td>77</td>
+                <td>77</td>
+                <td>77</td>
+                <td>77</td>
+                </tr>
+                <tr>
+                <td>77</td>
+                <td>77</td>
+                <td>77</td>
+                <td>77</td>
+                <td>77</td>
+                <td>77</td>
+                <td>77</td>
+                <td>77</td>
+                <td>77</td>
+                </tr>
+                <tr>
+                <td>77</td>
+                <td>77</td>
+                <td>77</td>
+                <td>77</td>
+                <td>77</td>
+                <td>77</td>
+                <td>77</td>
+                <td>77</td>
+                <td>77</td>
+                </tr>
+                <tr>
+                <td>77</td>
+                <td>77</td>
+                <td>77</td>
+                <td>77</td>
+                <td>77</td>
+                <td>77</td>
+                <td>77</td>
+                <td>77</td>
+                <td>77</td>
+                </tr>
+                <tr>
+                <td>77</td>
+                <td>77</td>
+                <td>77</td>
+                <td>77</td>
+                <td>77</td>
+                <td>77</td>
+                <td>77</td>
+                <td>77</td>
+                <td>77</td>
+                </tr>
+            </tbody>
+            </table>
+
+
+
+
+
+
+
+
+
+
             </div>
 
             </div>
