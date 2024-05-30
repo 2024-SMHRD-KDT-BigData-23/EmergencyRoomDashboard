@@ -4,12 +4,15 @@ import com.smhrd.namnam.entity.AdmissionInfo;
 import com.smhrd.namnam.entity.AdmissionListView;
 import com.smhrd.namnam.repository.AdmissionInfoRepository;
 import com.smhrd.namnam.repository.AdmissionListViewRepository;
+import com.smhrd.namnam.repository.PatientInfoRepository;
 import com.smhrd.namnam.vo.AdmissionInfoVO;
 import com.smhrd.namnam.vo.AdmissionListViewVO;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -56,7 +59,9 @@ public class ERService {
     // 응급실 진료 후 result_ward 수정
     public AdmissionInfo saveMedicalPatientsByAdmissionId(AdmissionInfoVO vo) {
         AdmissionInfo entity = admissionRepo.findByAdmissionId(vo.getAdmissionId());
+        entity.setAdmissionState("N");
         entity.setAdmissionResultWard(vo.getAdmissionResultWard());
+        entity.setAdmissionOutTime(Timestamp.valueOf(LocalDateTime.now()));
         return admissionRepo.save(entity);
     }
     ///////////////////////////////////////////////////////////////////////////////////////////

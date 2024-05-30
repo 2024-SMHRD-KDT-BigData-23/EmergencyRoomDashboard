@@ -40,9 +40,4 @@ public class AdmissionInfo {
     // 실제 배치 결과
     @Column(name = "admission_result_ward", length = 20)
     private String admissionResultWard;
-
-    public AdmissionInfo(AdmissionInfoVO vo) {
-        this.admissionId = vo.getAdmissionId();
-        this.admissionResultWard = vo.getAdmissionResultWard();
-    }
 }

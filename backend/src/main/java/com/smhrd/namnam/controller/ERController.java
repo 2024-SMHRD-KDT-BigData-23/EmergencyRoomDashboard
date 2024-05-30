@@ -6,6 +6,8 @@ import com.smhrd.namnam.service.ERService;
 import com.smhrd.namnam.vo.AdmissionInfoVO;
 import com.smhrd.namnam.vo.AdmissionListViewVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -39,9 +41,13 @@ public class ERController {
 
     // 응급실 진료 후 result_ward 수정
     @PatchMapping("/set/medical-patients/{admissionId}")
-    public AdmissionInfo saveMedicalPatientsByAdmissionId(@PathVariable("admissionId") String admissionId, @RequestBody AdmissionInfoVO vo) {
-        vo.setAdmissionId(admissionId);
-        return erService.saveMedicalPatientsByAdmissionId(vo);
+    public ResponseEntity<AdmissionInfo> saveMedicalPatientsByAdmissionId(@PathVariable("admissionId") String admissionId, @RequestBody AdmissionInfoVO vo) {
+        try {
+            vo.setAdmissionId(admissionId);
+            return new ResponseEntity<>(erService.saveMedicalPatientsByAdmissionId(vo), HttpStatus.OK);
+        } catch (Exception err) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
     ///////////////////////////////////////////////////////////////////////////////////////////
 
