@@ -9,17 +9,9 @@ import AllListComponent from "./sections/allpatientscomponent.jsx";
 
 const AllList = () => {
     return (
-        <div id="main-wrapper">
-           
-            <div className="page-wrapper">
-                <div className="container-fluid">
-                    
+                <div>
                    <AllListComponent />
-                   
                 </div>
-            </div>
-        
-        </div>
     );
 }
 
