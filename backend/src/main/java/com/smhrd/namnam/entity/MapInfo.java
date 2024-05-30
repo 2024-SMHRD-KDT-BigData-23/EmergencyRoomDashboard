@@ -2,6 +2,7 @@ package com.smhrd.namnam.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -9,6 +10,7 @@ import java.sql.Timestamp;
 
 @Entity
 @Table(name = "Map_info")
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class MapInfo {
@@ -19,7 +21,7 @@ public class MapInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "map_id")
-    private Long id;
+    private Long mapId;
 
     // BedInfo의 병상 식별자
     @ManyToOne(cascade = CascadeType.REMOVE)
@@ -28,12 +30,12 @@ public class MapInfo {
 
     // 등록 날짜
     @UpdateTimestamp
-    @Column(name = "created_at", nullable = false)
-    private Timestamp createdAt;
+    @Column(name = "map_created_at", nullable = false)
+    private Timestamp mapCreatedAt;
 
     // AdmissionInfo의 입원 식별자
     @ManyToOne(cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "hopt_id", nullable = false)
+    @JoinColumn(name = "admission_id", nullable = false)
     private AdmissionInfo admissionInfo;
 
 }

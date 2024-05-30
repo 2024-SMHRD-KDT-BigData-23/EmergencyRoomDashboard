@@ -2,10 +2,12 @@ package com.smhrd.namnam.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "patient_info")
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class PatientInfo {
@@ -14,24 +16,24 @@ public class PatientInfo {
 
     // 환자 식별자
     @Id
-    @Column(name = "ptnt_id", length = 30)
-    private String ptntId;
+    @Column(name = "patient_id", length = 30)
+    private String patientId;
 
     // 환자 이름
-    @Column(name = "ptnt_name", nullable = false, length = 50)
-    private String ptntName;
+    @Column(name = "patient_name", nullable = false, length = 50)
+    private String patientName;
 
     // 성별
-    @Column(name = "sex", nullable = false, length = 10)
-    private String sex;
+    @Column(name = "patient_sex", nullable = false, length = 10)
+    private String patientSex;
 
     // 생년월일
-    @Column(name = "birthdate", nullable = false)
-    private java.sql.Date birthdate;
+    @Column(name = "patient_birthdate", nullable = false)
+    private java.sql.Date patientBirthdate;
 
     // 과거 병력
-    @Column(name = "disease_history", nullable = false, columnDefinition = "TEXT")
-    private String diseaseHistory;
+    @Column(name = "patient_disease_history", nullable = false, columnDefinition = "TEXT")
+    private String patientDiseaseHistory;
 
     // 담당 의사
     @ManyToOne(cascade = CascadeType.REMOVE)

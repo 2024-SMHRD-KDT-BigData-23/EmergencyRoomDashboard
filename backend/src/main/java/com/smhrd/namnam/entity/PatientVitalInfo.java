@@ -21,57 +21,57 @@ public class PatientVitalInfo {
     // vital 식별자
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "vital_id")
-    private Long vitalId;
+    @Column(name = "patient_vital_id")
+    private Long patientVitalId;
 
     // AdmissionInfo의 입원 식별자
     @ManyToOne(cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "hopt_id", nullable = false)
+    @JoinColumn(name = "admission_id", nullable = false)
     private AdmissionInfo admissionInfo;
 
     // 성별
-    @Column(name = "sex", nullable = false, length = 10)
-    private String sex;
+    @Column(name = "patient_vital_sex", nullable = false, length = 10)
+    private String patientVitalSex;
 
     // 체온
-    @Column(name = "temperature", nullable = false, precision = 4, scale = 1)
-    private BigDecimal temperature;
+    @Column(name = "patient_vital_temperature", nullable = false, precision = 4, scale = 1)
+    private BigDecimal patientVitalTemperature;
 
     // 심박수
-    @Column(name = "hr", nullable = false)
-    private int hr;
+    @Column(name = "patient_vital_hr", nullable = false)
+    private int patientVitalHr;
 
     // 호흡수
-    @Column(name = "respiratory_rate", nullable = false)
-    private int respiratoryRate;
+    @Column(name = "patient_vital_respiratory_rate", nullable = false)
+    private int patientVitalRespiratoryRate;
 
     // 산소포화도
-    @Column(name = "spo2", nullable = false, precision = 4, scale = 1)
-    private BigDecimal spo2;
+    @Column(name = "patient_vital_spo2", nullable = false, precision = 4, scale = 1)
+    private BigDecimal patientVitalSpo2;
 
     // 수축혈압
-    @Column(name = "nibp_s", nullable = false)
-    private int nibpS;
+    @Column(name = "patient_vital_nibp_s", nullable = false)
+    private int patientVitalNibpS;
 
     // 이완혈압
-    @Column(name = "nibp_d", nullable = false)
-    private int nibpD;
+    @Column(name = "patient_vital_nibp_d", nullable = false)
+    private int patientVitalNibpD;
 
     // 통증수준
-    @Column(name = "pain", nullable = false)
-    private int pain;
+    @Column(name = "patient_vital_pain", nullable = false)
+    private int patientVitalPain;
 
     // 주요증상
-    @Column(name = "chief_complaint", nullable = false, columnDefinition = "TEXT")
-    private String chiefComplaint;
+    @Column(name = "patient_vital_chief_complaint", nullable = false, columnDefinition = "TEXT")
+    private String patientVitalChiefComplaint;
 
     // mimic데이터의 acutiry컬럼 값
-    @Column(name = "acuity", nullable = false)
-    private int acuity;
+    @Column(name = "patient_vital_acuity", nullable = false)
+    private int patientVitalAcuity;
 
     // 등록 일자
     @UpdateTimestamp
-    @Column(name = "created_at", nullable = false)
-    private Timestamp createdAt;
+    @Column(name = "patient_vital_created_at", nullable = false)
+    private Timestamp patientVitalCreatedAt;
 
 }

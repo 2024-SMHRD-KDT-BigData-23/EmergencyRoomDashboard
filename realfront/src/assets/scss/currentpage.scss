@@ -1,0 +1,172 @@
+/* 전체 페이지 구성 */
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+/* header */
+.ourheader {
+    flex: 0 0 10%; /* 10%의 고정 높이 */
+    background-color: rgb(75, 75, 144); /* 임의의 배경색 */
+    height: 70px;
+    
+    .headerContainer {
+        display: flex;
+        justify-content: space-between; /* 요소들을 좌우로 정렬 */
+        align-items: center; /* 수직 가운데 정렬 */
+        height: 100%;
+        width: 100%;
+
+        .menuimg {
+            width: 30px;
+            height: 30px;
+            position: absolute; /* 절대 위치 지정 */
+            margin-left: 20px;
+            left: 0; /* 왼쪽으로 정렬 */
+            top: 4%; /* 상단을 기준으로 세로 가운데 정렬 */
+            transform: translateY(-50%); /* 수직 정렬을 위한 위치 조정 */
+            cursor: pointer;
+        }
+
+        .titleSet {
+            display: flex;
+            
+            .MainTitle {
+                font-size: 40px;
+                font-weight: 700;
+                color: white;
+            }
+
+            .SubTitle {
+                font-size: 15px;
+                color: white;
+                margin-top: 25px;
+                margin-left: 5px;
+            }
+        }
+
+        .hopitalUser {
+            font-size: 20px;
+            width: 150px;
+            height: 40px;
+            color: white;
+            font-weight: 700;
+            margin-top: 15px;
+            display: flex;
+            
+            .hopitalUserLable {
+                text-align: center;
+            }
+        }
+    }
+
+    #offcanvasExample {
+        width: 300px;
+    }
+}
+
+/* 드롭다운 영역 구성 */
+.ourdropdown {
+    flex: 0 0 10%; /* 10%의 고정 높이 */
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* 요소들을 좌우로 정렬 */
+    padding: 10px;
+
+    .ourdropdownSet {
+        display: flex;
+        margin-left: 10px;
+
+        .ourdropdown1, .ourdropdown2 {
+            margin-left: 10px;
+        }
+    }
+}
+
+/* main 구성 */
+.ourcontent {
+    flex: 1; /* 남은 공간을 차지 */
+    padding: 20px;
+
+    .mainContent {
+        padding: 20px;
+    }
+}
+
+/* 테이블(표) */
+.table {
+    font-size: 20px;
+}
+
+/* Detail css */
+.detailUser {
+    width : 100%;
+    height: 6vh;
+    display: flex;
+    gap: 3rem;
+    border: 1px solid #000; /* 컨테이너 확인을 위한 테두리 */
+    padding: 10px; /* 컨테이너 안의 패딩 */
+    align-items: center;
+}
+
+.detailStayID {
+    position: absolute;
+    left : 90%;
+    top : 8.4%;
+}
+
+.detailTop {
+    display: flex; 
+}
+
+.topOnearea {
+    width : 30%;
+    height: 40vh;
+    box-sizing: border-box;
+    border: 2px solid black; /* 테두리 라인의 굵기와 색상 설정 */
+}
+
+.GraphChoice {
+    height: 40vh;
+}
+
+.topTwoarea {
+    width : 70%;
+    height: 4 0vh;
+    box-sizing: border-box;
+    border: 2px solid black; /* 테두리 라인의 굵기와 색상 설정 */
+}
+
+.GraphArea {
+    height: 40vh;
+}
+
+.detailBottom {
+    display: flex;
+}
+
+.detailOneBottom {
+    width: 30%;
+    height : 46vh;
+    box-sizing: border-box;
+    border: 2px solid black; /* 테두리 라인의 굵기와 색상 설정 */
+}
+
+.detailTwoBottom {
+    width: 70%;
+    height : 46vh;
+    box-sizing: border-box;
+    border: 2px solid black; /* 테두리 라인의 굵기와 색상 설정 */
+}
+
+.detailTableTitle th{
+    height: 62px;
+    text-align: center; /* 가로 방향 중앙 정렬 */
+    vertical-align: middle; /* 세로 방향 중앙 정렬 */
+}
+
+.detailTableTitle tr{
+    height: 62px;
+    text-align: center; /* 가로 방향 중앙 정렬 */
+    vertical-align: middle; /* 세로 방향 중앙 정렬 */
+}

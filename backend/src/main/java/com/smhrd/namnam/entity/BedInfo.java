@@ -21,8 +21,8 @@ public class BedInfo {
     private Long bedId;
 
     // 구역
-    @Column(name = "ward", nullable = false, length = 20)
-    private String ward;
+    @Column(name = "bed_ward", nullable = false, length = 20)
+    private String bedWard;
 
     // 병상 번호
     @Column(name = "bed_num", nullable = false)

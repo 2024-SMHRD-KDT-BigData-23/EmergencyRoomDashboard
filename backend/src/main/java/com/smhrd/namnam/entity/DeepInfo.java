@@ -26,17 +26,17 @@ public class DeepInfo {
     private Long deepId;
 
     // Patientvital의 vital 식별자
-    @ManyToOne(cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "vital_id", nullable = false)
+    @OneToOne(cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "patient_vital_id", nullable = false)
     private PatientVitalInfo patientVitalInfo;
 
     // 위험도
-    @Column(name = "ncdss", nullable = false)
-    private String ncdss;
+    @Column(name = "deep_ncdss", nullable = true)
+    private String deepNcdss;
 
     // 등록 날짜
     @UpdateTimestamp
-    @Column(name = "created_at", nullable = false)
-    private Timestamp createdAt;
+    @Column(name = "deep_created_at", nullable = false)
+    private Timestamp deepCreatedAt;
 
 }
