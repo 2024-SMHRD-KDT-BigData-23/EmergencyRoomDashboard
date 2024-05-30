@@ -26,7 +26,6 @@ import java.sql.Timestamp;
         "    ai.admission_created_at,\n" +
         "    ai.admission_in_time,\n" +
         "    ai.admission_out_time,\n" +
-        "    ai.admission_state,\n" +
         "    ai.admission_result_ward,\n" +
         "    pi.patient_id,\n" +
         "    pi.patient_name, \n" +
@@ -79,10 +78,6 @@ public class AdmissionListView {
     // 퇴원 시간
     @Column(name = "admission_out_time")
     private Timestamp admissionOutTime;
-
-    // 입원 여부
-    @Column(name = "admission_state")
-    private String admissionState;
 
     // 실제 배치 결과
     @Column(name = "admission_result_ward")
