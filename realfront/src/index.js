@@ -20,6 +20,7 @@ root.render(
       <Route path="/Search" element={<Search />} />
       <Route path="/AllList" element={<AllList />} />
       <Route path="/Detail/:id" element={<Detail />} />
+      <Route path="/Detail" element={<Detail />} />
     </Routes>
   </Router>
 );
