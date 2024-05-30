@@ -40,10 +40,6 @@ public class AdmissionInfo {
     @Column(name = "admission_out_time")
     private Timestamp admissionOutTime;
 
-    // 등록 일자
-    @UpdateTimestamp
-    @Column(name = "admission_created_at", nullable = false)
-    private Timestamp admissionCreatedAt;
 
     // 실제 배치 결과
     @Column(name = "admission_result_ward", length = 20)

@@ -16,8 +16,6 @@ public class PatientVitalInfoVO {
     private Long patientVitalId;
     // AdmissionInfo의 입원 식별자
     private String admissionId;
-    // 성별
-    private String patientVitalSex;
     // 체온
     private BigDecimal patientVitalTemperature;
     // 심박수

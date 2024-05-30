@@ -22,8 +22,6 @@ public class AdmissionInfoVO {
     private Timestamp admissionInTime;
     // 퇴원 시간
     private Timestamp admissionOutTime;
-    // 등록 일자
-    private Timestamp admissionCreatedAt;
     // 실제 배치 결과
     private String admissionResultWard;
 }
