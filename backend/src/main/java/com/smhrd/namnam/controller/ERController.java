@@ -20,14 +20,14 @@ public class ERController {
     private ERService erService;
 
     //////////////////////////////////////////현재 페이지/////////////////////////////////////////
-    // 응급실 진료 중인 환자들 전체 조회(각 입원코드마다 가장최신) // ****vo변환 테스트중****
+    // 응급실 진료 중인 환자들 전체 조회(각 입원코드마다 가장최신) //
     @GetMapping("/medical-patients")
     public List<AdmissionListViewVO> findMedicalPatients() {
         return erService.findMedicalPatients();
     }
 
 
-    // 응급실 진료 중인 환자들 중 bed_ward 검색(각 입원코드마다 가장최신) // ****vo변환 테스트중****
+    // 응급실 진료 중인 환자들 중 bed_ward 검색(각 입원코드마다 가장최신) //
     @GetMapping("/search-ward/medical-patients/{ward}")
     public List<AdmissionListViewVO> findMedicalPatientsByWard(@PathVariable("ward") String ward) {
         return erService.findMedicalPatientsByWard(ward);
@@ -47,7 +47,7 @@ public class ERController {
             return new ResponseEntity<>(erService.saveMedicalPatientsByAdmissionId(vo), HttpStatus.OK);
         } catch (Exception err) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-            
+
         }
     }
     ///////////////////////////////////////////////////////////////////////////////////////////

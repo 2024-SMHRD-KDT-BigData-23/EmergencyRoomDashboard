@@ -28,6 +28,10 @@ AdmissionListViewRepository extends JpaRepository<AdmissionListView, Long> {
             nativeQuery = true)
     List<AdmissionListView> findMedicalPatients();
 
+//    // jpa 효율성 판별 테스트용
+//    List<AdmissionListView> findAllByAdmissionResultWardIsNull();
+
+
     // 응급실 진료 중인 환자들 중 bed_ward 검색(각 입원코드마다 가장최신)
     @Query(value = "SELECT a.* FROM admission_list_view a " +
             "JOIN (SELECT admission_id, MAX(patient_vital_created_at) AS max_vital_time " +
