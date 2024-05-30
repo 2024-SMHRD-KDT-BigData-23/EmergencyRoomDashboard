@@ -48,7 +48,7 @@ const LoginComponent = () => {
                                 value={staffPw}
                                 onChange={(e) => setStaffPw(e.target.value)}
                             />
-                             <button type="submit">SIGN IN</button>
+                             <button type="submit" className='loginButton'>SIGN IN</button>
                             </div>
                         </form>
                         

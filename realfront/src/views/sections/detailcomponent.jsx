@@ -61,6 +61,7 @@ const DetailComponent = () => {
     if (patientData.length === 0) {
         return <div>No patient data found</div>;
     }
+
     const labels = patientData.map(data => data.patientVitalCreatedAt);
     const temperature = patientData.map(data => data.patientVitalTemperature);
     const heartRate = patientData.map(data => data.patientVitalHr);
@@ -118,6 +119,10 @@ const DetailComponent = () => {
     };
 
     const options = {
+        maintainAspectRatio: false, // maintainAspectRatio를 false로 설정하여 차트가 지정한 크기로 고정됩니다.
+        responsive: true, // 차트가 반응형으로 동작하도록 설정합니다.
+        aspectRatio: 2, // 차트의 가로/세로 비율을 설정합니다
+
         plugins: {
             datalabels: {
                 display: true,
@@ -127,6 +132,25 @@ const DetailComponent = () => {
             },
         },
     };
+        // 라벨 버튼을 렌더링하는 함수입니다.
+        const renderLabelButtons = () => {
+            return lineData.datasets.map((dataset, index) => (
+                <button
+                    key={index}
+                    className="list-group-item list-group-item-action"
+                    onClick={() => setSelectedLine(index)}
+                    style={{
+                        fontWeight: selectedLine === index ? 'bold' : 'normal',
+                        backgroundColor: selectedLine === index ? '#007bff' : 'transparent',
+                        color: selectedLine === index ? 'white' : 'black'
+                    }}
+                >
+                    {dataset.label}
+                </button>
+            ));
+        };
+    
+
 
     return (
         <div>
@@ -152,8 +176,15 @@ const DetailComponent = () => {
                         <div className="MainTitle">NCDSS</div>
                         <div className="SubTitle">by NAMNAM</div>
                     </div>
-                    <div className="hopitalUser">
-                        <span className="hopitalUserLable">스마트병원</span>
+
+                    {/* 오른쪽 병원이름 드롭다운 */}
+                    <div className="dropdown">
+                        <button className="btn hopitalUser" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            스마트병원
+                        </button>
+                        <ul className="dropdown-menu">
+                            <li><a className="dropdown-item" href="#">Logout</a></li>
+                        </ul>
                     </div>
                 </div>
             </header>
@@ -177,25 +208,15 @@ const DetailComponent = () => {
             </div>
             <div className='detailTop'>
                 <div className='topOnearea'>
+                    {/* Graph choice 함수 */}
                     <div className="list-group GraphChoice" style={{ marginRight: '20px' }}>
-                        {lineData.datasets.map((dataset, index) => (
-                            <button
-                                key={index}
-                                className="list-group-item list-group-item-action"
-                                style={{
-                                    fontWeight: selectedLine === index ? 'bold' : 'normal',
-                                    backgroundColor: selectedLine === index ? '#007bff' : 'transparent',
-                                    color: selectedLine === index ? 'white' : 'black'
-                                }}
-                                onClick={() => setSelectedLine(index)}
-                            >
-                                {dataset.label}
-                            </button>
-                        ))}
+                        {renderLabelButtons()}
                     </div>
                 </div>
+                {/* Graph */}
                 <div className='topTwoarea'>
-                    <div className='GraphArea' style={{ flexGrow: 1, width: '1200px', height: '40vh', overflow: 'hidden' }}>
+                    {/* Graph 함수 */}
+                    <div className='GraphArea' style={{ flexGrow: 1, width: '100%', height: '40vh', padding: '10px', overflow: 'hidden' }}>
                         <Line data={lineData} options={options} />
                     </div>
                 </div>
@@ -232,9 +253,9 @@ const DetailComponent = () => {
                 </div>
                 <div className='detailTwoBottom'>
                     {patientData.map((vital, index) => (
-                        <table className="table table-dark table-striped" key={index}>
+                        <table className="table detailTwoBottomTable" key={index}>
                             <thead>
-                                <tr>
+                                <tr className='detailTwoBottomDate'>
                                     <th>{vital.patientVitalCreatedAt}</th>
                                 </tr>
                             </thead>
@@ -264,6 +285,6 @@ const DetailComponent = () => {
             </div>
         </div>
     );
-}
+};
 
 export default DetailComponent;

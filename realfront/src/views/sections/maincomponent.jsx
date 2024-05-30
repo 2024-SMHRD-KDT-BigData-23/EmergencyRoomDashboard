@@ -65,9 +65,18 @@ const CurrentPage = () => {
                     </div>
 
                     {/* 오른쪽 병원이름 드롭다운 */}
-                    <div className="hopitalUser">
-                        <span className="hopitalUserLable">스마트병원</span>
+                    <div class="dropdown">
+                    <button class="btn hopitalUser" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        스마트병원
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Logout</a></li>
+                    </ul>
                     </div>
+
+
+
+
                 </div>
             </header>
 
@@ -106,6 +115,7 @@ const CurrentPage = () => {
                         </form>
                     </div>
                 </nav>
+        
             </div>
 
             {/* main area */}
