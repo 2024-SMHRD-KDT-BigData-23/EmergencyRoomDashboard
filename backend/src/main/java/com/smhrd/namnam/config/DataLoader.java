@@ -142,7 +142,7 @@ public class DataLoader {
                 // 퇴실 시간
                 // admission.setAdmissionOutTime(startTime.minusDays(random.nextInt(30)));
                 // 입실 상태(Y or N)
-                admission.setAdmissionState("Y");
+                // admission.setAdmissionState("Y");
                 // 의료진이 실제 배치한 위치(home, ward, icu)
                 // admission.setAdmissionResultWard();
 

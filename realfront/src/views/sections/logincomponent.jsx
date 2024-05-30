@@ -5,8 +5,8 @@ import axios from 'axios';
 import '../../assets/scss/login.scss';
 
 const LoginComponent = () => {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
+    const [staffId, setStaffId] = useState('');
+    const [staffPw, setStaffPw] = useState('');
     const [error, setError] = useState('');
     const navigate = useNavigate();
 
@@ -14,8 +14,8 @@ const LoginComponent = () => {
         e.preventDefault();
         try {
             const response = await axios.post('http://localhost:8080/api/', {
-                username,
-                password
+                staffId: staffId,
+            staffPw: staffPw
             }, { withCredentials: true } // withCredentials를 추가
         );
             console.log(response.data);
@@ -38,15 +38,15 @@ const LoginComponent = () => {
                                 type="text"
                                 placeholder="아이디를 입력하세요."
                                 className="logininput"
-                                value={username}
-                                onChange={(e) => setUsername(e.target.value)}
+                                value={staffId}
+                                onChange={(e) => setStaffId(e.target.value)}
                             />
                             <input
                                 type="password"
                                 placeholder="비밀번호를 입력하세요."
                                 className="logininput"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
+                                value={staffPw}
+                                onChange={(e) => setStaffPw(e.target.value)}
                             />
                              <button type="submit">SIGN IN</button>
                             </div>
