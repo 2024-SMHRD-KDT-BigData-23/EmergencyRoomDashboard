@@ -163,7 +163,7 @@ public class DataLoader {
                 // admission_id(입실 식별자, FK)
                 patientVital.setAdmissionInfo(selectedAdmission);
                 // 환자 성별
-                patientVital.setPatientVitalSex(faker.options().option("남", "여"));
+                // patientVital.setPatientVitalSex(faker.options().option("남", "여"));
                 // 체온(°C)
                 patientVital.setPatientVitalTemperature(BigDecimal.valueOf(faker.number().randomDouble(1, 36, 38)));
                 // 심박수(bpm)

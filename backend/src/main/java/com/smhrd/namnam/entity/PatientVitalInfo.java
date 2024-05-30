@@ -29,9 +29,6 @@ public class PatientVitalInfo {
     @JoinColumn(name = "admission_id", nullable = false)
     private AdmissionInfo admissionInfo;
 
-    // 성별
-    @Column(name = "patient_vital_sex", nullable = false, length = 10)
-    private String patientVitalSex;
 
     // 체온
     @Column(name = "patient_vital_temperature", nullable = false, precision = 4, scale = 1)
