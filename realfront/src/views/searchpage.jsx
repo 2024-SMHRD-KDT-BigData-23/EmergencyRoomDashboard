@@ -9,17 +9,9 @@ import SearchComponent from "./sections/searchcomponent.jsx";
 
 const Search = () => {
     return (
-        <div id="main-wrapper">
-           
-            <div className="page-wrapper">
-                <div className="container-fluid">
-                 
+                 <div>
                    <SearchComponent />
-                   
-                </div>
-            </div>
-        
-        </div>
+                   </div>
     );
 }
 

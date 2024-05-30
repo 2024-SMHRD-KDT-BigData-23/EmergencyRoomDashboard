@@ -9,17 +9,10 @@ import CurrentPage from "./sections/maincomponent.jsx";
 
 const List = () => {
     return (
-        <div id="main-wrapper">
-           
-            <div className="page-wrapper">
-                <div className="container-fluid">
-                 
+        <div>
                    <CurrentPage />
-                   
-                </div>
-            </div>
-        
         </div>
+        
     );
 }
 

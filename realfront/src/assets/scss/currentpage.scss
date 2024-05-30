@@ -9,60 +9,57 @@ html, body {
     flex: 0 0 10%; /* 10%의 고정 높이 */
     background-color: rgb(75, 75, 144); /* 임의의 배경색 */
     height: 70px;
-    
-    .headerContainer {
-        display: flex;
-        justify-content: space-between; /* 요소들을 좌우로 정렬 */
-        align-items: center; /* 수직 가운데 정렬 */
-        height: 100%;
-        width: 100%;
+}
 
-        .menuimg {
-            width: 30px;
-            height: 30px;
-            position: absolute; /* 절대 위치 지정 */
-            margin-left: 20px;
-            left: 0; /* 왼쪽으로 정렬 */
-            top: 4%; /* 상단을 기준으로 세로 가운데 정렬 */
-            transform: translateY(-50%); /* 수직 정렬을 위한 위치 조정 */
-            cursor: pointer;
-        }
+.headerContainer {
+    display: flex;
+    justify-content: space-between; /* 요소들을 좌우로 정렬 */
+    align-items: center; /* 수직 가운데 정렬 */
+    height: 100%;
+    width: 100%;
+}
 
-        .titleSet {
-            display: flex;
+.menuimg {
+    width: 30px;
+    height: 30px;
+    position: absolute; /* 절대 위치 지정 */
+    margin-left: 20px;
+    left: 0; /* 왼쪽으로 정렬 */
+    top: 4%; /* 상단을 기준으로 세로 가운데 정렬 */
+    transform: translateY(-50%); /* 수직 정렬을 위한 위치 조정 */
+    cursor: pointer;
+}
+
+.titleSet {
+    display: flex;
+}
             
-            .MainTitle {
-                font-size: 40px;
-                font-weight: 700;
-                color: white;
-            }
+.MainTitle {
+    font-size: 40px;
+    font-weight: 700;
+    color: white;
+}
 
-            .SubTitle {
-                font-size: 15px;
-                color: white;
-                margin-top: 25px;
-                margin-left: 5px;
-            }
-        }
+.SubTitle {
+    font-size: 15px;
+    color: white;
+    margin-top: 25px;
+    margin-left: 5px;
+}
+  
+/* 병원 이름 */
 
-        .hopitalUser {
-            font-size: 20px;
-            width: 150px;
-            height: 40px;
-            color: white;
-            font-weight: 700;
-            margin-top: 15px;
-            display: flex;
-            
-            .hopitalUserLable {
-                text-align: center;
-            }
-        }
-    }
+.hopitalUser {
+    color: white;
+    display: flex;
+}                                                                             
 
-    #offcanvasExample {
+.hopitalUserLable {
+    text-align: center;
+}
+        
+#offcanvasExample {
         width: 300px;
-    }
 }
 
 /* 드롭다운 영역 구성 */
@@ -72,26 +69,30 @@ html, body {
     align-items: center;
     justify-content: space-between; /* 요소들을 좌우로 정렬 */
     padding: 10px;
+}
 
-    .ourdropdownSet {
+.ourdropdownSet {
         display: flex;
         margin-left: 10px;
-
-        .ourdropdown1, .ourdropdown2 {
-            margin-left: 10px;
-        }
-    }
 }
+
+.ourdropdown1, .ourdropdown2 {
+        margin-left: 10px;
+}
+    
+/* Search Box */
+
 
 /* main 구성 */
 .ourcontent {
     flex: 1; /* 남은 공간을 차지 */
     padding: 20px;
-
-    .mainContent {
-        padding: 20px;
-    }
 }
+
+.mainContent {
+    padding: 20px;
+}
+
 
 /* 테이블(표) */
 .table {
@@ -104,7 +105,6 @@ html, body {
     height: 6vh;
     display: flex;
     gap: 3rem;
-    border: 1px solid #000; /* 컨테이너 확인을 위한 테두리 */
     padding: 10px; /* 컨테이너 안의 패딩 */
     align-items: center;
 }
@@ -123,18 +123,30 @@ html, body {
     width : 30%;
     height: 40vh;
     box-sizing: border-box;
-    border: 2px solid black; /* 테두리 라인의 굵기와 색상 설정 */
+    display: flex;
 }
 
 .GraphChoice {
     height: 40vh;
+    width: 50%;
 }
 
+.GraphPoint {
+    width: 50%;
+    height: 40vh;
+}
+
+.tableGraphPoint td {
+    font-size: 15px;
+    text-align: center; /* 가로 방향 중앙 정렬 */
+    vertical-align: middle; /* 세로 방향 중앙 정렬 */
+}
+
+/* Two area */
 .topTwoarea {
     width : 70%;
     height: 4 0vh;
     box-sizing: border-box;
-    border: 2px solid black; /* 테두리 라인의 굵기와 색상 설정 */
 }
 
 .GraphArea {
@@ -149,24 +161,26 @@ html, body {
     width: 30%;
     height : 46vh;
     box-sizing: border-box;
-    border: 2px solid black; /* 테두리 라인의 굵기와 색상 설정 */
 }
 
 .detailTwoBottom {
     width: 70%;
     height : 46vh;
     box-sizing: border-box;
-    border: 2px solid black; /* 테두리 라인의 굵기와 색상 설정 */
 }
 
 .detailTableTitle th{
-    height: 62px;
     text-align: center; /* 가로 방향 중앙 정렬 */
     vertical-align: middle; /* 세로 방향 중앙 정렬 */
+    font-size: 19px;
 }
 
-.detailTableTitle tr{
-    height: 62px;
+.inspectionTimeTitle {
+    height: 73px;
+}
+
+.detailTwoBottomTable td{
+    font-size: 19px;
     text-align: center; /* 가로 방향 중앙 정렬 */
     vertical-align: middle; /* 세로 방향 중앙 정렬 */
 }

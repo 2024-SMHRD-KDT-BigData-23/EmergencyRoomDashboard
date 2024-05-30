@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import '../../assets/scss/currentpage.scss'; 
 import menuWhite from '../../assets/images/menuwhite.png';
@@ -7,7 +8,7 @@ import menu from '../../assets/images/menu.png';
 const CurrentPage = () => {
     const [patients, setPatients] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 3; // 한 페이지에 표시할 항목 수
+    const itemsPerPage = 14; // 한 페이지에 표시할 항목 수
 
     useEffect(() => {
         axios.get('http://localhost:8080/api/ER/medical-patients')
@@ -64,9 +65,18 @@ const CurrentPage = () => {
                     </div>
 
                     {/* 오른쪽 병원이름 드롭다운 */}
-                    <div className="hopitalUser">
-                        <span className="hopitalUserLable">스마트병원</span>
+                    <div class="dropdown">
+                    <button class="btn hopitalUser" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        스마트병원
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Logout</a></li>
+                    </ul>
                     </div>
+
+
+
+
                 </div>
             </header>
 
@@ -105,6 +115,7 @@ const CurrentPage = () => {
                         </form>
                     </div>
                 </nav>
+        
             </div>
 
             {/* main area */}
@@ -145,6 +156,11 @@ const CurrentPage = () => {
                                     <td>{patient.patientVitalNibpD}</td>
                                     <td>{patient.patientVitalAcuity}</td>
                                     <td>{patient.deepNcdss}</td>
+                                    <td>
+                                        <Link to={`/Detail/${patient.admissionId}`} state={{ patient }}>
+                                            상세보기
+                                        </Link>
+                                    </td>
                                     <td>
                                         <button type="button" className="btn btn-info" data-bs-toggle="modal" style={{ color: 'white' }} data-bs-target="#exampleModal">Comment</button>
                                         <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
