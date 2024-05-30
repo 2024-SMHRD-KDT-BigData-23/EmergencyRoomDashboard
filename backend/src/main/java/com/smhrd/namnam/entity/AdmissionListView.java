@@ -16,7 +16,6 @@ import java.sql.Timestamp;
 
 @Data
 @Entity
-@Table(name = "admission_list_view")
 @AllArgsConstructor
 @NoArgsConstructor
 @Immutable

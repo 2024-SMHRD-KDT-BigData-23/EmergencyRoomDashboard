@@ -11,6 +11,9 @@ import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
 
@@ -102,11 +105,11 @@ public class DataLoader {
 
         for (StaffInfo selectedStaff : allStaffs) {
             if (selectedStaff.getStaffRole().equals("staff")) {
-                for (int i = 1; i <= 10; i++) {
+                for (int i = 1; i <= 20; i++) {
                     PatientInfo patient = new PatientInfo();
 
                     // 환자 식별자(PK)
-                    patient.setPatientId(faker.regexify("[a-zA-Z0-9]{10}"));
+                    patient.setPatientId(String.format("PID-%04d-%04d", faker.number().randomNumber(4, true), faker.number().randomNumber(4, true)));
                     // 의료진 식별자(FK)
                     patient.setStaffInfo(selectedStaff);
                     // 환자 이름
@@ -130,15 +133,20 @@ public class DataLoader {
         LocalDateTime startTime = LocalDateTime.now();
 
         for (PatientInfo selectedPatient : allPatients) {
-            for (int i = 1; i <= 2; i++) {
+            for (int i = 1; i <= random.nextInt(3) + 1; i++) {
                 AdmissionInfo admission = new AdmissionInfo();
 
+                // 무작위 날짜 추출 과정
+                Timestamp randomTimestamp = Timestamp.valueOf(startTime.minusDays(random.nextInt(30)));
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+                String formattedDate = formatter.format(randomTimestamp.toLocalDateTime());
+
                 // 입실 식별자(PK)
-                admission.setAdmissionId(faker.regexify("[a-zA-Z0-9]{10}"));
+                admission.setAdmissionId(String.format("AID-%s-%04d", formattedDate, faker.number().randomNumber(4, true)));
                 // 환자 식별자(FK)
                 admission.setPatientInfo(selectedPatient);
                 // 입실 시간
-                admission.setAdmissionInTime(Timestamp.valueOf(startTime.minusDays(random.nextInt(30))));
+                admission.setAdmissionInTime(randomTimestamp);
                 // 퇴실 시간
                 // admission.setAdmissionOutTime(startTime.minusDays(random.nextInt(30)));
                 // 입실 상태(Y or N)
@@ -154,39 +162,55 @@ public class DataLoader {
     // 입실번호별 생체정보 생성 메소드
     public void patientVitalGenerator() {
         List<AdmissionInfo> allAdmissions = admissionRepo.findAll();
-        LocalDateTime startTime = LocalDateTime.now();
 
         for (AdmissionInfo selectedAdmission : allAdmissions) { // admission_id(입실 식별자) 선택
-            for (int i = 1; i <= 10; i++) { // admission_id(입실 식별자)당 환자 바이탈 수 생성
-                PatientVitalInfo patientVital = new PatientVitalInfo();
+            PatientVitalInfo pastPatientVital = patientVitalRepo.findOneByAdmissionInfo(selectedAdmission);
+            for (int i = 1; i <= random.nextInt(20) + 1; i++) { // admission_id(입실 식별자)당 환자 바이탈 수 생성
+                PatientVitalInfo presentPatientVital = new PatientVitalInfo();
 
                 // admission_id(입실 식별자, FK)
-                patientVital.setAdmissionInfo(selectedAdmission);
+                presentPatientVital.setAdmissionInfo(selectedAdmission);
                 // 환자 성별
                 // patientVital.setPatientVitalSex(faker.options().option("남", "여"));
                 // 체온(°C)
-                patientVital.setPatientVitalTemperature(BigDecimal.valueOf(faker.number().randomDouble(1, 36, 38)));
+                presentPatientVital.setPatientVitalTemperature(BigDecimal.valueOf(faker.number().randomDouble(1, 36, 38)));
                 // 심박수(bpm)
-                patientVital.setPatientVitalHr(faker.number().numberBetween(50, 110)); // 표준 범위 ± 오차 범위
+                presentPatientVital.setPatientVitalHr(faker.number().numberBetween(50, 110)); // 표준 범위 ± 오차 범위
                 // 호흡수(min)
-                patientVital.setPatientVitalRespiratoryRate(faker.number().numberBetween(10, 22)); // 표준 범위 ± 오차 범위
+                presentPatientVital.setPatientVitalRespiratoryRate(faker.number().numberBetween(10, 22)); // 표준 범위 ± 오차 범위
                 // 산소포화도(%%)
-                patientVital.setPatientVitalSpo2(BigDecimal.valueOf(faker.number().randomDouble(1, 93, 102))); // 표준 범위 ± 오차 범위
+                presentPatientVital.setPatientVitalSpo2(BigDecimal.valueOf(faker.number().randomDouble(1, 93, 102))); // 표준 범위 ± 오차 범위
                 // 수축혈압(mmHg)
-                patientVital.setPatientVitalNibpS(faker.number().numberBetween(80, 130)); // 표준 범위 ± 오차 범위
+                presentPatientVital.setPatientVitalNibpS(faker.number().numberBetween(80, 130)); // 표준 범위 ± 오차 범위
                 // 이완혈압(mmHg)
-                patientVital.setPatientVitalNibpD(faker.number().numberBetween(50, 90)); // 표준 범위 ± 오차 범위
-                // 고통 정도
-                patientVital.setPatientVitalPain(faker.number().numberBetween(1, 10));
-                // 호소 증상
-                patientVital.setPatientVitalChiefComplaint(faker.lorem().sentence());
-                // 위험도
-                patientVital.setPatientVitalAcuity(faker.number().numberBetween(1, 5));
-                // 바이탈을 잰 시간
-                LocalDateTime createAt = startTime.plusMinutes(10L * i);
-                patientVital.setPatientVitalCreatedAt(Timestamp.valueOf(createAt));
+                presentPatientVital.setPatientVitalNibpD(faker.number().numberBetween(50, 90)); // 표준 범위 ± 오차 범위
 
-                patientVitalRepo.save(patientVital);
+                if(pastPatientVital != null) {
+                    // 고통 정도
+                    presentPatientVital.setPatientVitalPain(presentPatientVital.getPatientVitalPain());
+                    // 호소 증상
+                    presentPatientVital.setPatientVitalChiefComplaint(presentPatientVital.getPatientVitalChiefComplaint());
+                    // 위험도
+                    presentPatientVital.setPatientVitalAcuity(presentPatientVital.getPatientVitalAcuity());
+                    // 바이탈을 잰 시간
+                    LocalDateTime vitalCreatedAt = presentPatientVital.getPatientVitalCreatedAt().toLocalDateTime();
+                    vitalCreatedAt = vitalCreatedAt.plusMinutes(30 * i);
+                    presentPatientVital.setPatientVitalCreatedAt(Timestamp.valueOf(vitalCreatedAt));
+                } else {
+                    // 고통 정도
+                    presentPatientVital.setPatientVitalPain(faker.number().numberBetween(1, 10));
+                    // 호소 증상
+                    presentPatientVital.setPatientVitalChiefComplaint(faker.lorem().sentence());
+                    // 위험도
+                    presentPatientVital.setPatientVitalAcuity(faker.number().numberBetween(1, 5));
+                    // 바이탈을 잰 시간
+                    Timestamp admissionInTime = selectedAdmission.getAdmissionInTime();
+                    LocalDateTime vitalCreatedAt = admissionInTime.toLocalDateTime();
+                    vitalCreatedAt = vitalCreatedAt.plusMinutes(30);
+                    presentPatientVital.setPatientVitalCreatedAt(Timestamp.valueOf(vitalCreatedAt));
+                }
+
+                patientVitalRepo.save(presentPatientVital);
             }
         }
     }
