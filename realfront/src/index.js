@@ -19,6 +19,7 @@ root.render(
       <Route path="/List" element={<List />} />
       <Route path="/Search" element={<Search />} />
       <Route path="/AllList" element={<AllList />} />
+      <Route path="/Detail/:id" element={<Detail />} />
       <Route path="/Detail" element={<Detail />} />
     </Routes>
   </Router>
