@@ -65,10 +65,6 @@ public class AdmissionListView {
     @Column(name = "admission_id")
     private String admissionId;
 
-    // 등록 일자
-    @Column(name = "admission_created_at")
-    private Timestamp admissionCreatedAt;
-
     // 도착 시간
     @Column(name = "admission_in_time")
     private Timestamp admissionInTime;
