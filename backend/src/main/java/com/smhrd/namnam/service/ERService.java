@@ -59,7 +59,6 @@ public class ERService {
     // 응급실 진료 후 result_ward 수정
     public AdmissionInfo saveMedicalPatientsByAdmissionId(AdmissionInfoVO vo) {
         AdmissionInfo entity = admissionRepo.findByAdmissionId(vo.getAdmissionId());
-        entity.setAdmissionState("N");
         entity.setAdmissionResultWard(vo.getAdmissionResultWard());
         entity.setAdmissionOutTime(Timestamp.valueOf(LocalDateTime.now()));
         return admissionRepo.save(entity);

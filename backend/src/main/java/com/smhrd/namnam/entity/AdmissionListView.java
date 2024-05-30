@@ -16,14 +16,12 @@ import java.sql.Timestamp;
 
 @Data
 @Entity
-@Table(name = "admission_list_view")
 @AllArgsConstructor
 @NoArgsConstructor
 @Immutable
-/* @Subselect("SELECT \n" +
+@Subselect("SELECT \n" +
         "    ROW_NUMBER() OVER () AS id,\n" +
         "    ai.admission_id,\n" +
-        "    ai.admission_created_at,\n" +
         "    ai.admission_in_time,\n" +
         "    ai.admission_out_time,\n" +
         "    ai.admission_result_ward,\n" +
@@ -55,7 +53,7 @@ import java.sql.Timestamp;
         "JOIN \n" +
         "    bed_info bi ON mi.bed_id = bi.bed_id\n" +
         "JOIN \n" +
-        "    deep_info di ON pvi.patient_vital_id = di.patient_vital_id") */
+        "    deep_info di ON pvi.patient_vital_id = di.patient_vital_id")
 public class AdmissionListView {
 
     // 뷰의 식별자

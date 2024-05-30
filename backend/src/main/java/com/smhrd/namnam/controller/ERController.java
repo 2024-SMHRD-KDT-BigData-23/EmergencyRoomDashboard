@@ -47,7 +47,6 @@ public class ERController {
             return new ResponseEntity<>(erService.saveMedicalPatientsByAdmissionId(vo), HttpStatus.OK);
         } catch (Exception err) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-            
         }
     }
     ///////////////////////////////////////////////////////////////////////////////////////////
