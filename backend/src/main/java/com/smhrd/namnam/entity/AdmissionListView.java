@@ -145,14 +145,4 @@ public class AdmissionListView {
     @Column(name = "deep_ncdss")
     private String deepNcdss;
 
-
-//    public static AdmissionListViewVO toVo(AdmissionListView admissionListView) {
-//
-//        AdmissionListViewVO vo = new AdmissionListViewVO();
-//
-//
-//
-//        return vo;
-//
-//    }
 }
