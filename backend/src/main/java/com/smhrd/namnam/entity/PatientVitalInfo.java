@@ -67,7 +67,7 @@ public class PatientVitalInfo {
     private int patientVitalAcuity;
 
     // 등록 일자
-    @UpdateTimestamp
+//    @UpdateTimestamp
     @Column(name = "patient_vital_created_at", nullable = false)
     private Timestamp patientVitalCreatedAt;
 

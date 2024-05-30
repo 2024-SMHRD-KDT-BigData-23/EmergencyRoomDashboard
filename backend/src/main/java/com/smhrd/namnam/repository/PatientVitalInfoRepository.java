@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PatientVitalInfoRepository extends JpaRepository<PatientVitalInfo, Long> {
 
-    PatientVitalInfo findOneByAdmissionInfo(AdmissionInfo selectedAdmission);
+    PatientVitalInfo findTopByAdmissionInfoOrderByPatientVitalCreatedAtDesc(AdmissionInfo selectedAdmission);
 }
