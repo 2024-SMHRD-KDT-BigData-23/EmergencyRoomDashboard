@@ -33,8 +33,9 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	//security(0521failure)
-	//implementation 'org.springframework.boot:spring-boot-starter-security'
-
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	//jwt
+	implementation 'io.jsonwebtoken:jjwt:0.9.1'
 	// 더미 데이터 생성 라이브러리
 	implementation 'net.datafaker:datafaker:2.2.2'
 }
