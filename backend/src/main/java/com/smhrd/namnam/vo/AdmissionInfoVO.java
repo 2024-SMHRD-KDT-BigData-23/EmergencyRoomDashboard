@@ -16,8 +16,6 @@ public class AdmissionInfoVO {
     private String admissionId;
     // PatientInfo의 환자 식별자
     private String patientId;
-    // 입원 여부
-    private String admissionState;
     // 도착 시간
     private Timestamp admissionInTime;
     // 퇴원 시간

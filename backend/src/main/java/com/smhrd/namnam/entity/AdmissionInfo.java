@@ -28,10 +28,6 @@ public class AdmissionInfo {
     @JoinColumn(name = "patient_id", nullable = false)
     private PatientInfo patientInfo;
 
-    // 입원 여부
-    @Column(name = "admission_state", nullable = false, length = 10)
-    private String admissionState;
-
     // 도착 시간
     @Column(name = "admission_in_time")
     private Timestamp admissionInTime;
