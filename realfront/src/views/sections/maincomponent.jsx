@@ -6,9 +6,22 @@ import menuWhite from '../../assets/images/menuwhite.png';
 import menu from '../../assets/images/menu.png';
 
 const CurrentPage = () => {
+
+    /* 드롭다운 선택시 선택 표출 함수*/ 
+    const [sectionContent, setSectionContent] = useState('Section');
+    const [ncdssContent, setNcdssContent] = useState('NCDSS');
+
+    const changeSectionContent = (newContent) => {
+        setSectionContent(newContent);
+    };
+
+    const changeNcdssContent = (newContent) => {
+        setNcdssContent(newContent);
+    };
+
     const [patients, setPatients] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 14; // 한 페이지에 표시할 항목 수
+    const itemsPerPage = 11; // 한 페이지에 표시할 항목 수
 
     useEffect(() => {
         axios.get('http://localhost:8080/api/ER/medical-patients')
@@ -60,7 +73,11 @@ const CurrentPage = () => {
 
                     {/* 메인 NCDSS + by NAMNAM */}
                     <div className="titleSet">
-                        <div className="MainTitle">NCDSS</div>
+                        <div className="MainTitle">
+                            <a href='/List' className='MainLogoLink'>
+                            NCDSS
+                            </a>
+                            </div>
                         <div className="SubTitle">by NAMNAM</div>
                     </div>
 
@@ -85,25 +102,25 @@ const CurrentPage = () => {
                 <div className="ourdropdownSet">
                     <div className="dropdown ourdropdown1">
                         <button className="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Acuity
+                            {sectionContent}
                         </button>
                         <ul className="dropdown-menu">
-                            <li><a className="dropdown-item" href="#">1</a></li>
-                            <li><a className="dropdown-item" href="#">2</a></li>
-                            <li><a className="dropdown-item" href="#">3</a></li>
-                            <li><a className="dropdown-item" href="#">4</a></li>
-                            <li><a className="dropdown-item" href="#">5</a></li>
+                            <li><a className="dropdown-item" href="#" onClick={() => changeSectionContent('All')}>All</a></li>
+                            <li><a className="dropdown-item" href="#" onClick={() => changeSectionContent('일반구역A')}>일반구역A</a></li>
+                            <li><a className="dropdown-item" href="#" onClick={() => changeSectionContent('일반구역B')}>일반구역B</a></li>
+                            <li><a className="dropdown-item" href="#" onClick={() => changeSectionContent('중증구역')}>중증구역</a></li>
                         </ul>
                     </div>
 
                     <div className="dropdown ourdropdown2">
                         <button className="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            NCDSS
+                            {ncdssContent}
                         </button>
                         <ul className="dropdown-menu">
-                            <li><a className="dropdown-item" href="#">HOME</a></li>
-                            <li><a className="dropdown-item" href="#">WARD</a></li>
-                            <li><a className="dropdown-item" href="#">ICU</a></li>
+                            <li><a className="dropdown-item" href="#" onClick={() => changeNcdssContent('All')}>All</a></li>
+                            <li><a className="dropdown-item" href="#" onClick={() => changeNcdssContent('HOME')}>HOME</a></li>
+                            <li><a className="dropdown-item" href="#" onClick={() => changeNcdssContent('WARD')}>WARD</a></li>
+                            <li><a className="dropdown-item" href="#" onClick={() => changeNcdssContent('ICU')}>ICU</a></li>
                         </ul>
                     </div>
                 </div>
@@ -113,6 +130,12 @@ const CurrentPage = () => {
                     <div className="container-fluid">
                         <form className="d-flex">
                             <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+                            {/* pid검색했을떄 swagger의 json형식의 값이 나오고 그 값중에 골라서 화면에 표현해줄거야!
+                            patients.patientId-> "PID-3969-7923 를 input에 담았을때 일이 일어야돼!
+
+                            어떤일이? -> 
+                            */}
+                            
                             <button className="btn btn-outline-secondary" type="submit">Search</button>
                         </form>
                     </div>
@@ -127,17 +150,17 @@ const CurrentPage = () => {
                         <thead>
                             <tr>
                                 <th scope="col">In Time</th>
-                                <th scope="col">Out Time</th>
+                                <th scope="col">MT(Measurement)</th>
                                 <th scope="col">Patient ID</th>
                                 <th scope="col">Name</th>
                                 <th scope="col">Sex</th>
-                                <th scope="col">Temperature</th>
+                                <th scope="col">Temp</th>
                                 <th scope="col">HR</th>
                                 <th scope="col">RR</th>
                                 <th scope="col">SPO2</th>
-                                <th scope="col">Systolic BP</th>
-                                <th scope="col">Diastolic BP</th>
-                                <th scope="col">Acuity</th>
+                                <th scope="col">SBP</th>
+                                <th scope="col">DBP</th>
+                                <th scope="col">Section</th>
                                 <th scope="col">NCDSS</th>
                                 <th scope="col">Action</th>
                             </tr>
@@ -145,22 +168,71 @@ const CurrentPage = () => {
                         <tbody>
                             {currentItems.map(patient => (
                                 <tr key={patient.id}>
-                                    
-                                        <td>{patient.admissionInTime}</td>
-                                        <td>{patient.admissionOutTime}</td>
-                                        <Link to={`/Detail/${patient.admissionId}`} state={{ patient }}>
-                                            <td>{patient.patientId}</td>
+                                        <td>
+                                        <Link to={`/Detail/${patient.admissionId}`} state={{ patient }} className='tableLink'>
+                                            2024.05.05 16:48:30
                                         </Link>
-                                        <td>{patient.patientName}</td>
-                                        <td>{patient.patientSex}</td>
-                                        <td>{patient.patientVitalTemperature}</td>
-                                        <td>{patient.patientVitalHr}</td>
-                                        <td>{patient.patientVitalRespiratoryRate}</td>
-                                        <td>{patient.patientVitalSpo2}</td>
-                                        <td>{patient.patientVitalNibpS}</td>
-                                        <td>{patient.patientVitalNibpD}</td>
-                                        <td>{patient.patientVitalAcuity}</td>
-                                        <td>{patient.deepNcdss}</td>
+                                        </td>
+                                        <td>
+                                        <Link to={`/Detail/${patient.admissionId}`} state={{ patient }} className='tableLink'>
+                                            2024.05.05 17:18:30
+                                        </Link>
+                                            </td>
+                                        <td>
+                                        <Link to={`/Detail/${patient.admissionId}`} state={{ patient }} className='tableLink'>
+                                            {patient.patientId}
+                                        </Link>
+                                        </td>
+                                        <td>
+                                        <Link to={`/Detail/${patient.admissionId}`} state={{ patient }} className='tableLink'>
+                                            {patient.patientName}
+                                        </Link>
+                                            </td>
+                                        <td>
+                                        <Link to={`/Detail/${patient.admissionId}`} state={{ patient }} className='tableLink'>
+                                            {patient.patientSex}
+                                        </Link>
+                                            </td>
+                                        <td>
+                                        <Link to={`/Detail/${patient.admissionId}`} state={{ patient }} className='tableLink'>
+                                            {patient.patientVitalTemperature}°C
+                                        </Link>
+                                            </td>
+                                        <td>
+                                        <Link to={`/Detail/${patient.admissionId}`} state={{ patient }} className='tableLink'>
+                                            {patient.patientVitalHr}
+                                        </Link>
+                                            </td>
+                                        <td>
+                                        <Link to={`/Detail/${patient.admissionId}`} state={{ patient }} className='tableLink'>
+                                            {patient.patientVitalRespiratoryRate}
+                                        </Link>
+                                            </td>
+                                        <td>
+                                        <Link to={`/Detail/${patient.admissionId}`} state={{ patient }} className='tableLink'>
+                                            {patient.patientVitalSpo2}
+                                        </Link>
+                                            </td>
+                                        <td>
+                                        <Link to={`/Detail/${patient.admissionId}`} state={{ patient }} className='tableLink'>
+                                            {patient.patientVitalNibpS}
+                                        </Link>
+                                            </td>
+                                        <td>
+                                        <Link to={`/Detail/${patient.admissionId}`} state={{ patient }} className='tableLink'>
+                                            {patient.patientVitalNibpD}
+                                        </Link>
+                                            </td>
+                                        <td>
+                                        <Link to={`/Detail/${patient.admissionId}`} state={{ patient }} className='tableLink'>
+                                            {patient.bedWard}
+                                        </Link>
+                                            </td>
+                                        <td>
+                                        <Link to={`/Detail/${patient.admissionId}`} state={{ patient }} className='tableLink'>
+                                            {patient.deepNcdss}
+                                        </Link>
+                                            </td>
                                     <td>
                                         <button type="button" className="btn btn-info" data-bs-toggle="modal" style={{ color: 'white' }} data-bs-target="#exampleModal">Comment</button>
                                         <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -205,7 +277,7 @@ const CurrentPage = () => {
                     </table>
                     
                     <div style={{ textAlign: 'center' }}>
-                        <ul className="pagination">
+                        <ul className="pagination justify-content-center" >
                             {pageNumbers.map(number => (
                                 <li key={number} className="page-item">
                                     <button onClick={() => paginate(number)} className="page-link" >
