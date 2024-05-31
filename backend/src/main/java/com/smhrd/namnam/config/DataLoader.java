@@ -12,8 +12,6 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
 
@@ -44,30 +42,28 @@ public class DataLoader {
     }
 
     // 스프링 실행 시 더미 데이터 생성해주는 메소드
-    public String generateData() {
-        try {
-            hospitalGenerator();
-            staffGenerator();
-            patientGenerator();
-            admissionGenerator();
-            patientVitalGenerator();
-            deepGenerator();
-            bedGenerator();
-            mapGenerator();
-            return "더미 데이터 생성 성공!";
-        } catch (Exception e) {
-            System.out.println(e);
-            return "더미 데이터 생성 실패..";
-        }
+    public void generateData() {
+        hospitalGenerator();
+        staffGenerator();
+        patientGenerator();
+        admissionGenerator();
+        patientVitalGenerator();
+        deepGenerator();
+        bedGenerator();
+        mapGenerator();
     }
 
     // 병원 생성 메소드
     public void hospitalGenerator() {
         HospitalInfo hospital = new HospitalInfo();
 
+        // 병원 이름
         hospital.setHospitalName("스마트병원");
+        // 병원 전화번호
         hospital.setHospitalTel("010-qwer-1234");
+        // 병원 주소
         hospital.setHospitalAddr("광주광역시 남구 송암동 cgi센터");
+        // 병원 침상의 수
         hospital.setHospitalBedCnt(30);
 
         hospitalRepo.save(hospital);
@@ -81,12 +77,12 @@ public class DataLoader {
             for (int i = 0; i < 2; i++) {
                 StaffInfo staff = new StaffInfo();
 
-                if (i == 0) {
+                if (i == 0) { // i가 0일 때, staff 생성
                     staff.setHospitalInfo(selectedHospital);
                     staff.setStaffId("staff");
                     staff.setStaffPw("staff");
                     staff.setStaffRole("staff");
-                } else {
+                } else { // i가 1일 때, admin 생성
                     staff.setHospitalInfo(selectedHospital);
                     staff.setStaffId("admin");
                     staff.setStaffPw("admin");
@@ -101,11 +97,10 @@ public class DataLoader {
     // 의료진별 환자 생성 메소드
     public void patientGenerator() {
         List<StaffInfo> allStaffs = staffRepo.findAll();
-        LocalDateTime startTime = LocalDateTime.now();
 
         for (StaffInfo selectedStaff : allStaffs) {
-            if (selectedStaff.getStaffRole().equals("staff")) {
-                for (int i = 1; i <= 20; i++) {
+            if (selectedStaff.getStaffRole().equals("staff")) { // role이 staff일 때만 환자 정보 입력
+                for (int i = 1; i <= 30; i++) {
                     PatientInfo patient = new PatientInfo();
 
                     // 환자 식별자(PK)
@@ -127,32 +122,33 @@ public class DataLoader {
         }
     }
 
-    // 환자별 입실번호 생성 메소드
+    // 환자별 입실정보 생성 메소드
     public void admissionGenerator() {
         List<PatientInfo> allPatients = patientRepo.findAll();
         LocalDateTime startTime = LocalDateTime.now();
 
         for (PatientInfo selectedPatient : allPatients) {
-            for (int i = 1; i <= random.nextInt(3) + 1; i++) {
+            for (int i = 1; i <= random.nextInt(4) + 1; i++) {
                 AdmissionInfo admission = new AdmissionInfo();
 
                 // 무작위 날짜 추출 과정
-                Timestamp randomTimestamp = Timestamp.valueOf(startTime.minusDays(random.nextInt(30)));
+                LocalDateTime randomDate = startTime.minusDays(random.nextInt(30));
+                Timestamp randomTimestamp = Timestamp.valueOf(randomDate);
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
                 String formattedDate = formatter.format(randomTimestamp.toLocalDateTime());
+
+                // 무작위 시간 생성 (0시부터 23시까지, 분과 초도 무작위로)
+                int randomHour = random.nextInt(24);
+                int randomMinute = random.nextInt(60);
+                int randomSecond = random.nextInt(60);
+                LocalDateTime randomDateTime = randomDate.withHour(randomHour).withMinute(randomMinute).withSecond(randomSecond);
 
                 // 입실 식별자(PK)
                 admission.setAdmissionId(String.format("AID-%s-%04d", formattedDate, faker.number().randomNumber(4, true)));
                 // 환자 식별자(FK)
                 admission.setPatientInfo(selectedPatient);
                 // 입실 시간
-                admission.setAdmissionInTime(randomTimestamp);
-                // 퇴실 시간
-                // admission.setAdmissionOutTime(startTime.minusDays(random.nextInt(30)));
-                // 입실 상태(Y or N)
-                // admission.setAdmissionState("Y");
-                // 의료진이 실제 배치한 위치(home, ward, icu)
-                // admission.setAdmissionResultWard();
+                admission.setAdmissionInTime(Timestamp.valueOf(randomDateTime));
 
                 admissionRepo.save(admission);
             }
@@ -164,14 +160,13 @@ public class DataLoader {
         List<AdmissionInfo> allAdmissions = admissionRepo.findAll();
 
         for (AdmissionInfo selectedAdmission : allAdmissions) { // admission_id(입실 식별자) 선택
-            PatientVitalInfo pastPatientVital = patientVitalRepo.findOneByAdmissionInfo(selectedAdmission);
-            for (int i = 1; i <= random.nextInt(20) + 1; i++) { // admission_id(입실 식별자)당 환자 바이탈 수 생성
+            for (int i = 1; i <= random.nextInt(12) + 1; i++) { // admission_id(입실 식별자)당 환자 바이탈 수 생성
+                PatientVitalInfo currentPatientVital = patientVitalRepo.findTopByAdmissionInfoOrderByPatientVitalCreatedAtDesc(selectedAdmission);
+
                 PatientVitalInfo presentPatientVital = new PatientVitalInfo();
 
                 // admission_id(입실 식별자, FK)
                 presentPatientVital.setAdmissionInfo(selectedAdmission);
-                // 환자 성별
-                // patientVital.setPatientVitalSex(faker.options().option("남", "여"));
                 // 체온(°C)
                 presentPatientVital.setPatientVitalTemperature(BigDecimal.valueOf(faker.number().randomDouble(1, 36, 38)));
                 // 심박수(bpm)
@@ -185,16 +180,16 @@ public class DataLoader {
                 // 이완혈압(mmHg)
                 presentPatientVital.setPatientVitalNibpD(faker.number().numberBetween(50, 90)); // 표준 범위 ± 오차 범위
 
-                if(pastPatientVital != null) {
+                if (currentPatientVital != null) {
                     // 고통 정도
-                    presentPatientVital.setPatientVitalPain(presentPatientVital.getPatientVitalPain());
+                    presentPatientVital.setPatientVitalPain(currentPatientVital.getPatientVitalPain());
                     // 호소 증상
-                    presentPatientVital.setPatientVitalChiefComplaint(presentPatientVital.getPatientVitalChiefComplaint());
+                    presentPatientVital.setPatientVitalChiefComplaint(currentPatientVital.getPatientVitalChiefComplaint());
                     // 위험도
-                    presentPatientVital.setPatientVitalAcuity(presentPatientVital.getPatientVitalAcuity());
+                    presentPatientVital.setPatientVitalAcuity(currentPatientVital.getPatientVitalAcuity());
                     // 바이탈을 잰 시간
-                    LocalDateTime vitalCreatedAt = presentPatientVital.getPatientVitalCreatedAt().toLocalDateTime();
-                    vitalCreatedAt = vitalCreatedAt.plusMinutes(30 * i);
+                    LocalDateTime vitalCreatedAt = currentPatientVital.getPatientVitalCreatedAt().toLocalDateTime();
+                    vitalCreatedAt = vitalCreatedAt.plusMinutes(30L);
                     presentPatientVital.setPatientVitalCreatedAt(Timestamp.valueOf(vitalCreatedAt));
                 } else {
                     // 고통 정도
@@ -206,8 +201,7 @@ public class DataLoader {
                     // 바이탈을 잰 시간
                     Timestamp admissionInTime = selectedAdmission.getAdmissionInTime();
                     LocalDateTime vitalCreatedAt = admissionInTime.toLocalDateTime();
-                    vitalCreatedAt = vitalCreatedAt.plusMinutes(30);
-                    presentPatientVital.setPatientVitalCreatedAt(Timestamp.valueOf(vitalCreatedAt));
+                    presentPatientVital.setPatientVitalCreatedAt(Timestamp.valueOf(vitalCreatedAt.plusMinutes(30L)));
                 }
 
                 patientVitalRepo.save(presentPatientVital);
@@ -220,13 +214,11 @@ public class DataLoader {
         List<PatientVitalInfo> allPatientVitals = patientVitalRepo.findAll();
         LocalDateTime startTime = LocalDateTime.now();
 
-        for(PatientVitalInfo selectedPatientVital : allPatientVitals) {
+        for (PatientVitalInfo selectedPatientVital : allPatientVitals) {
             DeepInfo deep = new DeepInfo();
 
             // 환자의 바이탈 식별자(FK)
             deep.setPatientVitalInfo(selectedPatientVital);
-            // 프로젝트 모델이 제공하는 위험도
-            // deep.setDeepNcdss();
 
             deepRepo.save(deep);
         }
@@ -234,7 +226,7 @@ public class DataLoader {
 
     // 병원에 있는 병상 정보
     public void bedGenerator() {
-        for(int i = 1; i <= 10; i++) {
+        for (int i = 1; i <= 10; i++) {
             BedInfo bed = new BedInfo();
 
             bed.setBedMap("스마트병원배치도");
@@ -243,7 +235,7 @@ public class DataLoader {
 
             bedRepo.save(bed);
         }
-        for(int i = 11; i <= 20; i++) {
+        for (int i = 11; i <= 20; i++) {
             BedInfo bed = new BedInfo();
 
             bed.setBedMap("스마트병원배치도");
@@ -252,7 +244,7 @@ public class DataLoader {
 
             bedRepo.save(bed);
         }
-        for(int i = 21; i <= 30; i++) {
+        for (int i = 21; i <= 30; i++) {
             BedInfo bed = new BedInfo();
 
             bed.setBedMap("스마트병원배치도");
@@ -268,7 +260,7 @@ public class DataLoader {
         List<AdmissionInfo> allAdmissions = admissionRepo.findAll();
         List<BedInfo> allBeds = bedRepo.findAll();
 
-        for(AdmissionInfo selectedAdmission : allAdmissions) {
+        for (AdmissionInfo selectedAdmission : allAdmissions) {
             MapInfo map = new MapInfo();
 
             map.setBedInfo(allBeds.get(random.nextInt(1, 30)));

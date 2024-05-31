@@ -88,9 +88,11 @@ const CurrentPage = () => {
                             Acuity
                         </button>
                         <ul className="dropdown-menu">
-                            <li><a className="dropdown-item" href="#">Action</a></li>
-                            <li><a className="dropdown-item" href="#">Another action</a></li>
-                            <li><a className="dropdown-item" href="#">Something else here</a></li>
+                            <li><a className="dropdown-item" href="#">1</a></li>
+                            <li><a className="dropdown-item" href="#">2</a></li>
+                            <li><a className="dropdown-item" href="#">3</a></li>
+                            <li><a className="dropdown-item" href="#">4</a></li>
+                            <li><a className="dropdown-item" href="#">5</a></li>
                         </ul>
                     </div>
 
@@ -99,9 +101,9 @@ const CurrentPage = () => {
                             NCDSS
                         </button>
                         <ul className="dropdown-menu">
-                            <li><a className="dropdown-item" href="#">Action</a></li>
-                            <li><a className="dropdown-item" href="#">Another action</a></li>
-                            <li><a className="dropdown-item" href="#">Something else here</a></li>
+                            <li><a className="dropdown-item" href="#">HOME</a></li>
+                            <li><a className="dropdown-item" href="#">WARD</a></li>
+                            <li><a className="dropdown-item" href="#">ICU</a></li>
                         </ul>
                     </div>
                 </div>
@@ -143,24 +145,22 @@ const CurrentPage = () => {
                         <tbody>
                             {currentItems.map(patient => (
                                 <tr key={patient.id}>
-                                    <td>{patient.admissionInTime}</td>
-                                    <td>{patient.admissionOutTime}</td>
-                                    <td>{patient.patientId}</td>
-                                    <td>{patient.patientName}</td>
-                                    <td>{patient.patientSex}</td>
-                                    <td>{patient.patientVitalTemperature}</td>
-                                    <td>{patient.patientVitalHr}</td>
-                                    <td>{patient.patientVitalRespiratoryRate}</td>
-                                    <td>{patient.patientVitalSpo2}</td>
-                                    <td>{patient.patientVitalNibpS}</td>
-                                    <td>{patient.patientVitalNibpD}</td>
-                                    <td>{patient.patientVitalAcuity}</td>
-                                    <td>{patient.deepNcdss}</td>
-                                    <td>
+                                    
+                                        <td>{patient.admissionInTime}</td>
+                                        <td>{patient.admissionOutTime}</td>
                                         <Link to={`/Detail/${patient.admissionId}`} state={{ patient }}>
-                                            상세보기
+                                            <td>{patient.patientId}</td>
                                         </Link>
-                                    </td>
+                                        <td>{patient.patientName}</td>
+                                        <td>{patient.patientSex}</td>
+                                        <td>{patient.patientVitalTemperature}</td>
+                                        <td>{patient.patientVitalHr}</td>
+                                        <td>{patient.patientVitalRespiratoryRate}</td>
+                                        <td>{patient.patientVitalSpo2}</td>
+                                        <td>{patient.patientVitalNibpS}</td>
+                                        <td>{patient.patientVitalNibpD}</td>
+                                        <td>{patient.patientVitalAcuity}</td>
+                                        <td>{patient.deepNcdss}</td>
                                     <td>
                                         <button type="button" className="btn btn-info" data-bs-toggle="modal" style={{ color: 'white' }} data-bs-target="#exampleModal">Comment</button>
                                         <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -176,7 +176,7 @@ const CurrentPage = () => {
                                                                 <label htmlFor="recipient-name" className="col-form-label">Recipient:</label>
                                                                 <div className="dropdown">
                                                                     <button className="btn btn-outline-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                        Dropdown button
+                                                                        Result Ward
                                                                     </button>
                                                                     <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                                                         <li><a className="dropdown-item" href="#">Home</a></li>

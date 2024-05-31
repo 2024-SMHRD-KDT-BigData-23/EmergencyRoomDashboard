@@ -206,6 +206,7 @@ const DetailComponent = () => {
                     </div>
                 </div>
             </div>
+            <div className='detailTop' >
             <div className='detailTop'>
                 <div className='topOnearea'>
                     {/* Graph choice 함수 */}
@@ -221,7 +222,7 @@ const DetailComponent = () => {
                     </div>
                 </div>
             </div>
-            <div className='detailBottom'>
+            <div className='detailBottom d-flex'>
                 <div className='detailOneBottom'>
                     <table className="table table-dark table-striped detailTableTitle">
                         <thead>
@@ -251,7 +252,7 @@ const DetailComponent = () => {
                         </tbody>
                     </table>
                 </div>
-                <div className='detailTwoBottom'>
+                <div className='detailTwoBottom d-flex'>
                     {patientData.map((vital, index) => (
                         <table className="table detailTwoBottomTable" key={index}>
                             <thead>
@@ -281,6 +282,7 @@ const DetailComponent = () => {
                             </tbody>
                         </table>
                     ))}
+                </div>
                 </div>
             </div>
         </div>
