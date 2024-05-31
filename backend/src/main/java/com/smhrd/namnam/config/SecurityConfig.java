@@ -47,7 +47,7 @@ public class SecurityConfig {
                 .httpBasic((auth) -> auth.disable());
         http
                 .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/api/login", "/", "/join","/api/ER/medical-patients","api/ER/patient-details/{id}").permitAll()
+                        .requestMatchers("/**").permitAll()
                         .anyRequest().authenticated());
         //필터 추가 LoginFilter()는 인자를 받음 (AuthenticationManager() 메소드에 authenticationConfiguration 객체를 넣어야 함) 따라서 등록 필요
         http
