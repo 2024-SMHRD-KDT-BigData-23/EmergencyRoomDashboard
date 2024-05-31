@@ -17,6 +17,7 @@ import {
     Legend,
 } from "chart.js";
 import ChartDataLabels from 'chartjs-plugin-datalabels';
+import { Navbar, Nav, Offcanvas, Button, Dropdown, Container, Row, Col, Table } from 'react-bootstrap';
 
 ChartJS.register(
     CategoryScale,
@@ -35,6 +36,10 @@ const DetailComponent = () => {
     const [loading, setLoading] = useState(true); // 로딩 상태 추가
     const [error, setError] = useState(null); // 오류 상태 추가
     const [selectedLine, setSelectedLine] = useState(null);
+
+    const [show, setShow] = useState(false); // offCanvas 상태를 저장
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     useEffect(() => {
         console.log(`Fetching data for ID: ${id}`); // ID 값을 콘솔에 출력하여 확인
@@ -132,159 +137,127 @@ const DetailComponent = () => {
             },
         },
     };
-        // 라벨 버튼을 렌더링하는 함수입니다.
-        const renderLabelButtons = () => {
-            return lineData.datasets.map((dataset, index) => (
-                <button
-                    key={index}
-                    className="list-group-item list-group-item-action"
-                    onClick={() => setSelectedLine(index)}
-                    style={{
-                        fontWeight: selectedLine === index ? 'bold' : 'normal',
-                        backgroundColor: selectedLine === index ? '#007bff' : 'transparent',
-                        color: selectedLine === index ? 'white' : 'black'
-                    }}
-                >
-                    {dataset.label}
-                </button>
-            ));
-        };
-    
+        
 
+    // 라벨 버튼을 렌더링하는 함수입니다.
+    const renderLabelButtons = () => {
+        return lineData.datasets.map((dataset, index) => (
+            <Col>
+                <Row md={2}>
+                    <Button
+                        className="list-group-item list-group-item-action"
+                        onClick={() => setSelectedLine(index)}
+                        style={{
+                            fontWeight: selectedLine === index ? 'bold' : 'normal',
+                            backgroundColor: selectedLine === index ? '#007bff' : 'transparent',
+                            color: selectedLine === index ? 'white' : 'black',
+                            width: '100%', // 버튼이 칼럼의 전체 너비를 차지하도록 설정
+                        }}
+                    >
+                        {dataset.label}
+                    </Button>
+                </Row>
+            </Col>
+        ));
+    };
 
     return (
         <div>
-            <header className="ourheader">
+            <Navbar bg="blue" expand={false} className="ourheader">
                 <div className="headerContainer">
-                    <a className="btn" data-bs-toggle="offcanvas" href="#offcanvasExample" role="img" aria-controls="offcanvasExample">
-                        <img src={menuWhite} className="menuimg" width="40px" height="40px" alt="Menu" />
-                    </a>
-                    <div className="offcanvas offcanvas-start" tabIndex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
-                        <div className="offcanvas-header">
-                            <img src={menu} width="40px" height="40px" alt="Menu" />
-                            <button type="button" className="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                        </div>
-                        <div className="offcanvas-body">
-                            <div className="list-group list-group-flush" style={{ width: "300px" }}>
-                                <a href="#" className="list-group-item list-group-item-action">Present Patient</a>
-                                <a href="#" className="list-group-item list-group-item-action">All Patient</a>
-                                <a href="#" className="list-group-item list-group-item-action">Search Patient</a>
-                            </div>
-                        </div>
-                    </div>
+                    <Navbar.Toggle as="div" aria-controls="offcanvasNavbar">
+                        <Button variant="link" onClick={handleShow}>
+                            <img src={menuWhite} className="menuimg" alt="Menu" />
+                        </Button>
+                    </Navbar.Toggle>
+                    <Navbar.Offcanvas show={show} onHide={handleClose} id="offcanvasNavbar">
+                        <Offcanvas.Header closeButton></Offcanvas.Header>
+                        <Offcanvas.Body>
+                            <Nav className="list-group list-group-flush order-last">
+                                <Nav.Link href="#" className="list-group-item list-group-item-action">Present Patient</Nav.Link>
+                                <Nav.Link href="#" className="list-group-item list-group-item-action">All Patient</Nav.Link>
+                                <Nav.Link href="#" className="list-group-item list-group-item-action">Search Patient</Nav.Link>
+                            </Nav>
+                        </Offcanvas.Body>
+                    </Navbar.Offcanvas>
                     <div className="titleSet">
                         <div className="MainTitle">NCDSS</div>
                         <div className="SubTitle">by NAMNAM</div>
                     </div>
-
-                    {/* 오른쪽 병원이름 드롭다운 */}
-                    <div className="dropdown">
-                        <button className="btn hopitalUser" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <Dropdown>
+                        <Dropdown.Toggle variant="secondary" className="btn hopitalUser">
                             스마트병원
-                        </button>
-                        <ul className="dropdown-menu">
-                            <li><a className="dropdown-item" href="#">Logout</a></li>
-                        </ul>
-                    </div>
+                        </Dropdown.Toggle>
+                        <Dropdown.Menu>
+                            <Dropdown.Item href="#">Logout</Dropdown.Item>
+                        </Dropdown.Menu>
+                    </Dropdown>
                 </div>
-            </header>
-            <div className='detailUser'>
-                <div>P-ID : {patientData[0].patientId}</div>
-                <div>Name : {patientData[0].patientName} </div>
-                <div>Sex : {patientData[0].patientSex}</div>
-                <div>NCDSS : {patientData[0].deepNcdss}</div>
-                <div>
-                    <div className="dropdown detailStayID">
-                        <button className="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            {patientData[0].admissionInTime}
-                        </button>
-                        <ul className="dropdown-menu">
-                            <li><a className="dropdown-item" href="#">Action</a></li>
-                            <li><a className="dropdown-item" href="#">Another action</a></li>
-                            <li><a className="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div className='detailTop' >
-            <div className='detailTop'>
-                <div className='topOnearea'>
-                    {/* Graph choice 함수 */}
-                    <div className="list-group GraphChoice" style={{ marginRight: '20px' }}>
-                        {renderLabelButtons()}
-                    </div>
-                </div>
-                {/* Graph */}
-                <div className='topTwoarea'>
-                    {/* Graph 함수 */}
-                    <div className='GraphArea' style={{ flexGrow: 1, width: '100%', height: '40vh', padding: '10px', overflow: 'hidden' }}>
+            </Navbar>
+            <Container fluid>
+                <Row className='detailUser g-0'>
+                    {patientData.length > 0 && (
+                        <>
+                            <Col>P-ID : {patientData[0].patientId}</Col>
+                            <Col>Name : {patientData[0].patientName}</Col>
+                            <Col>Sex : {patientData[0].patientSex}</Col>
+                            <Col>NCDSS : {patientData[0].deepNcdss}</Col>
+                            <Col>
+                                <Dropdown className="detailStayID">
+                                    <Dropdown.Toggle variant="outline-secondary">
+                                        {patientData[0].admissionInTime}
+                                    </Dropdown.Toggle>
+                                    <Dropdown.Menu>
+                                        <Dropdown.Item href="#">Action</Dropdown.Item>
+                                        <Dropdown.Item href="#">Another action</Dropdown.Item>
+                                        <Dropdown.Item href="#">Something else here</Dropdown.Item>
+                                    </Dropdown.Menu>
+                                </Dropdown>
+                            </Col>
+                        </>
+                    )}
+                </Row>
+                <Row className="d-flex g-0">
+                    <Col md={3}>
+                        <div className="list-group text-center">
+                            {renderLabelButtons()}
+                        </div>
+                    </Col>
+                    <Col md={9} className="g-0">
                         <Line data={lineData} options={options} />
-                    </div>
-                </div>
-            </div>
-            <div className='detailBottom d-flex'>
-                <div className='detailOneBottom'>
-                    <table className="table table-dark table-striped detailTableTitle">
-                        <thead>
-                            <tr>
-                                <th>Inspection Time</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th>Temperature</th>
-                            </tr>
-                            <tr>
-                                <th>HR</th>
-                            </tr>
-                            <tr>
-                                <th>RR</th>
-                            </tr>
-                            <tr>
-                                <th>SPO2</th>
-                            </tr>
-                            <tr>
-                                <th>nibp_s</th>
-                            </tr>
-                            <tr>
-                                <th>nibp_d</th>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div className='detailTwoBottom d-flex'>
-                    {patientData.map((vital, index) => (
-                        <table className="table detailTwoBottomTable" key={index}>
-                            <thead>
-                                <tr className='detailTwoBottomDate'>
-                                    <th>{vital.patientVitalCreatedAt}</th>
-                                </tr>
-                            </thead>
+                    </Col>
+                </Row>
+                <Row className="g-0">
+                    <Col md={3} className="g-0 text-center">
+                        <Table striped bordered hover variant="dark">
                             <tbody>
-                                <tr>
-                                    <td>{vital.patientVitalTemperature}</td>
-                                </tr>
-                                <tr>
-                                    <td>{vital.patientVitalHr}</td>
-                                </tr>
-                                <tr>
-                                    <td>{vital.patientVitalRespiratoryRate}</td>
-                                </tr>
-                                <tr>
-                                    <td>{vital.patientVitalSpo2}</td>
-                                </tr>
-                                <tr>
-                                    <td>{vital.patientVitalNibpS}</td>
-                                </tr>
-                                <tr>
-                                    <td>{vital.patientVitalNibpD}</td>
-                                </tr>
+                                <tr><td>MT</td></tr>
+                                <tr><td>Temp</td></tr>
+                                <tr><td>HR</td></tr>
+                                <tr><td>RR</td></tr>
+                                <tr><td>SPO2</td></tr>
+                                <tr><td>SBP</td></tr>
+                                <tr><td>DBP</td></tr>
                             </tbody>
-                        </table>
-                    ))}
-                </div>
-                </div>
-            </div>
+                        </Table>
+                    </Col>
+                    <Col md={9} className='d-flex'>
+                        {patientData.map((vital, index) => (
+                            <Table striped bordered hover variant="white" key={index} className="detailTwoBottomTable">
+                                <tbody>
+                                    <tr><td>{vital.patientVitalCreatedAt}</td></tr>
+                                    <tr><td>{vital.patientVitalTemperature}</td></tr>
+                                    <tr><td>{vital.patientVitalHr}</td></tr>
+                                    <tr><td>{vital.patientVitalRespiratoryRate}</td></tr>
+                                    <tr><td>{vital.patientVitalSpo2}</td></tr>
+                                    <tr><td>{vital.patientVitalNibpS}</td></tr>
+                                    <tr><td>{vital.patientVitalNibpD}</td></tr>
+                                </tbody>
+                            </Table>
+                        ))}
+                    </Col>
+                </Row>
+            </Container>
         </div>
     );
 };
