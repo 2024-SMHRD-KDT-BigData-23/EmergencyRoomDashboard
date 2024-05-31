@@ -24,6 +24,7 @@ public class NamnamApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 //		dataLoader.generateData();
+//		System.out.println("더미 데이터 생성 끄읏!");
 	}
 
 }

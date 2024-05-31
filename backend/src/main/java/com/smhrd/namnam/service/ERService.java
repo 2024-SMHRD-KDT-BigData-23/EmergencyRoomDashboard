@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -67,19 +68,18 @@ public class ERService {
 //                        (existing, replacement) -> existing.getPatientVitalCreatedAt()
 //                                .after(replacement.getPatientVitalCreatedAt()) ? existing : replacement
 //                ));
-//
-//        List<AdmissionListView> latestEntityList = latestEntries.values().stream().collect(Collectors.toList());
+//        List<AdmissionListView> latestEntityList = latestEntries.values().stream()
+//                .sorted(Comparator.comparing(AdmissionListView::getAdmissionInTime))
+//                .collect(Collectors.toList());
 //
 //        return latestEntityList;
 //    }
-//
 //    // 응급실 진료 중인 환자들 전체 조회(각 입원코드마다 가장최신) -> jpa활용
 //    public List<AdmissionListViewVO> findMedicalPatients() {
-//
 //        long start, end;
 //        start = System.nanoTime();
 //
-//        List<AdmissionListView> entities = admissionViewRepo.findAllByAdmissionResultWardIsNull();
+//        List<AdmissionListView> entities = latestList(admissionViewRepo.findAllByAdmissionResultWardIsNullOrderByAdmissionInTimeAsc());
 //
 //        end = System.nanoTime();
 //        long resultTime = end - start;
