@@ -24,12 +24,13 @@ AdmissionListViewRepository extends JpaRepository<AdmissionListView, Long> {
             "WHERE admission_result_ward IS NULL " +
             "GROUP BY admission_id) b " +
             "ON a.admission_id = b.admission_id AND a.patient_vital_created_at = b.max_vital_time " +
-            "WHERE admission_result_ward IS NULL",
+            "WHERE admission_result_ward IS NULL"+
+            "ORDER BY a.admission_in_time ASC",
             nativeQuery = true)
     List<AdmissionListView> findMedicalPatients();
 
 //    // jpa 효율성 판별 테스트용
-//    List<AdmissionListView> findAllByAdmissionResultWardIsNull();
+//    List<AdmissionListView> findAllByAdmissionResultWardIsNullOrderByAdmissionInTimeAsc();
 
 
     // 응급실 진료 중인 환자들 중 bed_ward 검색(각 입원코드마다 가장최신)
@@ -39,7 +40,8 @@ AdmissionListViewRepository extends JpaRepository<AdmissionListView, Long> {
             "WHERE admission_result_ward IS NULL AND bed_ward = :ward " +
             "GROUP BY admission_id) b " +
             "ON a.admission_id = b.admission_id AND a.patient_vital_created_at = b.max_vital_time " +
-            "WHERE admission_result_ward IS NULL AND bed_ward = :ward",
+            "WHERE admission_result_ward IS NULL AND bed_ward = :ward"+
+            "ORDER BY a.admission_in_time ASC",
             nativeQuery = true)
     List<AdmissionListView> findMedicalPatientsByWard(@Param("ward") String ward);
 
@@ -50,7 +52,8 @@ AdmissionListViewRepository extends JpaRepository<AdmissionListView, Long> {
             "WHERE admission_result_ward IS NULL AND deep_ncdss = :ncdss " +
             "GROUP BY admission_id) b " +
             "ON a.admission_id = b.admission_id AND a.patient_vital_created_at = b.max_vital_time " +
-            "WHERE admission_result_ward IS NULL AND deep_ncdss = :ncdss",
+            "WHERE admission_result_ward IS NULL AND deep_ncdss = :ncdss"+
+            "ORDER BY a.admission_in_time ASC",
             nativeQuery = true)
         List<AdmissionListView> findAllByAdmissionResultWardIsNullAndDeepNcdss(@Param("ncdss") String ncdss);
     /////////////////////////////////////////////////////////////////////////////////////
@@ -67,7 +70,8 @@ AdmissionListViewRepository extends JpaRepository<AdmissionListView, Long> {
             "WHERE admission_result_ward IS NOT NULL " +
             "GROUP BY admission_id) b " +
             "ON a.admission_id = b.admission_id AND a.patient_vital_created_at = b.max_vital_time " +
-            "WHERE admission_result_ward IS NOT NULL",
+            "WHERE admission_result_ward IS NOT NULL"+
+            "ORDER BY a.admission_out_time DESC",
             nativeQuery = true)
     List<AdmissionListView> findPastPatients();
 
@@ -78,7 +82,8 @@ AdmissionListViewRepository extends JpaRepository<AdmissionListView, Long> {
             "WHERE admission_result_ward IS NOT NULL AND bed_ward = :ward " +
             "GROUP BY admission_id) b " +
             "ON a.admission_id = b.admission_id AND a.patient_vital_created_at = b.max_vital_time " +
-            "WHERE admission_result_ward IS NOT NULL AND bed_ward = :ward",
+            "WHERE admission_result_ward IS NOT NULL AND bed_ward = :ward"+
+            "ORDER BY a.admission_out_time DESC",
             nativeQuery = true)
     List<AdmissionListView> findPastPatientsByWard(@Param("ward") String ward);
 
@@ -89,7 +94,8 @@ AdmissionListViewRepository extends JpaRepository<AdmissionListView, Long> {
             "WHERE admission_result_ward IS NOT NULL AND deep_ncdss = :ncdss " +
             "GROUP BY admission_id) b " +
             "ON a.admission_id = b.admission_id AND a.patient_vital_created_at = b.max_vital_time " +
-            "WHERE admission_result_ward IS NOT NULL AND deep_ncdss = :ncdss",
+            "WHERE admission_result_ward IS NOT NULL AND deep_ncdss = :ncdss"+
+            "ORDER BY a.admission_out_time DESC",
             nativeQuery = true)
     List<AdmissionListView> findPastPatientsByDeepNcdss(@Param("ncdss") String ncdss);
 
@@ -117,7 +123,8 @@ AdmissionListViewRepository extends JpaRepository<AdmissionListView, Long> {
             "WHERE patient_name = :patientNameId OR patient_id = :patientNameId " +
             "GROUP BY admission_id) b " +
             "ON a.admission_id = b.admission_id AND a.patient_vital_created_at = b.max_vital_time " +
-            "WHERE a.patient_name = :patientNameId OR a.patient_id = :patientNameId",
+            "WHERE a.patient_name = :patientNameId OR a.patient_id = :patientNameId"+
+            "ORDER BY a.admission_in_time DESC",
             nativeQuery = true)
     List<AdmissionListView> searchByPatientNameId(@Param("patientNameId") String patientNameId);
 
@@ -139,7 +146,8 @@ AdmissionListViewRepository extends JpaRepository<AdmissionListView, Long> {
             "WHERE (patient_name = :patientNameId OR patient_id = :patientNameId) AND admission_result_ward IS NOT NULL " +
             "GROUP BY admission_id) b " +
             "ON a.admission_id = b.admission_id AND a.patient_vital_created_at = b.max_vital_time " +
-            "WHERE (a.patient_name = :patientNameId OR a.patient_id = :patientNameId) AND a.admission_result_ward IS NOT NULL",
+            "WHERE (a.patient_name = :patientNameId OR a.patient_id = :patientNameId) AND a.admission_result_ward IS NOT NULL"+
+            "ORDER BY a.admission_out_time DESC",
             nativeQuery = true)
     List<AdmissionListView> pastSearchByPatientNameId(@Param("patientNameId") String patientNameId);
     /////////////////////////////////////////////////////////////////////////////////////////////////////
