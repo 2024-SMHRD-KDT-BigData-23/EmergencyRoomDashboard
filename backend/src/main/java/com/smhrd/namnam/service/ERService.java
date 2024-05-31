@@ -42,62 +42,11 @@ public class ERService {
         return modelMapper.map(admissionListView, AdmissionListViewVO.class);
     }
 
+
     //////////////////////////////////////////현재 페이지/////////////////////////////////////////
     // 응급실 진료 중인 환자들 전체 조회(각 입원코드마다 가장최신)
-    public List<AdmissionListViewVO> findMedicalPatients() {
-
-        long start, end;
-        start = System.nanoTime();
-
-        List<AdmissionListViewVO> vo = convertToVOList(admissionViewRepo.findMedicalPatients());
-
-        end = System.nanoTime();
-        long resultTime = end - start;
-        System.out.println("Native Query 빠르기 : "+resultTime+"nanoseconds");
-
-        return vo;
-    }
-
-//    // jpa 효율성 판별 테스트용
-//    // vital_created_at이 가장 최신인걸 가져오는 메서드
-//    private List<AdmissionListView> latestList(List<AdmissionListView> admissionListView){
-//        Map<String, AdmissionListView> latestEntries = admissionListView.stream()
-//                .collect(Collectors.toMap(
-//                        AdmissionListView::getAdmissionId,
-//                        entity -> entity,
-//                        (existing, replacement) -> existing.getPatientVitalCreatedAt()
-//                                .after(replacement.getPatientVitalCreatedAt()) ? existing : replacement
-//                ));
-//        List<AdmissionListView> latestEntityList = latestEntries.values().stream()
-//                .sorted(Comparator.comparing(AdmissionListView::getAdmissionInTime))
-//                .collect(Collectors.toList());
-//
-//        return latestEntityList;
-//    }
-//    // 응급실 진료 중인 환자들 전체 조회(각 입원코드마다 가장최신) -> jpa활용
-//    public List<AdmissionListViewVO> findMedicalPatients() {
-//        long start, end;
-//        start = System.nanoTime();
-//
-//        List<AdmissionListView> entities = latestList(admissionViewRepo.findAllByAdmissionResultWardIsNullOrderByAdmissionInTimeAsc());
-//
-//        end = System.nanoTime();
-//        long resultTime = end - start;
-//        System.out.println("jpa빠르기 : "+resultTime+"nanoseconds");
-//
-//        return convertToVOList((entities));
-//    }
-
-
-
-    // 응급실 진료 중인 환자들 중 bed_ward 검색(각 입원코드마다 가장최신)
-    public List<AdmissionListViewVO> findMedicalPatientsByWard(String ward) {
-        return convertToVOList(admissionViewRepo.findMedicalPatientsByWard(ward));
-    }
-
-    // 응급실 진료 중인 환자들 중 ncdss 검색(각 입원코드마다 가장최신)
-    public List<AdmissionListViewVO> findMedicalPatientsByDeepNcdss(String ncdss) {
-        return convertToVOList(admissionViewRepo.findAllByAdmissionResultWardIsNullAndDeepNcdss(ncdss));
+    public List<AdmissionListViewVO> findMedicalPatients(String ward, String ncdss) {
+        return convertToVOList(admissionViewRepo.findMedicalPatients(ward, ncdss));
     }
 
     // 응급실 진료 후 result_ward 수정
@@ -115,21 +64,9 @@ public class ERService {
 
     /////////////////////////////////////////과거 페이지/////////////////////////////////////////
     // 과거 응급실 진료 환자들 전체 조회(각 입원코드마다 가장최신)
-    public List<AdmissionListViewVO> findPastPatients() {
-        return convertToVOList(admissionViewRepo.findPastPatients());
+    public List<AdmissionListViewVO> findPastPatients(String ward, String ncdss) {
+        return convertToVOList(admissionViewRepo.findPastPatients(ward, ncdss));
     }
-
-
-    // 과거 응급실 진료 환자들 중 bed_ward 검색(각 입원코드마다 가장최신)
-    public List<AdmissionListViewVO> findPastPatientsByWard(String ward) {
-        return convertToVOList(admissionViewRepo.findPastPatientsByWard(ward));
-    }
-
-    // 과거 응급실 진료 환자들 중 ncdss 검색(각 입원코드마다 가장 최신)
-    public List<AdmissionListViewVO> findPastPatientsByDeepNcdss(String ncdss) {
-        return convertToVOList(admissionViewRepo.findPastPatientsByDeepNcdss(ncdss));
-    }
-
     ///////////////////////////////////////////////////////////////////////////////////////////
 
 
