@@ -100,7 +100,7 @@ public class DataLoader {
 
         for (StaffInfo selectedStaff : allStaffs) {
             if (selectedStaff.getStaffRole().equals("staff")) { // role이 staff일 때만 환자 정보 입력
-                for (int i = 1; i <= 300; i++) {
+                for (int i = 1; i <= 30; i++) {
                     PatientInfo patient = new PatientInfo();
 
                     // 환자 식별자(PK)
@@ -160,7 +160,7 @@ public class DataLoader {
         List<AdmissionInfo> allAdmissions = admissionRepo.findAll();
 
         for (AdmissionInfo selectedAdmission : allAdmissions) { // admission_id(입실 식별자) 선택
-            for (int i = 1; i <= random.nextInt(36) + 1; i++) { // admission_id(입실 식별자)당 환자 바이탈 수 생성
+            for (int i = 1; i <= random.nextInt(12) + 1; i++) { // admission_id(입실 식별자)당 환자 바이탈 수 생성
                 PatientVitalInfo currentPatientVital = patientVitalRepo.findTopByAdmissionInfoOrderByPatientVitalCreatedAtDesc(selectedAdmission);
 
                 PatientVitalInfo presentPatientVital = new PatientVitalInfo();
