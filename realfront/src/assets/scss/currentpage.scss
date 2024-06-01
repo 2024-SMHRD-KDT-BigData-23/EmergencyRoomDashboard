@@ -35,6 +35,11 @@ body {
     cursor: pointer;
 }
 
+.MainLogoLink {
+    text-decoration: none;
+    color: inherit;
+}
+
 .titleSet {
     display: flex;
 }
@@ -106,6 +111,12 @@ body {
 /* 테이블(표) */
 .table {
     font-size: 20px;
+}
+
+.pagination {
+}
+
+.page-item {
 }
 
 /* Detail css */
@@ -195,8 +206,11 @@ body {
 
 .detailTwoBottomTable td {
     font-size: 19px;
-    text-align: center;
-    /* 가로 방향 중앙 정렬 */
-    vertical-align: middle;
-    /* 세로 방향 중앙 정렬 */
+    text-align: center; /* 가로 방향 중앙 정렬 */
+    vertical-align: middle; /* 세로 방향 중앙 정렬 */
+}
+
+.tableLink {
+    text-decoration: none;
+    color: inherit;
 }
