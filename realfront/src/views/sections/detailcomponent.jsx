@@ -1,9 +1,5 @@
-import menuWhite from '../../assets/images/menuwhite.png';
-import menu from '../../assets/images/menu.png';
-import '../../assets/scss/currentpage.scss';
-
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Line } from "react-chartjs-2";
 import {
@@ -17,7 +13,7 @@ import {
     Legend,
 } from "chart.js";
 import ChartDataLabels from 'chartjs-plugin-datalabels';
-import { Navbar, Nav, Offcanvas, Button, Dropdown, Container, Row, Col, Table } from 'react-bootstrap';
+import { Button, Dropdown, Container, Row, Col, Table } from 'react-bootstrap';
 
 ChartJS.register(
     CategoryScale,
@@ -31,15 +27,12 @@ ChartJS.register(
 );
 
 const DetailComponent = () => {
+    const navigate = useNavigate();
     const { id } = useParams(); // URL에서 환자 ID를 가져옵니다.
     const [patientData, setPatientData] = useState([]);
     const [loading, setLoading] = useState(true); // 로딩 상태 추가
     const [error, setError] = useState(null); // 오류 상태 추가
     const [selectedLine, setSelectedLine] = useState(null);
-
-    const [show, setShow] = useState(false); // offCanvas 상태를 저장
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
 
     useEffect(() => {
         console.log(`Fetching data for ID: ${id}`); // ID 값을 콘솔에 출력하여 확인
@@ -137,73 +130,22 @@ const DetailComponent = () => {
             },
         },
     };
-        
-
-    // 라벨 버튼을 렌더링하는 함수입니다.
-    const renderLabelButtons = () => {
-        return lineData.datasets.map((dataset, index) => (
-            <Col>
-                <Row md={2}>
-                    <Button
-                        className="list-group-item list-group-item-action"
-                        onClick={() => setSelectedLine(index)}
-                        style={{
-                            fontWeight: selectedLine === index ? 'bold' : 'normal',
-                            backgroundColor: selectedLine === index ? '#007bff' : 'transparent',
-                            color: selectedLine === index ? 'white' : 'black',
-                            width: '100%', // 버튼이 칼럼의 전체 너비를 차지하도록 설정
-                        }}
-                    >
-                        {dataset.label}
-                    </Button>
-                </Row>
-            </Col>
-        ));
-    };
 
     return (
         <div>
-            <Navbar bg="blue" expand={false} className="ourheader">
-                <div className="headerContainer">
-                    <Navbar.Toggle as="div" aria-controls="offcanvasNavbar">
-                        <Button variant="link" onClick={handleShow}>
-                            <img src={menuWhite} className="menuimg" alt="Menu" />
-                        </Button>
-                    </Navbar.Toggle>
-                    <Navbar.Offcanvas show={show} onHide={handleClose} id="offcanvasNavbar">
-                        <Offcanvas.Header closeButton></Offcanvas.Header>
-                        <Offcanvas.Body>
-                            <Nav className="list-group list-group-flush order-last">
-                                <Nav.Link href="#" className="list-group-item list-group-item-action">Present Patient</Nav.Link>
-                                <Nav.Link href="#" className="list-group-item list-group-item-action">All Patient</Nav.Link>
-                                <Nav.Link href="#" className="list-group-item list-group-item-action">Search Patient</Nav.Link>
-                            </Nav>
-                        </Offcanvas.Body>
-                    </Navbar.Offcanvas>
-                    <div className="titleSet">
-                        <div className="MainTitle">NCDSS</div>
-                        <div className="SubTitle">by NAMNAM</div>
-                    </div>
-                    <Dropdown>
-                        <Dropdown.Toggle variant="secondary" className="btn hopitalUser">
-                            스마트병원
-                        </Dropdown.Toggle>
-                        <Dropdown.Menu>
-                            <Dropdown.Item href="#">Logout</Dropdown.Item>
-                        </Dropdown.Menu>
-                    </Dropdown>
-                </div>
-            </Navbar>
             <Container fluid>
-                <Row className='detailUser g-0'>
+                <Row className='p-2 align-items-center'>
                     {patientData.length > 0 && (
                         <>
-                            <Col>P-ID : {patientData[0].patientId}</Col>
-                            <Col>Name : {patientData[0].patientName}</Col>
-                            <Col>Sex : {patientData[0].patientSex}</Col>
-                            <Col>NCDSS : {patientData[0].deepNcdss}</Col>
                             <Col>
-                                <Dropdown className="detailStayID">
+                                <Button variant="outline-secondary" onClick={() => navigate('/List')}>뒤로가기</Button>
+                            </Col>
+                            <Col>P-ID {patientData[0].patientId}</Col>
+                            <Col>Name {patientData[0].patientName}</Col>
+                            <Col>Sex {patientData[0].patientSex}</Col>
+                            <Col>NCDSS {patientData[0].deepNcdss}</Col>
+                            <Col>
+                                <Dropdown>
                                     <Dropdown.Toggle variant="outline-secondary">
                                         {patientData[0].admissionInTime}
                                     </Dropdown.Toggle>
@@ -217,19 +159,32 @@ const DetailComponent = () => {
                         </>
                     )}
                 </Row>
-                <Row className="d-flex g-0">
+                <Row className="g-0">
                     <Col md={3}>
                         <div className="list-group text-center">
-                            {renderLabelButtons()}
+                            {lineData.datasets.map((dataset, index) => (
+                                <Button
+                                    className="list-group-item list-group-item-action"
+                                    onClick={() => setSelectedLine(index)}
+                                    style={{
+                                        fontWeight: selectedLine === index ? 'bold' : 'normal',
+                                        backgroundColor: selectedLine === index ? '#007bff' : 'transparent',
+                                        color: selectedLine === index ? 'white' : 'black',
+                                        width: '100%', // 버튼이 칼럼의 전체 너비를 차지하도록 설정
+                                    }}
+                                >
+                                    {dataset.label}
+                                </Button>
+                            ))}
                         </div>
                     </Col>
-                    <Col md={9} className="g-0">
+                    <Col md={9} style={{overflowX: 'auto', whiteSpace: 'nowrap'}}>
                         <Line data={lineData} options={options} />
                     </Col>
                 </Row>
-                <Row className="g-0">
-                    <Col md={3} className="g-0 text-center">
-                        <Table striped bordered hover variant="dark">
+                <Row className="g-0 text-center">
+                    <Col md={3}>
+                        <Table striped bordered hover variant="light">
                             <tbody>
                                 <tr><td>MT</td></tr>
                                 <tr><td>Temp</td></tr>
@@ -243,9 +198,15 @@ const DetailComponent = () => {
                     </Col>
                     <Col md={9} className='d-flex'>
                         {patientData.map((vital, index) => (
-                            <Table striped bordered hover variant="white" key={index} className="detailTwoBottomTable">
+                            <Table striped bordered hover variant="white" key={index}>
                                 <tbody>
-                                    <tr><td>{vital.patientVitalCreatedAt}</td></tr>
+                                    <tr>
+                                        <td>
+                                            {vital.patientVitalCreatedAt.substring(0, 10)}<br />
+                                            {vital.patientVitalCreatedAt.substring(11, 16)}<br />
+                                            {vital.patientVitalCreatedAt.substring(17)}
+                                        </td>
+                                    </tr>
                                     <tr><td>{vital.patientVitalTemperature}</td></tr>
                                     <tr><td>{vital.patientVitalHr}</td></tr>
                                     <tr><td>{vital.patientVitalRespiratoryRate}</td></tr>
