@@ -29,7 +29,6 @@ public class PatientVitalInfo {
     @JoinColumn(name = "admission_id", nullable = false)
     private AdmissionInfo admissionInfo;
 
-
     // 체온
     @Column(name = "patient_vital_temperature", nullable = false, precision = 4, scale = 1)
     private BigDecimal patientVitalTemperature;
@@ -67,7 +66,7 @@ public class PatientVitalInfo {
     private int patientVitalAcuity;
 
     // 등록 일자
-//    @UpdateTimestamp
+//   @UpdateTimestamp
     @Column(name = "patient_vital_created_at", nullable = false)
     private Timestamp patientVitalCreatedAt;
 
