@@ -12,6 +12,7 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
 
@@ -103,16 +104,27 @@ public class DataLoader {
                 for (int i = 1; i <= 30; i++) {
                     PatientInfo patient = new PatientInfo();
 
-                    // 환자 식별자(PK)
-                    patient.setPatientId(String.format("PID-%04d-%04d", faker.number().randomNumber(4, true), faker.number().randomNumber(4, true)));
                     // 의료진 식별자(FK)
                     patient.setStaffInfo(selectedStaff);
                     // 환자 이름
                     patient.setPatientName(faker.name().fullName());
                     // 환자 성별
-                    patient.setPatientSex(faker.options().option("남", "여"));
+                    String sex = faker.options().option("남", "여");
+                    patient.setPatientSex(sex);
+                    // 환자 식별자(PK)
+                    patient.setPatientId(String.format("%s-%04d-%04d", sex, faker.number().randomNumber(4, true), faker.number().randomNumber(4, true)));
                     // 환자 생년월일
-                    patient.setPatientBirthdate(new Date(faker.date().birthday().getTime()));
+                    Date birthdate = new Date(faker.date().birthday().getTime());
+                    patient.setPatientBirthdate(birthdate);
+                    // 환자 나이
+                    Calendar birth = Calendar.getInstance();
+                    birth.setTime(birthdate);
+                    Calendar today = Calendar.getInstance();
+                    int age = today.get(Calendar.YEAR) - birth.get(Calendar.YEAR);
+                    if(today.get(Calendar.DAY_OF_YEAR) < birth.get(Calendar.DAY_OF_YEAR)) {
+                        age--;
+                    }
+                    patient.setPatientAge(age);
                     // 환자 과거이력
                     patient.setPatientDiseaseHistory(faker.lorem().paragraph());
 
@@ -149,6 +161,8 @@ public class DataLoader {
                 admission.setPatientInfo(selectedPatient);
                 // 입실 시간
                 admission.setAdmissionInTime(Timestamp.valueOf(randomDateTime));
+                // 도착 수단
+                admission.setAdmissionArrivalTransport(faker.options().option("WALK IN", "AMBULANCE"));
 
                 admissionRepo.save(admission);
             }
@@ -160,7 +174,7 @@ public class DataLoader {
         List<AdmissionInfo> allAdmissions = admissionRepo.findAll();
 
         for (AdmissionInfo selectedAdmission : allAdmissions) { // admission_id(입실 식별자) 선택
-            for (int i = 1; i <= random.nextInt(12) + 1; i++) { // admission_id(입실 식별자)당 환자 바이탈 수 생성
+            for (int i = 1; i <= random.nextInt(18) + 1; i++) { // admission_id(입실 식별자)당 환자 바이탈 수 생성
                 PatientVitalInfo currentPatientVital = patientVitalRepo.findTopByAdmissionInfoOrderByPatientVitalCreatedAtDesc(selectedAdmission);
 
                 PatientVitalInfo presentPatientVital = new PatientVitalInfo();
