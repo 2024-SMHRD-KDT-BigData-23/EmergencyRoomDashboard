@@ -53,6 +53,7 @@ public class ERService {
     public AdmissionInfo saveMedicalPatientsByAdmissionId(AdmissionInfoVO vo) {
         AdmissionInfo entity = admissionRepo.findByAdmissionId(vo.getAdmissionId());
         entity.setAdmissionResultWard(vo.getAdmissionResultWard());
+        entity.setAdmissionComment(vo.getAdmissionComment());
         entity.setAdmissionOutTime(Timestamp.valueOf(LocalDateTime.now()));
         return admissionRepo.save(entity);
     }

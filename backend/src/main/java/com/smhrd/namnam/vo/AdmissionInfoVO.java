@@ -20,6 +20,10 @@ public class AdmissionInfoVO {
     private Timestamp admissionInTime;
     // 퇴원 시간
     private Timestamp admissionOutTime;
+    // 도착 수단
+    private String admissionArrivalTransport;
     // 실제 배치 결과
     private String admissionResultWard;
+    // comment
+    private String admissionComment;
 }
