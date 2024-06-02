@@ -1,14 +1,30 @@
 .MainTitle {
-    font-size: 24px;
+    font-size: 30px;
     font-weight: bold;
-
+    color: white;
   }
   
 .SubTitle {
     font-size: 16px;
-    color: #555;
+    color: white;
+    padding-top : 15px;
+    padding-left : 3px;
   }
 
-.header-bg {
-    background-color: lightgray;
+.MainLogoLink {
+  color: inherit; /* 부모 요소의 색상 상속 */
+  text-decoration: none; /* 밑줄 제거 */
+}
+
+.MainLogoLink:hover {
+  color: inherit; /* 부모 요소의 색상 상속 */
+}
+
+.hopitalUser { 
+  color: white;
+  font-weight: 700;
+}
+
+.dropdown-menu {
+  width: 15px; 
 }
