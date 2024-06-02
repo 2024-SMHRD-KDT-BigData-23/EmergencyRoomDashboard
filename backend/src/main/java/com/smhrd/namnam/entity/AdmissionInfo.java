@@ -36,8 +36,15 @@ public class AdmissionInfo {
     @Column(name = "admission_out_time")
     private Timestamp admissionOutTime;
 
+    // 도착수단
+    @Column(name = "admission_arrival_transport", length = 20)
+    private String admissionArrivalTransport;
 
     // 실제 배치 결과
     @Column(name = "admission_result_ward", length = 20)
     private String admissionResultWard;
+
+    // comment
+    @Column(name = "admission_comment", columnDefinition = "TEXT")
+    private String admissionComment;
 }
