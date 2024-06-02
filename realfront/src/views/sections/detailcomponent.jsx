@@ -1,6 +1,5 @@
 import menuWhite from '../../assets/images/menuwhite.png';
 import menu from '../../assets/images/menu.png';
-import '../../assets/scss/currentpage.scss';
 
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
