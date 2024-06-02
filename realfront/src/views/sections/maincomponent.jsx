@@ -23,7 +23,7 @@ const CurrentPage = () => {
     const itemsPerPage = 11; // 한 페이지에 표시할 항목 수
 
     useEffect(() => {
-        axios.get('http://localhost:8080/api/ER/medical-patients/전체/전ㅞ체')
+        axios.get('http://localhost:8080/api/ER/medical-patients/전체/전체')
             .then(response => {
                 setPatients(response.data);
             })
