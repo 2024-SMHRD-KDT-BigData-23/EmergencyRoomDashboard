@@ -1,7 +1,9 @@
 package com.smhrd.namnam.config;
 
+import com.smhrd.namnam.jwt.JWTFilter;
 import com.smhrd.namnam.jwt.JWTUtil;
 import com.smhrd.namnam.jwt.LoginFilter;
+import com.smhrd.namnam.service.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,9 +23,11 @@ public class SecurityConfig {
     //AuthenticationManager가 인자로 받을 AuthenticationConfiguraion 객체 생성자 주입
     private final AuthenticationConfiguration authenticationConfiguration;
 
-    public SecurityConfig(AuthenticationConfiguration authenticationConfiguration, JWTUtil jwtUtil) {
+    private final UserService userService;
+    public SecurityConfig(AuthenticationConfiguration authenticationConfiguration, JWTUtil jwtUtil, UserService userService) {
         this.authenticationConfiguration = authenticationConfiguration;
         this.jwtUtil =jwtUtil;
+        this.userService = userService;
     }
 
     //AuthenticationManager Bean 등록
@@ -49,6 +53,10 @@ public class SecurityConfig {
                 .authorizeHttpRequests((auth) -> auth
                         .requestMatchers("/**").permitAll()
                         .anyRequest().authenticated());
+        //JWTFilter 등록
+        http
+                .addFilterBefore(new JWTFilter(jwtUtil,userService), LoginFilter.class);
+
         //필터 추가 LoginFilter()는 인자를 받음 (AuthenticationManager() 메소드에 authenticationConfiguration 객체를 넣어야 함) 따라서 등록 필요
         http
                 .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration),jwtUtil), UsernamePasswordAuthenticationFilter.class);
