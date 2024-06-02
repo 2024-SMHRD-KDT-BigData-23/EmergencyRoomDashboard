@@ -27,6 +27,10 @@ public class PatientInfo {
     @Column(name = "patient_sex", nullable = false, length = 10)
     private String patientSex;
 
+    // 나이
+    @Column(name = "patient_age", nullable = false)
+    private int patientAge;
+
     // 생년월일
     @Column(name = "patient_birthdate", nullable = false)
     private java.sql.Date patientBirthdate;

@@ -33,7 +33,7 @@ public class ERController {
 //        return erService.findMedicalPatients();
 //    }
 
-    // 응급실 진료 후 result_ward 수정
+    // 응급실 진료 후 result_ward, comment 수정
     @PatchMapping("/set/medical-patients/{admissionId}")
     @Operation(summary = "(응급실 진료 후 result_ward 수정)")
     public ResponseEntity<AdmissionInfo> saveMedicalPatientsByAdmissionId(@PathVariable("admissionId") String admissionId, @RequestBody AdmissionInfoVO vo) {
@@ -97,9 +97,7 @@ public class ERController {
     public List<AdmissionListViewVO> pastSearchByPatientNameId(@PathVariable("patientNameId") String patientNameId){
         return erService.pastSearchByPatientNameId(patientNameId);
     }
-    //////////////////////////////////////////////////////////////////////////////////////////
-
-
+    /////////////////////////////////////////////////////////////////////////////////////////
 }
 
 

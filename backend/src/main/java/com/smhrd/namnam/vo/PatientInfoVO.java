@@ -15,6 +15,8 @@ public class PatientInfoVO {
     private String patientName;
     // 성별
     private String patientSex;
+    // 나이
+    private int patientAge;
     // 생년월일
     private java.sql.Date patientBirthdate;
     // 과거 병력
