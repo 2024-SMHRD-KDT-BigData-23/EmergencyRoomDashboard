@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/ER")
@@ -44,6 +45,7 @@ public class ERController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
+
     ///////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -69,6 +71,8 @@ public class ERController {
     public List<AdmissionListViewVO> findPatientDetailsByAdmissionId(@PathVariable("admissionId") String admissionId){
         return erService.findPatientDetailsByAdmissionId(admissionId);
     }
+
+
     ///////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -98,6 +102,7 @@ public class ERController {
         return erService.pastSearchByPatientNameId(patientNameId);
     }
     /////////////////////////////////////////////////////////////////////////////////////////
+
 }
 
 
