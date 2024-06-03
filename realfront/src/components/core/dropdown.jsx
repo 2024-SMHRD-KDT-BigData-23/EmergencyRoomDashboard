@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Row, Col } from 'react-bootstrap';
+import '../../assets/scss/dropdown.scss';
 
 const Dropdown = () => {
     /* 드롭다운 선택시 선택 표출 함수*/ 
@@ -15,9 +16,8 @@ const Dropdown = () => {
     };
 
     return (
-        <Row>
+        <div className='d-flex'>
             {/* 첫 번째 드롭다운 */}
-            <Col xs={1}>
                 <div className="dropdown ourdropdown1">
                     <button className="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                         {sectionContent}
@@ -29,10 +29,8 @@ const Dropdown = () => {
                         <li><a className="dropdown-item" href="#" onClick={() => changeSectionContent('중증구역')}>중증구역</a></li>
                     </ul>
                 </div>
-            </Col>
 
             {/* 두 번째 드롭다운 */}
-            <Col xs={1}>
                 <div className="dropdown ourdropdown2">
                     <button className="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                         {ncdssContent}
@@ -44,8 +42,7 @@ const Dropdown = () => {
                         <li><a className="dropdown-item" href="#" onClick={() => changeNcdssContent('ICU')}>ICU</a></li>
                     </ul>
                 </div>
-            </Col>
-        </Row>
+        </div>
     );
 }
 
