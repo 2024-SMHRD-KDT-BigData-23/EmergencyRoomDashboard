@@ -1,6 +1,14 @@
 
+<<<<<<< HEAD
 import React, { useState, useEffect,useRef } from "react";
 import { useParams,useNavigate } from "react-router-dom";
+=======
+import menuWhite from '../../assets/images/menuwhite.png';
+import menu from '../../assets/images/menu.png';
+
+import React, { useState, useEffect, useRef } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+>>>>>>> dev
 
 import axios from "axios";
 import { Line } from "react-chartjs-2";

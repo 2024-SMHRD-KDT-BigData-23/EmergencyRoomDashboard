@@ -1,9 +1,8 @@
-import React, {  useState } from 'react';
+import React, { useState } from 'react';
 import '../../assets/scss/maintable.scss';
 import { Link } from 'react-router-dom';
-import CommentModal from './commentmodal';
 
-const MainTable = ({ patients }) => {
+const PastTable = ( { patients }) => {
 
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 14; // 한 페이지에 표시할 항목 수
@@ -34,6 +33,7 @@ const MainTable = ({ patients }) => {
                                 <th scope="col">In Time</th>
                                 <th scope="col">MT(Measurement)</th>
                                 <th scope="col">Patient ID</th>
+                                <th scope="col">Stay ID</th>
                                 <th scope="col">Name</th>
                                 <th scope="col">Sex</th>
                                 <th scope="col">Temp</th>
@@ -44,7 +44,8 @@ const MainTable = ({ patients }) => {
                                 <th scope="col">DBP</th>
                                 <th scope="col">Section</th>
                                 <th scope="col">NCDSS</th>
-                                <th scope="col">Action</th>
+                                <th scope="col">Out time</th>
+                                <th scope="col">Disposition</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -67,9 +68,15 @@ const MainTable = ({ patients }) => {
                                         </td>
                                         <td>
                                         <Link to={`/Detail/${patient.admissionId}`} state={{ patient }} className='tableLink'>
+                                            {patient.admissionId}
+                                        </Link>
+                                        </td>
+                                        <td>
+                                        <Link to={`/Detail/${patient.admissionId}`} state={{ patient }} className='tableLink'>
                                             {patient.patientName}
                                         </Link>
-                                            </td>
+                                        </td>
+
                                         <td>
                                         <Link to={`/Detail/${patient.admissionId}`} state={{ patient }} className='tableLink'>
                                             {patient.patientSex}
@@ -114,10 +121,17 @@ const MainTable = ({ patients }) => {
                                         <Link to={`/Detail/${patient.admissionId}`} state={{ patient }} className='tableLink'>
                                             {patient.deepNcdss}
                                         </Link>
-                                            </td>
-                                    <td>
-                                        <CommentModal />
-                                    </td>
+                                        </td>
+                                        <td>
+                                        <Link to={`/Detail/${patient.admissionId}`} state={{ patient }} className='tableLink'>
+                                            {patient.admissionOutTime}
+                                        </Link>
+                                        </td>
+                                        <td>
+                                        <Link to={`/Detail/${patient.admissionId}`} state={{ patient }} className='tableLink'>
+                                            {patient.admissionResultWard}
+                                        </Link>
+                                        </td>
                                 </tr>
                             ))}
                         </tbody>
@@ -156,4 +170,4 @@ const MainTable = ({ patients }) => {
     );  
 };
 
-export default MainTable;
+export default PastTable;
