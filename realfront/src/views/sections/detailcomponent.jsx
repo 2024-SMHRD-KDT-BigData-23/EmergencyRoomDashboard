@@ -1,8 +1,10 @@
+
 import menuWhite from '../../assets/images/menuwhite.png';
 import menu from '../../assets/images/menu.png';
 
 import React, { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+
 import axios from "axios";
 import { Line } from "react-chartjs-2";
 import {
@@ -35,6 +37,9 @@ const DetailComponent = () => {
     const [patientData, setPatientData] = useState([]);
     // const [loading, setLoading] = useState(true); // 로딩 상태 추가
     // const [error, setError] = useState(null); // 오류 상태 추가
+    const [deepNcdss, setDeepNcdss] = useState(null);
+    const [resultWard, setResultWard] = useState(null);
+    const [showButtons, setShowButtons] = useState(true);
     const [selectedLine, setSelectedLine] = useState(0);
     const chartContainerRef = useRef(null);
     const tableContainerRef = useRef(null);
@@ -84,6 +89,25 @@ const DetailComponent = () => {
             second
         };
     }
+    const updateResultWard = (newResultWard) => {
+        axios.patch(`http://localhost:8080/api/ER/set/medical-patients/${id}`, { 
+            admissionId: id,
+            admissionResultWard: newResultWard
+        })
+        .then(response => {
+            console.log('DB 업데이트 성공:', response.data);
+            setResultWard(newResultWard);
+            setShowButtons(false);
+        })
+        .catch(error => {
+            console.error('DB 업데이트 실패:', error);
+        });
+    };
+    
+
+    const handleEdit = () => {
+        setShowButtons(true);
+    };
 
     // 서버와 통신을 통해 환자의 상세 정보 가져오기
     useEffect(() => {
@@ -96,10 +120,13 @@ const DetailComponent = () => {
                 }));
                 console.log(formattedData);
                 setPatientData(formattedData);
-                // setLoading(false); // 로딩 상태 해제
+                setDeepNcdss(formattedData[0].deepNcdss || "null");
+                setResultWard(formattedData[0].admissionResultWard || "null");
             })
             .catch(error => {
                 console.error('Error fetching data: ', error);
+                setDeepNcdss("Error fetching data");
+            setResultWard("Error fetching data");
                 // setError(error); // 오류 상태 설정
                 // setLoading(false); // 로딩 상태 해제
             });
@@ -302,6 +329,25 @@ const DetailComponent = () => {
                         </div>
                     </Col>
                 </Row>
+               {/* client 판단 공간 */}
+               <Row className="g-0">
+               <Col xs={3} className="p-0 m-0 d-flex flex-column align-items-center bg-light">
+                        <div>NCDSS</div>
+                        <div>{deepNcdss !== null ? deepNcdss : 'null'}</div>
+                        <div>ResultWard</div>
+                        <div>{resultWard  !== null ? resultWard  : 'null'}</div>
+                        {showButtons ? (
+                            <div>
+                                <div>선택 가능한 옵션</div>
+                                <Button variant="outline-secondary" onClick={() => updateResultWard('ICU')}>ICU</Button>
+                                <Button variant="outline-secondary" onClick={() => updateResultWard('WARD')}>WARD</Button>
+                                <Button variant="outline-secondary" onClick={() => updateResultWard('HOME')}>HOME</Button>
+                            </div>
+                        ) : (
+                            <Button variant="outline-secondary" onClick={handleEdit}>수정하기</Button>
+                        )}
+                    </Col>
+                </Row>
                 <Row className="g-0 text-center">
                     <Col xs={3} className="p-0 m-0 d-flex flex-column aling-items-stretch">
                         <Table bordered hover variant="light" className="flex-grow-1">
@@ -348,6 +394,8 @@ const DetailComponent = () => {
                         </div>
                     </Col>
                 </Row>
+               
+
             </Container>
         </div >
     );
