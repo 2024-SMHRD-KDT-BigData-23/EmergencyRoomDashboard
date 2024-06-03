@@ -22,10 +22,12 @@ public class ERController {
 
     //////////////////////////////////////////현재 페이지/////////////////////////////////////////
     // 응급실 진료 중인 환자들 전체 조회(각 입원코드마다 가장최신) //
-    @GetMapping("/medical-patients/{ward}/{ncdss}")
+    @PostMapping("/medical-patients")
     @Operation(summary = "(응급실 진료 중인 환자들 전체 조회)")
-    public List<AdmissionListViewVO> findMedicalPatients(@PathVariable("ward") String ward, @PathVariable("ncdss") String ncdss) {
-        return erService.findMedicalPatients(ward, ncdss);
+    public List<AdmissionListViewVO> findMedicalPatients(@RequestParam String bedward, @RequestParam String deepNcdss ) {
+        System.out.println("메서드 들어왔음");
+
+        return erService.findMedicalPatients(bedward, deepNcdss);
     }
     // 응급실 진료 중인 환자들 전체 조회(각 입원코드마다 가장최신) // ****vo변환 테스트중****
 //    @GetMapping("/medical-patients/{id}")

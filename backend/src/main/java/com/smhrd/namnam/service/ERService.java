@@ -45,8 +45,8 @@ public class ERService {
 
     //////////////////////////////////////////현재 페이지/////////////////////////////////////////
     // 응급실 진료 중인 환자들 전체 조회(각 입원코드마다 가장최신)
-    public List<AdmissionListViewVO> findMedicalPatients(String ward, String ncdss) {
-        return convertToVOList(admissionViewRepo.findMedicalPatients(ward, ncdss));
+    public List<AdmissionListViewVO> findMedicalPatients(String bedward, String deepNcdss) {
+        return convertToVOList(admissionViewRepo.findMedicalPatients(bedward, deepNcdss));
     }
 
     // 응급실 진료 후 result_ward 수정
