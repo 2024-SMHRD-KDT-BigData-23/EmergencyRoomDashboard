@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import '../../assets/scss/currentpage.scss'; 
 import menuWhite from '../../assets/images/menuwhite.png';
 import menu from '../../assets/images/menu.png';
 
@@ -286,11 +285,12 @@ const CurrentPage = () => {
                                 </li>
                             ))}
                         </ul>
+                    </div> 
                     </div>
-                </div>
             </main>
         </div>
     );
 };
+
 
 export default CurrentPage;

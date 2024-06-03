@@ -8,6 +8,7 @@ import List from './views/mainpage';
 import Search from './views/searchpage';
 import AllList from './views/allpatientspage';
 import Detail from './views/detailpage';
+import Test from './views/testpage';
 
 
 
@@ -16,6 +17,7 @@ root.render(
   <Router>
     <Routes>
       <Route path="/" element={<Login />} />
+      <Route path="/Test" element={<Test />} />
       <Route path="/List" element={<List />} />
       <Route path="/Search" element={<Search />} />
       <Route path="/AllList" element={<AllList />} />
