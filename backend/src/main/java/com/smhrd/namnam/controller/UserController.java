@@ -1,10 +1,10 @@
 package com.smhrd.namnam.controller;
 
-// import com.smhrd.namnam.entity.AdmissionListView;
 import com.smhrd.namnam.entity.StaffInfo;
-// import com.smhrd.namnam.service.AdmissionListService;
+import com.smhrd.namnam.jwt.JWTUtil;
 import com.smhrd.namnam.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -13,28 +13,20 @@ import java.util.Optional;
 @RequestMapping("/api")
 public class UserController {
 
-
     @Autowired
     private UserService userService;
 
-    @PostMapping("/")
-    public String login(@RequestBody StaffInfo staffInfo) {
-        // 로그인 로직 구현
+    @Autowired
+    private JWTUtil jwtUtil;
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody StaffInfo staffInfo) {
         Optional<StaffInfo> foundUser = userService.findById(staffInfo.getStaffId());
-        if (foundUser != null && foundUser.get().getStaffPw().equals(staffInfo.getStaffPw())) {
-            return "Login Successful";
+        if (foundUser.isPresent() && foundUser.get().getStaffPw().equals(staffInfo.getStaffPw())) {
+            String token = jwtUtil.createJwt(foundUser.get().getStaffId(), "ROLE_USER", 60 * 60 * 1000L);
+            return ResponseEntity.ok().header("Authorization", "Bearer " + token).body("Login Successful");
         } else {
-            return "Login Failed";
+            return ResponseEntity.status(401).body("Login Failed");
         }
     }
-
-//    @Autowired
-//    private AdmissionListService admissionListService;
-
-//    @GetMapping("/admissionList")
-//    public Optional<AdmissionListView> getAdmissionDetails(@PathVariable Long admissionId) {
-//        return admissionListService.getAdmissionList(admissionId);
-//    }
-
-
 }
