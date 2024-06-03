@@ -22,13 +22,13 @@ AdmissionListViewRepository extends JpaRepository<AdmissionListView, Long> {
             "JOIN (SELECT admission_id, MAX(patient_vital_created_at) AS max_vital_time " +
             "FROM admission_list_view " +
             "WHERE admission_result_ward IS NULL " +
-            "AND (:ward = '전체' OR bed_ward = :ward) " +
-            "AND (:ncdss = '전체' OR deep_ncdss = :ncdss) " +
+            "AND (:ward = 'All' OR bed_ward = :ward) " +
+            "AND (:ncdss = 'All' OR deep_ncdss = :ncdss) " +
             "GROUP BY admission_id) b " +
             "ON a.admission_id = b.admission_id AND a.patient_vital_created_at = b.max_vital_time " +
             "WHERE admission_result_ward IS NULL " +
-            "AND (:ward = '전체' OR bed_ward = :ward) " +
-            "AND (:ncdss = '전체' OR deep_ncdss = :ncdss) " +
+            "AND (:ward = 'All' OR bed_ward = :ward) " +
+            "AND (:ncdss = 'All' OR deep_ncdss = :ncdss) " +
             "ORDER BY a.admission_in_time ASC",
             nativeQuery = true)
     List<AdmissionListView> findMedicalPatients(@Param("ward") String ward, @Param("ncdss") String ncdss);
