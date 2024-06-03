@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams,useNavigate } from "react-router-dom";
 import axios from "axios";
-import { Button, Dropdown, Container, Row, Col, Table } from 'react-bootstrap';
+import { Button, Dropdown, Row, Col } from 'react-bootstrap';
 import VitalLineChart from "../components/details/VitalLineChart";
 import VitalsTable from "../components/details/VitalsTable";
 import VitalLineChartEvent from "../components/details/VitalLineChartEvent";
@@ -11,10 +11,10 @@ const DetailComponent = () => {
     const { id } = useParams(); // URL에서 환자 ID를 가져옵니다.
     const [patientData, setPatientData] = useState([]);
     
-    const [loading, setLoading] = useState(true); // 로딩 상태 추가
-    const [error, setError] = useState(null); // 오류 상태 추가
-    const [resultWard, setResultWard] = useState(null);
-    const [showButtons, setShowButtons] = useState(true);
+    // const [loading, setLoading] = useState(true); // 로딩 상태 추가
+    // const [error, setError] = useState(null); // 오류 상태 추가
+    // const [resultWard, setResultWard] = useState(null);
+    // const [showButtons, setShowButtons] = useState(true);
     const [selectedLine, setSelectedLine] = useState(0);
 
     const temperature = patientData.map(data => data.patientVitalTemperature);
@@ -23,7 +23,7 @@ const DetailComponent = () => {
     const spo2 = patientData.map(data => data.patientVitalSpo2);
     const nibpS = patientData.map(data => data.patientVitalNibpS);
     const nibpD = patientData.map(data => data.patientVitalNibpD);
-    const ncdss = patientData.map(data => data.deepNcdss);
+    // const ncdss = patientData.map(data => data.deepNcdss);
 
     // Timestamp 형식의 데이터를 "년/월/일/시/분/초"로 쪼개주는 함수
     const extraDateAndTime = (timestamp) => {
@@ -62,9 +62,9 @@ const DetailComponent = () => {
     //     });
     // };
 
-    const handleEdit = () => {
-        setShowButtons(true);
-    };
+    // const handleEdit = () => {
+    //     setShowButtons(true);
+    // };
 
     // 서버와 통신을 통해 환자의 상세 정보 가져오기
     useEffect(() => {
@@ -75,7 +75,7 @@ const DetailComponent = () => {
                     ...item,
                     patientVitalCreatedAt: extraDateAndTime(item.patientVitalCreatedAt)
                 }));
-                console.log(formattedData);
+                console.log("서버에서 가져온 데이터 ", formattedData);
                 setPatientData(formattedData);
                 // setResultWard(formattedData[0].admissionResultWard || "null");
             })
@@ -187,7 +187,7 @@ const DetailComponent = () => {
             <div>
                 <Row className="g-0">
                     <Col xs={3} className="p-0 m-0">
-                        <VitalLineChartEvent patientData={patientData} lineData={ lineData } selectedLine={ selectedLine } setSelectedLine={ setSelectedLine }/>
+                        <VitalLineChartEvent patientData={ patientData } lineData={ lineData } selectedLine={ selectedLine } setSelectedLine={ setSelectedLine }/>
                     </Col>
                     <Col xs={9} className="p-0 m-0 d-flex align-items-center bg-light">
                         <VitalLineChart lineData={ lineData } selectedLine={ selectedLine } setSelectedLine={ setSelectedLine }/>

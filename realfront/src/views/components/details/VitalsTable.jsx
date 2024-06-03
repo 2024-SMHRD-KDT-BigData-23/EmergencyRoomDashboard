@@ -50,7 +50,7 @@ function VitalsTable({ patientData }) {
         <div className="tableContainer flex-grow-1" ref={tableContainerRef} style={{ overflowX: 'scroll', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
           <div className="talbeContainerBody" style={{ width: '100vw', height: '30vh' }}>
             <Table responsive bordered hover variant="white" className="d-flex justify-content-between">
-              {patientData.map((vital, index) => (
+              {patientData && patientData.map((vital, index) => (
                 <tbody key={index}>
                   <tr>
                     <td>
