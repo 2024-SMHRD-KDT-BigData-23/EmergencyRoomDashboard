@@ -1,29 +1,16 @@
 import React, { useEffect, useState } from 'react';
+import '../../assets/scss/maintable.scss';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import menuWhite from '../../assets/images/menuwhite.png';
-import menu from '../../assets/images/menu.png';
 
-const CurrentPage = () => {
-
-    /* 드롭다운 선택시 선택 표출 함수*/ 
-    const [sectionContent, setSectionContent] = useState('Section');
-    const [ncdssContent, setNcdssContent] = useState('NCDSS');
-
-    const changeSectionContent = (newContent) => {
-        setSectionContent(newContent);
-    };
-
-    const changeNcdssContent = (newContent) => {
-        setNcdssContent(newContent);
-    };
+const MainTable = () => {
 
     const [patients, setPatients] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 11; // 한 페이지에 표시할 항목 수
+    const itemsPerPage = 14; // 한 페이지에 표시할 항목 수
 
     useEffect(() => {
-        axios.get(`http://localhost:8080/api/ER/medical-patients/All/All`)
+        axios.get('http://localhost:8080/api/ER/medical-patients/전체/전체')
             .then(response => {
                 setPatients(response.data);
             })
@@ -47,97 +34,10 @@ const CurrentPage = () => {
     }
 
     return (
-        <div className="ourcontainer">
-            {/* header area */}
-            <header className="ourheader">
-                <div className="headerContainer">
-                    {/* 왼쪽 카테고리 사이드바 */}
-                    <a className="btn" data-bs-toggle="offcanvas" href="#offcanvasExample" role="img" aria-controls="offcanvasExample">
-                        <img src={menuWhite} className="menuimg" width="40px" height="40px" alt="Menu" />
-                    </a>
-
-                    <div className="offcanvas offcanvas-start" tabIndex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
-                        <div className="offcanvas-header">
-                            <img src={menu} width="40px" height="40px" alt="Menu" />
-                            <button type="button" className="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                        </div>
-                        <div className="offcanvas-body">
-                            <div className="list-group list-group-flush" style={{ width: '300px' }}>
-                                <a href="/List" className="list-group-item list-group-item-action">Present Patient</a>
-                                <a href="/AllList" className="list-group-item list-group-item-action">All Patient</a>
-                                <a href="/Search" className="list-group-item list-group-item-action">Search Patient</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* 메인 NCDSS + by NAMNAM */}
-                    <div className="titleSet">
-                        <div className="MainTitle">
-                            <a href='/List' className='MainLogoLink'>
-                            NCDSS
-                            </a>
-                            </div>
-                        <div className="SubTitle">by NAMNAM</div>
-                    </div>
-
-                    {/* 오른쪽 병원이름 드롭다운 */}
-                    <div class="dropdown">
-                    <button class="btn hopitalUser" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        스마트병원
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Logout</a></li>
-                    </ul>
-                    </div>
+        <div>
 
 
-
-
-                </div>
-            </header>
-
-            {/* dropdown area */}
-            <div className="ourdropdown">
-                <div className="ourdropdownSet">
-                    <div className="dropdown ourdropdown1">
-                        <button className="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            {sectionContent}
-                        </button>
-                        <ul className="dropdown-menu">
-                            <li><a className="dropdown-item" href="#" onClick={() => changeSectionContent('All')}>All</a></li>
-                            <li><a className="dropdown-item" href="#" onClick={() => changeSectionContent('일반구역A')}>일반구역A</a></li>
-                            <li><a className="dropdown-item" href="#" onClick={() => changeSectionContent('일반구역B')}>일반구역B</a></li>
-                            <li><a className="dropdown-item" href="#" onClick={() => changeSectionContent('중증구역')}>중증구역</a></li>
-                        </ul>
-                    </div>
-
-                    <div className="dropdown ourdropdown2">
-                        <button className="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            {ncdssContent}
-                        </button>
-                        <ul className="dropdown-menu">
-                            <li><a className="dropdown-item" href="#" onClick={() => changeNcdssContent('All')}>All</a></li>
-                            <li><a className="dropdown-item" href="#" onClick={() => changeNcdssContent('HOME')}>HOME</a></li>
-                            <li><a className="dropdown-item" href="#" onClick={() => changeNcdssContent('WARD')}>WARD</a></li>
-                            <li><a className="dropdown-item" href="#" onClick={() => changeNcdssContent('ICU')}>ICU</a></li>
-                        </ul>
-                    </div>
-                </div>
-
-                {/* 검색 탭 */}
-                <nav className="navbar navbar-light">
-                    <div className="container-fluid">
-                        <form className="d-flex">
-                            <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                            <button className="btn btn-outline-secondary" type="submit">Search</button>
-                        </form>
-                    </div>
-                </nav>
-        
-            </div>
-
-            {/* main area */}
-            <main className="ourcontent">
+        <main className="ourcontent">
                 <div className="mainContent">
                     <table className="table table-borderless table-striped" style={{ textAlign: 'center' }}>
                         <thead>
@@ -160,17 +60,17 @@ const CurrentPage = () => {
                         </thead>
                         <tbody>
                             {currentItems.map(patient => (
-                                <tr key={patient.id}>
+                                <tr key={patient.id} className='MainTableFont'>
                                         <td>
                                         <Link to={`/Detail/${patient.admissionId}`} state={{ patient }} className='tableLink'>
-                                            2024.05.05 16:48:30
+                                            {patient.admissionInTime}
                                         </Link>
                                         </td>
                                         <td>
                                         <Link to={`/Detail/${patient.admissionId}`} state={{ patient }} className='tableLink'>
-                                            2024.05.05 17:18:30
+                                            {patient.patientVitalCreatedAt}
                                         </Link>
-                                            </td>
+                                        </td>
                                         <td>
                                         <Link to={`/Detail/${patient.admissionId}`} state={{ patient }} className='tableLink'>
                                             {patient.patientId}
@@ -227,7 +127,7 @@ const CurrentPage = () => {
                                         </Link>
                                             </td>
                                     <td>
-                                        <button type="button" className="btn btn-info" data-bs-toggle="modal" style={{ color: 'white' }} data-bs-target="#exampleModal">Comment</button>
+                                        <button type="button" className="btn btn-info btn-sm" data-bs-toggle="modal" style={{ color: 'white' }} data-bs-target="#exampleModal">Comment</button>
                                         <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div className="modal-dialog">
                                                 <div className="modal-content">
@@ -282,9 +182,24 @@ const CurrentPage = () => {
                     </div> 
                     </div>
             </main>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         </div>
-    );
+    );  
 };
 
-
-export default CurrentPage;
+export default MainTable;
