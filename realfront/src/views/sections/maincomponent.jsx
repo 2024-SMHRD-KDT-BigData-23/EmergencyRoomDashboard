@@ -285,11 +285,10 @@ const CurrentPage = () => {
                                 </li>
                             ))}
                         </ul>
+                    </div> 
                     </div>
-                </div>
             </main>
         </div>
     );
 };
-
 export default CurrentPage;
