@@ -63,6 +63,8 @@ AdmissionListViewRepository extends JpaRepository<AdmissionListView, Long> {
     /////////////////////////////////////상세 페이지//////////////////////////////////
     // 특정 입원코드에 대한 상세 정보
     List<AdmissionListView> findPatientDetailByAdmissionId(String admissionId);
+    // 환자 ncdss update
+    Optional<AdmissionListView> findByAdmissionId(String admissionId);
     ////////////////////////////////////////////////////////////////////////////////
 
 

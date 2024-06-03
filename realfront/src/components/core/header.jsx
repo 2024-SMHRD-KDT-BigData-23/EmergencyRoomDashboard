@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Navbar, Nav, NavDropdown, Offcanvas, Container, Row, Col } from 'react-bootstrap';
+import { Navbar, Nav, Offcanvas, Container, Row, Col } from 'react-bootstrap';
 import menuWhite from '../../assets/images/menuwhite.png'; // 메뉴 아이콘 이미지
+import menu from '../../assets/images/menu.png'; // 메뉴 아이콘 이미지
 import '../../assets/scss/header.scss';
-import Dropdown from 'react-bootstrap/Dropdown';
-import DropdownButton from 'react-bootstrap/DropdownButton';
 
 const Header = () => {
 
@@ -30,7 +29,9 @@ const Header = () => {
                 {/* Offcanvas 메뉴 */}
                 <Offcanvas placement="start" show={show} id="offcanvasNavbar" onHide={handleClose}>
                     <Offcanvas.Header closeButton>
-                        <Offcanvas.Title>메뉴</Offcanvas.Title>
+                        <Offcanvas.Title>
+                        <img src={menu} className="menuimg" width="30px" height="30px" alt="Menu" />
+                        </Offcanvas.Title>
                     </Offcanvas.Header>
                     <Offcanvas.Body>
                         <Nav className="justify-content-end flex-grow-1 pe-3">

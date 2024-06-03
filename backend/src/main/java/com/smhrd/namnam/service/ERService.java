@@ -31,6 +31,8 @@ public class ERService {
     @Autowired
     private ModelMapper modelMapper;
 
+
+
     // entity list 형태 -> vo list형태로 변환 메서드
     private List<AdmissionListViewVO> convertToVOList(List<AdmissionListView> admissionListView) {
         return admissionListView.stream().map(entity -> modelMapper.map(entity, AdmissionListViewVO.class))
@@ -79,10 +81,9 @@ public class ERService {
     public List<AdmissionListViewVO> findPatientDetailsByAdmissionId(String admissionId) {
         return convertToVOList(admissionViewRepo.findPatientDetailByAdmissionId(admissionId));
     }
+
+
     ////////////////////////////////////////////////////////////////////////////////////
-
-
-
 
 
 
@@ -101,5 +102,7 @@ public class ERService {
     public List<AdmissionListViewVO> pastSearchByPatientNameId(String patientNameId) {
         return convertToVOList(admissionViewRepo.pastSearchByPatientNameId(patientNameId));
     }
+
+
     /////////////////////////////////////////////////////////////////////////////////////
 }

@@ -46,6 +46,7 @@ public class ERController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
+
     ///////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -71,6 +72,8 @@ public class ERController {
     public List<AdmissionListViewVO> findPatientDetailsByAdmissionId(@PathVariable("admissionId") String admissionId){
         return erService.findPatientDetailsByAdmissionId(admissionId);
     }
+
+
     ///////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -100,6 +103,7 @@ public class ERController {
         return erService.pastSearchByPatientNameId(patientNameId);
     }
     /////////////////////////////////////////////////////////////////////////////////////////
+
 }
 
 

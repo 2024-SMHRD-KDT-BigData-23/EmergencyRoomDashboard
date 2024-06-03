@@ -159,6 +159,7 @@
             
                 </div>
 
+<<<<<<< HEAD
                 {/* main area */}
                 <main className="ourcontent">
                     <div className="mainContent">
@@ -188,6 +189,54 @@
                                             <Link to={`/Detail/${patient.admissionId}`} state={{ patient }} className='tableLink'>
                                                 2024.05.05 16:48:30
                                             </Link>
+=======
+                {/* 검색 탭 */}
+                <nav className="navbar navbar-light">
+                    <div className="container-fluid">
+                        <form className="d-flex">
+                            <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+                            <button className="btn btn-outline-secondary" type="submit">Search</button>
+                        </form>
+                    </div>
+                </nav>
+        
+            </div>
+
+            {/* main area */}
+            <main className="ourcontent">
+                <div className="mainContent">
+                    <table className="table table-borderless table-striped" style={{ textAlign: 'center' }}>
+                        <thead>
+                            <tr>
+                                <th scope="col">In Time</th>
+                                <th scope="col">MT(Measurement)</th>
+                                <th scope="col">Patient ID</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Sex</th>
+                                <th scope="col">Temp</th>
+                                <th scope="col">HR</th>
+                                <th scope="col">RR</th>
+                                <th scope="col">SPO2</th>
+                                <th scope="col">SBP</th>
+                                <th scope="col">DBP</th>
+                                <th scope="col">Section</th>
+                                <th scope="col">NCDSS</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {currentItems.map(patient => (
+                                <tr key={patient.id}>
+                                        <td>
+                                        <Link to={`/Detail/${patient.admissionId}`} state={{ patient }} className='tableLink'>
+                                            2024.05.05 16:48:30
+                                        </Link>
+                                        </td>
+                                        <td>
+                                        <Link to={`/Detail/${patient.admissionId}`} state={{ patient }} className='tableLink'>
+                                            2024.05.05 17:18:30
+                                        </Link>
+>>>>>>> dev
                                             </td>
                                             <td>
                                             <Link to={`/Detail/${patient.admissionId}`} state={{ patient }} className='tableLink'>
