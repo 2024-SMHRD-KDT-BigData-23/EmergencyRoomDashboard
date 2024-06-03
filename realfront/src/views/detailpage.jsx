@@ -1,16 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
 import DetailComponent from "./sections/detailcomponent.jsx";
-
+import Header from "../components/core/header.jsx";
 
 
 const Detail = () => {
     return (
-           
-                <div>
-                   <DetailComponent />
-                </div>
-        
+
+        <div>
+            <Header />
+            <DetailComponent />
+        </div>
+
     );
 }
 

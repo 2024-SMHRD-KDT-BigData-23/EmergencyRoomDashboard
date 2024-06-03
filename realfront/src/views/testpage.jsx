@@ -4,7 +4,6 @@ import Header from "../components/core/header";
 import Dropdown from "../components/core/dropdown";
 import Search from "../components/core/search";
 import MainTable from "../components/core/maintable";
-import { Row, Col, Container } from 'react-bootstrap';
 import '../assets/scss/maintable.scss';
 
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Line } from "react-chartjs-2";
 import {
     Chart as ChartJS,
@@ -25,95 +25,81 @@ ChartJS.register(
     ChartDataLabels // DataLabels 플러그인을 등록합니다.
 );
 
-const PatientChart = () => {
-    // 선택된 라인의 인덱스를 저장하는 state입니다.
-    const [selectedLine, setSelectedLine] = useState(null);
-    const [patientData, setPatientData] = useState([]);
+const PatientChart = ({ lineData }) => {
+    
 
-    // 컴포넌트가 마운트될 때 데이터를 가져옵니다.
-    useEffect(() => {
-        axios.get('http://localhost:8080/api/patientData') 
-            .then(response => {
-                setPatientData(response.data);
-            })
-            .catch(error => {
-                console.error('Error fetching data: ', error);
-            });
-    }, []);
+    const [selectedLine, setSelectedLine] = useState(0);
+    const chartContainerRef = useRef(null);
 
-    // 그래프에 사용할 데이터를 정의합니다.
-    const lineData = {
-        labels: patientData.map(item => item.time),
-        datasets: [
-            {
-                label: 'Temperature (°C)',
-                data: patientData.map(item => item.temperature),
-                fill: false,
-                borderColor: 'rgba(75,192,192,1)',
-                borderWidth: selectedLine === 0 ? 4 : 1,
-            },
-            {
-                label: 'Heart Rate (bpm)',
-                data: patientData.map(item => item.heartRate),
-                fill: false,
-                borderColor: 'rgba(153,102,255,1)',
-                borderWidth: selectedLine === 1 ? 4 : 1,
-            },
-            {
-                label: 'Respiratory Rate (breaths/min)',
-                data: patientData.map(item => item.respiratoryRate),
-                fill: false,
-                borderColor: 'rgba(255,159,64,1)',
-                borderWidth: selectedLine === 2 ? 4 : 1,
-            },
-            {
-                label: 'SpO2 (%)',
-                data: patientData.map(item => item.spo2),
-                fill: false,
-                borderColor: 'rgba(54,162,235,1)',
-                borderWidth: selectedLine === 3 ? 4 : 1,
-            },
-            {
-                label: 'Systolic BP (mmHg)',
-                data: patientData.map(item => item.systolicBP),
-                fill: false,
-                borderColor: 'rgba(255,99,132,1)',
-                borderWidth: selectedLine === 4 ? 4 : 1,
-            },
-            {
-                label: 'Diastolic BP (mmHg)',
-                data: patientData.map(item => item.diastolicBP),
-                fill: false,
-                borderColor: 'rgba(255,206,86,1)',
-                borderWidth: selectedLine === 5 ? 4 : 1,
-            },
-        ],
+    const chartScrollLeft = () => {
+        if (chartContainerRef.current) {
+            chartContainerRef.current.scrollBy({ left: -400, behavior: 'smooth' });
+        }
     };
 
-    // 차트의 옵션을 정의합니다.
+    const chartScrollRight = () => {
+        if (chartContainerRef.current) {
+            chartContainerRef.current.scrollBy({ left: 400, behavior: 'smooth' });
+        }
+    };
+
+    
+
+    // 차트의 디테일한 설정(react-chartjs-2, chartjs-plugin-datalabels)
     const options = {
+        maintainAspectRatio: false, // maintainAspectRatio를 false로 설정하여 차트가 지정한 크기로 고정됩니다.
+        responsive: true, // 차트가 반응형으로 동작하도록 설정합니다.
+        scales: {
+            x: {
+                display: true
+            },
+            y: {
+                display: false
+            }
+        },
         plugins: {
             datalabels: {
-                display: true,
+                display: (context) => {
+                    return context.datasetIndex === selectedLine;
+                },
                 color: 'black',
                 align: 'top',
-                formatter: (value) => value, // 데이터 포인트 값을 레이블로 표시합니다.
+                borderWidth: 30,
+                formatter: (value) => value,
             },
+            legend: {
+                display: false
+            }
+        },
+        layout: {
+            padding: {
+                left: 20,
+                right: 40
+            }
         },
         // 차트의 요소를 클릭했을 때 실행되는 함수입니다.
         onClick: (event, elements) => {
             if (elements.length > 0) {
                 const datasetIndex = elements[0].datasetIndex;  // 클릭된 요소의 데이터셋 인덱스를 가져옵니다.
-                setSelectedLine(datasetIndex);  // 선택된 라인의 인덱스를 업데이트합니다.
+                setSelectedLine(datasetIndex);  // 선택된 라인의 인덱스를 업데이트
             }
         },
     };
 
     return (
-        <div>
-            <h3>Line Chart</h3>
-            <Line data={lineData} options={options} />
-        </div>
+        <>
+            <div onClick={chartScrollLeft} className="d-flex align-items-center justify-content-center h-100" style={{ cursor: 'pointer', flex: '0 0 50px' }}>
+                <span>&lt;&lt;</span>
+            </div>
+            <div className="lineContainer flex-grow-1" ref={chartContainerRef} style={{ overflowX: 'scroll', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+                <div className="lineContainerBody" style={{ width: '100vw', height: '40vh' }}>
+                    <Line data={lineData} options={options} />
+                </div>
+            </div>
+            <div onClick={chartScrollRight} className="d-flex align-items-center justify-content-center h-100" style={{ cursor: 'pointer', flex: '0 0 50px' }}>
+                <span>&gt;&gt;</span>
+            </div>
+        </>
     );
 };
 

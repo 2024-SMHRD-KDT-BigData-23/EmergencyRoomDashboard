@@ -10,7 +10,7 @@ const MainTable = () => {
     const itemsPerPage = 14; // 한 페이지에 표시할 항목 수
 
     useEffect(() => {
-        axios.get('http://localhost:8080/api/ER/medical-patients/전체/전체')
+        axios.get('http://localhost:8080/api/ER/medical-patients/All/All')
             .then(response => {
                 setPatients(response.data);
             })
