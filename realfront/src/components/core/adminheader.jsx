@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { Navbar, Nav, Offcanvas, Container, Row, Col } from 'react-bootstrap';
+import { Navbar, Container, Row, Col } from 'react-bootstrap';
 import '../../assets/scss/header.scss';
 
 const AdminHeader = () => {
@@ -28,23 +28,30 @@ const AdminHeader = () => {
                     </Col>
 
                     <Col className='d-flex align-items-center AdminPage'>
-                    <Link to='/List' className='MainLogoLink'>
-                        PAGE1
+
+                    <Link to='/Admin' className='MainLogoLink'>
+                       DashBoardPage
                                 </Link>
                     </Col>
                     <Col className='d-flex align-items-center AdminPage'>
-                    <Link to='/List' className='MainLogoLink'>
-                        PAGE
+                    <Link to='/Role' className='MainLogoLink'>
+                    RolePage
                                 </Link>
                     </Col>
                     <Col className='d-flex align-items-center AdminPage'>
-                    <Link to='/List' className='MainLogoLink'>
-                        PAGE3
+                    <Link to='/Data' className='MainLogoLink'>
+                    DataPage
                                 </Link>
                     </Col>
                     <Col className='d-flex align-items-center AdminPage'>
-                    <Link to='/List' className='MainLogoLink'>
-                        PAGE4
+                    <Link to='/Surveillance' className='MainLogoLink'>
+                    SurveillancePage
+                                </Link>
+                    </Col>
+                    <Col className='d-flex align-items-center AdminPage'>
+                    <Link to='/Help' className='MainLogoLink'>
+                    HelpPage
+
                                 </Link>
                     </Col>
 

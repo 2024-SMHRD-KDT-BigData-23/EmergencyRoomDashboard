@@ -3,31 +3,33 @@
 }
 
 .MainTitle {
-    font-size: 30px;
-    font-weight: bold;
-    color: white;
-  }
-  
+  font-size: 30px;
+  font-weight: bold;
+  color: white;
+}
+
 .SubTitle {
-    font-size: 16px;
-    color: white;
-    padding-top : 15px;
-    padding-left : 3px;
-  }
+  font-size: 16px;
+  color: white;
+  padding-top : 15px;
+  padding-left : 3px;
+}
 
 .MainLogoLink {
-  color: inherit; /* 부모 요소의 색상 상속 */
-  text-decoration: none; /* 밑줄 제거 */
+color: inherit; /* 부모 요소의 색상 상속 */
+text-decoration: none; /* 밑줄 제거 */
 }
 
 .MainLogoLink:hover {
-  color: inherit; /* 부모 요소의 색상 상속 */
+color: inherit; /* 부모 요소의 색상 상속 */
 }
 
 .hopitalUser { 
+
   font-size: 20px;
   color: white;
   font-weight: 700;
+
 }
 
 /* AdminPage */
@@ -44,4 +46,5 @@
   color : white;
   cursor: pointer;
   font-size: 30px;
+
 }
