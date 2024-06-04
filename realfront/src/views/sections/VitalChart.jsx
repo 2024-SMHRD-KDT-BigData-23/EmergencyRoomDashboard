@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Row, Col, Card } from "react-bootstrap";
 import { Line } from "react-chartjs-2";
 import {
@@ -28,6 +28,7 @@ ChartJS.register(
 const VitalChart = ({ patientData }) => {
 
     const [selectedLine, setSelectedLine] = useState(0);
+    const [selectedPointIndex, setSelectedPointIndex] = useState(null);
 
     // "월/일 시:분" 형식의 문자열로 만들어 labels 배열에 저장
     const labels = patientData.map(data => {
@@ -43,7 +44,7 @@ const VitalChart = ({ patientData }) => {
         labels: labels,
         datasets: [
             {
-                label: 'Temp',
+                label: 'Ncdss',
                 data: patientData.map(data => data.patientVitalTemperature),
                 fill: false,
                 borderColor: 'rgba(75,192,192,1)',
@@ -96,7 +97,7 @@ const VitalChart = ({ patientData }) => {
                 display: true
             },
             y: {
-                display: false
+                display: true
             }
         },
         plugins: {
@@ -141,16 +142,12 @@ const VitalChart = ({ patientData }) => {
                 pointHitRadius: 20
             }
         },
-        onClick: (event, elements, chart) => { // 여기를 수정합니다.
+        onClick: (elements) => {
             if (elements.length > 0) {
                 const datasetIndex = elements[0].datasetIndex;
+                const index = elements[0].index;
                 setSelectedLine(datasetIndex);
-            } else if (chart.getElementsAtEventForMode(event, 'nearest', { intersect: true }, false).length > 0) {
-                const nearestElements = chart.getElementsAtEventForMode(event, 'nearest', { intersect: true }, false);
-                const firstElement = nearestElements[0];
-                if (firstElement && firstElement.element) {
-                    setSelectedLine(firstElement.datasetIndex);
-                }
+                setSelectedPointIndex(index);
             }
         },
     };
@@ -167,7 +164,7 @@ const VitalChart = ({ patientData }) => {
                                         <Card.Body>
                                             <Card.Title>{dataset.label}</Card.Title>
                                             <Card.Text>
-                                                36.5
+                                                {selectedPointIndex !== null ? dataset.data[selectedPointIndex] : dataset.data[dataset.data.length - 1]}
                                             </Card.Text>
                                         </Card.Body>
                                     </Card>

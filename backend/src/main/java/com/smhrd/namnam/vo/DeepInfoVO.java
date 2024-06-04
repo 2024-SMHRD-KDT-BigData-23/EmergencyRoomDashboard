@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 @Data
@@ -17,6 +18,8 @@ public class DeepInfoVO {
     private Long patientVitalId;
     // 위험도
     private String deepNcdss;
+    // 위험도 확률
+    private BigDecimal deepNcdssPercent;
     // 등록 날짜
     private Timestamp deepCreatedAt;
 }

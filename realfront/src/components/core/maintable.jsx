@@ -51,71 +51,71 @@ const MainTable = ({ patients }) => {
                             {currentItems.map(patient => (
                                 <tr key={patient.id} className='MainTableFont '>
                                         <td>
-                                        <Link to={`/Detail/${patient.admissionId}`} state={{ patient }} className='tableLink'>
+                                        <Link to={`/Detail/${patient.patientId}/${patient.admissionId}`} state={{ patient }} className='tableLink'>
                                             {`${String(patient.admissionInTime.year).padStart(2, '0')}.${String(patient.admissionInTime.month).padStart(2, '0')}.${String(patient.admissionInTime.day).padStart(2, '0')}
                                             ${String(patient.admissionInTime.hour).padStart(2, '0')}:${String(patient.admissionInTime.minute).padStart(2, '0')}:${String(patient.admissionInTime.second).padStart(2, '0')}`}
                                             
                                         </Link>
                                         </td>
                                         <td>
-                                        <Link to={`/Detail/${patient.admissionId}`} state={{ patient }} className='tableLink'>
+                                        <Link to={`/Detail/${patient.patientId}/${patient.admissionId}`} state={{ patient }} className='tableLink'>
                                             {`${patient.patientVitalCreatedAt.year}.${String(patient.patientVitalCreatedAt.month).padStart(2, '0')}.${String(patient.patientVitalCreatedAt.day).padStart(2, '0')}
                                             ${String(patient.patientVitalCreatedAt.hour).padStart(2, '0')}:${String(patient.patientVitalCreatedAt.minute).padStart(2, '0')}:${String(patient.patientVitalCreatedAt.second).padStart(2, '0')}
                                             `}
                                         </Link>
                                         </td>
                                         <td>
-                                        <Link to={`/Detail/${patient.admissionId}`} state={{ patient }} className='tableLink'>
+                                        <Link to={`/Detail/${patient.patientId}/${patient.admissionId}`} state={{ patient }} className='tableLink'>
                                             {patient.patientId}
                                         </Link>
                                         </td>
                                         <td>
-                                        <Link to={`/Detail/${patient.admissionId}`} state={{ patient }} className='tableLink'>
+                                        <Link to={`/Detail/${patient.patientId}/${patient.admissionId}`} state={{ patient }} className='tableLink'>
                                             {patient.patientName}
                                         </Link>
                                             </td>
                                         <td>
-                                        <Link to={`/Detail/${patient.admissionId}`} state={{ patient }} className='tableLink'>
+                                        <Link to={`/Detail/${patient.patientId}/${patient.admissionId}`} state={{ patient }} className='tableLink'>
                                             {patient.patientSex}
                                         </Link>
                                             </td>
                                         <td>
-                                        <Link to={`/Detail/${patient.admissionId}`} state={{ patient }} className='tableLink'>
+                                        <Link to={`/Detail/${patient.patientId}/${patient.admissionId}`} state={{ patient }} className='tableLink'>
                                             {patient.patientVitalTemperature}°C
                                         </Link>
                                             </td>
                                         <td>
-                                        <Link to={`/Detail/${patient.admissionId}`} state={{ patient }} className='tableLink'>
+                                        <Link to={`/Detail/${patient.patientId}/${patient.admissionId}`} state={{ patient }} className='tableLink'>
                                             {patient.patientVitalHr}
                                         </Link>
                                             </td>
                                         <td>
-                                        <Link to={`/Detail/${patient.admissionId}`} state={{ patient }} className='tableLink'>
+                                        <Link to={`/Detail/${patient.patientId}/${patient.admissionId}`} state={{ patient }} className='tableLink'>
                                             {patient.patientVitalRespiratoryRate}
                                         </Link>
                                             </td>
                                         <td>
-                                        <Link to={`/Detail/${patient.admissionId}`} state={{ patient }} className='tableLink'>
+                                        <Link to={`/Detail/${patient.patientId}/${patient.admissionId}`} state={{ patient }} className='tableLink'>
                                             {patient.patientVitalSpo2}
                                         </Link>
                                             </td>
                                         <td>
-                                        <Link to={`/Detail/${patient.admissionId}`} state={{ patient }} className='tableLink'>
+                                        <Link to={`/Detail/${patient.patientId}/${patient.admissionId}`} state={{ patient }} className='tableLink'>
                                             {patient.patientVitalNibpS}
                                         </Link>
                                             </td>
                                         <td>
-                                        <Link to={`/Detail/${patient.admissionId}`} state={{ patient }} className='tableLink'>
+                                        <Link to={`/Detail/${patient.patientId}/${patient.admissionId}`} state={{ patient }} className='tableLink'>
                                             {patient.patientVitalNibpD}
                                         </Link>
                                             </td>
                                         <td>
-                                        <Link to={`/Detail/${patient.admissionId}`} state={{ patient }} className='tableLink'>
+                                        <Link to={`/Detail/${patient.patientId}/${patient.admissionId}`} state={{ patient }} className='tableLink'>
                                             {patient.bedWard}
                                         </Link>
                                             </td>
                                         <td>
-                                        <Link to={`/Detail/${patient.admissionId}`} state={{ patient }} className='tableLink'>
+                                        <Link to={`/Detail/${patient.patientId}/${patient.admissionId}`} state={{ patient }} className='tableLink'>
                                             {patient.deepNcdss}
                                         </Link>
                                             </td>

@@ -9,8 +9,9 @@ import VitalChart from './sections/VitalChart';
 
 const Detail = () => {
 
+    const { patientId, admissionId } = useParams();
     const [patientData, setPatientData] = useState([]);
-    const { id } = useParams();
+    const [admissionList, setAdmissionList] = useState([]);
 
     // Timestamp 형식의 데이터를 "년/월/일/시/분/초"로 쪼개주는 함수
     const extraDateAndTime = (timestamp) => {
@@ -35,8 +36,7 @@ const Detail = () => {
 
     // 서버와 통신을 통해 환자의 상세 정보 가져오기
     useEffect(() => {
-        console.log(`Fetching data for ID: ${id}`);
-        axios.get(`http://localhost:8080/api/ER/patient-details/${id}`)
+        axios.get(`http://localhost:8080/api/ER/patient-details/${admissionId}`)
             .then(response => {
                 const formattedData = response.data.map(item => ({
                     ...item,
@@ -50,14 +50,22 @@ const Detail = () => {
             .catch(error => {
                 console.error('Error fetching data: ', error);
             });
-    }, [id]);
+
+        axios.get(`http://localhost:8080/api/ER/search/patient-name-id/${patientId}`)
+            .then(response => {
+                setAdmissionList(response.data);
+            })
+            .catch(error => {
+                console.error('Error fetching data: ', error);
+            });
+    }, [admissionId, patientId]);
 
     return (
         <>
             <Header />
             <Container fluid className="p-4 bg-light">
                 <Row className="h-100">
-                    <PatientInfo patientData={patientData} />
+                    <PatientInfo patientData={patientData} admissionList={admissionList} patientId={patientId} admissionId={admissionId} />
                     <VitalChart patientData={patientData} />
                 </Row>
             </Container >

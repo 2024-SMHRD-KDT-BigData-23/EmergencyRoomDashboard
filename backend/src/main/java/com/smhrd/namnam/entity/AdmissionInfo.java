@@ -44,7 +44,7 @@ public class AdmissionInfo {
     @Column(name = "admission_result_ward", length = 20)
     private String admissionResultWard;
 
-    // comment
-    @Column(name = "admission_comment", columnDefinition = "TEXT")
-    private String admissionComment;
+    // 진단 결과
+    @Column(name = "admission_Diagnosis", columnDefinition = "TEXT")
+    private String admissionDiagnosis;
 }
