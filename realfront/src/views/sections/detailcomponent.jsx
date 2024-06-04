@@ -48,20 +48,7 @@ const DetailComponent = () => {
         };
     }
 
-    // const updateResultWard = (newResultWard) => {
-    //     axios.patch(`http://localhost:8080/api/ER/set/medical-patients/${id}`, { 
-    //         admissionId: id,
-    //         admissionResultWard: newResultWard
-    //     })
-    //     .then(response => {
-    //         console.log('DB 업데이트 성공:', response.data);
-    //         setResultWard(newResultWard);
-    //         setShowButtons(false);
-    //     })
-    //     .catch(error => {
-    //         console.error('DB 업데이트 실패:', error);
-    //     });
-    // };
+    
 
     // const handleEdit = () => {
     //     setShowButtons(true);
