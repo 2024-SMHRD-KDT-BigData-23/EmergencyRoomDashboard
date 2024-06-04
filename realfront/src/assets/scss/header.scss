@@ -1,3 +1,7 @@
+.header-bg {
+  background-color: #615EFC;///
+}
+
 .MainTitle {
     font-size: 30px;
     font-weight: bold;
@@ -21,6 +25,23 @@
 }
 
 .hopitalUser { 
+  font-size: 20px;
   color: white;
   font-weight: 700;
+}
+
+/* AdminPage */
+.AdminPage {
+  color: white;
+  font-weight: 700;
+}
+
+#offcanvasNavbar {
+  width: 300px;
+}
+
+.hamburger {
+  color : white;
+  cursor: pointer;
+  font-size: 30px;
 }

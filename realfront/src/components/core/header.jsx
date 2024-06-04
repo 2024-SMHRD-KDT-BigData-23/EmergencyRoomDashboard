@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Navbar, Nav, Offcanvas, Container, Row, Col } from 'react-bootstrap';
-import menuWhite from '../../assets/images/menuwhite.png'; // 메뉴 아이콘 이미지
 import menu from '../../assets/images/menu.png'; // 메뉴 아이콘 이미지
 import '../../assets/scss/header.scss';
+import SearchForm from './searchForm';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faStethoscope, faUserCircle } from '@fortawesome/free-solid-svg-icons';
 
 const Header = () => {
 
@@ -12,14 +14,14 @@ const Header = () => {
     const handleShow = () => setShow(true);
 
     return (
-        <Navbar bg="secondary" expand="lg" className="header-bg">
+        <Navbar bg="" expand="lg" className="header-bg">
             <Container fluid>
               
                 {/* 로고 */}
                 <Row className="w-100">
                     <Col xs="auto">
-                        <Navbar.Brand onClick={handleShow} style={{ cursor: 'pointer' }}>
-                            <img src={menuWhite} className="menuimg" width="30px" height="30px" alt="Menu" />
+                        <Navbar.Brand onClick={handleShow} className = "hamburger" >
+                        ☰
                         </Navbar.Brand>
                     </Col>
 
@@ -35,9 +37,9 @@ const Header = () => {
                     </Offcanvas.Header>
                     <Offcanvas.Body>
                         <Nav className="justify-content-end flex-grow-1 pe-3">
+                            <SearchForm />
                             <Nav.Link as={Link} to="/List" onClick={handleClose}>Present Patient</Nav.Link>
                             <Nav.Link as={Link} to="/AllList" onClick={handleClose}>All Patient</Nav.Link>
-                            <Nav.Link as={Link} to="/Search" onClick={handleClose}>Search Patient</Nav.Link>
                         </Nav>
                     </Offcanvas.Body>
                 </Offcanvas>
@@ -60,7 +62,7 @@ const Header = () => {
                     <Col xs="auto" className="d-flex justify-content-end align-items-center">
                     <div class="dropdown">
                     <button class="btn hopitalUser" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        스마트병원
+                    <FontAwesomeIcon icon={faStethoscope} /> 스마트병원
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li><a class="dropdown-item" href="#">Logout</a></li>

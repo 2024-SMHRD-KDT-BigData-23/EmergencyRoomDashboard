@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import '../../assets/scss/commentmodal.scss'
 
 const CommentModal = () => {
     const [selectedRecipient, setSelectedRecipient] = useState('Result Ward');
@@ -9,7 +10,7 @@ const CommentModal = () => {
 
     return (
         <div>
-            <button type="button" className="btn btn-info btn-sm" data-bs-toggle="modal" style={{ color: 'white' }} data-bs-target="#exampleModal">Comment</button>
+            <button type="button" className="btn btn-sm modalBtn" data-bs-toggle="modal" style={{ color: 'white' }} data-bs-target="#exampleModal">Comment</button>
             <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog">
                     <div className="modal-content">
