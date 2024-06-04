@@ -15,7 +15,7 @@ const Dropdown = ({ sectionContent, setSectionContent, ncdssContent, setNcdssCon
         <div className='d-flex'>
             {/* 첫 번째 드롭다운 */}
                 <div className="dropdown ourdropdown1">
-                    <button className="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <button className="btn dropdown-toggle dropBtn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                         {sectionContent}
                     </button>
                     <ul className="dropdown-menu">
@@ -31,7 +31,7 @@ const Dropdown = ({ sectionContent, setSectionContent, ncdssContent, setNcdssCon
 
             {/* 두 번째 드롭다운 */}
                 <div className="dropdown ourdropdown2">
-                    <button className="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <button className="btn dropdown-toggle dropBtn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                         {ncdssContent}
                     </button>
                     <ul className="dropdown-menu">

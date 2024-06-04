@@ -1,11 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Header from "../components/core/header";
-import Dropdown from "../components/core/dropdown";
-import Search from "../components/core/search";
-import MainTable from "../components/core/maintable";
-import '../assets/scss/maintable.scss';
-import PastTable from "../components/core/pasttable";
+import '../assets/scss/maintable.scss'; 
+import AdminHeader from "../components/core/adminheader";
 
 
 
@@ -13,14 +9,11 @@ const Test = () => {
     return (
         <div>
         <header>
-            <Header />
+            <AdminHeader />
         </header>
         <div className="d-flex justify-content-between dropSearch">
-                <Dropdown />
-                <Search />
         </div>
         <main className="mainTableCom">
-            <PastTable />
         </main>
         </div>
     );  
