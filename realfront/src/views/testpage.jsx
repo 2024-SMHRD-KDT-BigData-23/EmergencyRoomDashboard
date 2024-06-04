@@ -5,6 +5,7 @@ import Dropdown from "../components/core/dropdown";
 import Search from "../components/core/search";
 import MainTable from "../components/core/maintable";
 import '../assets/scss/maintable.scss';
+import PastTable from "../components/core/pasttable";
 
 
 
@@ -19,7 +20,7 @@ const Test = () => {
                 <Search />
         </div>
         <main className="mainTableCom">
-            <MainTable />
+            <PastTable />
         </main>
         </div>
     );  

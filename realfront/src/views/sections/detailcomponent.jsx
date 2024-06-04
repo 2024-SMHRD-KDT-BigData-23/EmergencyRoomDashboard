@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { useParams,useNavigate } from "react-router-dom";
+import React, { useState, useEffect, useRef } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+
 import axios from "axios";
 import { Button, Dropdown, Row, Col } from 'react-bootstrap';
 import VitalLineChart from "../components/details/VitalLineChart";
