@@ -179,7 +179,7 @@ const VitalChart = ({ patientData }) => {
                         <Card className="h-100">
                             <Card.Body className="h-100">
                                 <Card.Title>Vital Chart</Card.Title>
-                                <Card.Text style={{ height: '60vh' }}>
+                                <Card.Text style={{ height: '67vh' }}>
                                     <Line data={lineData} options={options} />
                                 </Card.Text>
                             </Card.Body>

@@ -40,6 +40,8 @@ const Detail = () => {
             .then(response => {
                 const formattedData = response.data.map(item => ({
                     ...item,
+                    admissionInTime: extraDateAndTime(item.admissionInTime),
+                    admissionOutTime: extraDateAndTime(item.admissionOutTime),
                     patientVitalCreatedAt: extraDateAndTime(item.patientVitalCreatedAt)
                 }));
                 console.log("서버에서 가져온 데이터 ", formattedData);

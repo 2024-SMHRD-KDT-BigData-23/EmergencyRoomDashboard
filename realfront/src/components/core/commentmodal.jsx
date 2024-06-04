@@ -1,10 +1,31 @@
 import React, { useState } from 'react';
+import { useParams } from "react-router-dom";
+import axios from 'axios';
 
 const CommentModal = () => {
-    const [selectedRecipient, setSelectedRecipient] = useState('Result Ward');
+    const { id } = useParams();
+    const [selectedDisposition, setSelectedDisposition] = useState('Result Ward');
+    const [selectedComment, setSelectedComment] = useState("진료 결과를 기록해주세요.");
 
-    const handleSelectRecipient = (recipient) => {
-        setSelectedRecipient(recipient);
+    const changeComment = (event) => {
+        setSelectedComment(event.target.value);
+    }
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        console.log(selectedDisposition);
+        console.log(selectedComment);
+        axios.patch(`http://localhost:8080/api/ER/set/medical-patients/${id}`, {
+            admissionId: id,
+            admissionResultWard: selectedDisposition,
+            admissionComment: selectedComment
+        })
+            .then(response => {
+                console.log('DB 업데이트 성공:', response.data);
+            })
+            .catch(error => {
+                console.error('DB 업데이트 실패:', error);
+            });
     };
 
     return (
@@ -18,7 +39,7 @@ const CommentModal = () => {
                             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div className="modal-body">
-                            <form>
+                            <form onSubmit={() => handleSubmit}>
                                 <div className="mb-3" style={{ textAlign: 'left' }}>
                                     <label htmlFor="recipient-name" className="col-form-label">Recipient:</label>
                                     <div className="dropdown">
@@ -29,30 +50,30 @@ const CommentModal = () => {
                                             data-bs-toggle="dropdown"
                                             aria-expanded="false"
                                         >
-                                            {selectedRecipient}
+                                            {selectedDisposition}
                                         </button>
                                         <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                             <li>
-                                                <a className="dropdown-item" href="#" onClick={() => handleSelectRecipient('Home')}>Home</a>
+                                                <a className="dropdown-item" href="#" onClick={() => setSelectedDisposition('Home')}>Home</a>
                                             </li>
                                             <li>
-                                                <a className="dropdown-item" href="#" onClick={() => handleSelectRecipient('Ward')}>Ward</a>
+                                                <a className="dropdown-item" href="#" onClick={() => setSelectedDisposition('Ward')}>Ward</a>
                                             </li>
                                             <li>
-                                                <a className="dropdown-item" href="#" onClick={() => handleSelectRecipient('ICU')}>ICU</a>
+                                                <a className="dropdown-item" href="#" onClick={() => setSelectedDisposition('ICU')}>ICU</a>
                                             </li>
                                         </ul>
                                     </div>
                                 </div>
                                 <div className="mb-3" style={{ textAlign: 'left' }}>
-                                    <label htmlFor="message-text" className="col-form-label">Message:</label>
-                                    <textarea className="form-control" id="message-text"></textarea>
+                                    <label htmlFor="message-text" className="col-form-label">Comment</label>
+                                    <textarea className="form-control" id="message-text" onChange={changeComment} />
                                 </div>
                             </form>
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" className="btn btn-primary">Apply</button>
+                            <button type="submit" className="btn btn-primary">Apply</button>
                         </div>
                     </div>
                 </div>
