@@ -8,20 +8,22 @@ import axios from "axios";
 import PastTable from "../components/core/pasttable.jsx";
 
 const AllList = () => {
-    const [patients, setPatients] = useState([]);
-    const [sectionContent, setSectionContent] = useState("전체");
-    const [ncdssContent, setNcdssContent] = useState("전체");
+  const [patients, setPatients] = useState([]);
+  const [sectionContent, setSectionContent] = useState("All");
+  const [ncdssContent, setNcdssContent] = useState("All");
+  const [searchNameId, setSearchNameId] = useState(null);
+  const resultWard = 'past'
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/api/ER/past-patients/${sectionContent}/${ncdssContent}`)
+      .get(`http://localhost:8080/api/ER/medical-patients/${sectionContent}/${ncdssContent}/${searchNameId}/${resultWard}`)
       .then((response) => {
         setPatients(response.data);
       })
       .catch((error) => {
-        console.error("Error fetching data: ", error);
+        console.error("Error fetching data: ", error); 
       });
-  }, [sectionContent, ncdssContent]);
+  }, [sectionContent, ncdssContent, searchNameId]);
 
   return (
     <div>
@@ -30,7 +32,7 @@ const AllList = () => {
       </header>
       <div className="d-flex justify-content-between dropSearch">
         <Dropdown sectionContent={ sectionContent } setSectionContent={ setSectionContent } ncdssContent={ ncdssContent } setNcdssContent={ setNcdssContent } />
-        <Search />
+        <Search setSearchNameId={ setSearchNameId } />
       </div>
       <main className="mainTableCom">
         <PastTable patients={patients} />

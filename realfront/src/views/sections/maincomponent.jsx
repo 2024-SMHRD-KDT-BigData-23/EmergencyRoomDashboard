@@ -1,17 +1,8 @@
-<<<<<<< HEAD
     import React, { useEffect, useState } from 'react';
     import { Link } from 'react-router-dom';
     import axios from 'axios';
     import menuWhite from '../../assets/images/menuwhite.png';
     import menu from '../../assets/images/menu.png';
-=======
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
-import menuWhite from '../../assets/images/menuwhite.png';
-import menu from '../../assets/images/menu.png';
-import CommentModal from '../../components/core/commentmodal';
->>>>>>> dev
 
     const CurrentPage = () => {
 
@@ -49,8 +40,6 @@ import CommentModal from '../../components/core/commentmodal';
         const itemsPerPage = 11; // 한 페이지에 표시할 항목 수
 
         useEffect(() => {
-            console.log('리퀘스트데이터값'+requestData.bedWard)
-            console.log('리퀘스트데이터값'+requestData.deepNcdss)
             axios.post(`http://localhost:8080/api/ER/medical-patients`, requestData)
                 .then(response => {
                     setPatients(response.data);
@@ -168,7 +157,6 @@ import CommentModal from '../../components/core/commentmodal';
             
                 </div>
 
-
                 {/* main area */}
                 <main className="ourcontent">
                     <div className="mainContent">
@@ -198,7 +186,6 @@ import CommentModal from '../../components/core/commentmodal';
                                             <Link to={`/Detail/${patient.admissionId}`} state={{ patient }} className='tableLink'>
                                                 2024.05.05 16:48:30
                                             </Link>
-
                                             </td>
                                             <td>
                                             <Link to={`/Detail/${patient.admissionId}`} state={{ patient }} className='tableLink'>
@@ -261,7 +248,6 @@ import CommentModal from '../../components/core/commentmodal';
                                             </Link>
                                                 </td>
                                         <td>
-<<<<<<< HEAD
                                             <button type="button" className="btn btn-info" data-bs-toggle="modal" style={{ color: 'white' }} data-bs-target="#exampleModal">Comment</button>
                                             <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div className="modal-dialog">
@@ -320,76 +306,6 @@ import CommentModal from '../../components/core/commentmodal';
             </div>
         );
     };
-=======
-                                        <Link to={`/Detail/${patient.admissionId}`} state={{ patient }} className='tableLink'>
-                                            {patient.patientSex}
-                                        </Link>
-                                            </td>
-                                        <td>
-                                        <Link to={`/Detail/${patient.admissionId}`} state={{ patient }} className='tableLink'>
-                                            {patient.patientVitalTemperature}°C
-                                        </Link>
-                                            </td>
-                                        <td>
-                                        <Link to={`/Detail/${patient.admissionId}`} state={{ patient }} className='tableLink'>
-                                            {patient.patientVitalHr}
-                                        </Link>
-                                            </td>
-                                        <td>
-                                        <Link to={`/Detail/${patient.admissionId}`} state={{ patient }} className='tableLink'>
-                                            {patient.patientVitalRespiratoryRate}
-                                        </Link>
-                                            </td>
-                                        <td>
-                                        <Link to={`/Detail/${patient.admissionId}`} state={{ patient }} className='tableLink'>
-                                            {patient.patientVitalSpo2}
-                                        </Link>
-                                            </td>
-                                        <td>
-                                        <Link to={`/Detail/${patient.admissionId}`} state={{ patient }} className='tableLink'>
-                                            {patient.patientVitalNibpS}
-                                        </Link>
-                                            </td>
-                                        <td>
-                                        <Link to={`/Detail/${patient.admissionId}`} state={{ patient }} className='tableLink'>
-                                            {patient.patientVitalNibpD}
-                                        </Link>
-                                            </td>
-                                        <td>
-                                        <Link to={`/Detail/${patient.admissionId}`} state={{ patient }} className='tableLink'>
-                                            {patient.bedWard}
-                                        </Link>
-                                            </td>
-                                        <td>
-                                        <Link to={`/Detail/${patient.admissionId}`} state={{ patient }} className='tableLink'>
-                                            {patient.deepNcdss}
-                                        </Link>
-                                            </td>
-                                    <td>
-                                        <CommentModal />
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                    
-                    <div style={{ textAlign: 'center' }}>
-                        <ul className="pagination justify-content-center" >
-                            {pageNumbers.map(number => (
-                                <li key={number} className="page-item">
-                                    <button onClick={() => paginate(number)} className="page-link" >
-                                        {number}
-                                    </button>
-                                </li>
-                            ))}
-                        </ul>
-                    </div> 
-                    </div>
-            </main>
-        </div>
-    );
-};
->>>>>>> dev
 
 
     export default CurrentPage;
