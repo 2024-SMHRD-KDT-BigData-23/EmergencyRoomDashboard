@@ -1,23 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, {  useState } from 'react';
 import '../../assets/scss/maintable.scss';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import CommentModal from './commentmodal';
 
-const SearchTable = () => {
+const SearchTable = ({ patients }) => {
 
-    const [patients, setPatients] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 14; // 한 페이지에 표시할 항목 수
-
-    useEffect(() => {
-        axios.get('http://localhost:8080/api/ER/medical-patients/All/All')
-            .then(response => {
-                setPatients(response.data);
-            })
-            .catch(error => {
-                console.error('Error fetching data: ', error);
-            });
-    }, []);
 
     // 현재 페이지에 표시할 데이터를 계산합니다.
     const indexOfLastItem = currentPage * itemsPerPage;
@@ -43,8 +32,9 @@ const SearchTable = () => {
                         <thead>
                             <tr>
                                 <th scope="col">In Time</th>
-                                <th scope="col">MT(Measurement)</th>
+                                <th scope="col">MT</th>
                                 <th scope="col">Patient ID</th>
+                                <th scope="col">Stay ID</th>
                                 <th scope="col">Name</th>
                                 <th scope="col">Sex</th>
                                 <th scope="col">Temp</th>
@@ -55,10 +45,66 @@ const SearchTable = () => {
                                 <th scope="col">DBP</th>
                                 <th scope="col">Section</th>
                                 <th scope="col">NCDSS</th>
-                                <th scope="col">Action</th>
+                                <th scope="col">Out time</th>
+                                <th scope="col">Action</th> 
+                                <th scope="col">Disposition</th>
+                                
                             </tr>
                         </thead>
                         <tbody>
+                            <tr className='MainTableFont'>
+                                <td>
+                                    몸이
+                                </td>
+                                <td>
+                                    몸이
+                                </td>
+                                <td>
+                                    몸이
+                                </td>
+                                <td>
+                                    몸이
+                                </td>
+                                <td>
+                                    몸이
+                                </td>
+                                <td>
+                                    몸이
+                                </td>
+                                <td>
+                                    몸이
+                                </td>
+                                <td>
+                                    몸이
+                                </td>
+                                <td>
+                                    몸이
+                                </td>
+                                <td>
+                                    몸이
+                                </td>
+                                <td>
+                                    몸이
+                                </td>
+                                <td>
+                                    몸이
+                                </td>
+                                <td>
+                                    몸이
+                                </td>
+                                <td>
+                                    몸이
+                                </td>
+                                <td>
+                                    몸이
+                                </td>
+                                <td>
+                                    <CommentModal />
+                                </td>
+                                <td>
+                                    몸이
+                                </td>
+                            </tr>
                             {currentItems.map(patient => (
                                 <tr key={patient.id} className='MainTableFont'>
                                         <td>
@@ -74,6 +120,11 @@ const SearchTable = () => {
                                         <td>
                                         <Link to={`/Detail/${patient.admissionId}`} state={{ patient }} className='tableLink'>
                                             {patient.patientId}
+                                        </Link>
+                                        </td>
+                                        <td>
+                                        <Link to={`/Detail/${patient.admissionId}`} state={{ patient }} className='tableLink'>
+                                            {patient.admissionId}
                                         </Link>
                                         </td>
                                         <td>
@@ -125,45 +176,21 @@ const SearchTable = () => {
                                         <Link to={`/Detail/${patient.admissionId}`} state={{ patient }} className='tableLink'>
                                             {patient.deepNcdss}
                                         </Link>
-                                            </td>
-                                    <td>
-                                        <button type="button" className="btn btn-info btn-sm" data-bs-toggle="modal" style={{ color: 'white' }} data-bs-target="#exampleModal">Comment</button>
-                                        <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div className="modal-dialog">
-                                                <div className="modal-content">
-                                                    <div className="modal-header">
-                                                        <h5 className="modal-title" id="exampleModalLabel">New message</h5>
-                                                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                    </div>
-                                                    <div className="modal-body">
-                                                        <form>
-                                                            <div className="mb-3" style={{ textAlign: 'left' }}>
-                                                                <label htmlFor="recipient-name" className="col-form-label">Recipient:</label>
-                                                                <div className="dropdown">
-                                                                    <button className="btn btn-outline-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                        Result Ward
-                                                                    </button>
-                                                                    <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                                                        <li><a className="dropdown-item" href="#">Home</a></li>
-                                                                        <li><a className="dropdown-item" href="#">Ward</a></li>
-                                                                        <li><a className="dropdown-item" href="#">ICU</a></li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                            <div className="mb-3" style={{ textAlign: 'left' }}>
-                                                                <label htmlFor="message-text" className="col-form-label">Message:</label>
-                                                                <textarea className="form-control" id="message-text"></textarea>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                    <div className="modal-footer">
-                                                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                        <button type="button" className="btn btn-primary">Apply</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
+                                        </td>
+                                        <td>
+                                        <Link to={`/Detail/${patient.admissionId}`} state={{ patient }} className='tableLink'>
+                                            {patient.admissionOutTime}
+                                        </Link>
+                                        </td>
+                                        <td>
+                                        <Link to={`/Detail/${patient.admissionId}`} state={{ patient }} className='tableLink'>
+                                        </Link>
+                                        </td>
+                                        <td>
+                                        <Link to={`/Detail/${patient.admissionId}`} state={{ patient }} className='tableLink'>
+                                            {patient.deepNcdss}
+                                        </Link>
+                                        </td>
                                 </tr>
                             ))}
                         </tbody>
