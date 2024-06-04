@@ -14,6 +14,7 @@ import DataPage from './views/admin-components/datapage';
 import HelpPage from './views/admin-components/helppage';
 import RolePage from './views/admin-components/rolepage';
 import SuveillancePage from './views/admin-components/surveillancepage';
+import ReportPage from './views/admin-components/reportpage';
 
 
 
@@ -35,6 +36,7 @@ root.render(
       <Route path="/Help" element={<HelpPage />} />
       <Route path="/Role" element={<RolePage />} />
       <Route path="/Surveillance" element={<SuveillancePage />} />
+      <Route path="/Report" element={<ReportPage />} />
     </Routes>
   </Router>
 );
