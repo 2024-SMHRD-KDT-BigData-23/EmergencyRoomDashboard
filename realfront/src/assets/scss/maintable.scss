@@ -4,10 +4,21 @@
     text-align: 'center';
 }
 
-.dropSearch {
-    padding: 10px;
-}
+// 테이블 헤더 배경색 투명
+.table thead th {
+    background-color: #7E8EF1 !important;
+    color: white;
+  }
+  
 
-.mainTableCom {
-    padding: 10px;
-}
+  .table tbody tr:nth-child(odd) td {
+    background-color: white;
+  }
+  
+  .table tbody tr:nth-child(even) td {
+    background-color: #eeeeee;
+  }
+
+  body {
+    background-color: #Eeeeee;
+  }
