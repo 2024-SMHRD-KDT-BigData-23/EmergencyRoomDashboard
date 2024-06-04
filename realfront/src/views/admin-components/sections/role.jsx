@@ -108,7 +108,7 @@ const Role = () => {
                 </Col>
             </Row>
 
-            {/* 사용자 상세 보기 모달 */}
+            {/* 사용자 상세 보기 모달 >DB연결필요*/}
             {selectedUser && (
                 <Modal show={showUserModal} onHide={handleCloseUserModal}>
                     <Modal.Header closeButton>
@@ -135,7 +135,7 @@ const Role = () => {
                 </Modal>
             )}
 
-            {/* 하단 섹션: 새로운 사용자 추가 */}
+            {/* 하단 섹션: 새로운 사용자 추가 ->이후에 db랑 연결 */}
             <Row className="mb-3">
                 <Col>
                     <Form>

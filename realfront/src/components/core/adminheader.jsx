@@ -49,6 +49,11 @@ const AdminHeader = () => {
                                 </Link>
                     </Col>
                     <Col className='d-flex align-items-center AdminPage'>
+                    <Link to='/Report' className='MainLogoLink'>
+                    ReportPage
+                                </Link>
+                    </Col>
+                    <Col className='d-flex align-items-center AdminPage'>
                     <Link to='/Help' className='MainLogoLink'>
                     HelpPage
 
