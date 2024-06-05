@@ -1,22 +1,26 @@
 import React, { useState } from "react";
 import { Container, Row, Col, Table, Button, Form } from 'react-bootstrap';
 
-const Suveillance =()=>{
-    // 감사 로그 상태
-    const [logs, setLogs] = useState([
-        { id: 1, timestamp: '2024-06-01 10:00', user: 'Dr. John Doe', action: 'Updated patient record', details: 'Updated record for patient ID 123' },
-        { id: 2, timestamp: '2024-05-30 14:30', user: 'Nurse Jane Smith', action: 'Added new patient', details: 'Added patient ID 456' },
-        { id: 3, timestamp: '2024-06-02 09:15', user: 'Dr. Emily Clark', action: 'Reviewed lab results', details: 'Reviewed lab results for patient ID 789' },
-        { id: 4, timestamp: '2024-05-29 12:45', user: 'Nurse Mark Johnson', action: 'Scheduled surgery', details: 'Scheduled surgery for patient ID 321' },
-        { id: 5, timestamp: '2024-06-03 11:00', user: 'Dr. Sarah Lee', action: 'Prescribed medication', details: 'Prescribed medication for patient ID 654' },
-        { id: 6, timestamp: '2024-06-01 15:30', user: 'Nurse Paul Davis', action: 'Discharged patient', details: 'Discharged patient ID 987' },
-        { id: 7, timestamp: '2024-05-28 08:00', user: 'Dr. Michael Brown', action: 'Updated clinical notes', details: 'Updated clinical notes for patient ID 432' },
-        { id: 8, timestamp: '2024-06-04 13:00', user: 'Nurse Lisa Wilson', action: 'Uploaded surgery report', details: 'Uploaded surgery report for patient ID 876' },
-        { id: 9, timestamp: '2024-06-04 07:45', user: 'Dr. Robert White', action: 'Reviewed allergy information', details: 'Reviewed allergy information for patient ID 543' },
-        { id: 10, timestamp: '2024-05-27 16:20', user: 'Nurse Karen Martinez', action: 'Updated immunization records', details: 'Updated immunization records for patient ID 210' },
-        { id: 11, timestamp: '2024-06-02 14:10', user: 'Dr. David Harris', action: 'Checked vital signs', details: 'Checked vital signs for patient ID 678' },
-        { id: 12, timestamp: '2024-06-01 09:50', user: 'Nurse Nancy Evans', action: 'Added emergency contact', details: 'Added emergency contact for patient ID 334' }
-    ]);
+const Suveillance =({patients} , {setSearch})=>{
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 14; // 한 페이지에 표시할 항목 수
+
+    // 현재 페이지에 표시할 데이터를 계산합니다.
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentItems = patients.slice(indexOfFirstItem, indexOfLastItem);
+
+    // 페이지를 변경하는 함수입니다.
+    const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+    // 총 페이지 수를 계산하고 페이지 번호를 배열에 저장합니다.
+    const pageNumbers = [];
+    for (let i = 1; i <= Math.ceil(patients.length / itemsPerPage); i++) {
+        pageNumbers.push(i);
+    }
+
+
     
     // 필터 상태
     const [filter, setFilter] = useState({ user: '', action: '', dateFrom: '', dateTo: '' });
@@ -64,7 +68,7 @@ const Suveillance =()=>{
                                 </Form.Group>
                             </Col>
                             <Col className="d-flex align-items-end">
-                                <Button variant="primary">Search</Button>
+                                <Button variant="primary" type="submit">Search</Button>
                             </Col>
                         </Row>
                     </Form>
@@ -78,16 +82,33 @@ const Suveillance =()=>{
                             </tr>
                         </thead>
                         <tbody>
-                            {logs.map(log => (
-                                <tr key={log.id}>
-                                    <td>{log.timestamp}</td>
-                                    <td>{log.user}</td>
-                                    <td>{log.action}</td>
-                                    <td>{log.details}</td>
+                            {currentItems.map(patient => (
+                                <tr key={patient.id}>
+                                    <td>{String(patient.admissionInTime.year).padStart(2, '0')}.{String(patient.admissionInTime.month).padStart(2, '0')}.{String(patient.admissionInTime.day).padStart(2, '0')}
+                                    .{String(patient.admissionInTime.hour).padStart(2, '0')}:{String(patient.admissionInTime.minute).padStart(2, '0')}:{String(patient.admissionInTime.second).padStart(2, '0')}</td>
+                                    <td>{patient.admissionStaffId}</td>
+                                    <td>{patient.admissionResultWard}</td>
+                                    <td>
+                                        patient_id = {patient.patientId}  /  admission_id = {patient.admissionId}
+                                    </td>
                                 </tr>
                             ))}
                         </tbody>
                     </Table>
+                    
+                    <div style={{ textAlign: 'center' }}>
+                        <ul className="pagination justify-content-center" >
+                            {pageNumbers.map(number => (
+                                <li key={number} className="page-item">
+                                    <button onClick={() => paginate(number)} className="page-link" >
+                                        {number}
+                                    </button>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+
+
                 </Col>
             </Row>
             <Row className="my-3">

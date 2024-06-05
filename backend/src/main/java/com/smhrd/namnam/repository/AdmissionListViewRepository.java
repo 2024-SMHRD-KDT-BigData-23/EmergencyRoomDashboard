@@ -1,5 +1,6 @@
 package com.smhrd.namnam.repository;
 
+import com.smhrd.namnam.entity.AdmissionInfo;
 import com.smhrd.namnam.entity.AdmissionListView;
 import com.smhrd.namnam.vo.AdmissionInfoVO;
 import com.smhrd.namnam.vo.AdmissionListViewVO;
@@ -70,5 +71,6 @@ AdmissionListViewRepository extends JpaRepository<AdmissionListView, Long> {
             "ORDER BY a.admission_in_time DESC",
             nativeQuery = true)
     List<AdmissionListView> allSearchByPatientNameId(@Param("patientNameId") String patientNameId);
+
     /////////////////////////////////////////////////////////////////////////////////////////////////////
 }
