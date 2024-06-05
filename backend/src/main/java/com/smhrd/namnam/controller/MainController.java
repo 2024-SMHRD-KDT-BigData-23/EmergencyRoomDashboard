@@ -11,10 +11,9 @@ import java.util.Collection;
 import java.util.Iterator;
 
 @RestController
-@RequestMapping("/api")
 public class MainController {
 
-    @GetMapping("/main")
+    @GetMapping("/")
     public String mainP() {
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
