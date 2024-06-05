@@ -65,5 +65,6 @@ public interface ERViewRepository extends JpaRepository<ERView, Long> {
             "ORDER BY a.admission_in_time DESC",
             nativeQuery = true)
     List<ERView> allSearchByPatientNameId(@Param("patientNameId") String patientNameId);
+
     /////////////////////////////////////////////////////////////////////////////////////////////////////
 }
