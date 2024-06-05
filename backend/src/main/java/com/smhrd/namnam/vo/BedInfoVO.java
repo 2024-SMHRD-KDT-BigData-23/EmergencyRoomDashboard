@@ -17,4 +17,6 @@ public class BedInfoVO {
     private int bedNum;
     // 위치도
     private String bedMap;
+    // 병원 식별자
+    private String hospitalId;
 }

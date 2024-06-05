@@ -79,17 +79,19 @@ public class DataLoader {
             for (int i = 0; i < 11; i++) { // 병원당 의료진 10명 + 관리자 1명 = 11명
                 StaffInfo staff = new StaffInfo();
 
-                if (i > 1) { // i가 0일 때, staff 생성
+                if (i > 1) { // i가 1 ~ 10일 때, staff 생성
                     String role = faker.options().option("Nurse", "Doctor");
                     staff.setHospitalInfo(selectedHospital);
-                    staff.setStaffId(role + i);
-                    staff.setStaffPw(role + i);
+                    staff.setStaffId(role.toLowerCase() + i);
+                    staff.setStaffPw(role.toLowerCase() + i);
                     staff.setStaffRole(role);
-                } else { // i가 1일 때, admin 생성
+                    staff.setStaffStatus("active");
+                } else { // i가 0일 때, admin 생성
                     staff.setHospitalInfo(selectedHospital);
                     staff.setStaffId("admin");
                     staff.setStaffPw("admin");
                     staff.setStaffRole("admin");
+                    staff.setStaffStatus("active");
                 }
 
                 staffRepo.save(staff);
@@ -97,54 +99,53 @@ public class DataLoader {
         }
     }
 
-    // 의료진별 환자 생성 메소드
+    // 환자 생성 메소드
     public void patientGenerator() {
-        List<StaffInfo> allStaffs = staffRepo.findAll();
+        List<HospitalInfo> allHospitals = hospitalRepo.findAll();
 
-        for (StaffInfo selectedStaff : allStaffs) {
-            if (!selectedStaff.getStaffRole().equals("admin")) { // role이 admin가 아닌 Nurse나 Doctor일 경우만 환자 생성
-                for (int i = 1; i <= random.nextInt(10) + 1; i++) { // 의료진별 1 ~ 10명의 환자 생성 >> 환자가 여러번 입실을 하면 담당자가 달라져야 하는데 그러질 못함..?
-                    PatientInfo patient = new PatientInfo();
-
-                    // 의료진 식별자(FK)
-                    patient.setStaffInfo(selectedStaff);
-                    // 환자 성별
-                    String sex = faker.options().option("Male", "Female");
-                    patient.setPatientSex(sex);
-                    // 환자 이름
-                    String name = sex.equals("Male") ? faker.name().malefirstName() : faker.name().femaleFirstName();
-                    patient.setPatientName(name);
-                    // 환자 생년월일
-                    Date birthdate = new Date(faker.date().birthday().getTime());
-                    patient.setPatientBirthdate(birthdate);
-                    // 환자 식별자(PK)
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyMMdd");
-                    patient.setPatientId(String.format("%s-%s", name.substring(0, 1).toUpperCase(), sdf.format(birthdate)));
-                    // 환자 나이
-                    Calendar birth = Calendar.getInstance();
-                    birth.setTime(birthdate);
-                    Calendar today = Calendar.getInstance();
-                    int age = today.get(Calendar.YEAR) - birth.get(Calendar.YEAR);
-                    if(today.get(Calendar.DAY_OF_YEAR) < birth.get(Calendar.DAY_OF_YEAR)) {
-                        age--;
-                    }
-                    patient.setPatientAge(age);
-                    // 환자 과거이력
-                    patient.setPatientDiseaseHistory(faker.options().option(faker.disease().internalDisease(), faker.disease().dermatology(), faker.disease().gynecologyAndObstetrics(), faker.disease().ophthalmologyAndOtorhinolaryngology(), faker.disease().neurology(), faker.disease().surgery()));
-
-                    patientRepo.save(patient);
+        for (HospitalInfo selectedHospital : allHospitals) {
+            for (int i = 1; i <= random.nextInt(100, 120) + 1; i++) {
+                PatientInfo patient = new PatientInfo();
+                // 의료진 식별자(FK)
+                patient.setHospitalInfo(selectedHospital);
+                // 환자 성별
+                String sex = faker.options().option("Male", "Female");
+                patient.setPatientSex(sex);
+                // 환자 이름
+                String name = sex.equals("Male") ? faker.name().malefirstName() : faker.name().femaleFirstName();
+                patient.setPatientName(name);
+                // 환자 생년월일
+                Date birthdate = new Date(faker.date().birthday().getTime());
+                patient.setPatientBirthdate(birthdate);
+                // 환자 식별자(PK)
+                SimpleDateFormat sdf = new SimpleDateFormat("yyMMdd");
+                patient.setPatientId(String.format("%s-%s", name.substring(0, 1).toUpperCase(), sdf.format(birthdate)));
+                // 환자 나이
+                Calendar birth = Calendar.getInstance();
+                birth.setTime(birthdate);
+                Calendar today = Calendar.getInstance();
+                int age = today.get(Calendar.YEAR) - birth.get(Calendar.YEAR);
+                if (today.get(Calendar.DAY_OF_YEAR) < birth.get(Calendar.DAY_OF_YEAR)) {
+                    age--;
                 }
+                patient.setPatientAge(age);
+                // 환자 과거이력
+                patient.setPatientDiseaseHistory(faker.options().option(faker.disease().internalDisease(), faker.disease().dermatology(), faker.disease().gynecologyAndObstetrics(), faker.disease().ophthalmologyAndOtorhinolaryngology(), faker.disease().neurology(), faker.disease().surgery()));
+
+                patientRepo.save(patient);
             }
         }
     }
 
-    // 환자별 입실정보 생성 메소드
+    // 환자별 + 담당 의료진 입실정보 생성 메소드
     public void admissionGenerator() {
         List<PatientInfo> allPatients = patientRepo.findAll();
+        List<StaffInfo> allStaffs = staffRepo.findAll();
         LocalDateTime startTime = LocalDateTime.now();
 
+
         for (PatientInfo selectedPatient : allPatients) {
-            for (int i = 1; i <= random.nextInt(4) + 1; i++) {
+            for (int i = 1; i <= random.nextInt(3) + 1; i++) {
                 AdmissionInfo admission = new AdmissionInfo();
 
                 // 무작위 날짜 추출 과정
@@ -166,12 +167,22 @@ public class DataLoader {
                 admission.setAdmissionId(String.format("%s-%s-%s", arrivalTransport.equals("WALK IN") ? "W" : "A", formattedDate, "00" + faker.number().randomNumber(2, true)));
                 // 환자 식별자(FK)
                 admission.setPatientInfo(selectedPatient);
+                // 의료진 식별자(FK)
+                admission.setStaffInfo(allStaffs.get(random.nextInt(9) + 1));
                 // 입실 시간
                 admission.setAdmissionInTime(Timestamp.valueOf(randomDateTime));
+                // 고통 정도
+                admission.setAdmissionPain(faker.number().numberBetween(1, 10));
+                // 호소 증상
+                admission.setAdmissionChiefComplaint(faker.lorem().sentence());
+                // 위험도
+                admission.setAdmissionAcuity(faker.number().numberBetween(1, 5));
 
                 admissionRepo.save(admission);
             }
+
         }
+
     }
 
     // 입실번호별 생체정보 생성 메소드
@@ -200,12 +211,6 @@ public class DataLoader {
                 presentPatientVital.setPatientVitalNibpD(faker.number().numberBetween(50, 90)); // 표준 범위 ± 오차 범위
 
                 if (currentPatientVital != null) {
-                    // 고통 정도
-                    presentPatientVital.setPatientVitalPain(currentPatientVital.getPatientVitalPain());
-                    // 호소 증상
-                    presentPatientVital.setPatientVitalChiefComplaint(currentPatientVital.getPatientVitalChiefComplaint());
-                    // 위험도
-                    presentPatientVital.setPatientVitalAcuity(currentPatientVital.getPatientVitalAcuity());
                     // 바이탈을 잰 시간
                     LocalDateTime vitalCreatedAt = currentPatientVital.getPatientVitalCreatedAt().toLocalDateTime();
                     Random random = new Random();
@@ -214,12 +219,6 @@ public class DataLoader {
                     vitalCreatedAt = vitalCreatedAt.plusMinutes(minutesOffset).plusSeconds(secondsOffset);
                     presentPatientVital.setPatientVitalCreatedAt(Timestamp.valueOf(vitalCreatedAt));
                 } else {
-                    // 고통 정도
-                    presentPatientVital.setPatientVitalPain(faker.number().numberBetween(1, 10));
-                    // 호소 증상
-                    presentPatientVital.setPatientVitalChiefComplaint(faker.lorem().sentence());
-                    // 위험도
-                    presentPatientVital.setPatientVitalAcuity(faker.number().numberBetween(1, 5));
                     // 바이탈을 잰 시간
                     Timestamp admissionInTime = selectedAdmission.getAdmissionInTime();
                     LocalDateTime vitalCreatedAt = admissionInTime.toLocalDateTime();
@@ -252,32 +251,36 @@ public class DataLoader {
 
     // 병원에 있는 병상 정보
     public void bedGenerator() {
-        for (int i = 1; i <= 10; i++) {
-            BedInfo bed = new BedInfo();
+        List<HospitalInfo> allHospitals = hospitalRepo.findAll();
+        for (HospitalInfo selectedHospital : allHospitals) {
+            for (int i = 1; i <= 10; i++) {
+                BedInfo bed = new BedInfo();
+                bed.setHospitalInfo(selectedHospital);
+                bed.setBedMap("스마트병원배치도");
+                bed.setBedNum(i);
+                bed.setBedWard("일반구역A");
+                bedRepo.save(bed);
+            }
+            for (int i = 11; i <= 20; i++) {
+                BedInfo bed = new BedInfo();
 
-            bed.setBedMap("스마트병원배치도");
-            bed.setBedNum(i);
-            bed.setBedWard("일반구역A");
+                bed.setHospitalInfo(selectedHospital);
+                bed.setBedMap("스마트병원배치도");
+                bed.setBedNum(i);
+                bed.setBedWard("일반구역B");
 
-            bedRepo.save(bed);
-        }
-        for (int i = 11; i <= 20; i++) {
-            BedInfo bed = new BedInfo();
+                bedRepo.save(bed);
+            }
+            for (int i = 21; i <= 30; i++) {
+                BedInfo bed = new BedInfo();
 
-            bed.setBedMap("스마트병원배치도");
-            bed.setBedNum(i);
-            bed.setBedWard("일반구역B");
+                bed.setHospitalInfo(selectedHospital);
+                bed.setBedMap("스마트병원배치도");
+                bed.setBedNum(i);
+                bed.setBedWard("중증구역");
 
-            bedRepo.save(bed);
-        }
-        for (int i = 21; i <= 30; i++) {
-            BedInfo bed = new BedInfo();
-
-            bed.setBedMap("스마트병원배치도");
-            bed.setBedNum(i);
-            bed.setBedWard("중증구역");
-
-            bedRepo.save(bed);
+                bedRepo.save(bed);
+            }
         }
     }
 
@@ -289,10 +292,17 @@ public class DataLoader {
         for (AdmissionInfo selectedAdmission : allAdmissions) {
             MapInfo map = new MapInfo();
 
-            map.setBedInfo(allBeds.get(random.nextInt(1, 30)));
             map.setAdmissionInfo(selectedAdmission);
+            if (selectedAdmission.getAdmissionAcuity() < 3) {
+                // 중증구역
+                map.setBedInfo(bedRepo.findByBedNum(random.nextInt(10) + 21));
+            } else if (selectedAdmission.getAdmissionAcuity() < 5) {
+                // 일반구역A, B
+                map.setBedInfo(bedRepo.findByBedNum(random.nextInt(1, 21)));
+            }
 
             mapRepo.save(map);
+
         }
     }
 

@@ -1,5 +1,6 @@
 package com.smhrd.namnam.vo;
 
+import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,8 +19,12 @@ public class DeepInfoVO {
     private Long patientVitalId;
     // 위험도
     private String deepNcdss;
-//    // 위험도 확률
-//    private BigDecimal deepNcdssPercent;
+    // home 확률
+    private BigDecimal deepHomePercent;
+    // icu 확률
+    private BigDecimal deepIcuPercent;
+    // ward 확률
+    private BigDecimal deepWardPercent;
     // 등록 날짜
     private Timestamp deepCreatedAt;
 }

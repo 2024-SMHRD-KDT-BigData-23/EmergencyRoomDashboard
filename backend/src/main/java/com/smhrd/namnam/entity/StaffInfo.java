@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "staff_info")
@@ -26,6 +29,19 @@ public class StaffInfo {
     // 직위
     @Column(name = "staff_role", nullable = false, length = 30)
     private String staffRole;
+
+    // 의료진 상태
+    @Column(name = "staff_status", nullable = false, length = 30)
+    private String staffStatus;
+
+    // 의료진 생성 날짜
+    @UpdateTimestamp
+    @Column(name = "staff_created_at", nullable = false)
+    private Timestamp staffCreatedAt;
+
+    // 마지막 로그인 날짜
+    @Column(name = "staff_updated_at", nullable = true)
+    private Timestamp staffUpdatedAt;
 
     // HospitalInfo의 병원 식별자
     @ManyToOne(cascade = CascadeType.REMOVE)

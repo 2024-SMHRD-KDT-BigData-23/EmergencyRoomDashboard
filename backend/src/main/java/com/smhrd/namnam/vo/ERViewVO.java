@@ -1,8 +1,5 @@
 package com.smhrd.namnam.vo;
 
-import com.smhrd.namnam.entity.AdmissionListView;
-import jakarta.persistence.Column;
-import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,22 +10,10 @@ import java.sql.Timestamp;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AdmissionListViewVO {
+public class ERViewVO {
 
     // 뷰의 식별자
-    private Long id;
-
-    // 입원 식별자
-    private String admissionId;
-
-    // 도착 시간
-    private Timestamp admissionInTime;
-
-    // 퇴원 시간
-    private Timestamp admissionOutTime;
-
-    // 실제 배치 결과
-    private String admissionResultWard;
+    private Long viewId;
 
     // 환자 식별자
     private String patientId;
@@ -42,11 +27,41 @@ public class AdmissionListViewVO {
     // 생년월일
     private java.sql.Date patientBirthdate;
 
+    // 나이
+    private int patientAge;
+
     // 과거 병력
     private String patientDiseaseHistory;
 
     // 구역
     private String bedWard;
+
+    // 입원 식별자
+    private String admissionId;
+
+    // 도착 시간
+    private Timestamp admissionInTime;
+
+    // 퇴원 시간
+    private Timestamp admissionOutTime;
+
+    // 실제 배치 결과
+    private String admissionResultWard;
+
+    // 의료진 진단
+    private String admissionDiagnosis;
+
+    // 통증수준
+    private int admissionPain;
+
+    // 주요증상
+    private String admissionChiefComplaint;
+
+    // mimic데이터의 acuity컬럼 값
+    private int admissionAcuity;
+
+    // 담당 의료진
+    private String staffId;
 
     // 등록 일자
     private Timestamp patientVitalCreatedAt;
@@ -69,15 +84,16 @@ public class AdmissionListViewVO {
     // 이완혈압
     private int patientVitalNibpD;
 
-    // 통증수준
-    private int patientVitalPain;
-
-    // 주요증상
-    private String patientVitalChiefComplaint;
-
-    // mimic데이터의 acuity컬럼 값
-    private int patientVitalAcuity;
-
     // 위험도
     private String deepNcdss;
+
+    // home 확률
+    private BigDecimal deepHomePercent;
+
+    // icu 확률
+    private BigDecimal deepIcuPercent;
+
+    // ward 확률
+    private BigDecimal deepWardPercent;
+
 }
