@@ -32,4 +32,9 @@ public class BedInfo {
     @Column(name = "bed_map", nullable = false, length = 1000)
     private String bedMap;
 
+    // 병원 식별자
+    @ManyToOne(cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "hospital_id", nullable = false)
+    private HospitalInfo hospitalInfo;
+
 }

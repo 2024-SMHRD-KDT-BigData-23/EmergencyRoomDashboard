@@ -26,7 +26,7 @@ public class DeepInfo {
     private Long deepId;
 
     // Patientvital의 vital 식별자
-    @OneToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "patient_vital_id", nullable = false)
     private PatientVitalInfo patientVitalInfo;
 
@@ -34,9 +34,17 @@ public class DeepInfo {
     @Column(name = "deep_ncdss", nullable = true)
     private String deepNcdss;
 
-//    // 위험도 확률
-//    @Column(name = "deep_ncdss_percent", nullable = true)
-//    private BigDecimal deepNcdssPercent;
+    // home 확률
+    @Column(name = "deep_home_percent", nullable = true)
+    private BigDecimal deepHomePercent;
+
+    // icu 확률
+    @Column(name = "deep_icu_percent", nullable = true)
+    private BigDecimal deepIcuPercent;
+
+    // ward 확률
+    @Column(name = "deep_ward_percent", nullable = true)
+    private BigDecimal deepWardPercent;
 
     // 등록 날짜
     @UpdateTimestamp
