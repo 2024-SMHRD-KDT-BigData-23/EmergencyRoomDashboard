@@ -28,12 +28,6 @@ public class PatientVitalInfoVO {
     private int patientVitalNibpS;
     // 이완 혈압
     private int patientVitalNibpD;
-    // 통증 수준
-    private int patientVitalPain;
-    // 주요 증상
-    private String patientVitalChiefComplaint;
-    // mimic데이터의 acutiry컬럼 값
-    private int patientVitalAcuity;
     // 등록 일자
     private Timestamp patientVitalCreatedAt;
 }

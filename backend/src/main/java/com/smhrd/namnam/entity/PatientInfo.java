@@ -39,9 +39,9 @@ public class PatientInfo {
     @Column(name = "patient_disease_history", nullable = false, columnDefinition = "TEXT")
     private String patientDiseaseHistory;
 
-    // 담당 의사
+    // HospitalInfo의 병원 식별자
     @ManyToOne(cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "staff_id", nullable = false)
-    private StaffInfo staffInfo;
+    @JoinColumn(name = "hospital_id", nullable = false)
+    private HospitalInfo hospitalInfo;
 
 }
