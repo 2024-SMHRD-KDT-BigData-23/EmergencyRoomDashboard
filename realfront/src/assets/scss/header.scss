@@ -1,5 +1,6 @@
 .header-bg {
-  background-color: #615EFC;///
+  // background-color: #615EFC; 
+  background-color: #0B3A65;
 }
 
 .MainTitle {
@@ -24,12 +25,10 @@ text-decoration: none; /* 밑줄 제거 */
 color: inherit; /* 부모 요소의 색상 상속 */
 }
 
-.hopitalUser { 
-
+.hospitalUser { 
   font-size: 20px;
   color: white;
   font-weight: 700;
-
 }
 
 /* AdminPage */
@@ -42,9 +41,26 @@ color: inherit; /* 부모 요소의 색상 상속 */
   width: 300px;
 }
 
+.offBody {
+  font-size: 1.5rem;
+  padding: 1rem;
+  padding-top :1.5rem;
+}
+
+.NavCategory {
+  border-bottom: 1px solid #dee2e6; /* 아래쪽 선 스타일 및 색상 */
+  display: inline-flex; /* 아이콘과 텍스트를 가로로 정렬하기 위해 inline-flex 사용 */
+  align-items: center; /* 수직 가운데 정렬 */
+  gap: 8px; /* 아이콘과 텍스트 사이의 간격 조정 */
+}
+
+.NavCategory:hover {
+  // background-color: #f8f9fa; /* 호버 시 배경색 변경 */
+  background-color: #E8E4FF; /* 호버 시 배경색 변경 */
+}
+
 .hamburger {
   color : white;
   cursor: pointer;
   font-size: 30px;
-
 }

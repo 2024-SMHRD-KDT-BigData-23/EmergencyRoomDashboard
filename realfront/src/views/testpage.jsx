@@ -1,20 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
 import '../assets/scss/maintable.scss'; 
-import AdminHeader from "../components/core/adminheader";
+import DecisionDrop from "../components/core/decisionmodal ";
 
 
 
 const Test = () => {
     return (
         <div>
-        <header>
-            <AdminHeader />
-        </header>
-        <div className="d-flex justify-content-between dropSearch">
-        </div>
-        <main className="mainTableCom">
-        </main>
+            <DecisionDrop />
         </div>
     );  
 }

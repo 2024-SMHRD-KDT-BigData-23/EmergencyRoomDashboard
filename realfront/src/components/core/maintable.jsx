@@ -2,6 +2,9 @@ import React, {  useState } from 'react';
 import '../../assets/scss/maintable.scss';
 import { Link } from 'react-router-dom';
 import CommentModal from './commentmodal';
+import DecisionModal from './diagnosismodal';
+import DiagnosisModal from './diagnosismodal';
+import DecisionDrop from './decisionmodal ';
 
 const MainTable = ({ patients }) => {
 
@@ -25,10 +28,9 @@ const MainTable = ({ patients }) => {
     return (
         <div>
 
-
         <main className="ourcontent">
                 <div className="mainContent">
-                    <table className="table table-borderless " style={{ textAlign: 'center'   }}>
+                    <table className="table table-borderless table-hover" style={{ textAlign: 'center'   }}>
                         <thead>
                             <tr> 
                                 <th scope="col">In Time</th>
@@ -44,7 +46,8 @@ const MainTable = ({ patients }) => {
                                 <th scope="col">DBP</th>
                                 <th scope="col">Section</th>
                                 <th scope="col">NCDSS</th>
-                                <th scope="col">Action</th>
+                                <th scope="col">Diagnosis</th>
+                                <th scope="col">Decision</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -116,11 +119,16 @@ const MainTable = ({ patients }) => {
                                             </td>
                                         <td>
                                         <Link to={`/Detail/${patient.patientId}/${patient.admissionId}`} state={{ patient }} className='tableLink'>
-                                            {patient.deepNcdss}
+                                        <span style={{ color: patient.deepNcdss === 'HOME' ? 'green' : patient.deepNcdss === 'WARD' ? 'blue' : patient.deepNcdss === 'ICU' ? 'red' : 'inherit' }}>
+                                        {patient.deepNcdss}
+                                        </span>
                                         </Link>
                                             </td>
                                     <td>
-                                        <CommentModal />
+                                        <DiagnosisModal />
+                                    </td>
+                                    <td>
+                                        <DecisionDrop />
                                     </td>
                                 </tr>
                             ))}

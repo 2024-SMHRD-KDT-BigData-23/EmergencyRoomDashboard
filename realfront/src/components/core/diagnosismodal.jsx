@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import axios from 'axios';
 import '../../assets/scss/commentmodal.scss'
 
-const CommentModal = () => {
+const DiagnosisModal = () => {
     const { id } = useParams();
     const [selectedDisposition, setSelectedDisposition] = useState('Result Ward');
     const [selectedComment, setSelectedComment] = useState("진료 결과를 기록해주세요.");
@@ -42,31 +42,6 @@ const CommentModal = () => {
                         <div className="modal-body">
                             <form onSubmit={() => handleSubmit}>
                                 <div className="mb-3" style={{ textAlign: 'left' }}>
-                                    <label htmlFor="recipient-name" className="col-form-label">Disposition:</label>
-                                    <div className="dropdown">
-                                        <button
-                                            className="btn btn-outline-dark dropdown-toggle"
-                                            type="button"
-                                            id="dropdownMenuButton1"
-                                            data-bs-toggle="dropdown"
-                                            aria-expanded="false"
-                                        >
-                                            {selectedDisposition}
-                                        </button>
-                                        <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                            <li>
-                                                <a className="dropdown-item" href="#" onClick={() => setSelectedDisposition('Home')}>Home</a>
-                                            </li>
-                                            <li>
-                                                <a className="dropdown-item" href="#" onClick={() => setSelectedDisposition('Ward')}>Ward</a>
-                                            </li>
-                                            <li>
-                                                <a className="dropdown-item" href="#" onClick={() => setSelectedDisposition('ICU')}>ICU</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div className="mb-3" style={{ textAlign: 'left' }}>
                                     <label htmlFor="message-text" className="col-form-label">Comment</label>
                                     <textarea className="form-control" id="message-text" onChange={changeComment} />
                                 </div>
@@ -74,7 +49,7 @@ const CommentModal = () => {
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" className="btn btn-primary">Apply</button>
+                            <button type="submit" className="btn btn-primary">Send</button>
                         </div>
                     </div>
                 </div>
@@ -83,4 +58,4 @@ const CommentModal = () => {
     );
 };
 
-export default CommentModal;
+export default DiagnosisModal;
