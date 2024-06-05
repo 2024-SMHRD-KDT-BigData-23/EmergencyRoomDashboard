@@ -31,11 +31,12 @@ const SuveillancePage = () => {
 
 
     const [patients, setPatients] = useState([]);
+    const [search, setSearch] = useState([]);
 
     useEffect(() => {
 
         axios
-        .get('http://localhost:8080/api/resultWardLog')
+        .get(`http://localhost:8080/api/resultWardLog`)
         .then(response => {
         const formattedData = response.data.map(item => ({
             ...item,
@@ -50,11 +51,17 @@ const SuveillancePage = () => {
         });
         
     }, []);
+
+    useEffect(()=>{
+        axios
+        .get(`http://localhost:8080/api/search`,{param:search})
+    })
+
     return (
         <div>
             <AdminHeader />
             <Container>
-                <Suveillance patients = { patients } />
+                <Suveillance patients = { patients } setSearch = {setSearch} />
             </Container>
             <Footer/>
         </div>

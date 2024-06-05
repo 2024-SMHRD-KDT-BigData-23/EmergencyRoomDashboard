@@ -1,7 +1,6 @@
 package com.smhrd.namnam.repository;
 
 import com.smhrd.namnam.entity.AdmissionInfo;
-import com.smhrd.namnam.entity.AdmissionListView;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

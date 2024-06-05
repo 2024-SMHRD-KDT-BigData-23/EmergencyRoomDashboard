@@ -1,11 +1,11 @@
 package com.smhrd.namnam.service;
 
 import com.smhrd.namnam.entity.AdmissionInfo;
-import com.smhrd.namnam.entity.AdmissionListView;
+import com.smhrd.namnam.entity.ERView;
 import com.smhrd.namnam.repository.AdmissionInfoRepository;
-import com.smhrd.namnam.repository.AdmissionListViewRepository;
+import com.smhrd.namnam.repository.ERViewRepository;
 import com.smhrd.namnam.vo.AdmissionInfoVO;
-import com.smhrd.namnam.vo.AdmissionListViewVO;
+import com.smhrd.namnam.vo.ERViewVO;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 public class AdminService {
 
     @Autowired
-    private AdmissionListViewRepository admissionViewRepo;
+    private ERViewRepository erViewRepo;
     @Autowired
     private AdmissionInfoRepository admissionInfoRepo;
     @Autowired
@@ -25,14 +25,14 @@ public class AdminService {
 
 
     // entity list 형태 -> vo list형태로 변환 메서드
-    private List<AdmissionListViewVO> convertToAdmissionListViewVOList(List<AdmissionListView> admissionListView) {
-        return admissionListView.stream().map(entity -> modelMapper.map(entity, AdmissionListViewVO.class))
+    private List<ERViewVO> convertToAdmissionListViewVOList(List<ERView> admissionListView) {
+        return admissionListView.stream().map(entity -> modelMapper.map(entity, ERViewVO.class))
                 .collect(Collectors.toList());
     }
 
     // AdmissionListViewVO entity 형태 -> vo 형태로 변환 메서드
-    private AdmissionListViewVO convertToAdmissionListViewVO(AdmissionListView admissionListView){
-        return modelMapper.map(admissionListView, AdmissionListViewVO.class);
+    private ERViewVO convertToAdmissionListViewVO(ERView admissionListView){
+        return modelMapper.map(admissionListView, ERViewVO.class);
     }
 
     // AdmissionInfoVO entity list 형태 -> vo list형태로 변환 메서드
@@ -47,6 +47,11 @@ public class AdminService {
     // result_ward가 결정된 admission_id 전체 리스트(최신순)
     public List<AdmissionInfoVO> findResultWardLog() {
         return convertToAdmissionInfoVOList(admissionInfoRepo.findByAdmissionResultWardIsNotNullOrderByAdmissionOutTimeDesc());
+    }
+
+    // search 기능
+    public List<AdmissionInfoVO> searchResultWardLog(String staffId, String resultWard, String outTimeStart, String outTimeEnd) {
+        return null;
     }
     //////////////////////////////////////////////////////////////////////////////////
 }

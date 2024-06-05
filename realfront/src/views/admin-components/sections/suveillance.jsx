@@ -21,14 +21,22 @@ const Suveillance =({patients} , {setSearch})=>{
     }
 
 
-    
-    // 필터 상태
-    const [filter, setFilter] = useState({ user: '', action: '', dateFrom: '', dateTo: '' });
-
+    // 검색 관련
+    const [filter, setFilter] = useState({
+        staffId:'null',
+        ResultWard:'null',
+        OutTimeStart:'null',
+        OutTimeEnd:'null'
+    })
     const handleFilterChange = (e) => {
         const { name, value } = e.target;
         setFilter({ ...filter, [name]: value });
     };
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        setSearch(filter);
+    }
+
 
     const handleExportLogs = () => {
         // 여기에 로그를 CSV 또는 Excel로 내보내는 로직을 추가합니다.
@@ -41,30 +49,30 @@ const Suveillance =({patients} , {setSearch})=>{
              <Row className="my-3">
                 <Col>
                     <h2>Audit Logs</h2>
-                    <Form>
+                    <Form onSubmit={handleSubmit}>
                         <Row className="mb-3">
                             <Col>
                                 <Form.Group controlId="filterUser">
                                     <Form.Label>User</Form.Label>
-                                    <Form.Control type="text" name="user" value={filter.user} onChange={handleFilterChange} />
+                                    <Form.Control type="text" name="staffId" value={filter.staffId} onChange={handleFilterChange} />
                                 </Form.Group>
                             </Col>
                             <Col>
                                 <Form.Group controlId="filterAction">
                                     <Form.Label>Action</Form.Label>
-                                    <Form.Control type="text" name="action" value={filter.action} onChange={handleFilterChange} />
+                                    <Form.Control type="text" name="ResultWard" value={filter.ResultWard} onChange={handleFilterChange} />
                                 </Form.Group>
                             </Col>
                             <Col>
                                 <Form.Group controlId="filterDateFrom">
                                     <Form.Label>Date From</Form.Label>
-                                    <Form.Control type="date" name="dateFrom" value={filter.dateFrom} onChange={handleFilterChange} />
+                                    <Form.Control type="date" name="OutTimeStart" value={filter.OutTimeStart} onChange={handleFilterChange} />
                                 </Form.Group>
                             </Col>
                             <Col>
                                 <Form.Group controlId="filterDateTo">
                                     <Form.Label>Date To</Form.Label>
-                                    <Form.Control type="date" name="dateTo" value={filter.dateTo} onChange={handleFilterChange} />
+                                    <Form.Control type="date" name="OutTimeEnd" value={filter.OutTimeEnd} onChange={handleFilterChange} />
                                 </Form.Group>
                             </Col>
                             <Col className="d-flex align-items-end">
