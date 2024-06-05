@@ -19,7 +19,7 @@ public class DeepInfoVO {
     // 위험도
     private String deepNcdss;
     // 위험도 확률
-    private BigDecimal deepNcdssPercent;
+//    private BigDecimal deepNcdssPercent;
     // 등록 날짜
     private Timestamp deepCreatedAt;
 }

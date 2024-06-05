@@ -19,9 +19,6 @@ const Dropdown = ({ sectionContent, setSectionContent, ncdssContent, setNcdssCon
                         {sectionContent}
                     </button>
                     <ul className="dropdown-menu">
-
-
-                          
                         <li><span className="dropdown-item" onClick={() => changeSectionContent('All')}>All</span></li>
                         <li><span className="dropdown-item" onClick={() => changeSectionContent('일반구역A')}>일반구역A</span></li>
                         <li><span className="dropdown-item" onClick={() => changeSectionContent('일반구역B')}>일반구역B</span></li>

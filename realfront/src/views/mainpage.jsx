@@ -7,6 +7,7 @@ import "../assets/scss/maintable.scss";
 import "../assets/scss/style.scss";
 import axios from "axios";
 import SearchForm from "../components/core/searchForm";
+import NCount from "../components/core/ncdsscount";
 
 const List = () => {
 
@@ -64,7 +65,10 @@ const List = () => {
 
       <div className="d-flex justify-content-between dropSearch">
         <Dropdown sectionContent={ sectionContent } setSectionContent={ setSectionContent } ncdssContent={ ncdssContent } setNcdssContent={ setNcdssContent } />
+        <div className="d-flex ">
+        <NCount />
         <SearchForm setSearchNameId={ setSearchNameId } />
+        </div>
       </div>
       <main className="mainTableCom">
         <MainTable patients={patients} />

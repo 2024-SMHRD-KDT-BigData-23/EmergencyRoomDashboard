@@ -27,7 +27,7 @@ const PastTable = ( { patients }) => {
 
         <main className="ourcontent">
                 <div className="mainContent">
-                    <table className="table table-borderless table-striped" style={{ textAlign: 'center' }}>
+                    <table className="table table-borderless table-hover" style={{ textAlign: 'center' }}>
                         <thead>
                             <tr>
                                 <th scope="col">In Time</th>
