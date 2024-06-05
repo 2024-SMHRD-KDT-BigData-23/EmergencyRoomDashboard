@@ -37,5 +37,4 @@ public class HospitalInfo {
     @Column(name = "hospital_bed_cnt", nullable = false)
     private int hospitalBedCnt;
 
-
 }

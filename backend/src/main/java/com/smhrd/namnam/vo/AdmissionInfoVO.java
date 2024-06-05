@@ -22,6 +22,12 @@ public class AdmissionInfoVO {
     private Timestamp admissionOutTime;
     // 도착 수단
     private String admissionArrivalTransport;
+    // 통증 수준
+    private int admissionPain;
+    // 주요 증상
+    private String admissionChiefComplaint;
+    // mimic데이터의 acutiry컬럼 값
+    private int admissionAcuity;
     // 실제 배치 결과
     private String admissionResultWard;
     // 진단 결과

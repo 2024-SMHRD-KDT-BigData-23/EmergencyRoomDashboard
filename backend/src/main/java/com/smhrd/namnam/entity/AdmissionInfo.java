@@ -23,10 +23,15 @@ public class AdmissionInfo {
     @Column(name = "admission_id", length = 30)
     private String admissionId;
 
-    // PatientInfo의 환자 식별자
+    // 입실한 환자 정보
     @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "patient_id", nullable = false)
     private PatientInfo patientInfo;
+
+    // 담당 의료진
+    @ManyToOne(cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "staff_id", nullable = false)
+    private StaffInfo staffInfo;
 
     // 도착 시간
     @Column(name = "admission_in_time")
@@ -40,6 +45,18 @@ public class AdmissionInfo {
     @Column(name = "admission_arrival_transport", length = 20)
     private String admissionArrivalTransport;
 
+    // 통증수준
+    @Column(name = "admission_pain", nullable = false)
+    private int admissionPain;
+
+    // 주요증상
+    @Column(name = "admission_chief_complaint", nullable = false, columnDefinition = "TEXT")
+    private String admissionChiefComplaint;
+
+    // mimic데이터의 acutiry컬럼 값
+    @Column(name = "admission_acuity", nullable = false)
+    private int admissionAcuity;
+
     // 실제 배치 결과
     @Column(name = "admission_result_ward", length = 20)
     private String admissionResultWard;
@@ -48,6 +65,6 @@ public class AdmissionInfo {
     private String admissionComment;
 
     // 진단 결과
-//    @Column(name = "admission_Diagnosis", columnDefinition = "TEXT")
-//    private String admissionDiagnosis;
+    @Column(name = "admission_diagnosis", columnDefinition = "TEXT")
+    private String admissionDiagnosis;
 }

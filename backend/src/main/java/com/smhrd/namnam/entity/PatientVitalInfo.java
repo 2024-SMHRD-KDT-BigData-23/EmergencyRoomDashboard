@@ -53,17 +53,7 @@ public class PatientVitalInfo {
     @Column(name = "patient_vital_nibp_d", nullable = false)
     private int patientVitalNibpD;
 
-    // 통증수준
-    @Column(name = "patient_vital_pain", nullable = false)
-    private int patientVitalPain;
 
-    // 주요증상
-    @Column(name = "patient_vital_chief_complaint", nullable = false, columnDefinition = "TEXT")
-    private String patientVitalChiefComplaint;
-
-    // mimic데이터의 acutiry컬럼 값
-    @Column(name = "patient_vital_acuity", nullable = false)
-    private int patientVitalAcuity;
 
     // 등록 일자
 //   @UpdateTimestamp
