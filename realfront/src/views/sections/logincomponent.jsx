@@ -18,7 +18,11 @@ const LoginComponent = () => {
             }, { withCredentials: true });
             console.log(response.data);
             if (response.data === "Login Successful") {
+                if(username ==='admin' && password === 'admin'){
+                    navigate('/admin'); 
+                }else{
                 navigate('/List');
+            }
             } else {
                 setError('로그인 실패. 다시 시도해 주세요.');
             }
