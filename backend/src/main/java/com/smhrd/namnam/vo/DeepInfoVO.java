@@ -18,8 +18,8 @@ public class DeepInfoVO {
     private Long patientVitalId;
     // 위험도
     private String deepNcdss;
-    // 위험도 확률
-    private BigDecimal deepNcdssPercent;
+//    // 위험도 확률
+//    private BigDecimal deepNcdssPercent;
     // 등록 날짜
     private Timestamp deepCreatedAt;
 }
