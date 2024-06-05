@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, Card } from "react-bootstrap";
+import { Row, Col, Card, Dropdown } from "react-bootstrap";
 import CommentModal from "../../components/core/commentmodal";
 
 const patientInfo = [
@@ -10,10 +10,18 @@ const patientInfo = [
     { title: "Disease History", key: "patientDiseaseHistory" }
 ];
 
-const PatientInfo = ({ patientData }) => {
+const PatientInfo = ({ patientData, admissionList, patientId, admissionId }) => {
 
     if (!patientData || patientData.length === 0) {
         return <p>환자 정보가 없습니다</p>
+    }
+
+    const handleEdit = () => {
+
+    }
+
+    const handleDelete = () => {
+
     }
 
     return (
@@ -21,7 +29,19 @@ const PatientInfo = ({ patientData }) => {
             <Col md={3}>
                 <Card className="h-100">
                     <Card.Body>
-                        <Card.Title>Patient Detail</Card.Title>
+                        <Card.Title className="d-flex justify-content-between align-items-center">
+                            <span>Patient Detail</span>
+                            <Dropdown>
+                                <Dropdown.Toggle variant="light">
+                                    {admissionId}
+                                </Dropdown.Toggle>
+                                <Dropdown.Menu>
+                                    {admissionList.map((admission, index) => (
+                                        <Dropdown.Item key={index} href='#' onClick={() => {window.location.href=`http://localhost:3000/Detail/${patientId}/${admission.admissionId}`}}>{admission.admissionId}</Dropdown.Item>
+                                    ))}
+                                </Dropdown.Menu>
+                            </Dropdown>
+                        </Card.Title>
                         <Card.Text className="d-flex flex-column justify-content-evenly align-items-center text-center h-100">
                             {patientInfo.map(info => (
                                 <Card key={info.key} className="w-100">
@@ -67,12 +87,23 @@ const PatientInfo = ({ patientData }) => {
                             </Card.Body>
                         </Card>
                     </Col>
-                    {patientData && patientData.length > 0 && (!patientData[patientData.length - 1].admissionResultWard || !patientData[patientData.length - 1].admissionComment) ? (
+                    {patientData && patientData.length > 0 && (patientData[patientData.length - 1].admissionResultWard && patientData[patientData.length - 1].admissionComment) ? (
                         <>
                             <Col md={3} className="mb-4 w-100 h-100">
                                 <Card>
                                     <Card.Body>
-                                        <Card.Title>Disposition</Card.Title>
+                                        <Card.Title className="d-flex justify-content-between align-items-center">
+                                            <span className="mx-auto">Disposition</span>
+                                            <Dropdown>
+                                                <Dropdown.Toggle variant="light">
+
+                                                </Dropdown.Toggle>
+                                                <Dropdown.Menu>
+                                                    <Dropdown.Item href="#/edit" onClick={handleEdit}>Edit</Dropdown.Item>
+                                                    <Dropdown.Item href="#/delete" onClick={handleDelete}>Delete</Dropdown.Item>
+                                                </Dropdown.Menu>
+                                            </Dropdown>
+                                        </Card.Title>
                                         <Card.Text>
                                             {patientData[patientData.length - 1].admissionResultWard}
                                         </Card.Text>
@@ -82,7 +113,7 @@ const PatientInfo = ({ patientData }) => {
                             <Col md={4} className="mb-4 w-100 h-100">
                                 <Card>
                                     <Card.Body>
-                                        <Card.Title>Comment</Card.Title>
+                                        <Card.Title>Diagnosis</Card.Title>
                                         <Card.Text>
                                             About Patient..
                                         </Card.Text>

@@ -24,6 +24,6 @@ public class AdmissionInfoVO {
     private String admissionArrivalTransport;
     // 실제 배치 결과
     private String admissionResultWard;
-    // comment
-    private String admissionComment;
+    // 진단 결과
+    private String admissionDiagnosis;
 }

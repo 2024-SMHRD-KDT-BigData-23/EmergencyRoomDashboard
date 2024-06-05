@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
@@ -75,14 +76,15 @@ public class DataLoader {
         List<HospitalInfo> allHospitals = hospitalRepo.findAll();
 
         for (HospitalInfo selectedHospital : allHospitals) {
-            for (int i = 0; i < 2; i++) {
+            for (int i = 0; i < 11; i++) { // 병원당 의료진 10명 + 관리자 1명 = 11명
                 StaffInfo staff = new StaffInfo();
 
-                if (i == 0) { // i가 0일 때, staff 생성
+                if (i > 1) { // i가 0일 때, staff 생성
+                    String role = faker.options().option("Nurse", "Doctor");
                     staff.setHospitalInfo(selectedHospital);
-                    staff.setStaffId("staff");
-                    staff.setStaffPw("staff");
-                    staff.setStaffRole("staff");
+                    staff.setStaffId(role + i);
+                    staff.setStaffPw(role + i);
+                    staff.setStaffRole(role);
                 } else { // i가 1일 때, admin 생성
                     staff.setHospitalInfo(selectedHospital);
                     staff.setStaffId("admin");
@@ -100,22 +102,24 @@ public class DataLoader {
         List<StaffInfo> allStaffs = staffRepo.findAll();
 
         for (StaffInfo selectedStaff : allStaffs) {
-            if (selectedStaff.getStaffRole().equals("staff")) { // role이 staff일 때만 환자 정보 입력
-                for (int i = 1; i <= 30; i++) {
+            if (!selectedStaff.getStaffRole().equals("admin")) { // role이 admin가 아닌 Nurse나 Doctor일 경우만 환자 생성
+                for (int i = 1; i <= random.nextInt(10) + 1; i++) { // 의료진별 1 ~ 10명의 환자 생성 >> 환자가 여러번 입실을 하면 담당자가 달라져야 하는데 그러질 못함..?
                     PatientInfo patient = new PatientInfo();
 
                     // 의료진 식별자(FK)
                     patient.setStaffInfo(selectedStaff);
-                    // 환자 이름
-                    patient.setPatientName(faker.name().fullName());
                     // 환자 성별
-                    String sex = faker.options().option("남", "여");
+                    String sex = faker.options().option("Male", "Female");
                     patient.setPatientSex(sex);
-                    // 환자 식별자(PK)
-                    patient.setPatientId(String.format("%s-%04d-%04d", sex, faker.number().randomNumber(4, true), faker.number().randomNumber(4, true)));
+                    // 환자 이름
+                    String name = sex.equals("Male") ? faker.name().malefirstName() : faker.name().femaleFirstName();
+                    patient.setPatientName(name);
                     // 환자 생년월일
                     Date birthdate = new Date(faker.date().birthday().getTime());
                     patient.setPatientBirthdate(birthdate);
+                    // 환자 식별자(PK)
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyMMdd");
+                    patient.setPatientId(String.format("%s-%s", name.substring(0, 1).toUpperCase(), sdf.format(birthdate));
                     // 환자 나이
                     Calendar birth = Calendar.getInstance();
                     birth.setTime(birthdate);
@@ -126,7 +130,7 @@ public class DataLoader {
                     }
                     patient.setPatientAge(age);
                     // 환자 과거이력
-                    patient.setPatientDiseaseHistory(faker.lorem().paragraph());
+                    patient.setPatientDiseaseHistory(faker.options().option(faker.disease().internalDisease(), faker.disease().dermatology(), faker.disease().gynecologyAndObstetrics(), faker.disease().ophthalmologyAndOtorhinolaryngology(), faker.disease().neurology(), faker.disease().surgery()));
 
                     patientRepo.save(patient);
                 }
@@ -154,15 +158,16 @@ public class DataLoader {
                 int randomMinute = random.nextInt(60);
                 int randomSecond = random.nextInt(60);
                 LocalDateTime randomDateTime = randomDate.withHour(randomHour).withMinute(randomMinute).withSecond(randomSecond);
-
+                faker.disease();
+                // 도착 수단
+                String arrivalTransport = faker.options().option("WALK IN", "AMBULANCE");
+                admission.setAdmissionArrivalTransport(arrivalTransport);
                 // 입실 식별자(PK)
-                admission.setAdmissionId(String.format("AID-%s-%04d", formattedDate, faker.number().randomNumber(4, true)));
+                admission.setAdmissionId(String.format("%s-%s-%s", arrivalTransport.equals("WALK IN") ? "W" : "A", formattedDate, "00" + faker.number().randomNumber(2, true)));
                 // 환자 식별자(FK)
                 admission.setPatientInfo(selectedPatient);
                 // 입실 시간
                 admission.setAdmissionInTime(Timestamp.valueOf(randomDateTime));
-                // 도착 수단
-                admission.setAdmissionArrivalTransport(faker.options().option("WALK IN", "AMBULANCE"));
 
                 admissionRepo.save(admission);
             }
@@ -174,7 +179,7 @@ public class DataLoader {
         List<AdmissionInfo> allAdmissions = admissionRepo.findAll();
 
         for (AdmissionInfo selectedAdmission : allAdmissions) { // admission_id(입실 식별자) 선택
-            for (int i = 1; i <= random.nextInt(18) + 1; i++) { // admission_id(입실 식별자)당 환자 바이탈 수 생성
+            for (int i = 1; i <= random.nextInt(15) + 1; i++) { // admission_id(입실 식별자)당 환자 바이탈 수 생성
                 PatientVitalInfo currentPatientVital = patientVitalRepo.findTopByAdmissionInfoOrderByPatientVitalCreatedAtDesc(selectedAdmission);
 
                 PatientVitalInfo presentPatientVital = new PatientVitalInfo();
@@ -186,7 +191,7 @@ public class DataLoader {
                 // 심박수(bpm)
                 presentPatientVital.setPatientVitalHr(faker.number().numberBetween(50, 110)); // 표준 범위 ± 오차 범위
                 // 호흡수(min)
-                presentPatientVital.setPatientVitalRespiratoryRate(faker.number().numberBetween(10, 22)); // 표준 범위 ± 오차 범위
+                presentPatientVital.setPatientVitalRespiratoryRate(faker.number().numberBetween(9, 23)); // 표준 범위 ± 오차 범위
                 // 산소포화도(%%)
                 presentPatientVital.setPatientVitalSpo2(BigDecimal.valueOf(faker.number().randomDouble(1, 93, 102))); // 표준 범위 ± 오차 범위
                 // 수축혈압(mmHg)
@@ -203,7 +208,10 @@ public class DataLoader {
                     presentPatientVital.setPatientVitalAcuity(currentPatientVital.getPatientVitalAcuity());
                     // 바이탈을 잰 시간
                     LocalDateTime vitalCreatedAt = currentPatientVital.getPatientVitalCreatedAt().toLocalDateTime();
-                    vitalCreatedAt = vitalCreatedAt.plusMinutes(30L);
+                    Random random = new Random();
+                    int minutesOffset = 30 + (random.nextInt(25) - 12);
+                    int secondsOffset = random.nextInt(60);
+                    vitalCreatedAt = vitalCreatedAt.plusMinutes(minutesOffset).plusSeconds(secondsOffset);
                     presentPatientVital.setPatientVitalCreatedAt(Timestamp.valueOf(vitalCreatedAt));
                 } else {
                     // 고통 정도
@@ -215,7 +223,11 @@ public class DataLoader {
                     // 바이탈을 잰 시간
                     Timestamp admissionInTime = selectedAdmission.getAdmissionInTime();
                     LocalDateTime vitalCreatedAt = admissionInTime.toLocalDateTime();
-                    presentPatientVital.setPatientVitalCreatedAt(Timestamp.valueOf(vitalCreatedAt.plusMinutes(30L)));
+                    Random random = new Random();
+                    int minutesOffset = 30 + (random.nextInt(25) - 12);
+                    int secondsOffset = random.nextInt(60);
+                    vitalCreatedAt = vitalCreatedAt.plusMinutes(minutesOffset).plusSeconds(secondsOffset);
+                    presentPatientVital.setPatientVitalCreatedAt(Timestamp.valueOf(vitalCreatedAt));
                 }
 
                 patientVitalRepo.save(presentPatientVital);
