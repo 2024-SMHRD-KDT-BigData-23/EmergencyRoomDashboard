@@ -119,7 +119,7 @@ public class DataLoader {
                     patient.setPatientBirthdate(birthdate);
                     // 환자 식별자(PK)
                     SimpleDateFormat sdf = new SimpleDateFormat("yyMMdd");
-                    patient.setPatientId(String.format("%s-%s", name.substring(0, 1).toUpperCase(), sdf.format(birthdate));
+                    patient.setPatientId(String.format("%s-%s", name.substring(0, 1).toUpperCase(), sdf.format(birthdate)));
                     // 환자 나이
                     Calendar birth = Calendar.getInstance();
                     birth.setTime(birthdate);

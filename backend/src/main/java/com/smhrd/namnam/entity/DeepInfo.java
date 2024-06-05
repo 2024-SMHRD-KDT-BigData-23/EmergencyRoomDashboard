@@ -34,9 +34,9 @@ public class DeepInfo {
     @Column(name = "deep_ncdss", nullable = true)
     private String deepNcdss;
 
-    // 위험도 확률
-    @Column(name = "deep_ncdss_percent", nullable = true)
-    private BigDecimal deepNcdssPercent;
+//    // 위험도 확률
+//    @Column(name = "deep_ncdss_percent", nullable = true)
+//    private BigDecimal deepNcdssPercent;
 
     // 등록 날짜
     @UpdateTimestamp
