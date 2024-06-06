@@ -1,6 +1,7 @@
 package com.smhrd.namnam.vo;
 
 
+import com.smhrd.namnam.entity.StaffInfo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,6 +17,8 @@ public class AdmissionInfoVO {
     private String admissionId;
     // PatientInfo의 환자 식별자
     private String patientId;
+    // 담당 의료진
+    private String staffId;
     // 도착 시간
     private Timestamp admissionInTime;
     // 퇴원 시간

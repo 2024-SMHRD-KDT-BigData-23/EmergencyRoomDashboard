@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Container, Row, Col, Table, Button, Form } from 'react-bootstrap';
 
-const Suveillance =({patients} , {setSearch})=>{
+const Suveillance =({ patients, setSearch })=>{
 
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 14; // 한 페이지에 표시할 항목 수
@@ -23,10 +23,10 @@ const Suveillance =({patients} , {setSearch})=>{
 
     // 검색 관련
     const [filter, setFilter] = useState({
-        staffId:'null',
-        ResultWard:'null',
-        OutTimeStart:'null',
-        OutTimeEnd:'null'
+        staffId:'',
+        ResultWard:'',
+        OutTimeStart:'',
+        OutTimeEnd:''
     })
     const handleFilterChange = (e) => {
         const { name, value } = e.target;
@@ -94,7 +94,7 @@ const Suveillance =({patients} , {setSearch})=>{
                                 <tr key={patient.id}>
                                     <td>{String(patient.admissionInTime.year).padStart(2, '0')}.{String(patient.admissionInTime.month).padStart(2, '0')}.{String(patient.admissionInTime.day).padStart(2, '0')}
                                     .{String(patient.admissionInTime.hour).padStart(2, '0')}:{String(patient.admissionInTime.minute).padStart(2, '0')}:{String(patient.admissionInTime.second).padStart(2, '0')}</td>
-                                    <td>{patient.admissionStaffId}</td>
+                                    <td>{patient.staffId}</td>
                                     <td>{patient.admissionResultWard}</td>
                                     <td>
                                         patient_id = {patient.patientId}  /  admission_id = {patient.admissionId}
