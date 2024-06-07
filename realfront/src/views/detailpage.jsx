@@ -69,7 +69,7 @@ const Detail = () => {
                 <Row className="h-100">
                     <PatientInfo patientData={patientData} admissionList={admissionList} patientId={patientId} admissionId={admissionId} />
                     <VitalChart patientData={patientData} />
-                    <AdmissionInfo patientData={patientData} />
+                    <AdmissionInfo patientData={patientData} setPatientData={setPatientData} admissionId={admissionId} />
                 </Row>
             </Container >
         </>

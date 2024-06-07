@@ -1,8 +1,43 @@
+import React, { useState, useEffect } from 'react';
 import { Row, Col, Card } from 'react-bootstrap';
 import NcdssChart from './NcdssChart';
+import DecisionDrop from '../../components/core/decisionmodal ';
 import DiagnosisModal from '../../components/core/diagnosismodal';
 
-const AdmissionInfo = ({ patientData }) => {
+const AdmissionInfo = ({ patientData, setPatientData, admissionId }) => {
+
+    const [updatedAdmissionId, setUpdatedAdmissionId] = useState(null);
+    
+    const updateAdmissionResultWard = (admissionId, newResultWard) => {
+        setPatientData(prevData => {
+            return prevData.map(patient => {
+                if(patient.admissionId === admissionId) {
+                    return { ...patient, admissionResultWard: newResultWard};
+                }
+                return patient;
+            });
+        });
+        setUpdatedAdmissionId(admissionId);
+    };
+
+    const updateAdmissionDiagnosis = (admissionId, newDiagnosis) => {
+        setPatientData(prevData => {
+            return prevData.map(patient => {
+                if (patient.admissionId === admissionId) {
+                    return { ...patient, admissionDiagnosis: newDiagnosis };
+                }
+                return patient;
+            });
+        });
+        setUpdatedAdmissionId(admissionId);
+    };
+
+    useEffect(() => {
+        if (updatedAdmissionId !== null) {
+            console.log(`admissionId ${updatedAdmissionId}의 진단 정보가 업데이트되었습니다.`);
+            setUpdatedAdmissionId(null);
+        }
+    }, [updatedAdmissionId]);
 
     return (
         <>
@@ -44,6 +79,8 @@ const AdmissionInfo = ({ patientData }) => {
                             <Card.Body>
                                 <Card.Title>Result Ward</Card.Title>
                                 <Card.Text>
+                                    <DecisionDrop patientData={patientData} admissionId={admissionId} updateAdmissionResultWard={updateAdmissionResultWard} />
+                                    {`${patientData.length && patientData[0].admissionResultWard}`}
                                 </Card.Text>
                             </Card.Body>
                         </Card>
@@ -53,7 +90,8 @@ const AdmissionInfo = ({ patientData }) => {
                             <Card.Body>
                                 <Card.Title>Diagnosis</Card.Title>
                                 <Card.Text>
-                                    <DiagnosisModal />
+                                    <DiagnosisModal patientData={patientData} admissionId={admissionId} updateAdmissionDiagnosis={updateAdmissionDiagnosis} />
+                                    {`${patientData.length && patientData[0].admissionDiagnosis}`}
                                 </Card.Text>
                             </Card.Body>
                         </Card>

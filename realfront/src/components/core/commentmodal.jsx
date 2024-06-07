@@ -3,10 +3,11 @@ import { useParams } from "react-router-dom";
 import axios from 'axios';
 import '../../assets/scss/commentmodal.scss'
 
-const CommentModal = () => {
+const CommentModal = (patientData) => {
+
     const { id } = useParams();
-    const [selectedDisposition, setSelectedDisposition] = useState('Result Ward');
-    const [selectedComment, setSelectedComment] = useState("진료 결과를 기록해주세요.");
+    const [selectedDisposition, setSelectedDisposition] = useState(patientData && patientData.length > 0 ? patientData[0].admissionResultWard : '');
+    const [selectedComment, setSelectedComment] = useState(patientData && patientData.length > 0 ? patientData[0].admissionDiagnosis : '');
 
     const changeComment = (event) => {
         setSelectedComment(event.target.value);
@@ -17,7 +18,6 @@ const CommentModal = () => {
         console.log(selectedDisposition);
         console.log(selectedComment);
         axios.patch(`http://localhost:8080/api/ER/set/medical-patients/${id}`, {
-            admissionId: id,
             admissionResultWard: selectedDisposition,
             admissionComment: selectedComment
         })
@@ -40,7 +40,7 @@ const CommentModal = () => {
                             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div className="modal-body">
-                            <form onSubmit={() => handleSubmit}>
+                            <form>
                                 <div className="mb-3" style={{ textAlign: 'left' }}>
                                     <label htmlFor="recipient-name" className="col-form-label">Disposition:</label>
                                     <div className="dropdown">
@@ -55,13 +55,13 @@ const CommentModal = () => {
                                         </button>
                                         <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                             <li>
-                                                <a className="dropdown-item" href="#" onClick={() => setSelectedDisposition('Home')}>Home</a>
+                                                <a className="dropdown-item">DISCHARGE</a>
                                             </li>
                                             <li>
-                                                <a className="dropdown-item" href="#" onClick={() => setSelectedDisposition('Ward')}>Ward</a>
+                                                <a className="dropdown-item">WARD</a>
                                             </li>
                                             <li>
-                                                <a className="dropdown-item" href="#" onClick={() => setSelectedDisposition('ICU')}>ICU</a>
+                                                <a className="dropdown-item">ICU</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -74,7 +74,7 @@ const CommentModal = () => {
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" className="btn btn-primary">Apply</button>
+                            <button type="submit" onSubmit={() => handleSubmit} className="btn btn-primary">Apply</button>
                         </div>
                     </div>
                 </div>

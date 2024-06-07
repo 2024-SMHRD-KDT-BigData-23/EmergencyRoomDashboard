@@ -1,28 +1,23 @@
 import React, { useState } from 'react';
-import { useParams } from "react-router-dom";
 import axios from 'axios';
 import '../../assets/scss/commentmodal.scss'
 
-const DiagnosisModal = () => {
-    const { id } = useParams();
-    const [selectedDisposition, setSelectedDisposition] = useState('Result Ward');
-    const [selectedComment, setSelectedComment] = useState("진료 결과를 기록해주세요.");
+const DiagnosisModal = ({ patientData, admissionId, updateAdmissionDiagnosis }) => {
 
-    const changeComment = (event) => {
-        setSelectedComment(event.target.value);
+    const [admissionDiagnosis, setAdmissionDiagnosis] = useState(patientData && patientData.length > 0 ? patientData[0].admissionDiagnosis : '');
+
+    const changeDiagnosis = (event) => {
+        setAdmissionDiagnosis(event.target.value);
     }
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log(selectedDisposition);
-        console.log(selectedComment);
-        axios.patch(`http://localhost:8080/api/ER/set/medical-patients/${id}`, {
-            admissionId: id,
-            admissionResultWard: selectedDisposition,
-            admissionComment: selectedComment
+        axios.patch(`http://localhost:8080/api/ER/set/medical-patients/${admissionId}`, {
+            admissionDiagnosis: admissionDiagnosis
         })
             .then(response => {
                 console.log('DB 업데이트 성공:', response.data);
+                updateAdmissionDiagnosis(admissionId, response.data.admissionDiagnosis);
             })
             .catch(error => {
                 console.error('DB 업데이트 실패:', error);
@@ -36,20 +31,20 @@ const DiagnosisModal = () => {
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h5 className="modal-title" id="exampleModalLabel">New message</h5>
+                            <h5 className="modal-title" id="exampleModalLabel">Diagnosis</h5>
                             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div className="modal-body">
-                            <form onSubmit={() => handleSubmit}>
+                            <form>
                                 <div className="mb-3" style={{ textAlign: 'left' }}>
                                     <label htmlFor="message-text" className="col-form-label">Comment</label>
-                                    <textarea className="form-control" id="message-text" onChange={changeComment} />
+                                    <textarea className="form-control" id="message-text" onChange={changeDiagnosis} value={admissionDiagnosis} />
                                 </div>
                             </form>
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" className="btn btn-primary">Send</button>
+                            <button type="submit" onClick={handleSubmit} className="btn btn-primary" data-bs-dismiss="modal">Send</button>
                         </div>
                     </div>
                 </div>

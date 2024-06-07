@@ -9,10 +9,10 @@ import SearchTable from "../components/core/searchtable";
 
 
 const Search = () => {
-    
-    const [patients, setPatients] = useState([]);
-    const [sectionContent, setSectionContent] = useState("All");
-    const [ncdssContent, setNcdssContent] = useState("All");
+
+  const [patients, setPatients] = useState([]);
+  const [sectionContent, setSectionContent] = useState("All");
+  const [ncdssContent, setNcdssContent] = useState("All");
 
   useEffect(() => {
     axios
@@ -25,24 +25,24 @@ const Search = () => {
       });
   }, [sectionContent, ncdssContent]);
 
-    return (
-        <div>
-        <header>
-          <Header />
-        </header>
-        <div className="d-flex justify-content-between dropSearch">
-          <Dropdown sectionContent={ sectionContent } setSectionContent={ setSectionContent } ncdssContent={ ncdssContent } setNcdssContent={ setNcdssContent } />
-          <SearchForm />
-        </div>
-        <main className="mainTableCom">
-          <SearchTable patients={patients} />
-        </main>
+  return (
+    <div>
+      <header>
+        <Header />
+      </header>
+      <div className="d-flex justify-content-between dropSearch">
+        <Dropdown sectionContent={sectionContent} setSectionContent={setSectionContent} ncdssContent={ncdssContent} setNcdssContent={setNcdssContent} />
+        <SearchForm />
       </div>
-    );
+      <main className="mainTableCom">
+        <SearchTable patients={patients} />
+      </main>
+    </div>
+  );
 }
 
 Search.propTypes = {
-    classes: PropTypes.object
+  classes: PropTypes.object
 };
 
 export default Search;
