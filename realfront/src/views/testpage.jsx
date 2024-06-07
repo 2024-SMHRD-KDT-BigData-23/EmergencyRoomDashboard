@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import '../assets/scss/maintable.scss'; 
-import DecisionDrop from "../components/core/decisionmodal ";
+import DecisionDrop from "../components/core/decisionmodal";
 
 
 
