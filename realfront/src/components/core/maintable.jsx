@@ -1,10 +1,8 @@
 import React, {  useState } from 'react';
 import '../../assets/scss/maintable.scss';
 import { Link } from 'react-router-dom';
-import CommentModal from './commentmodal';
-import DecisionModal from './diagnosismodal';
 import DiagnosisModal from './diagnosismodal';
-import DecisionDrop from './decisionmodal ';
+import CommentModal from './commentmodal';
 
 const MainTable = ({ patients }) => {
 
@@ -30,7 +28,7 @@ const MainTable = ({ patients }) => {
 
         <main className="ourcontent">
                 <div className="mainContent">
-                    <table className="table table-borderless table-hover" style={{ textAlign: 'center'   }}>
+                    <table className="table table-hover" style={{ textAlign: 'center'   }}>
                         <thead>
                             <tr> 
                                 <th scope="col">In Time</th>
@@ -46,7 +44,6 @@ const MainTable = ({ patients }) => {
                                 <th scope="col">DBP</th>
                                 <th scope="col">Section</th>
                                 <th scope="col">NCDSS</th>
-                                <th scope="col">Diagnosis</th>
                                 <th scope="col">Decision</th>
                             </tr>
                         </thead>
@@ -119,16 +116,13 @@ const MainTable = ({ patients }) => {
                                             </td>
                                         <td>
                                         <Link to={`/Detail/${patient.patientId}/${patient.admissionId}`} state={{ patient }} className='tableLink'>
-                                        <span style={{ color: patient.deepNcdss === 'HOME' ? 'green' : patient.deepNcdss === 'WARD' ? 'blue' : patient.deepNcdss === 'ICU' ? 'red' : 'inherit' }}>
+                                        <span style={{ color: patient.deepNcdss === 'Discharge' ? 'rgb(130, 130, 236)' : patient.deepNcdss === 'WARD' ? 'rgb(100, 200, 100)' : patient.deepNcdss === 'ICU' ? 'rgb(221, 102, 102)' : 'inherit' }}>
                                         {patient.deepNcdss}
                                         </span>
                                         </Link>
                                             </td>
                                     <td>
-                                        <DiagnosisModal />
-                                    </td>
-                                    <td>
-                                        <DecisionDrop />
+                                        <CommentModal />
                                     </td>
                                 </tr>
                             ))}

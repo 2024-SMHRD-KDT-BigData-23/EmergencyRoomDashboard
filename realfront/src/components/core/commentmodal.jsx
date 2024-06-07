@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useParams } from "react-router-dom";
 import axios from 'axios';
-import '../../assets/scss/commentmodal.scss'
+import '../../assets/scss/commentmodal.scss';
 
 const CommentModal = (patientData) => {
 
@@ -31,7 +31,7 @@ const CommentModal = (patientData) => {
 
     return (
         <div>
-            <button type="button" className="btn btn-sm modalBtn" data-bs-toggle="modal" style={{ color: 'white' }} data-bs-target="#exampleModal">Comment</button>
+            <button type="button" className="btn btn-sm btn-warning modalBtn" data-bs-toggle="modal" style={{ color: 'white' }} data-bs-target="#exampleModal">Diagnosis</button>
             <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog">
                     <div className="modal-content">

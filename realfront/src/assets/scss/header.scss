@@ -16,6 +16,13 @@
   padding-left : 3px;
 }
 
+.SubTitle2 {
+  font-size: 12px;
+  color: white;
+  padding-top : 18px;
+  padding-left : 3px;
+}
+
 .MainLogoLink {
 color: inherit; /* 부모 요소의 색상 상속 */
 text-decoration: none; /* 밑줄 제거 */
@@ -63,4 +70,19 @@ color: inherit; /* 부모 요소의 색상 상속 */
   color : white;
   cursor: pointer;
   font-size: 30px;
+}
+
+.rightMenu {
+  gap : 4rem;
+}
+
+.pageMove {
+  font-size: 18px;
+  color: white;
+  font-weight: 700;
+}
+
+.fIcon {
+  color: white;
+  margin-right: 0.3rem;
 }

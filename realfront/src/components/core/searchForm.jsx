@@ -1,6 +1,4 @@
 import React from 'react';
-import { useParams } from "react-router-dom";
-import SearchImg from '../../assets/images/search.png'; // 메뉴 아이콘 이미지
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
