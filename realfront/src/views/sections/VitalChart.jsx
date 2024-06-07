@@ -44,7 +44,7 @@ const VitalChart = ({ patientData }) => {
         labels: labels,
         datasets: [
             {
-                label: 'Ncdss',
+                label: 'TEMP',
                 data: patientData.map(data => data.patientVitalTemperature),
                 fill: false,
                 borderColor: 'rgba(75,192,192,1)',
@@ -121,6 +121,10 @@ const VitalChart = ({ patientData }) => {
             legend: {
                 display: false
             },
+            title: {
+                display: true,
+                text: "Patient Vitals"
+            },
             // tooltip: {}
         },
         layout: {
@@ -142,7 +146,7 @@ const VitalChart = ({ patientData }) => {
                 pointHitRadius: 20
             }
         },
-        onClick: (elements) => {
+        onClick: (event, elements) => {
             if (elements.length > 0) {
                 const datasetIndex = elements[0].datasetIndex;
                 const index = elements[0].index;
@@ -155,35 +159,26 @@ const VitalChart = ({ patientData }) => {
     return (
         <>
             <Col md={7}>
-                <Row className="d-flex flex-column">
+                <Row>
+                    {lineData.datasets.map((dataset, index) => (
+                        <Col md={2} key={index} className="mb-2 text-center align-center">
+                            <Card onClick={() => setSelectedLine(index)} style={{ cursor: 'pointer', fontWeight: selectedLine === index ? 'bold' : 'normal', backgroundColor: selectedLine === index ? lineData.datasets[selectedLine].borderColor : 'white', color: selectedLine === index ? 'white' : 'black' }}>
+                                <Card.Body>
+                                    <Card.Title>{dataset.label}</Card.Title>
+                                    <Card.Text>
+                                        {selectedPointIndex !== null ? dataset.data[selectedPointIndex] : dataset.data[dataset.data.length - 1]}
+                                    </Card.Text>
+                                </Card.Body>
+                            </Card>
+                        </Col>
+                    ))}
                     <Col>
-                        <Row>
-                            {lineData.datasets.map((dataset, index) => (
-                                <Col md={2} key={index} className="mb-2 text-center align-center">
-                                    <Card onClick={() => setSelectedLine(index)} style={{ cursor: 'pointer', fontWeight: selectedLine === index ? 'bold' : 'normal', backgroundColor: selectedLine === index ? lineData.datasets[selectedLine].borderColor : 'white', color: selectedLine === index ? 'white' : 'black' }}>
-                                        <Card.Body>
-                                            <Card.Title>{dataset.label}</Card.Title>
-                                            <Card.Text>
-                                                {selectedPointIndex !== null ? dataset.data[selectedPointIndex] : dataset.data[dataset.data.length - 1]}
-                                            </Card.Text>
-                                        </Card.Body>
-                                    </Card>
-                                </Col>
-                            ))}
-                        </Row>
-                    </Col>
-                    <Col md={12} className="mb-4">
-                        <Card className="h-100">
-                            <Card.Body className="h-100">
-                                <Card.Title>Vital Chart</Card.Title>
-                                <Card.Text style={{ height: '67vh' }}>
-                                    <Line data={lineData} options={options} />
-                                </Card.Text>
-                            </Card.Body>
+                        <Card style={{ height: "72vh" }}>
+                            <Line data={lineData} options={options} />
                         </Card>
                     </Col>
                 </Row>
-            </Col>
+            </Col >
         </>
     );
 }

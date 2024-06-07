@@ -6,6 +6,7 @@ import { Container, Row } from "react-bootstrap";
 import Header from '../components/core/header';
 import PatientInfo from './sections/PatientInfo';
 import VitalChart from './sections/VitalChart';
+import AdmissionInfo from './sections/AdmissionInfo';
 
 const Detail = () => {
 
@@ -44,7 +45,7 @@ const Detail = () => {
                     admissionOutTime: extraDateAndTime(item.admissionOutTime),
                     patientVitalCreatedAt: extraDateAndTime(item.patientVitalCreatedAt)
                 }));
-                console.log("서버에서 가져온 데이터 ", formattedData);
+                console.log("환자 상세 정보 : ", formattedData);
                 setPatientData(formattedData);
             })
             .catch(error => {
@@ -53,6 +54,7 @@ const Detail = () => {
 
         axios.get(`http://localhost:8080/api/ER/search/patient-name-id/${patientId}`)
             .then(response => {
+                console.log("환자의 다른 입실 정보 : ", response.data);
                 setAdmissionList(response.data);
             })
             .catch(error => {
@@ -67,6 +69,7 @@ const Detail = () => {
                 <Row className="h-100">
                     <PatientInfo patientData={patientData} admissionList={admissionList} patientId={patientId} admissionId={admissionId} />
                     <VitalChart patientData={patientData} />
+                    <AdmissionInfo patientData={patientData} />
                 </Row>
             </Container >
         </>
