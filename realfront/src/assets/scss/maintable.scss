@@ -6,7 +6,7 @@
 
 // 테이블 헤더 배경색 투명
 .table thead th {
-    background-color: #8A7BFF  !important;
+    background-color: #464964  !important;
     color: white;
   }
   
@@ -16,7 +16,9 @@
   }
   
   .table tbody tr:nth-child(even) td {
-    background-color: #E8E4FF;
+    // background-color: #E8E4FF;
+    //  background-color: #white;
+     background-color: #eeeeee;
   }
 
   body {

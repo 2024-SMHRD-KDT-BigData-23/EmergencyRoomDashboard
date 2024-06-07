@@ -2,16 +2,16 @@ import React from "react";
 import { Col, Row } from "react-bootstrap";
 import '../../assets/scss/ncdsscount.scss'
 
-const NCount = () => {
+const NCount = ({ deepNcdssCounts }) => {
 
     return(
     <Row>
         <Col className="d-flex CountGap">
             <span className="CountFont">
-            Discharge  
+            Discharge
             </span>
             <div className="countCircle CircleOne">
-            32
+            {deepNcdssCounts.Discharge}
             </div>
         </Col>
         <Col className="d-flex CountGap">
@@ -19,7 +19,7 @@ const NCount = () => {
             Ward
             </span>
             <div className="countCircle CircleTwo">
-            44
+            {deepNcdssCounts.Ward}
             </div>
 
         </Col>
@@ -28,7 +28,7 @@ const NCount = () => {
             ICU
             </span>
             <div className="countCircle CircleThr">
-            22
+            {deepNcdssCounts.ICU}
             </div>
         </Col>
     </Row>

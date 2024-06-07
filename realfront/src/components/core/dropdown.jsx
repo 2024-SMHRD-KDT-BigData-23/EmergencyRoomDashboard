@@ -15,7 +15,7 @@ const Dropdown = ({ sectionContent, setSectionContent, ncdssContent, setNcdssCon
         <div className='d-flex'>
             {/* 첫 번째 드롭다운 */}
                 <div className="dropdown ourdropdown1">
-                    <button className="btn dropdown-toggle dropBtn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <button className="btn btn-warning dropdown-toggle dropBtn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                         {sectionContent}
                     </button>
                     <ul className="dropdown-menu">
@@ -28,12 +28,12 @@ const Dropdown = ({ sectionContent, setSectionContent, ncdssContent, setNcdssCon
 
             {/* 두 번째 드롭다운 */}
                 <div className="dropdown ourdropdown2">
-                    <button className="btn dropdown-toggle dropBtn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <button className="btn btn-warning dropdown-toggle dropBtn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                         {ncdssContent}
                     </button>
                     <ul className="dropdown-menu">
                         <li><a className="dropdown-item" href="#" onClick={() => changeNcdssContent('All')}>All</a></li>
-                        <li><a className="dropdown-item" href="#" onClick={() => changeNcdssContent('HOME')}>HOME</a></li>
+                        <li><a className="dropdown-item" href="#" onClick={() => changeNcdssContent('Discharge')}>Discharge</a></li>
                         <li><a className="dropdown-item" href="#" onClick={() => changeNcdssContent('WARD')}>WARD</a></li>
                         <li><a className="dropdown-item" href="#" onClick={() => changeNcdssContent('ICU')}>ICU</a></li>
                     </ul>

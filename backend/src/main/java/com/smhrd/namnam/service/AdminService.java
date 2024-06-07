@@ -11,6 +11,8 @@ import com.smhrd.namnam.vo.ERViewVO;
 import com.smhrd.namnam.vo.StaffInfoVO;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -28,6 +30,9 @@ public class AdminService {
     private ModelMapper modelMapper;
     @Autowired
     private StaffInfoRepository staffInfoRepo;
+    @Autowired
+    private JavaMailSender mailSender;
+
 
 
     // entity list 형태 -> vo list형태로 변환 메서드
@@ -65,6 +70,7 @@ public class AdminService {
     public List<AdmissionInfoVO> searchResultWardLog(String staffId, String resultWard, String outTimeStart, String outTimeEnd) {
         return convertToAdmissionInfoVOList(admissionInfoRepo.searchResultWardLog(staffId, resultWard, outTimeStart, outTimeEnd));
     }
+
     //////////////////////////////////////////////////////////////////////////////////
 
     //////////////////////////////////검색관련/////////////////////////////////////////////////
@@ -73,4 +79,15 @@ public class AdminService {
         return convertToStaffInfoVOList(staffInfoRepo.findAll());
     }
     ////////////////////////////////////////////////////////////////////////////
+
+    ///////////////////////////////////////help 페이지////////////////////
+    public void sendEmail(String issueType, String description, String contactInfo) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo("dlwlgnsrhy@gmail.com"); // 받는 이메일 주소
+        message.setSubject("지원 티켓 제출: " + issueType);
+        message.setText("설명: " + description + "\n연락처 정보: " + contactInfo);
+
+        mailSender.send(message);
+    }
+
 }
