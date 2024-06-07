@@ -63,7 +63,7 @@ public class AdminController {
     }
 
     // staff_info 수정
-    @GetMapping()
+//    @GetMapping()
 
     ////////////////////////////////////////////////////////////////////////////
     }
