@@ -49,6 +49,8 @@ const List = () => {
       .get(`http://localhost:8080/api/ER/medical-patients/${sectionContent}/${ncdssContent}/${searchNameId}/${resultWard}`)
       .then((response) => {
         const formattedData = response.data.map(item => ({
+
+          
           ...item,
           admissionInTime: extraDateAndTime(item.admissionInTime),
           admissionOutTime: extraDateAndTime(item.admissionOutTime),

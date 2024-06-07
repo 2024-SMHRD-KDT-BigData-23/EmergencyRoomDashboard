@@ -49,6 +49,7 @@ const SuveillancePage = () => {
             console.error('Error fetching data : ', error);
         });
         
+        
     }, []);
 
     useEffect(()=>{
@@ -58,8 +59,6 @@ const SuveillancePage = () => {
 
         axios
         .get(`http://localhost:8080/api/search`,{
-
-        
             params:{
                 staffId: search.staffId,
                 ResultWard: search.ResultWard,

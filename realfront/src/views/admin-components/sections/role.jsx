@@ -1,26 +1,49 @@
 import React, { useState } from "react";
 import { Container, Row, Col, Table, Button, Form, Modal } from 'react-bootstrap';
 
-const Role = () => {
-    const [users, setUsers] = useState([
-        { id: 1, name: 'John Doe', email: 'john@example.com', role: 'Doctor', lastLogin: '2024-06-01', status: 'Active' },
-        { id: 2, name: 'Jane Smith', email: 'jane@example.com', role: 'Nurse', lastLogin: '2024-05-30', status: 'Inactive' }
-    ]);
+const Role = ({ users, setEdit, setEditUser }) => {
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 14; // 한 페이지에 표시할 항목 수
+
+    // 현재 페이지에 표시할 데이터를 계산합니다.
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentItems = users.slice(indexOfFirstItem, indexOfLastItem);
+
+    // 페이지를 변경하는 함수입니다.
+    const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+    // 총 페이지 수를 계산하고 페이지 번호를 배열에 저장합니다.
+    const pageNumbers = [];
+    for (let i = 1; i <= Math.ceil(users.length / itemsPerPage); i++) {
+        pageNumbers.push(i);
+    }
 
     const [showUserModal, setShowUserModal] = useState(false);
     const [selectedUser, setSelectedUser] = useState(null);
+    const [showUserEditModal, setUserEditModal] = useState(false);
 
     const [showRoleModal, setShowRoleModal] = useState(false);
     const [roles, setRoles] = useState([
-        { id: 1, name: 'Doctor', description: 'Responsible for patient care' },
+        { id: 1, name: 'Doctor', description: 'Responsieble for patient care' },
         { id: 2, name: 'Nurse', description: 'Assists doctors in patient care' }
     ]);
     const [newRole, setNewRole] = useState({ name: '', description: '' });
+
+    const handleShowUserEdit = (user) => {
+        setSelectedUser(user);
+        setEditUser(user);
+        setUserEditModal(true);
+    };
 
     const handleShowUserModal = (user) => {
         setSelectedUser(user);
         setShowUserModal(true);
     };
+    //
+    const handleCloseUseEditModal = () => setUserEditModal(false);
+    //
 
     const handleCloseUserModal = () => setShowUserModal(false);
 
@@ -38,6 +61,21 @@ const Role = () => {
         setNewRole({ name: '', description: '' });
         setShowRoleModal(false);
     };
+
+
+    // 수정 모달창 관련
+    const [editFilter, setEditFilter] = useState({
+        name: '',
+        role: ''
+    })
+    const handleEditChange = (e) => {
+        const{name, value} = e.target;
+        setEditFilter({ ...editFilter, [name]:value });
+    }
+    const handleEditSubmit = (e) => {
+        e.preventDefault();
+        setEdit(editFilter)
+    }
 
     return (
         <Container fluid>
@@ -89,22 +127,34 @@ const Role = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {users.map(user => (
+                            {currentItems.map(user => (
                                 <tr key={user.id}>
-                                    <td>{user.name}</td>
-                                    <td>{user.email}</td>
-                                    <td>{user.role}</td>
-                                    <td>{user.lastLogin}</td>
-                                    <td>{user.status}</td>
+                                    <td>{user.staffId}</td>
+                                    <td>{}</td>
+                                    <td>{user.staffRole}</td>
+                                    <td>{}</td>
+                                    <td>{user.staffStatus}</td>
                                     <td>
                                         <Button variant="info" onClick={() => handleShowUserModal(user)}>View</Button>
-                                        <Button variant="warning" className="mx-2">Edit</Button>
+                                        <Button variant="warning" className="mx-2" onClick={()=> handleShowUserEdit(user)}>Edit</Button>
                                         <Button variant="danger">Delete</Button>
                                     </td>
                                 </tr>
                             ))}
                         </tbody>
                     </Table>
+
+                    <div style={{ textAlign: 'center' }}>
+                        <ul className="pagination justify-content-center" >
+                            {pageNumbers.map(number => (
+                                <li key={number} className="page-item">
+                                    <button onClick={() => paginate(number)} className="page-link" >
+                                        {number}
+                                    </button>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
                 </Col>
             </Row>
 
@@ -134,6 +184,60 @@ const Role = () => {
                     </Modal.Footer>
                 </Modal>
             )}
+
+            {/* staff정보 수정 모달*/}
+            {selectedUser && (
+                <Modal show={showUserEditModal} onHide={handleCloseUseEditModal}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Edit User</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form>
+                        <Form.Group controlId="formName">
+                            <Form.Label>Name</Form.Label>
+                            <Form.Control
+                                type="text"
+                                name="name"
+                                value={selectedUser.staffId}
+                                onChange={handleEditChange}
+                            />
+                        </Form.Group>
+                        <Form.Group controlId="formEmail">
+                            <Form.Label>Email</Form.Label>
+                            <Form.Control
+                                type="email"
+                                name="email"
+                                onChange={handleEditChange}
+                            />
+                        </Form.Group>
+                        <Form.Group controlId="formRole">
+                            <Form.Label>Role</Form.Label>
+                            <Form.Control
+                                as="select"
+                                name="role"
+                                value={selectedUser.staffRole}
+                                onChange={handleEditChange}
+                            >
+                            <option value="Doctor">Doctor</option>
+                            <option value="Nurse">Nurse</option>
+                            </Form.Control>
+                        </Form.Group>
+                    </Form>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleCloseUseEditModal}>
+                        Close
+                    </Button>
+                    <Button variant="primary" onClick={handleEditSubmit}>
+                        Save Changes
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+            )}
+
+
+
+
 
             {/* 하단 섹션: 새로운 사용자 추가 ->이후에 db랑 연결 */}
             <Row className="mb-3">

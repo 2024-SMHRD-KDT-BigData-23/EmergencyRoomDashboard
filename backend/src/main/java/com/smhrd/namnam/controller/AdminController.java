@@ -2,6 +2,7 @@ package com.smhrd.namnam.controller;
 
 import com.smhrd.namnam.service.AdminService;
 import com.smhrd.namnam.vo.AdmissionInfoVO;
+import com.smhrd.namnam.vo.StaffInfoVO;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -35,14 +36,10 @@ public class AdminController {
     // log페이지 검색기능(staff_id, result_ward, 날짜)
     @GetMapping("/search")
     @Operation(summary = "(log페이지 검색기능(staff_id, result_ward, 날짜)")
-    public List<AdmissionInfoVO> searchResultWardLog(@RequestParam String staffId,
-                                                     @RequestParam String ResultWard,
-                                                     @RequestParam String OutTimeStart,
-                                                     @RequestParam String OutTimeEnd){
-        System.out.println("staffId : "+staffId);
-        System.out.println("ResultWard : "+ResultWard);
-        System.out.println("OutTimeStart : "+OutTimeStart);
-        System.out.println("OutTimeEnd : "+OutTimeEnd);
+    public List<AdmissionInfoVO> searchResultWardLog(@RequestParam(value = "staffId") String staffId,
+                                                     @RequestParam(value = "ResultWard") String ResultWard,
+                                                     @RequestParam(value = "OutTimeStart") String OutTimeStart,
+                                                     @RequestParam(value = "OutTimeEnd") String OutTimeEnd){
         return adminService.searchResultWardLog(staffId, ResultWard, OutTimeStart, OutTimeEnd);
     }
     ////////////////////////admin help 페이지//////////////////////////////
@@ -57,5 +54,17 @@ public class AdminController {
     }
 
 
+    ///////////////////////////////role 페이지////////////////////////////////////
+    // staff들 리스트
+    @GetMapping("/staff")
+    @Operation(summary = "(staff들 리스트)")
+    public List<StaffInfoVO> findStaffInfo(){
+        return adminService.findStaffInfo();
+    }
+
+    // staff_info 수정
+    @GetMapping()
+
+    ////////////////////////////////////////////////////////////////////////////
     }
 
