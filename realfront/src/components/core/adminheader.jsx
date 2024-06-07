@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link ,useNavigate } from 'react-router-dom';
 import { Navbar, Container, Row, Col } from 'react-bootstrap';
 import '../../assets/scss/header.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -7,7 +7,13 @@ import { faStar, faStethoscope } from '@fortawesome/free-solid-svg-icons';
 
 const AdminHeader = () => {
 
-    
+    const navigate =useNavigate();
+    const handleLogout = (e) => {
+        e.preventDefault();
+        // JWT 토큰 제거
+        localStorage.removeItem("token");
+        navigate("/");
+      };
 
     return (
         <Navbar expand="lg" className="header-bg">
@@ -75,7 +81,7 @@ const AdminHeader = () => {
                     <FontAwesomeIcon icon={faStethoscope} /> 스마트병원
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a class="dropdown-item" href="#">Logout</a></li>
+                    <li><button className="dropdown-item" onClick={handleLogout}>Logout</button></li>
                     </ul>
                     </div>
                     </Col>
