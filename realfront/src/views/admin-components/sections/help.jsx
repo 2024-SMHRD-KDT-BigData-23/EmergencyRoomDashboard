@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import axios from 'axios';
+
 
 const Help = () => {
     const [ticket, setTicket] = useState({ issueType: '', description: '', contactInfo: '' });
@@ -11,10 +13,16 @@ const Help = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // 여기에 지원 티켓 제출 로직을 추가합니다.
-        console.log('지원 티켓 제출:', ticket);
+        axios.post('http://localhost:8080/api/sendEmail',ticket)
+            .then(response =>{
+                console.log('지원 티켓 제출 성공 !:',response.data);
+                alert('티켓 제출 성공');
+            })
+            .catch(error => {
+                console.error('지원 티켓 제출 실패 ㅠ:', error);
+                alert('티켓 제출 실패');
+            })
     };
-
     return (
         <Container fluid>
             {/* 상단 섹션 */}

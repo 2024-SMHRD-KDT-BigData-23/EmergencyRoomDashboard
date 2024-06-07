@@ -22,7 +22,7 @@ const Footer = () => {
                     <Col className="d-flex align-items-center justify-content-center">
                         <div className="text-center">
                             <h5>Email</h5>
-                            <p>Office : <a href="mailto:info@NamNam.com" className="link">info@NamNam.com</a> <br />Site : <a href="mailto:Site@NamNam.com" className="link">Site@NamNam.com</a></p>
+                            <p>Office : <a href="mailto:dlwlgnsrhy@gmail.com" className="link">dlwlgnsrhy@gmail.com</a> <br />Site : <a href="mailto:Site@NamNam.com" className="link">Site@NamNam.com</a></p>
                         </div>
                     </Col>
                     <Col className="d-flex align-items-center justify-content-center">

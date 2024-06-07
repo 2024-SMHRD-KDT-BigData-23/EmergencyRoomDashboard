@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
@@ -44,7 +45,17 @@ public class AdminController {
         System.out.println("OutTimeEnd : "+OutTimeEnd);
         return adminService.searchResultWardLog(staffId, ResultWard, OutTimeStart, OutTimeEnd);
     }
-    ////////////////////////////////////////////////////////////////////////////
+    ////////////////////////admin help 페이지//////////////////////////////
+    @PostMapping("/sendEmail")
+    public String sendEmail(@RequestBody Map<String, String> ticket) {
+        String issueType = ticket.get("issueType");
+        String description = ticket.get("description");
+        String contactInfo = ticket.get("contactInfo");
+
+        adminService.sendEmail(issueType, description, contactInfo);
+        return "Email sent successfully";
+    }
+
 
     }
 

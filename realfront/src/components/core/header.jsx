@@ -1,5 +1,6 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Navbar, Nav, Offcanvas, Container, Row, Col } from 'react-bootstrap';
 import menu from '../../assets/images/menu.png'; // 메뉴 아이콘 이미지
 import '../../assets/scss/header.scss';
@@ -7,12 +8,21 @@ import SearchForm from './searchForm';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStethoscope, faList, faTable } from '@fortawesome/free-solid-svg-icons';
 
+
 const Header = () => {
 
     const [show, setShow] = useState(false); // offCanvas 상태를 저장
+    const navigate =useNavigate(); 
+    
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
+    const handleLogout = (e) => {
+        e.preventDefault();
+        // JWT 토큰 제거
+        localStorage.removeItem('token');
+    navigate('/');
+    };
     return (
         <Navbar bg="" expand="lg" className="header-bg">
             <Container fluid>
@@ -71,7 +81,7 @@ const Header = () => {
                     <FontAwesomeIcon icon={faStethoscope} /> 스마트병원
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a class="dropdown-item" href="#">Logout</a></li>
+                    <li><button className="dropdown-item" onClick={handleLogout}>Logout</button></li>
                     </ul>
                     </div>
                     </Col>
