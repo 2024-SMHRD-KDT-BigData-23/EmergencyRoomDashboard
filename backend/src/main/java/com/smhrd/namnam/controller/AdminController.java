@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @RestController
@@ -30,17 +31,19 @@ public class AdminController {
         return adminService.findResultWardLog();
     }
 
-    // search 기능
+    // log페이지 검색기능(staff_id, result_ward, 날짜)
     @GetMapping("/search")
     @Operation(summary = "(log페이지 검색기능(staff_id, result_ward, 날짜)")
     public List<AdmissionInfoVO> searchResultWardLog(@RequestParam String staffId,
                                                      @RequestParam String ResultWard,
                                                      @RequestParam String OutTimeStart,
                                                      @RequestParam String OutTimeEnd){
+        System.out.println("staffId : "+staffId);
+        System.out.println("ResultWard : "+ResultWard);
+        System.out.println("OutTimeStart : "+OutTimeStart);
+        System.out.println("OutTimeEnd : "+OutTimeEnd);
         return adminService.searchResultWardLog(staffId, ResultWard, OutTimeStart, OutTimeEnd);
     }
-
-
     ////////////////////////////////////////////////////////////////////////////
 
     }

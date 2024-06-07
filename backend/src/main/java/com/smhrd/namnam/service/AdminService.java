@@ -10,6 +10,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -49,9 +50,9 @@ public class AdminService {
         return convertToAdmissionInfoVOList(admissionInfoRepo.findByAdmissionResultWardIsNotNullOrderByAdmissionOutTimeDesc());
     }
 
-    // search 기능
+    // log페이지 검색기능(staff_id, result_ward, 날짜)
     public List<AdmissionInfoVO> searchResultWardLog(String staffId, String resultWard, String outTimeStart, String outTimeEnd) {
-        return null;
+        return convertToAdmissionInfoVOList(admissionInfoRepo.searchResultWardLog(staffId, resultWard, outTimeStart, outTimeEnd));
     }
     //////////////////////////////////////////////////////////////////////////////////
 }

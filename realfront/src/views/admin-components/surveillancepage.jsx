@@ -41,8 +41,7 @@ const SuveillancePage = () => {
         const formattedData = response.data.map(item => ({
             ...item,
             admissionInTime : extraDateAndTime(item.admissionInTime),
-            admissionOutTime : extraDateAndTime(item.admissionOutTime),
-            patientVitalCreatedAt : extraDateAndTime(item.patientVitalCreatedAt)
+            admissionOutTime : extraDateAndTime(item.admissionOutTime)
         }));
         setPatients(formattedData);
         })
@@ -53,9 +52,32 @@ const SuveillancePage = () => {
     }, []);
 
     useEffect(()=>{
+        
+        // outTimeEnd가 존재할시 1일 더해주기
+        const nextDay = search.OutTimeEnd ? new Date(new Date(search.OutTimeEnd).getTime() + 24 * 60 * 60 * 1000).toISOString().split('T')[0] : '';
+
         axios
-        .get(`http://localhost:8080/api/search`,{param:search})
-    })
+        .get(`http://localhost:8080/api/search`,{
+
+        
+            params:{
+                staffId: search.staffId,
+                ResultWard: search.ResultWard,
+                OutTimeStart: search.OutTimeStart,
+                OutTimeEnd: nextDay
+            }})
+        .then(response => {
+            const formattedData = response.data.map(item => ({
+                ...item,
+                admissionInTime : extraDateAndTime(item.admissionInTime),
+                admissionOutTime : extraDateAndTime(item.admissionOutTime)
+            }));
+            setPatients(formattedData);
+            })
+        .catch(error => {
+            console.error('Error fetching search data: ', error);
+        });
+    }, [search])
 
     return (
         <div>

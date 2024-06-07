@@ -32,7 +32,7 @@ public interface ERViewRepository extends JpaRepository<ERView, Long> {
             "JOIN (SELECT admission_id, MAX(patient_vital_created_at) AS max_vital_time " +
             "FROM er_view " +
             "WHERE (patient_name = :patientNameId OR patient_id = :patientNameId) " +
-            "AND ((:admissionResultWard = 'now' AND admission_result_ward IS NULL) OR admission_result_ward IS NOT NULL) " +
+            "AND ((:admissionResultWard = 'now' AND admission_result_ward ISc NULL) OR admission_result_ward IS NOT NULL) " +
             "GROUP BY admission_id) b ON a.admission_id = b.admission_id AND a.patient_vital_created_at = b.max_vital_time " +
             "WHERE (a.patient_name = :patientNameId OR a.patient_id = :patientNameId) " +
             "OR (:patientNameId IS NULL) "+
