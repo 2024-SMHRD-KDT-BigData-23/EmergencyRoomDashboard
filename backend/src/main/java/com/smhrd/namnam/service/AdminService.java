@@ -2,10 +2,13 @@ package com.smhrd.namnam.service;
 
 import com.smhrd.namnam.entity.AdmissionInfo;
 import com.smhrd.namnam.entity.ERView;
+import com.smhrd.namnam.entity.StaffInfo;
 import com.smhrd.namnam.repository.AdmissionInfoRepository;
 import com.smhrd.namnam.repository.ERViewRepository;
+import com.smhrd.namnam.repository.StaffInfoRepository;
 import com.smhrd.namnam.vo.AdmissionInfoVO;
 import com.smhrd.namnam.vo.ERViewVO;
+import com.smhrd.namnam.vo.StaffInfoVO;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +26,8 @@ public class AdminService {
     private AdmissionInfoRepository admissionInfoRepo;
     @Autowired
     private ModelMapper modelMapper;
+    @Autowired
+    private StaffInfoRepository staffInfoRepo;
 
 
     // entity list 형태 -> vo list형태로 변환 메서드
@@ -42,6 +47,12 @@ public class AdminService {
                 .collect(Collectors.toList());
     }
 
+    // StaffInfoVO entity list 형태 -> vo list형태로 변환 메서드
+    private List<StaffInfoVO> convertToStaffInfoVOList(List<StaffInfo> staffInfo){
+        return staffInfo.stream().map(entity -> modelMapper.map(entity, StaffInfoVO.class))
+                .collect(Collectors.toList());
+    }
+
 
 
     //////////////////////////////////////result_ward log 페이지///////////////////////
@@ -55,4 +66,11 @@ public class AdminService {
         return convertToAdmissionInfoVOList(admissionInfoRepo.searchResultWardLog(staffId, resultWard, outTimeStart, outTimeEnd));
     }
     //////////////////////////////////////////////////////////////////////////////////
+
+    //////////////////////////////////검색관련/////////////////////////////////////////////////
+    // staff들 리스트
+    public List<StaffInfoVO> findStaffInfo() {
+        return convertToStaffInfoVOList(staffInfoRepo.findAll());
+    }
+    ////////////////////////////////////////////////////////////////////////////
 }

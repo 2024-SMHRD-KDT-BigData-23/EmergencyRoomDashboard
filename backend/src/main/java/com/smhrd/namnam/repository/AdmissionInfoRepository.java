@@ -21,7 +21,9 @@ public interface AdmissionInfoRepository extends JpaRepository<AdmissionInfo, Lo
     @Query(value = "SELECT * FROM admission_info " +
             "WHERE ((admission_in_time BETWEEN :outTimeStart AND :outTimeEnd) OR (:outTimeStart = '' OR :outTimeEnd = '')) " +
             "AND ((staff_id = :staffId) OR (:staffId = '')) " +
-            "AND ((admission_result_ward = :resultWard) OR (:resultWard = ''))",
+            "AND ((admission_result_ward = :resultWard) OR (:resultWard = '')) " +
+            "AND admission_result_ward IS NOT NULL " +
+            "ORDER BY admission_out_time DESC",
             nativeQuery = true)
     List<AdmissionInfo> searchResultWardLog(@Param("staffId") String staffId,
                                             @Param("resultWard") String resultWard,
