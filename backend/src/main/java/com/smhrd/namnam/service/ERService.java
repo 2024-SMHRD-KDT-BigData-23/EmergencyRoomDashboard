@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -53,8 +54,8 @@ public class ERService {
     // 응급실 진료 후 result_ward 수정
     public AdmissionInfo saveMedicalPatientsByAdmissionId(AdmissionInfoVO vo) {
         AdmissionInfo entity = admissionRepo.findByAdmissionId(vo.getAdmissionId());
-        entity.setAdmissionResultWard(vo.getAdmissionResultWard());
-        entity.setAdmissionDiagnosis(vo.getAdmissionDiagnosis());
+        entity.setAdmissionResultWard(Objects.isNull(vo.getAdmissionResultWard()) ? entity.getAdmissionResultWard() : vo.getAdmissionResultWard());
+        entity.setAdmissionDiagnosis(Objects.isNull(vo.getAdmissionDiagnosis()) ? entity.getAdmissionDiagnosis() : vo.getAdmissionDiagnosis());
         entity.setAdmissionOutTime(Timestamp.valueOf(LocalDateTime.now()));
         return admissionRepo.save(entity);
     }
