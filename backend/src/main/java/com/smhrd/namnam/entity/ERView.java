@@ -31,7 +31,7 @@ import java.sql.Timestamp;
 //        "    ai.admission_in_time,\n" +
 //        "    ai.admission_out_time,\n" +
 //        "    ai.admission_result_ward,\n" +
-//        "    ai.admission_diagnosis,\n" +
+//        "    ai.admission_comment,\n" +
 //        "    ai.admission_acuity,\n" +
 //        "    ai.admission_pain,\n" +
 //        "    ai.admission_chief_complaint,\n" +
@@ -111,8 +111,8 @@ public class ERView {
     private String admissionResultWard;
 
     // 의료진 진단
-    @Column(name = "admission_diagnosis")
-    private String admissionDiagnosis;
+    @Column(name = "admission_comment")
+    private String admissionComment;
 
     // 통증수준
     @Column(name = "admission_pain")

@@ -1,7 +1,7 @@
 import React, {  useState } from 'react';
 import '../../assets/scss/maintable.scss';
 import { Link } from 'react-router-dom';
-import CommentModal from './commentmodal';
+import CommentModal from '../core/CommentModal';
 
 const SearchTable = ({ patients }) => {
 

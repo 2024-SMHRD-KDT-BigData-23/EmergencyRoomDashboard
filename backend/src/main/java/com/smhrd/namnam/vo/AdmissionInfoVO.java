@@ -34,5 +34,5 @@ public class AdmissionInfoVO {
     // 실제 배치 결과
     private String admissionResultWard;
     // 진단 결과
-    private String admissionDiagnosis;
+    private String admissionComment;
 }
