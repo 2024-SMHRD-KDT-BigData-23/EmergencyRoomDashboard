@@ -16,6 +16,8 @@ public class StaffInfoVO {
     private String staffId;
     // 비밀번호
     private String staffPw;
+    // 의료진 이름
+    private String staffName;
     // 직위
     private String staffRole;
     // 의료진 상태
