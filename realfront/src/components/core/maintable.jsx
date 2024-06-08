@@ -1,8 +1,7 @@
 import React, {  useState } from 'react';
 import '../../assets/scss/maintable.scss';
 import { Link } from 'react-router-dom';
-import DiagnosisModal from './diagnosismodal';
-import CommentModal from './commentmodal';
+import ActionModal from './ActionModal';
 
 const MainTable = ({ patients }) => {
 
@@ -122,7 +121,7 @@ const MainTable = ({ patients }) => {
                                         </Link>
                                             </td>
                                     <td>
-                                        <CommentModal />
+                                        <ActionModal />
                                     </td>
                                 </tr>
                             ))}
