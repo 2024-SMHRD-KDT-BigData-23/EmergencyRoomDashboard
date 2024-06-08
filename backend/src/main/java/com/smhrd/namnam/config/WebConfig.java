@@ -15,7 +15,7 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowedOrigins("http://localhost:3000")
                 .allowedMethods("*")
                 .allowedHeaders("*")
-          .allowCredentials(true);  // 이 부분을 추가하여 withCredentials를 지원
+                .allowCredentials(true);  // 이 부분을 추가하여 withCredentials를 지원
     }
 
     @Bean

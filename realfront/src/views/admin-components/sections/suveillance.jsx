@@ -1,52 +1,61 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Table, Button, Form } from 'react-bootstrap';
+import axios from "axios";
 
-const Suveillance =({ patients, setSearch })=>{
-
+const Suveillance = ({ patients, setSearch }) => {
+    const [userActivities, setUserActivities] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 14; // 한 페이지에 표시할 항목 수
+    const itemsPerPage = 8; // 한 페이지에 표시할 항목 수
 
-    // 현재 페이지에 표시할 데이터를 계산합니다.
+    useEffect(() => {
+        axios.get('http://localhost:8080/api/user-activity').then(response => {
+            setUserActivities(response.data);
+        }).catch(error => {
+            console.error("There was an error fetching user activities!", error);
+        });
+    }, []);
+
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentItems = patients.slice(indexOfFirstItem, indexOfLastItem);
+    const currentPatientItems = patients.slice(indexOfFirstItem, indexOfLastItem);
+    const currentActivityItems = userActivities.slice(indexOfFirstItem, indexOfLastItem);
 
-    // 페이지를 변경하는 함수입니다.
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-    // 총 페이지 수를 계산하고 페이지 번호를 배열에 저장합니다.
-    const pageNumbers = [];
+    const patientPageNumbers = [];
     for (let i = 1; i <= Math.ceil(patients.length / itemsPerPage); i++) {
-        pageNumbers.push(i);
+        patientPageNumbers.push(i);
     }
 
+    const activityPageNumbers = [];
+    for (let i = 1; i <= Math.ceil(userActivities.length / itemsPerPage); i++) {
+        activityPageNumbers.push(i);
+    }
 
-    // 검색 관련
     const [filter, setFilter] = useState({
-        staffId:'',
-        ResultWard:'',
-        OutTimeStart:'',
-        OutTimeEnd:''
-    })
+        staffId: '',
+        ResultWard: '',
+        OutTimeStart: '',
+        OutTimeEnd: ''
+    });
+
     const handleFilterChange = (e) => {
         const { name, value } = e.target;
         setFilter({ ...filter, [name]: value });
     };
+
     const handleSubmit = (e) => {
         e.preventDefault();
         setSearch(filter);
-    }
-
+    };
 
     const handleExportLogs = () => {
-        // 여기에 로그를 CSV 또는 Excel로 내보내는 로직을 추가합니다.
         console.log('Export logs to CSV or Excel');
     };
 
-
-    return(
+    return (
         <Container>
-             <Row className="my-3">
+            <Row className="my-3">
                 <Col>
                     <h2>Audit Logs</h2>
                     <Form onSubmit={handleSubmit}>
@@ -90,7 +99,7 @@ const Suveillance =({ patients, setSearch })=>{
                             </tr>
                         </thead>
                         <tbody>
-                            {currentItems.map(patient => (
+                            {currentPatientItems.map(patient => (
                                 <tr key={patient.id}>
                                     <td>{String(patient.admissionInTime.year).padStart(2, '0')}.{String(patient.admissionInTime.month).padStart(2, '0')}.{String(patient.admissionInTime.day).padStart(2, '0')}
                                     .{String(patient.admissionInTime.hour).padStart(2, '0')}:{String(patient.admissionInTime.minute).padStart(2, '0')}:{String(patient.admissionInTime.second).padStart(2, '0')}</td>
@@ -102,11 +111,23 @@ const Suveillance =({ patients, setSearch })=>{
                                 </tr>
                             ))}
                         </tbody>
+                        <tbody>
+                            {currentActivityItems.map(activity => (
+                                <tr key={activity.id}>
+                                    <td>{new Date(activity.activityDate).toLocaleString()}</td>
+                                    <td>{activity.staffInfo.staffId}</td>
+                                    <td>{activity.activityType}</td>
+                                    <td>
+                                        Activity Type: {activity.activityType}
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
                     </Table>
-                    
+
                     <div style={{ textAlign: 'center' }}>
                         <ul className="pagination justify-content-center" >
-                            {pageNumbers.map(number => (
+                            {activityPageNumbers.map(number => (
                                 <li key={number} className="page-item">
                                     <button onClick={() => paginate(number)} className="page-link" >
                                         {number}
@@ -115,8 +136,6 @@ const Suveillance =({ patients, setSearch })=>{
                             ))}
                         </ul>
                     </div>
-
-
                 </Col>
             </Row>
             <Row className="my-3">
@@ -124,7 +143,7 @@ const Suveillance =({ patients, setSearch })=>{
                     <Button variant="success" onClick={handleExportLogs}>Export Logs</Button>
                 </Col>
             </Row>
-            </Container>
-    )
+        </Container>
+    );
 }
 export default Suveillance;
