@@ -1,5 +1,6 @@
 package com.smhrd.namnam.entity;
 
+import com.smhrd.namnam.vo.ResultWardInfoVO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -39,4 +40,10 @@ public class ResultWardInfo {
     @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "staff_id", nullable = false)
     private StaffInfo staffInfo;
+
+    public ResultWardInfo(StaffInfo byStaffId, AdmissionInfo byAdmissionId, ResultWardInfoVO vo) {
+        this.staffInfo = byStaffId;
+        this.admissionInfo = byAdmissionId;
+        this.resultWard = vo.getResultWard();
+    }
 }

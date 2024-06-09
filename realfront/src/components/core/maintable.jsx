@@ -1,4 +1,4 @@
-import React, {  useState } from 'react';
+import React, { useState } from 'react';
 import '../../assets/scss/maintable.scss';
 import { Link } from 'react-router-dom';
 import ActionModal from './ActionModal';
@@ -24,12 +24,11 @@ const MainTable = ({ patients }) => {
 
     return (
         <div>
-
-        <main className="ourcontent">
+            <main className="ourcontent">
                 <div className="mainContent">
-                    <table className="table table-hover" style={{ textAlign: 'center'   }}>
+                    <table className="table table-hover" style={{ textAlign: 'center' }}>
                         <thead>
-                            <tr> 
+                            <tr>
                                 <th scope="col">In Time</th>
                                 <th scope="col">MT(Measurement)</th>
                                 <th scope="col">Patient ID</th>
@@ -49,85 +48,85 @@ const MainTable = ({ patients }) => {
                         <tbody>
                             {currentItems.map(patient => (
                                 <tr key={patient.id} className='MainTableFont '>
-                                        <td>
+                                    <td>
                                         <Link to={`/Detail/${patient.patientId}/${patient.admissionId}`} state={{ patient }} className='tableLink'>
                                             {`${String(patient.admissionInTime.year).padStart(2, '0')}.${String(patient.admissionInTime.month).padStart(2, '0')}.${String(patient.admissionInTime.day).padStart(2, '0')}
                                             ${String(patient.admissionInTime.hour).padStart(2, '0')}:${String(patient.admissionInTime.minute).padStart(2, '0')}:${String(patient.admissionInTime.second).padStart(2, '0')}`}
-                                            
+
                                         </Link>
-                                        </td>
-                                        <td>
+                                    </td>
+                                    <td>
                                         <Link to={`/Detail/${patient.patientId}/${patient.admissionId}`} state={{ patient }} className='tableLink'>
                                             {`${patient.patientVitalCreatedAt.year}.${String(patient.patientVitalCreatedAt.month).padStart(2, '0')}.${String(patient.patientVitalCreatedAt.day).padStart(2, '0')}
                                             ${String(patient.patientVitalCreatedAt.hour).padStart(2, '0')}:${String(patient.patientVitalCreatedAt.minute).padStart(2, '0')}:${String(patient.patientVitalCreatedAt.second).padStart(2, '0')}
                                             `}
                                         </Link>
-                                        </td>
-                                        <td>
+                                    </td>
+                                    <td>
                                         <Link to={`/Detail/${patient.patientId}/${patient.admissionId}`} state={{ patient }} className='tableLink'>
                                             {patient.patientId}
                                         </Link>
-                                        </td>
-                                        <td>
+                                    </td>
+                                    <td>
                                         <Link to={`/Detail/${patient.patientId}/${patient.admissionId}`} state={{ patient }} className='tableLink'>
                                             {patient.patientName}
                                         </Link>
-                                            </td>
-                                        <td>
+                                    </td>
+                                    <td>
                                         <Link to={`/Detail/${patient.patientId}/${patient.admissionId}`} state={{ patient }} className='tableLink'>
                                             {patient.patientSex}
                                         </Link>
-                                            </td>
-                                        <td>
+                                    </td>
+                                    <td>
                                         <Link to={`/Detail/${patient.patientId}/${patient.admissionId}`} state={{ patient }} className='tableLink'>
                                             {patient.patientVitalTemperature}°C
                                         </Link>
-                                            </td>
-                                        <td>
+                                    </td>
+                                    <td>
                                         <Link to={`/Detail/${patient.patientId}/${patient.admissionId}`} state={{ patient }} className='tableLink'>
                                             {patient.patientVitalHr}
                                         </Link>
-                                            </td>
-                                        <td>
+                                    </td>
+                                    <td>
                                         <Link to={`/Detail/${patient.patientId}/${patient.admissionId}`} state={{ patient }} className='tableLink'>
                                             {patient.patientVitalRespiratoryRate}
                                         </Link>
-                                            </td>
-                                        <td>
+                                    </td>
+                                    <td>
                                         <Link to={`/Detail/${patient.patientId}/${patient.admissionId}`} state={{ patient }} className='tableLink'>
                                             {patient.patientVitalSpo2}
                                         </Link>
-                                            </td>
-                                        <td>
+                                    </td>
+                                    <td>
                                         <Link to={`/Detail/${patient.patientId}/${patient.admissionId}`} state={{ patient }} className='tableLink'>
                                             {patient.patientVitalNibpS}
                                         </Link>
-                                            </td>
-                                        <td>
+                                    </td>
+                                    <td>
                                         <Link to={`/Detail/${patient.patientId}/${patient.admissionId}`} state={{ patient }} className='tableLink'>
                                             {patient.patientVitalNibpD}
                                         </Link>
-                                            </td>
-                                        <td>
+                                    </td>
+                                    <td>
                                         <Link to={`/Detail/${patient.patientId}/${patient.admissionId}`} state={{ patient }} className='tableLink'>
                                             {patient.bedWard}
                                         </Link>
-                                            </td>
-                                        <td>
-                                        <Link to={`/Detail/${patient.patientId}/${patient.admissionId}`} state={{ patient }} className='tableLink'>
-                                        <span style={{ color: patient.deepNcdss === 'Discharge' ? 'rgb(130, 130, 236)' : patient.deepNcdss === 'WARD' ? 'rgb(100, 200, 100)' : patient.deepNcdss === 'ICU' ? 'rgb(221, 102, 102)' : 'inherit' }}>
-                                        {patient.deepNcdss}
-                                        </span>
-                                        </Link>
-                                            </td>
+                                    </td>
                                     <td>
-                                        <ActionModal />
+                                        <Link to={`/Detail/${patient.patientId}/${patient.admissionId}`} state={{ patient }} className='tableLink'>
+                                            <span style={{ color: patient.deepNcdss === 'Discharge' ? 'rgb(130, 130, 236)' : patient.deepNcdss === 'WARD' ? 'rgb(100, 200, 100)' : patient.deepNcdss === 'ICU' ? 'rgb(221, 102, 102)' : 'inherit' }}>
+                                                {patient.deepNcdss}
+                                            </span>
+                                        </Link>
+                                    </td>
+                                    <td>
+                                        <ActionModal selectedAdmissionId={patient.admissionId} />
                                     </td>
                                 </tr>
                             ))}
                         </tbody>
                     </table>
-                    
+
                     <div style={{ textAlign: 'center' }}>
                         <ul className="pagination justify-content-center" >
                             {pageNumbers.map(number => (
@@ -138,27 +137,11 @@ const MainTable = ({ patients }) => {
                                 </li>
                             ))}
                         </ul>
-                    </div> 
                     </div>
+                </div>
             </main>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         </div>
-    );  
+    );
 };
 
 export default MainTable;

@@ -32,18 +32,19 @@ public class ERController {
             return erService.findPatients(pageStatus, bedward, deepNcdss, patientNameId);
     }
 
-    // 응급실 진료 후 result_ward
+    // 응급실 진료 후 result_ward 결정
     @PostMapping("/resultWards/{staffId}/{admissionId}")
     @Operation(summary = "(환자 result_ward 결정)")
-    public ResponseEntity<ResultWardInfo> saveResultWard(@PathVariable("staffId") String staffId, @PathVariable("admissionId") String admissionId, @RequestBody ResultWardInfoVO vo) {
-        ResultWardInfo savedResultWard = erService.saveResultWard(staffId, admissionId, vo);
+    public ResponseEntity<ResultWardInfoVO> saveResultWard(@PathVariable("staffId") String staffId, @PathVariable("admissionId") String admissionId, @RequestBody ResultWardInfoVO vo) {
+        ResultWardInfoVO savedResultWard = erService.saveResultWard(staffId, admissionId, vo);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedResultWard);
     }
 
+    // 응급실 진료 후 comment 작성
     @PostMapping("/comments/{staffId}/{admissionId}")
     @Operation(summary = "(환자 comment 작성)")
-    public ResponseEntity<CommentInfo> saveComment(@PathVariable("staffId") String staffId, @PathVariable("admissionId") String admissionId, @RequestBody CommentInfoVO vo) {
-        CommentInfo savedComment = erService.saveComment(staffId, admissionId, vo);
+    public ResponseEntity<CommentInfoVO> saveComment(@PathVariable("staffId") String staffId, @PathVariable("admissionId") String admissionId, @RequestBody CommentInfoVO vo) {
+        CommentInfoVO savedComment = erService.saveComment(staffId, admissionId, vo);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedComment);
     }
     ///////////////////////////////////////////////////////////////////////////////////////////

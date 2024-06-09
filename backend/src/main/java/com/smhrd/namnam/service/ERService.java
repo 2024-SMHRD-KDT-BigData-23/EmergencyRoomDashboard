@@ -1,11 +1,9 @@
 package com.smhrd.namnam.service;
 
-import com.smhrd.namnam.entity.AdmissionInfo;
 import com.smhrd.namnam.entity.CommentInfo;
 import com.smhrd.namnam.entity.ERView;
 import com.smhrd.namnam.entity.ResultWardInfo;
 import com.smhrd.namnam.repository.*;
-import com.smhrd.namnam.vo.AdmissionInfoVO;
 import com.smhrd.namnam.vo.CommentInfoVO;
 import com.smhrd.namnam.vo.ERViewVO;
 import com.smhrd.namnam.vo.ResultWardInfoVO;
@@ -13,10 +11,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -62,21 +57,17 @@ public class ERService {
     }
 
     // 진료 후 result_ward 결정
-    public ResultWardInfo saveResultWard(String staffId, String admissionId, ResultWardInfoVO vo) {
-        ResultWardInfo entity = new ResultWardInfo();
-        entity.setStaffInfo(staffRepo.findByStaffId(staffId));
-        entity.setAdmissionInfo(admissionRepo.findByAdmissionId(admissionId));
-        entity.setResultWard(vo.getResultWard());
-        return resultWardRepo.save(entity);
+    public ResultWardInfoVO saveResultWard(String staffId, String admissionId, ResultWardInfoVO vo) {
+        ResultWardInfo entity = new ResultWardInfo(staffRepo.findByStaffId(staffId), admissionRepo.findByAdmissionId(admissionId), vo);
+        ResultWardInfo savedEntity = resultWardRepo.save(entity);
+        return new ResultWardInfoVO(savedEntity);
     }
 
     // 환자 comment 작성
-    public CommentInfo saveComment(String staffId, String admissionId, CommentInfoVO vo) {
-        CommentInfo entity = new CommentInfo();
-        entity.setStaffInfo(staffRepo.findByStaffId(staffId));
-        entity.setAdmissionInfo(admissionRepo.findByAdmissionId(admissionId));
-        entity.setComment(vo.getComment());
-        return commentRepo.save(entity);
+    public CommentInfoVO saveComment(String staffId, String admissionId, CommentInfoVO vo) {
+        CommentInfo entity = new CommentInfo(staffRepo.findByStaffId(staffId), admissionRepo.findByAdmissionId(admissionId), vo);
+        CommentInfo savedEntity = commentRepo.save(entity);
+        return new CommentInfoVO(savedEntity);
     }
     ///////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////상세 페이지////////////////////////////////////////
