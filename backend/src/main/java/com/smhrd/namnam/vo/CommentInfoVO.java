@@ -1,7 +1,14 @@
 package com.smhrd.namnam.vo;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.sql.Timestamp;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class CommentInfoVO {
 
     // comment 식별자
