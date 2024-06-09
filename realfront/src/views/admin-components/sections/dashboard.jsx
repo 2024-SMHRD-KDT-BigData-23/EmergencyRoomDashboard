@@ -1,27 +1,83 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Card } from 'react-bootstrap';
 import { Line } from 'react-chartjs-2';
+import axios from 'axios';
+import 'chart.js/auto';
 
 const Dashboard = () => {
+    const [userData, setUserData] = useState({ totalUsers: 0, activeUsers: 0 });
+    const [systemMetrics, setSystemMetrics] = useState({ cpuUsage: '0%', memoryUsage: '0%', diskUsage: '0%' });
+    const [userActivity, setUserActivity] = useState({ labels: [], data: [] });
+
+    useEffect(() => {
+        // 시스템 메트릭 데이터 가져오기
+        axios.get('http://localhost:5000/api/system_metrics').then(response => {
+            const metrics = response.data;
+            setSystemMetrics({
+                cpuUsage: `${metrics.cpu_usage}%`,
+                memoryUsage: `${metrics.memory_usage}%`,
+                diskUsage: `${metrics.disk_usage}%`
+            });
+        }).catch(error => {
+            console.error("There was an error fetching system metrics!", error);
+        });
+
+        // 사용자 데이터 가져오기
+        axios.get('http://localhost:8080/api/users/count').then(response => {
+            setUserData(prevState => ({ ...prevState, totalUsers: response.data }));
+        }).catch(error => {
+            console.error("There was an error fetching total users!", error);
+        });
+
+        axios.get('http://localhost:8080/api/users/active').then(response => {
+            setUserData(prevState => ({ ...prevState, activeUsers: response.data }));
+        }).catch(error => {
+            console.error("There was an error fetching active users!", error);
+        });
+
+        // 사용자 활동 데이터 가져오기
+        axios.get('http://localhost:8080/api/user-activity').then(response => {
+            const activityData = response.data;
+            const today = new Date();
+            const pastWeekDates = Array.from({ length: 7 }, (_, i) => {
+                const date = new Date(today);
+                date.setDate(today.getDate() - i);
+                return date.toISOString().split('T')[0];
+            }).reverse();
+
+            const activityCountMap = pastWeekDates.reduce((acc, date) => {
+                acc[date] = 0;
+                return acc;
+            }, {});
+
+            activityData.forEach(activity => {
+                const date = activity.activityDate.split('T')[0];
+                if (activityCountMap[date] !== undefined) {
+                    activityCountMap[date]++;
+                }
+            });
+
+            const labels = Object.keys(activityCountMap);
+            const data = Object.values(activityCountMap);
+
+            setUserActivity({ labels, data });
+        }).catch(error => {
+            console.error("There was an error fetching user activity!", error);
+        });
+    }, []);
 
     const userActivityData = {
-        labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+        labels: userActivity.labels,
         datasets: [
             {
                 label: 'User Activity',
-                data: [12, 19, 3, 5, 2, 3, 9],
+                data: userActivity.data,
                 backgroundColor: 'rgba(75, 192, 192, 0.2)',
                 borderColor: 'rgba(75, 192, 192, 1)',
                 borderWidth: 1,
             }
         ]
     };
-
-    const systemMetrics = [
-        { label: 'CPU Usage', value: '15%', color: 'success' },
-        { label: 'Memory Usage', value: '45%', color: 'warning' },
-        { label: 'Disk Usage', value: '80%', color: 'danger' }
-    ];
 
     const alerts = [
         { id: 1, message: 'High CPU usage detected', type: 'danger' },
@@ -43,7 +99,7 @@ const Dashboard = () => {
                     <Card className="text-center">
                         <Card.Body>
                             <Card.Title>Total Users</Card.Title>
-                            <Card.Text>1000</Card.Text>
+                            <Card.Text>{userData.totalUsers}</Card.Text>
                         </Card.Body>
                     </Card>
                 </Col>
@@ -51,20 +107,34 @@ const Dashboard = () => {
                     <Card className="text-center">
                         <Card.Body>
                             <Card.Title>Active Users</Card.Title>
-                            <Card.Text>150</Card.Text>
+                            <Card.Text>{userData.activeUsers}</Card.Text>
                         </Card.Body>
                     </Card>
                 </Col>
-                {systemMetrics.map(metric => (
-                    <Col key={metric.label}>
-                        <Card className={`text-center text-${metric.color}`}>
-                            <Card.Body>
-                                <Card.Title>{metric.label}</Card.Title>
-                                <Card.Text>{metric.value}</Card.Text>
-                            </Card.Body>
-                        </Card>
-                    </Col>
-                ))}
+                <Col>
+                    <Card className={`text-center text-success`}>
+                        <Card.Body>
+                            <Card.Title>CPU Usage</Card.Title>
+                            <Card.Text>{systemMetrics.cpuUsage}</Card.Text>
+                        </Card.Body>
+                    </Card>
+                </Col>
+                <Col>
+                    <Card className={`text-center text-warning`}>
+                        <Card.Body>
+                            <Card.Title>Memory Usage</Card.Title>
+                            <Card.Text>{systemMetrics.memoryUsage}</Card.Text>
+                        </Card.Body>
+                    </Card>
+                </Col>
+                <Col>
+                    <Card className={`text-center text-danger`}>
+                        <Card.Body>
+                            <Card.Title>Disk Usage</Card.Title>
+                            <Card.Text>{systemMetrics.diskUsage}</Card.Text>
+                        </Card.Body>
+                    </Card>
+                </Col>
             </Row>
 
             {/* 중간 섹션 */}

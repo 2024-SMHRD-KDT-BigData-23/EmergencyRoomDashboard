@@ -31,8 +31,4 @@ public class AdmissionInfoVO {
     private String admissionChiefComplaint;
     // mimic데이터의 acutiry컬럼 값
     private int admissionAcuity;
-    // 실제 배치 결과
-    private String admissionResultWard;
-    // 진단 결과
-    private String admissionDiagnosis;
 }

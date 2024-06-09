@@ -26,6 +26,10 @@ public class StaffInfo {
     @Column(name = "staff_pw", nullable = false, length = 255)
     private String staffPw;
 
+    // 의료진 이름
+    @Column(name = "staff_name", nullable = false, length = 30)
+    private String staffName;
+
     // 직위
     @Column(name = "staff_role", nullable = false, length = 30)
     private String staffRole;

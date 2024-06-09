@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Row, Col, Card } from 'react-bootstrap';
 import NcdssChart from './NcdssChart';
 import DecisionDrop from '../../components/core/decisionmodal';
-import DiagnosisModal from '../../components/core/diagnosismodal';
+import CommentModal from '../../components/core/CommentModal';
 
 const AdmissionInfo = ({ patientData, setPatientData, admissionId }) => {
 
@@ -20,11 +20,11 @@ const AdmissionInfo = ({ patientData, setPatientData, admissionId }) => {
         setUpdatedAdmissionId(admissionId);
     };
 
-    const updateAdmissionDiagnosis = (admissionId, newDiagnosis) => {
+    const updateAdmissionComment = (admissionId, newComment) => {
         setPatientData(prevData => {
             return prevData.map(patient => {
                 if (patient.admissionId === admissionId) {
-                    return { ...patient, admissionDiagnosis: newDiagnosis };
+                    return { ...patient, admissionComment: newComment };
                 }
                 return patient;
             });
@@ -88,9 +88,9 @@ const AdmissionInfo = ({ patientData, setPatientData, admissionId }) => {
                     <Col md={3} className="w-100">
                         <Card>
                             <Card.Body>
-                                <Card.Title>Diagnosis</Card.Title>
+                                <Card.Title>Comment</Card.Title>
                                 <Card.Text>
-                                    <DiagnosisModal patientData={patientData} admissionId={admissionId} updateAdmissionDiagnosis={updateAdmissionDiagnosis} />
+                                    <CommentModal patientData={patientData} admissionId={admissionId} updateAdmissionComment={updateAdmissionComment} />
                                     {`${patientData.length && patientData[0].admissionDiagnosis}`}
                                 </Card.Text>
                             </Card.Body>

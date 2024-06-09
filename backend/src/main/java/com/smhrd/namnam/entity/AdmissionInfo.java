@@ -56,12 +56,4 @@ public class AdmissionInfo {
     // mimic데이터의 acutiry컬럼 값
     @Column(name = "admission_acuity", nullable = false)
     private int admissionAcuity;
-
-    // 실제 배치 결과
-    @Column(name = "admission_result_ward", length = 20)
-    private String admissionResultWard;
-
-    // 진단 결과
-    @Column(name = "admission_diagnosis", columnDefinition = "TEXT")
-    private String admissionDiagnosis;
 }

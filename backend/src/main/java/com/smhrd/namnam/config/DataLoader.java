@@ -84,12 +84,14 @@ public class DataLoader {
                     staff.setHospitalInfo(selectedHospital);
                     staff.setStaffId(role.toLowerCase() + i);
                     staff.setStaffPw(role.toLowerCase() + i);
+                    staff.setStaffName(faker.name().name());
                     staff.setStaffRole(role);
                     staff.setStaffStatus("active");
                 } else { // i가 0일 때, admin 생성
                     staff.setHospitalInfo(selectedHospital);
                     staff.setStaffId("admin");
                     staff.setStaffPw("admin");
+                    staff.setStaffName("admin");
                     staff.setStaffRole("admin");
                     staff.setStaffStatus("active");
                 }
@@ -172,7 +174,7 @@ public class DataLoader {
                 // 입실 시간
                 admission.setAdmissionInTime(Timestamp.valueOf(randomDateTime));
                 // 고통 정도
-                admission.setAdmissionPain(faker.number().numberBetween(1, 10));
+                admission.setAdmissionPain(faker.number().numberBetween(0, 10));
                 // 호소 증상
                 admission.setAdmissionChiefComplaint(faker.lorem().sentence());
                 // 위험도
@@ -198,17 +200,17 @@ public class DataLoader {
                 // admission_id(입실 식별자, FK)
                 presentPatientVital.setAdmissionInfo(selectedAdmission);
                 // 체온(°C)
-                presentPatientVital.setPatientVitalTemperature(BigDecimal.valueOf(faker.number().randomDouble(1, 36, 38)));
+                presentPatientVital.setPatientVitalTemperature(BigDecimal.valueOf(faker.number().randomDouble(1, 35, 39)));
                 // 심박수(bpm)
-                presentPatientVital.setPatientVitalHr(faker.number().numberBetween(50, 110)); // 표준 범위 ± 오차 범위
+                presentPatientVital.setPatientVitalHr(faker.number().numberBetween(50, 130)); // 표준 범위 ± 오차 범위
                 // 호흡수(min)
-                presentPatientVital.setPatientVitalRespiratoryRate(faker.number().numberBetween(9, 23)); // 표준 범위 ± 오차 범위
+                presentPatientVital.setPatientVitalRespiratoryRate(faker.number().numberBetween(13, 30)); // 표준 범위 ± 오차 범위
                 // 산소포화도(%%)
-                presentPatientVital.setPatientVitalSpo2(BigDecimal.valueOf(faker.number().randomDouble(1, 93, 102))); // 표준 범위 ± 오차 범위
+                presentPatientVital.setPatientVitalSpo2(BigDecimal.valueOf(faker.options().option(faker.number().randomDouble(1, 91, 96), faker.number().randomDouble(1, 97, 100)))); // 표준 범위 ± 오차 범위
                 // 수축혈압(mmHg)
-                presentPatientVital.setPatientVitalNibpS(faker.number().numberBetween(80, 130)); // 표준 범위 ± 오차 범위
+                presentPatientVital.setPatientVitalNibpS(faker.number().numberBetween(80, 180)); // 표준 범위 ± 오차 범위
                 // 이완혈압(mmHg)
-                presentPatientVital.setPatientVitalNibpD(faker.number().numberBetween(50, 90)); // 표준 범위 ± 오차 범위
+                presentPatientVital.setPatientVitalNibpD(faker.number().numberBetween(30, 120)); // 표준 범위 ± 오차 범위
 
                 if (currentPatientVital != null) {
                     // 바이탈을 잰 시간

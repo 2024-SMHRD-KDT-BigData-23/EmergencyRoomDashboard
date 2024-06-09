@@ -20,6 +20,7 @@ public class AdminController {
     private AdminService adminService;
 
     @GetMapping("/admin")
+    @Operation(summary = "(admin계정 로그인 시)")
     public String adminP(){
         return  "admin Controller";
 
@@ -27,11 +28,11 @@ public class AdminController {
 
     ////////////////////////////////admin log 페이지/////////////////////////////
     // result_ward가 결정된 admission_id 전체 리스트(최신순)
-    @GetMapping("/resultWardLog")
-    @Operation(summary = "(log페이지 result_ward가 결정정된 admission_id 전체 리스트)")
-    public List<AdmissionInfoVO> findResultWardLog(){
-        return adminService.findResultWardLog();
-    }
+//    @GetMapping("/resultWardLog")
+//    @Operation(summary = "(log페이지 result_ward가 결정정된 admission_id 전체 리스트)")
+//    public List<AdmissionInfoVO> findResultWardLog(){
+//        return adminService.findResultWardLog();
+//    }
 
     // log페이지 검색기능(staff_id, result_ward, 날짜)
     @GetMapping("/search")
@@ -44,15 +45,14 @@ public class AdminController {
     }
     ////////////////////////admin help 페이지//////////////////////////////
     @PostMapping("/sendEmail")
+    @Operation(summary = "(email 전송 시)")
     public String sendEmail(@RequestBody Map<String, String> ticket) {
         String issueType = ticket.get("issueType");
         String description = ticket.get("description");
         String contactInfo = ticket.get("contactInfo");
-
         adminService.sendEmail(issueType, description, contactInfo);
         return "Email sent successfully";
     }
-
 
     ///////////////////////////////role 페이지////////////////////////////////////
     // staff들 리스트

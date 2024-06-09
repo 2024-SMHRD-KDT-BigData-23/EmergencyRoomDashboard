@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import axios from 'axios';
 import '../../assets/scss/commentmodal.scss';
 
-const CommentModal = (patientData) => {
+const ActionModal = (patientData) => {
 
     const { id } = useParams();
     const [selectedDisposition, setSelectedDisposition] = useState(patientData && patientData.length > 0 ? patientData[0].admissionResultWard : '');
@@ -31,18 +31,18 @@ const CommentModal = (patientData) => {
 
     return (
         <div>
-            <button type="button" className="btn btn-sm btn-warning modalBtn" data-bs-toggle="modal" style={{ color: 'white' }} data-bs-target="#exampleModal">Diagnosis</button>
+            <button type="button" className="btn btn-sm btn-warning modalBtn" data-bs-toggle="modal" style={{ color: 'white' }} data-bs-target="#exampleModal">Action</button>
             <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h5 className="modal-title" id="exampleModalLabel">New message</h5>
+                            <h5 className="modal-title" id="exampleModalLabel">Decision</h5>
                             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div className="modal-body">
                             <form>
                                 <div className="mb-3" style={{ textAlign: 'left' }}>
-                                    <label htmlFor="recipient-name" className="col-form-label">Disposition:</label>
+                                    <label htmlFor="recipient-name" className="col-form-label">Disposition</label>
                                     <div className="dropdown">
                                         <button
                                             className="btn btn-outline-dark dropdown-toggle"
@@ -83,4 +83,4 @@ const CommentModal = (patientData) => {
     );
 };
 
-export default CommentModal;
+export default ActionModal;

@@ -62,9 +62,9 @@ public class AdminService {
 
     //////////////////////////////////////result_ward log 페이지///////////////////////
     // result_ward가 결정된 admission_id 전체 리스트(최신순)
-    public List<AdmissionInfoVO> findResultWardLog() {
-        return convertToAdmissionInfoVOList(admissionInfoRepo.findByAdmissionResultWardIsNotNullOrderByAdmissionOutTimeDesc());
-    }
+//    public List<AdmissionInfoVO> findResultWardLog() {
+//        return convertToAdmissionInfoVOList(admissionInfoRepo.findByAdmissionResultWardIsNotNullOrderByAdmissionOutTimeDesc());
+//    }
 
     // log페이지 검색기능(staff_id, result_ward, 날짜)
     public List<AdmissionInfoVO> searchResultWardLog(String staffId, String resultWard, String outTimeStart, String outTimeEnd) {
