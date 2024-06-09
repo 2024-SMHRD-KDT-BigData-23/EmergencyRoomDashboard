@@ -53,10 +53,4 @@ public class UserService {
 
         }
     }
-
-    public List<UserActivity> getUserActivityForLastWeek(){
-        LocalDateTime now = LocalDateTime.now();
-        LocalDateTime weekAgo= now.minusDays(7);
-        return userActivityRepository.findByActivityDateBetween(weekAgo,now);
-    }
 }

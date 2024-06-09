@@ -1,10 +1,14 @@
 package com.smhrd.namnam.controller;
 
+import com.smhrd.namnam.entity.UserActivity;
 import com.smhrd.namnam.service.AdminService;
 import com.smhrd.namnam.vo.AdmissionInfoVO;
+import com.smhrd.namnam.vo.ResultWardInfoVO;
 import com.smhrd.namnam.vo.StaffInfoVO;
+import com.smhrd.namnam.vo.UserActivityVO;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,21 +32,32 @@ public class AdminController {
 
     ////////////////////////////////admin log 페이지/////////////////////////////
     // result_ward가 결정된 admission_id 전체 리스트(최신순)
-//    @GetMapping("/resultWardLog")
-//    @Operation(summary = "(log페이지 result_ward가 결정정된 admission_id 전체 리스트)")
-//    public List<AdmissionInfoVO> findResultWardLog(){
-//        return adminService.findResultWardLog();
-//    }
+    @GetMapping("/resultWardLog")
+    @Operation(summary = "(log페이지 result_ward가 결정정된 admission_id 전체 리스트)")
+    public List<ResultWardInfoVO> findResultWardLog(){
+        System.out.println("resultWArd메서드들어옴");
+        return adminService.findResultWardLog();
+    }
 
-    // log페이지 검색기능(staff_id, result_ward, 날짜)
+    // log페이지 result_ward관련 검색기능(staff_id, result_ward, 날짜)
     @GetMapping("/search")
     @Operation(summary = "(log페이지 검색기능(staff_id, result_ward, 날짜)")
-    public List<AdmissionInfoVO> searchResultWardLog(@RequestParam(value = "staffId") String staffId,
+    public List<ResultWardInfoVO> searchResultWardLog(@RequestParam(value = "staffId") String staffId,
                                                      @RequestParam(value = "ResultWard") String ResultWard,
                                                      @RequestParam(value = "OutTimeStart") String OutTimeStart,
                                                      @RequestParam(value = "OutTimeEnd") String OutTimeEnd){
         return adminService.searchResultWardLog(staffId, ResultWard, OutTimeStart, OutTimeEnd);
     }
+
+    // log페이지 로그인 기록 리스트
+    @GetMapping("/user-activity")
+    @Operation(summary = "(log페이지 로그인 기록 리스트)")
+    public List<UserActivityVO> getUserActivity() {
+        System.out.println("activity메서드들어옴");
+        return adminService.getUserActivityForLastWeek();
+    }
+
+
     ////////////////////////admin help 페이지//////////////////////////////
     @PostMapping("/sendEmail")
     @Operation(summary = "(email 전송 시)")

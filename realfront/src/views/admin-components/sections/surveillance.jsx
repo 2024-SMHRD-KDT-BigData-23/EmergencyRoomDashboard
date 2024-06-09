@@ -2,35 +2,28 @@ import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Table, Button, Form } from 'react-bootstrap';
 import axios from "axios";
 
-const Suveillance = ({ patients, setSearch }) => {
-    const [userActivities, setUserActivities] = useState([]);
+const Surveillance = ({ resultWardList, setSearch, handlePageChange, page}) => {
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 8; // 한 페이지에 표시할 항목 수
 
-    useEffect(() => {
-        axios.get('http://localhost:8080/api/user-activity').then(response => {
-            setUserActivities(response.data);
-        }).catch(error => {
-            console.error("There was an error fetching user activities!", error);
-        });
-    }, []);
+    console.log('page값3 : ',page)
 
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentPatientItems = patients.slice(indexOfFirstItem, indexOfLastItem);
-    const currentActivityItems = userActivities.slice(indexOfFirstItem, indexOfLastItem);
+    const currentPatientItems = resultWardList.slice(indexOfFirstItem, indexOfLastItem);
+    // const currentActivityItems = loginList.slice(indexOfFirstItem, indexOfLastItem);
 
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
     const patientPageNumbers = [];
-    for (let i = 1; i <= Math.ceil(patients.length / itemsPerPage); i++) {
+    for (let i = 1; i <= Math.ceil(resultWardList.length / itemsPerPage); i++) {
         patientPageNumbers.push(i);
     }
 
-    const activityPageNumbers = [];
-    for (let i = 1; i <= Math.ceil(userActivities.length / itemsPerPage); i++) {
-        activityPageNumbers.push(i);
-    }
+    // const activityPageNumbers = [];
+    // for (let i = 1; i <= Math.ceil(loginList.length / itemsPerPage); i++) {
+    //     activityPageNumbers.push(i);
+    // }
 
     const [filter, setFilter] = useState({
         staffId: '',
@@ -58,6 +51,12 @@ const Suveillance = ({ patients, setSearch }) => {
             <Row className="my-3">
                 <Col>
                     <h2>Audit Logs</h2>
+                    <Row className="my-3">
+                        <Col>
+                            <Button variant="primary" className="me-2" onClick={() => handlePageChange('login')}>login log</Button>
+                            <Button variant="success" onClick={() => handlePageChange('resultWard')}>resultWard log</Button>
+                        </Col>
+                    </Row>
                     <Form onSubmit={handleSubmit}>
                         <Row className="mb-3">
                             <Col>
@@ -98,21 +97,23 @@ const Suveillance = ({ patients, setSearch }) => {
                                 <th>Details</th>
                             </tr>
                         </thead>
+                        {page === 'resultWard' ? (
                         <tbody>
                             {currentPatientItems.map(patient => (
                                 <tr key={patient.id}>
-                                    <td>{String(patient.admissionInTime.year).padStart(2, '0')}.{String(patient.admissionInTime.month).padStart(2, '0')}.{String(patient.admissionInTime.day).padStart(2, '0')}
-                                    .{String(patient.admissionInTime.hour).padStart(2, '0')}:{String(patient.admissionInTime.minute).padStart(2, '0')}:{String(patient.admissionInTime.second).padStart(2, '0')}</td>
+                                    <td>{String(patient.resultWardUpdatedAt.year).padStart(2, '0')}.{String(patient.resultWardUpdatedAt.month).padStart(2, '0')}.{String(patient.resultWardUpdatedAt.day).padStart(2, '0')}
+                                    .{String(patient.resultWardUpdatedAt.hour).padStart(2, '0')}:{String(patient.resultWardUpdatedAt.minute).padStart(2, '0')}:{String(patient.resultWardUpdatedAt.second).padStart(2, '0')}</td>
                                     <td>{patient.staffId}</td>
-                                    <td>{patient.admissionResultWard}</td>
+                                    <td>{patient.resultWard}</td>
                                     <td>
-                                        patient_id = {patient.patientId}  /  admission_id = {patient.admissionId}
+                                        admission_id = {patient.admissionId}
                                     </td>
                                 </tr>
                             ))}
                         </tbody>
+                        ):(
                         <tbody>
-                            {currentActivityItems.map(activity => (
+                            {currentPatientItems.map(activity => (
                                 <tr key={activity.id}>
                                     <td>{new Date(activity.activityDate).toLocaleString()}</td>
                                     <td>{activity.staffInfo.staffId}</td>
@@ -122,12 +123,12 @@ const Suveillance = ({ patients, setSearch }) => {
                                     </td>
                                 </tr>
                             ))}
-                        </tbody>
+                        </tbody>)}
                     </Table>
 
                     <div style={{ textAlign: 'center' }}>
                         <ul className="pagination justify-content-center" >
-                            {activityPageNumbers.map(number => (
+                            {patientPageNumbers.map(number => (
                                 <li key={number} className="page-item">
                                     <button onClick={() => paginate(number)} className="page-link" >
                                         {number}
@@ -146,4 +147,4 @@ const Suveillance = ({ patients, setSearch }) => {
         </Container>
     );
 }
-export default Suveillance;
+export default Surveillance;

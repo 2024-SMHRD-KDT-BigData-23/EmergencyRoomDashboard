@@ -1,14 +1,8 @@
 package com.smhrd.namnam.service;
 
-import com.smhrd.namnam.entity.AdmissionInfo;
-import com.smhrd.namnam.entity.ERView;
-import com.smhrd.namnam.entity.StaffInfo;
-import com.smhrd.namnam.repository.AdmissionInfoRepository;
-import com.smhrd.namnam.repository.ERViewRepository;
-import com.smhrd.namnam.repository.StaffInfoRepository;
-import com.smhrd.namnam.vo.AdmissionInfoVO;
-import com.smhrd.namnam.vo.ERViewVO;
-import com.smhrd.namnam.vo.StaffInfoVO;
+import com.smhrd.namnam.entity.*;
+import com.smhrd.namnam.repository.*;
+import com.smhrd.namnam.vo.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
@@ -16,6 +10,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,6 +27,10 @@ public class AdminService {
     private StaffInfoRepository staffInfoRepo;
     @Autowired
     private JavaMailSender mailSender;
+    @Autowired
+    private ResultWardInfoRepository resultWardRepo;
+    @Autowired
+    private UserActivityRepository userActivityRepo;
 
 
 
@@ -58,6 +57,18 @@ public class AdminService {
                 .collect(Collectors.toList());
     }
 
+    // ResultWardInfoVO entity list 형태 -> vo list형태로 변환 메서드
+    private List<ResultWardInfoVO> converToResultWardInfoVOList(List<ResultWardInfo> resultWardInfo){
+        return resultWardInfo.stream().map(entity -> modelMapper.map(entity, ResultWardInfoVO.class))
+                .collect(Collectors.toList());
+    }
+
+    // UserActivityVO entity list 형태 -> vo list형태로 변환 메서드
+    private List<UserActivityVO> converToUserActivityVOList(List<UserActivity> userActivity){
+        return userActivity.stream().map(entity -> modelMapper.map(entity, UserActivityVO.class))
+                .collect(Collectors.toList());
+    }
+
 
 
     //////////////////////////////////////result_ward log 페이지///////////////////////
@@ -66,19 +77,31 @@ public class AdminService {
 //        return convertToAdmissionInfoVOList(admissionInfoRepo.findByAdmissionResultWardIsNotNullOrderByAdmissionOutTimeDesc());
 //    }
 
-    // log페이지 검색기능(staff_id, result_ward, 날짜)
-    public List<AdmissionInfoVO> searchResultWardLog(String staffId, String resultWard, String outTimeStart, String outTimeEnd) {
-        return convertToAdmissionInfoVOList(admissionInfoRepo.searchResultWardLog(staffId, resultWard, outTimeStart, outTimeEnd));
+    // result_ward가 결정된 admission_id 전체 리스트
+    public List<ResultWardInfoVO> findResultWardLog() {
+        return converToResultWardInfoVOList(resultWardRepo.findAllOrderByResultWardUpdatedAtDesc());
     }
 
-    //////////////////////////////////////////////////////////////////////////////////
+    // log페이지 result_ward관련 검색기능(staff_id, result_ward, 날짜)
+    public List<ResultWardInfoVO> searchResultWardLog(String staffId, String resultWard, String outTimeStart, String outTimeEnd) {
+        return converToResultWardInfoVOList(resultWardRepo.searchResultWardLog(staffId, resultWard, outTimeStart, outTimeEnd));
+    }
+
+    // log페이지 로그인 기록 리스트
+    public List<UserActivityVO> getUserActivityForLastWeek(){
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime weekAgo= now.minusDays(7);
+        return converToUserActivityVOList(userActivityRepo.findByActivityDateBetween(weekAgo,now));
+    }
+
+
 
     //////////////////////////////////검색관련/////////////////////////////////////////////////
     // staff들 리스트
     public List<StaffInfoVO> findStaffInfo() {
         return convertToStaffInfoVOList(staffInfoRepo.findAll());
     }
-    ////////////////////////////////////////////////////////////////////////////
+
 
     ///////////////////////////////////////help 페이지////////////////////
     public void sendEmail(String issueType, String description, String contactInfo) {
@@ -89,5 +112,4 @@ public class AdminService {
 
         mailSender.send(message);
     }
-
 }
