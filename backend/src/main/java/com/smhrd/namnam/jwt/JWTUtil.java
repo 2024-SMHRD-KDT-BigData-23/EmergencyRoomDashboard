@@ -22,22 +22,36 @@ public class JWTUtil {
     }
 
     public String getUsername(String token) {
-
-        return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().get("username", String.class);
+        return Jwts.parser()
+                .verifyWith(secretKey)
+                .build()
+                .parseSignedClaims(token)
+                .getPayload()
+                .get("username", String.class);
     }
 
     public String getRole(String token) {
 
-        return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().get("role", String.class);
+        return Jwts.parser()
+                .verifyWith(secretKey)
+                .build()
+                .parseSignedClaims(token)
+                .getPayload()
+                .get("role", String.class);
     }
 
     public Boolean isExpired(String token) {
 
-        return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().getExpiration().before(new Date());
+        return Jwts.parser()
+                .verifyWith(secretKey)
+                .build()
+                .parseSignedClaims(token)
+                .getPayload()
+                .getExpiration()
+                .before(new Date());
     }
 
     public String createJwt(String username, String role, Long expiredMs) {
-
         return Jwts.builder()
                 .claim("username", username)
                 .claim("role", role)
@@ -47,4 +61,27 @@ public class JWTUtil {
                 .compact();
     }
 
-}
+    public void invalidateToken(String token) {
+        System.out.println("Invalidating token: " + token);
+        // 토큰 무효화 로직 추가 (예: 블랙리스트에 추가)
+        // 현재 예시로는 아무 작업도 하지 않습니다.
+    }
+
+    public boolean validateToken(String token) {
+        try {
+            System.out.println("Validating token: " + token);
+            Jwts.parser()
+                    .setSigningKey(secretKey)
+                    .build()
+                    .parseSignedClaims(token)
+                    .getBody();
+            return true;
+        } catch (Exception e) {
+            System.out.println("Token validation failed: " + e.getMessage());
+            return false;
+        }
+    }
+
+
+
+    }

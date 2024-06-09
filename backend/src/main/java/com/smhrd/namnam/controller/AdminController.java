@@ -20,6 +20,7 @@ public class AdminController {
     private AdminService adminService;
 
     @GetMapping("/admin")
+    @Operation(summary = "(admin계정 로그인 시)")
     public String adminP(){
         return  "admin Controller";
 
@@ -44,15 +45,14 @@ public class AdminController {
     }
     ////////////////////////admin help 페이지//////////////////////////////
     @PostMapping("/sendEmail")
+    @Operation(summary = "(email 전송 시)")
     public String sendEmail(@RequestBody Map<String, String> ticket) {
         String issueType = ticket.get("issueType");
         String description = ticket.get("description");
         String contactInfo = ticket.get("contactInfo");
-
         adminService.sendEmail(issueType, description, contactInfo);
         return "Email sent successfully";
     }
-
 
     ///////////////////////////////role 페이지////////////////////////////////////
     // staff들 리스트
