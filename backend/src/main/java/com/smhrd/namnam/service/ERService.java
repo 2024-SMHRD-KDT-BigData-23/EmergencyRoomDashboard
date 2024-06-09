@@ -49,11 +49,12 @@ public class ERService {
     //////////////////////////////////////////리스트 페이지(과거,현재)/////////////////////////////////////////
     // 현재, 과거 환자들 전체 조회(각 입원코드마다 가장최신) / 현재, 과거 입원 리스트 페이지에서 patient의 name, id에 대한 입원 내역 정보 검색(각 입원코드마다 가장최신)
     public List<ERViewVO> findPatients(String pageStatus, String bedward, String deepNcdss, String patientNameId) {
-        if(patientNameId.equals("null")){
-                return convertToVOList(erViewRepo.findMedicalPatients(pageStatus, bedward, deepNcdss));
-        } else {
-            return convertToVOList(erViewRepo.searchByPatientNameId(pageStatus, patientNameId));
-        }
+        return convertToVOList(erViewRepo.findMedicalPatients(pageStatus, bedward, deepNcdss, patientNameId));
+    }
+
+    // result_ward 결정 유무
+    public ResultWardInfo findResultWards(String admissionId) {
+        return resultWardRepo.findTopByAdmissionInfoOrderByResultWardUpdatedAtDesc(admissionRepo.findByAdmissionId(admissionId));
     }
 
     // 진료 후 result_ward 결정
