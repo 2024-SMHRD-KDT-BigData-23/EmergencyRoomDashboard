@@ -45,12 +45,6 @@ public class ERViewVO {
     // 퇴원 시간
     private Timestamp admissionOutTime;
 
-    // 실제 배치 결과
-    private String resultWard;
-
-    // 의료진 진단
-    private String comment;
-
     // 통증수준
     private int admissionPain;
 

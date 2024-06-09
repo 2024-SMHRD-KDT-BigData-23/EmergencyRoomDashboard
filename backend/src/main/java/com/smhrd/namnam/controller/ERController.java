@@ -1,9 +1,11 @@
 package com.smhrd.namnam.controller;
 
 import com.smhrd.namnam.entity.AdmissionInfo;
+import com.smhrd.namnam.entity.ResultWardInfo;
 import com.smhrd.namnam.service.ERService;
 import com.smhrd.namnam.vo.AdmissionInfoVO;
 import com.smhrd.namnam.vo.ERViewVO;
+import com.smhrd.namnam.vo.ResultWardInfoVO;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,17 +23,17 @@ public class ERController {
 
     //////////////////////////////////////////리스트 페이지(과거,현재)/////////////////////////////////////////
     // 응급실 진료 중인 환자들 전체 조회(각 입원코드마다 가장최신) / 현재, 과거 입원 리스트 페이지에서 patient의 name, id에 대한 입원 내역 정보 검색(각 입원코드마다 가장최신)
-    @GetMapping("/medical-patients/{bedward}/{deepNcdss}/{patientNameId}/{admissionResultWard}")
+    @GetMapping("/patients/{pageStatus}/{bedward}/{deepNcdss}/{patientNameId}")
     @Operation(summary = "(응급실 진료 중인 환자들 전체 조회)/(현재,과거 입원 리스트 페이지에서 patient의 name, id에 대한 입원 내역 정보 검색)")
-    public List<ERViewVO> findMedicalPatients(@PathVariable("bedward") String bedward, @PathVariable("deepNcdss") String deepNcdss,
-                                              @PathVariable("patientNameId") String patientNameId, @PathVariable("admissionResultWard") String admissionResultWard) {
-            return erService.findMedicalPatients(bedward, deepNcdss, patientNameId, admissionResultWard);
+    public List<ERViewVO> findMedicalPatients(@PathVariable("pageStatus") String pageStatus, @PathVariable("bedward") String bedward, @PathVariable("deepNcdss") String deepNcdss,
+                                              @PathVariable("patientNameId") String patientNameId) {
+            return erService.findPatients(pageStatus, bedward, deepNcdss, patientNameId);
     }
 
     // 응급실 진료 후 result_ward, comment 수정
     @PatchMapping("/set/medical-patients/{admissionId}")
     @Operation(summary = "(응급실 진료 후 result_ward, comment 수정)")
-    public ResponseEntity<AdmissionInfo> saveMedicalPatientsByAdmissionId(@PathVariable("admissionId") String admissionId, @RequestBody AdmissionInfoVO vo) {
+    public ResponseEntity<ResultWardInfo> saveMedicalPatientsByAdmissionId(@PathVariable("admissionId") String admissionId, @RequestBody ResultWardInfoVO vo) {
         try {
             vo.setAdmissionId(admissionId);
             return new ResponseEntity<>(erService.saveMedicalPatientsByAdmissionId(vo), HttpStatus.OK);

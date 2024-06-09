@@ -19,8 +19,7 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 @NoArgsConstructor
 @Immutable
-@Subselect("CREATE VIEW er_view AS\n" +
-        "SELECT \n" +
+@Subselect("SELECT \n" +
         "    ROW_NUMBER() OVER () AS er_view_id,\n" +
         "    pi.patient_id,\n" +
         "    pi.patient_name,\n" +
@@ -32,8 +31,6 @@ import java.sql.Timestamp;
         "    ai.admission_id,\n" +
         "    ai.admission_in_time,\n" +
         "    ai.admission_out_time,\n" +
-        "    rwi.result_ward,\n" +
-        "    ci.comment,\n" +
         "    ai.admission_acuity,\n" +
         "    ai.admission_pain,\n" +
         "    ai.admission_chief_complaint,\n" +
@@ -53,10 +50,6 @@ import java.sql.Timestamp;
         "    patient_info pi\n" +
         "JOIN \n" +
         "    admission_info ai ON pi.patient_id = ai.patient_id\n" +
-        "JOIN\n" +
-        "\tcomment_info ci ON ai.admission_id = ci.admission_id\n" +
-        "JOIN\n" +
-        "\tresult_ward_info rwi ON ai.admission_id = rwi.admission_id\n" +
         "JOIN \n" +
         "    patient_vital_info pvi ON ai.admission_id = pvi.admission_id\n" +
         "JOIN \n" +
@@ -64,7 +57,7 @@ import java.sql.Timestamp;
         "JOIN \n" +
         "    map_info mi ON ai.admission_id = mi.admission_id\n" +
         "JOIN \n" +
-        "    bed_info bi ON mi.bed_id = bi.bed_id;")
+        "    bed_info bi ON mi.bed_id = bi.bed_id")
 public class ERView {
 
     // 뷰의 식별자
@@ -111,14 +104,6 @@ public class ERView {
     // 퇴원 시간
     @Column(name = "admission_out_time")
     private Timestamp admissionOutTime;
-
-    // 실제 배치 결과
-    @Column(name = "result_ward")
-    private String resultWard;
-
-    // 의료진 진단
-    @Column(name = "comment")
-    private String comment;
 
     // 통증수준
     @Column(name = "admission_pain")

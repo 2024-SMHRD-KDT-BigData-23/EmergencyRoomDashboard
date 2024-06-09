@@ -15,7 +15,7 @@ public interface AdmissionInfoRepository extends JpaRepository<AdmissionInfo, Lo
 
     //////////////////////////////////////admin log 페이지///////////////////////
     // result_ward가 결정된 admission_id 전체 리스트(최신순)
-    List<AdmissionInfo> findByAdmissionResultWardIsNotNullOrderByAdmissionOutTimeDesc();
+//    List<AdmissionInfo> findByAdmissionResultWardIsNotNullOrderByAdmissionOutTimeDesc();
 
     // log페이지 검색기능(staff_id, result_ward, 날짜)
     @Query(value = "SELECT * FROM admission_info " +

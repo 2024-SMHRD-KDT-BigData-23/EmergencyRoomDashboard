@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface StaffInfoRepository extends JpaRepository<StaffInfo, String> {
     long countByStaffStatus(String status);
+
+    StaffInfo findByStaffId(String staffId);
 }
