@@ -2,22 +2,22 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import '../../assets/scss/commentmodal.scss'
 
-const CommentModal = ({ patientData, admissionId, updateAdmissionComment }) => {
+const CommentModal = ({ staffId, admissionId, updateAdmissionComment }) => {
 
-    const [admissionComment, setAdmissionComment] = useState(patientData && patientData.length > 0 ? patientData[0].admissionDiagnosis : '');
+    const [comment, setComment] = useState(null);
 
     const changeComment = (event) => {
-        setAdmissionComment(event.target.value);
+        setComment(event.target.value);
     }
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        axios.patch(`http://localhost:8080/api/ER/set/medical-patients/${admissionId}`, {
-            admissionComment: admissionComment
+        axios.post(`http://localhost:8080/api/ER/comments/${staffId}/${admissionId}`, {
+            comment: comment
         })
             .then(response => {
                 console.log('DB 업데이트 성공:', response.data);
-                updateAdmissionComment(admissionId, response.data.admissionComment);
+                updateAdmissionComment(admissionId, response.data.comment);
             })
             .catch(error => {
                 console.error('DB 업데이트 실패:', error);
@@ -37,7 +37,7 @@ const CommentModal = ({ patientData, admissionId, updateAdmissionComment }) => {
                         <div className="modal-body">
                             <div className="mb-3" style={{ textAlign: 'left' }}>
                                 <label htmlFor="message-text" className="col-form-label">Comment</label>
-                                <textarea className="form-control" id="message-text" onChange={changeComment} value={admissionComment} />
+                                <textarea className="form-control" id="message-text" onChange={changeComment} value={comment} />
                             </div>
                         </div>
                         <div className="modal-footer">

@@ -1,13 +1,12 @@
 package com.smhrd.namnam.service;
 
 import com.smhrd.namnam.entity.AdmissionInfo;
+import com.smhrd.namnam.entity.CommentInfo;
 import com.smhrd.namnam.entity.ERView;
 import com.smhrd.namnam.entity.ResultWardInfo;
-import com.smhrd.namnam.repository.AdmissionInfoRepository;
-import com.smhrd.namnam.repository.ERViewRepository;
-import com.smhrd.namnam.repository.ResultWardInfoRepository;
-import com.smhrd.namnam.repository.StaffInfoRepository;
+import com.smhrd.namnam.repository.*;
 import com.smhrd.namnam.vo.AdmissionInfoVO;
+import com.smhrd.namnam.vo.CommentInfoVO;
 import com.smhrd.namnam.vo.ERViewVO;
 import com.smhrd.namnam.vo.ResultWardInfoVO;
 import org.modelmapper.ModelMapper;
@@ -31,6 +30,9 @@ public class ERService {
 
     @Autowired
     private ResultWardInfoRepository resultWardRepo;
+
+    @Autowired
+    private CommentInfoRepository commentRepo;
 
     @Autowired
     private StaffInfoRepository staffRepo;
@@ -59,27 +61,35 @@ public class ERService {
         }
     }
 
-    // 응급실 진료 후 result_ward 수정
-    public ResultWardInfo saveMedicalPatientsByAdmissionId(ResultWardInfoVO vo) {
+    // 진료 후 result_ward 결정
+    public ResultWardInfo saveResultWard(String staffId, String admissionId, ResultWardInfoVO vo) {
         ResultWardInfo entity = new ResultWardInfo();
-        entity.setAdmissionInfo(admissionRepo.findByAdmissionId(vo.getAdmissionId()));
-        entity.setStaffInfo(staffRepo.findByStaffId(vo.getStaffId()));
-        entity.setResultWard(Objects.isNull(vo.getResultWard()) ? entity.getResultWard() : vo.getResultWard());
-        // entity.setAdmissionComment(Objects.isNull(vo.getAdmissionComment()) ? entity.getAdmissionComment() : vo.getAdmissionComment());
-        // entity.setAdmissionOutTime(Timestamp.valueOf(LocalDateTime.now()));
+        entity.setStaffInfo(staffRepo.findByStaffId(staffId));
+        entity.setAdmissionInfo(admissionRepo.findByAdmissionId(admissionId));
+        entity.setResultWard(vo.getResultWard());
         return resultWardRepo.save(entity);
     }
-    ///////////////////////////////////////////////////////////////////////////////////////////
 
+    // 환자 comment 작성
+    public CommentInfo saveComment(String staffId, String admissionId, CommentInfoVO vo) {
+        CommentInfo entity = new CommentInfo();
+        entity.setStaffInfo(staffRepo.findByStaffId(staffId));
+        entity.setAdmissionInfo(admissionRepo.findByAdmissionId(admissionId));
+        entity.setComment(vo.getComment());
+        return commentRepo.save(entity);
+    }
+    ///////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////상세 페이지////////////////////////////////////////
     // 특정 입원코드에 대한 상세 정보
+
     public List<ERViewVO> findPatientDetailsByAdmissionId(String admissionId) {
         return convertToVOList(erViewRepo.findPatientDetailByAdmissionId(admissionId));
     }
     ////////////////////////////////////////////////////////////////////////////////////
-
     /////////////////////////////////검색 관련////////////////////////////////////////////
+
     // 검색페이지에서 patient의 name, id에 대한 입원 내역 정보 검색(각 입원코드마다 가장최신)
+
     public List<ERViewVO> searchByPatientNameId(String patientNameId){
         return convertToVOList(erViewRepo.allSearchByPatientNameId(patientNameId));
     }

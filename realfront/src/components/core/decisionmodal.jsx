@@ -1,19 +1,16 @@
 import { Dropdown, DropdownButton } from "react-bootstrap";
-import React, { useState } from "react";
+import React from "react";
 import axios from 'axios';
 
-const DecisionDrop = ({ patientData, admissionId, updateAdmissionResultWard }) => {
-
-    const [admissionResultWard, setAdmissionResultWard] = useState(patientData && patientData.length > 0 ? patientData[0].admissionResultWard : '');
-
+const DecisionDrop = ({ staffId, admissionId, updateAdmissionResultWard }) => {
+    
     const handleResultWard = (eventKey) => {
-        setAdmissionResultWard(eventKey);
-        axios.patch(`http://localhost:8080/api/ER/set/medical-patients/${admissionId}`, {
-            admissionResultWard: eventKey
+        axios.post(`http://localhost:8080/api/ER/resultWards/${staffId}/${admissionId}`, {
+            resultWard: eventKey
         })
             .then(response => {
                 console.log('DB 업데이트 성공:', response.data);
-                updateAdmissionResultWard(admissionId, response.data.admissionResultWard);
+                updateAdmissionResultWard(admissionId, response.data.resultWard);
             })
             .catch(error => {
                 console.error('DB 업데이트 실패:', error);
@@ -29,7 +26,7 @@ const DecisionDrop = ({ patientData, admissionId, updateAdmissionResultWard }) =
         >
             <Dropdown.Item eventKey="DISCHARGE">DISCHARGE</Dropdown.Item>
             <Dropdown.Item eventKey="WARD">WARD</Dropdown.Item>
-            <Dropdown.Item eventKey="ICU" active>ICU</Dropdown.Item>
+            <Dropdown.Item eventKey="ICU">ICU</Dropdown.Item>
         </DropdownButton>
     );
 };
