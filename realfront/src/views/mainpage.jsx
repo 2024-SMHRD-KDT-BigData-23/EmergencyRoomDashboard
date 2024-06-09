@@ -70,14 +70,12 @@ const List = () => {
 
         console.log("서버에서 가져온 데이터 ", formattedData);
         setPatients(formattedData);
-        console.log(counts);
         setDeepNcdssCounts(counts);
       })
       .catch((error) => {
         console.error("Error fetching data: ", error);
       });
   }, [sectionContent, ncdssContent, searchNameId]);
-
 
   return (
     <div>

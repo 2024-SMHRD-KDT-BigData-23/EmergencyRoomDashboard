@@ -16,12 +16,12 @@ const LoginComponent = () => {
                 staffId: username,
                 staffPw: password
             }, { withCredentials: true });
-            console.log(response.data);
             if (response.data === "Login Successful") {
+                sessionStorage.setItem("staffId", username); // 브라우저 세션에 사용자 아이디 저장
                 if(username ==='admin' && password === 'admin'){
                     navigate('/admin'); 
-                }else{
-                navigate('/List');
+                } else {
+                    navigate('/List');
             }
             } else {
                 setError('로그인 실패. 다시 시도해 주세요.');
