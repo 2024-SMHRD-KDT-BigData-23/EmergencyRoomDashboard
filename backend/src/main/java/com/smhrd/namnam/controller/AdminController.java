@@ -28,11 +28,11 @@ public class AdminController {
 
     ////////////////////////////////admin log 페이지/////////////////////////////
     // result_ward가 결정된 admission_id 전체 리스트(최신순)
-    @GetMapping("/resultWardLog")
-    @Operation(summary = "(log페이지 result_ward가 결정정된 admission_id 전체 리스트)")
-    public List<AdmissionInfoVO> findResultWardLog(){
-        return adminService.findResultWardLog();
-    }
+//    @GetMapping("/resultWardLog")
+//    @Operation(summary = "(log페이지 result_ward가 결정정된 admission_id 전체 리스트)")
+//    public List<AdmissionInfoVO> findResultWardLog(){
+//        return adminService.findResultWardLog();
+//    }
 
     // log페이지 검색기능(staff_id, result_ward, 날짜)
     @GetMapping("/search")

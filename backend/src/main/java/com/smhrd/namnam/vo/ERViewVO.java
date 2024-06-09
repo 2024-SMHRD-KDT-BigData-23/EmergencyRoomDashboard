@@ -45,12 +45,6 @@ public class ERViewVO {
     // 퇴원 시간
     private Timestamp admissionOutTime;
 
-    // 실제 배치 결과
-    private String admissionResultWard;
-
-    // 의료진 진단
-    private String admissionDiagnosis;
-
     // 통증수준
     private int admissionPain;
 
@@ -95,5 +89,4 @@ public class ERViewVO {
 
     // ward 확률
     private BigDecimal deepWardPercent;
-
 }
