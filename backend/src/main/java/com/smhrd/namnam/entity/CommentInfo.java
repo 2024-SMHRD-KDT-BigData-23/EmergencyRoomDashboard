@@ -1,5 +1,6 @@
 package com.smhrd.namnam.entity;
 
+import com.smhrd.namnam.vo.CommentInfoVO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -39,4 +40,10 @@ public class CommentInfo {
     @ManyToOne
     @JoinColumn(name = "staff_id")
     private StaffInfo staffInfo;
+
+    public CommentInfo(StaffInfo byStaffId, AdmissionInfo byAdmissionId, CommentInfoVO vo) {
+        this.staffInfo = byStaffId;
+        this.admissionInfo = byAdmissionId;
+        this.comment = vo.getComment();
+    }
 }

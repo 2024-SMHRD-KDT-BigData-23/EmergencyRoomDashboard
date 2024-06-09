@@ -1,32 +1,43 @@
 import React, { useState } from 'react';
-import { useParams } from "react-router-dom";
 import axios from 'axios';
+import { Dropdown, DropdownButton } from "react-bootstrap";
 import '../../assets/scss/commentmodal.scss';
 
-const ActionModal = (patientData) => {
+const ActionModal = ({ selectedAdmissionId }) => {
 
-    const { id } = useParams();
-    const [selectedDisposition, setSelectedDisposition] = useState(patientData && patientData.length > 0 ? patientData[0].admissionResultWard : '');
-    const [selectedComment, setSelectedComment] = useState(patientData && patientData.length > 0 ? patientData[0].admissionDiagnosis : '');
+    const staffId = sessionStorage.getItem("staffId");
+    const [selectedResultWard, setSelectedResultWard] = useState(null);
+    const [selectedComment, setSelectedComment] = useState(null);
 
     const changeComment = (event) => {
         setSelectedComment(event.target.value);
     }
 
+    const changeResultWard = (eventKey) => {
+        setSelectedResultWard(eventKey);
+    }
+
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log(selectedDisposition);
-        console.log(selectedComment);
-        axios.patch(`http://localhost:8080/api/ER/set/medical-patients/${id}`, {
-            admissionResultWard: selectedDisposition,
-            admissionComment: selectedComment
+        axios.post(`http://localhost:8080/api/ER/resultWards/${staffId}/${selectedAdmissionId}`, {
+            resultWard: selectedResultWard
         })
             .then(response => {
-                console.log('DB 업데이트 성공:', response.data);
+                console.log('result_ward 업데이트 성공:', response.data);
             })
             .catch(error => {
-                console.error('DB 업데이트 실패:', error);
+                console.log('result_ward 업데이트 실패:', error);
             });
+        
+        axios.post(`http://localhost:8080/api/ER/comments/${staffId}/${selectedAdmissionId}`, {
+            comment: selectedComment
+        })
+            .then(response => {
+                console.log('comment 업데이트 완료', response.data);
+            })
+            .catch(error => {
+                console.log("comment 업데이트 실패 : ", error);
+            })
     };
 
     return (
@@ -41,31 +52,16 @@ const ActionModal = (patientData) => {
                         </div>
                         <div className="modal-body">
                             <form>
-                                <div className="mb-3" style={{ textAlign: 'left' }}>
-                                    <label htmlFor="recipient-name" className="col-form-label">Disposition</label>
-                                    <div className="dropdown">
-                                        <button
-                                            className="btn btn-outline-dark dropdown-toggle"
-                                            type="button"
-                                            id="dropdownMenuButton1"
-                                            data-bs-toggle="dropdown"
-                                            aria-expanded="false"
-                                        >
-                                            {selectedDisposition}
-                                        </button>
-                                        <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                            <li>
-                                                <a className="dropdown-item">DISCHARGE</a>
-                                            </li>
-                                            <li>
-                                                <a className="dropdown-item">WARD</a>
-                                            </li>
-                                            <li>
-                                                <a className="dropdown-item">ICU</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
+                                <DropdownButton
+                                    title="Action"
+                                    variant="warning"
+                                    size="sm"
+                                    onSelect={changeResultWard}
+                                >
+                                    <Dropdown.Item eventKey="DISCHARGE">DISCHARGE</Dropdown.Item>
+                                    <Dropdown.Item eventKey="WARD">WARD</Dropdown.Item>
+                                    <Dropdown.Item eventKey="ICU">ICU</Dropdown.Item>
+                                </DropdownButton>
                                 <div className="mb-3" style={{ textAlign: 'left' }}>
                                     <label htmlFor="message-text" className="col-form-label">Comment</label>
                                     <textarea className="form-control" id="message-text" onChange={changeComment} />
@@ -74,7 +70,7 @@ const ActionModal = (patientData) => {
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" onSubmit={() => handleSubmit} className="btn btn-primary">Apply</button>
+                            <button type="submit" onClick={handleSubmit} className="btn btn-primary">Apply</button>
                         </div>
                     </div>
                 </div>
