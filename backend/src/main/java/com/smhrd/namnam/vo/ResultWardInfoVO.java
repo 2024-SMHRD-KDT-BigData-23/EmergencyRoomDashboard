@@ -1,5 +1,6 @@
 package com.smhrd.namnam.vo;
 
+import com.smhrd.namnam.entity.ResultWardInfo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,4 +26,12 @@ public class ResultWardInfoVO {
 
     // 의료진 식별자
     private String staffId;
+
+    public ResultWardInfoVO(ResultWardInfo resultWardInfo) {
+        this.resultWardId = resultWardInfo.getResultWardId();
+        this.resultWard = resultWardInfo.getResultWard();
+        this.resultWardUpdatedAt = resultWardInfo.getResultWardUpdatedAt();
+        this.admissionId = resultWardInfo.getAdmissionInfo().getAdmissionId();
+        this.staffId = resultWardInfo.getStaffInfo().getStaffId();
+    }
 }
