@@ -36,7 +36,7 @@ const List = () => {
   const [sectionContent, setSectionContent] = useState("All");
   const [ncdssContent, setNcdssContent] = useState("All");
   const [searchNameId, setSearchNameId] = useState("null");
-  const resultWard = 'now'
+  const resultWard = 'present'
 
   const [deepNcdssCounts, setDeepNcdssCounts] = useState({
     ICU: 0,
@@ -46,7 +46,7 @@ const List = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/api/ER/medical-patients/${sectionContent}/${ncdssContent}/${searchNameId}/${resultWard}`)
+      .get(`http://localhost:8080/api/ER/patients/${resultWard}/${sectionContent}/${ncdssContent}/${searchNameId}`)
       .then((response) => {
         const formattedData = response.data.map(item => ({
 
