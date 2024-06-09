@@ -4,7 +4,7 @@ import { Container, Row, Col, Table, Button, Form, Modal } from 'react-bootstrap
 const Role = ({ users, setEdit, setEditUser }) => {
 
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 14; // 한 페이지에 표시할 항목 수
+    const itemsPerPage = 7; // 한 페이지에 표시할 항목 수
 
     // 현재 페이지에 표시할 데이터를 계산합니다.
     const indexOfLastItem = currentPage * itemsPerPage;
