@@ -117,8 +117,8 @@ const Dashboard = () => {
 
     const getMetricColor = (metric) => {
         const value = parseFloat(metric);
-        if (value > 60) return 'red';
-        if (value > 30) return 'orange';
+        if (value > 66) return 'red';
+        if (value > 33) return 'orange';
         return 'green';
     };
 
