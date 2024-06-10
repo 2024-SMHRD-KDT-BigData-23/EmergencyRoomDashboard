@@ -161,7 +161,7 @@ const VitalChart = ({ patientData }) => {
             <Col md={7}>
                 <Row>
                     {lineData.datasets.map((dataset, index) => (
-                        <Col md={2} key={index} className="mb-2 text-center align-center">
+                        <Col md={2} key={index} className="mb-3 text-center align-center">
                             <Card onClick={() => setSelectedLine(index)} style={{ cursor: 'pointer', fontWeight: selectedLine === index ? 'bold' : 'normal', backgroundColor: selectedLine === index ? lineData.datasets[selectedLine].borderColor : 'white', color: selectedLine === index ? 'white' : 'black' }}>
                                 <Card.Body>
                                     <Card.Title>{dataset.label}</Card.Title>
