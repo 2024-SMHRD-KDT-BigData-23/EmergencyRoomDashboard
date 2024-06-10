@@ -20,17 +20,49 @@ const Suveillance = ({ patients, setSearch }) => {
     const currentPatientItems = patients.slice(indexOfFirstItem, indexOfLastItem);
     const currentActivityItems = userActivities.slice(indexOfFirstItem, indexOfLastItem);
 
+    const totalPatientPages = Math.ceil(patients.length / itemsPerPage);
+    const totalActivityPages = Math.ceil(userActivities.length / itemsPerPage);
+
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-    const patientPageNumbers = [];
-    for (let i = 1; i <= Math.ceil(patients.length / itemsPerPage); i++) {
-        patientPageNumbers.push(i);
-    }
+    const getPagination = (totalPages) => {
+        const pageNumbers = [];
+        let startPage, endPage;
 
-    const activityPageNumbers = [];
-    for (let i = 1; i <= Math.ceil(userActivities.length / itemsPerPage); i++) {
-        activityPageNumbers.push(i);
-    }
+        if (totalPages <= 10) {
+            startPage = 1;
+            endPage = totalPages;
+        } else {
+            if (currentPage <= 6) {
+                startPage = 1;
+                endPage = 10;
+            } else if (currentPage + 4 >= totalPages) {
+                startPage = totalPages - 9;
+                endPage = totalPages;
+            } else {
+                startPage = currentPage - 5;
+                endPage = currentPage + 4;
+            }
+        }
+
+        for (let i = startPage; i <= endPage; i++) {
+            pageNumbers.push(i);
+        }
+
+        return pageNumbers;
+    };
+
+    const handlePrev = () => {
+        if (currentPage > 1) {
+            setCurrentPage(currentPage - 1);
+        }
+    };
+
+    const handleNext = () => {
+        if (currentPage < totalPatientPages) {
+            setCurrentPage(currentPage + 1);
+        }
+    };
 
     const [filter, setFilter] = useState({
         staffId: '',
@@ -126,14 +158,29 @@ const Suveillance = ({ patients, setSearch }) => {
                     </Table>
 
                     <div style={{ textAlign: 'center' }}>
-                        <ul className="pagination justify-content-center" >
-                            {activityPageNumbers.map(number => (
-                                <li key={number} className="page-item">
-                                    <button onClick={() => paginate(number)} className="page-link" >
-                                        {number}
-                                    </button>
+                        <ul className="pagination justify-content-center">
+                            <li className="page-item">
+                                <button onClick={() => setCurrentPage(1)} className="page-link">{"<<"}</button>
+                            </li>
+                            <li className="page-item">
+                                <button onClick={handlePrev} className="page-link">{"<"}</button>
+                            </li>
+                            {getPagination(totalPatientPages).map(number => (
+                                <li key={number} className={`page-item ${currentPage === number ? 'active' : ''}`}>
+                                    <button onClick={() => paginate(number)} className="page-link">{number}</button>
                                 </li>
                             ))}
+                            {totalPatientPages > 10 && currentPage + 4 < totalPatientPages && (
+                                <li className="page-item disabled">
+                                    <span className="page-link">...</span>
+                                </li>
+                            )}
+                            <li className="page-item">
+                                <button onClick={handleNext} className="page-link">{">"}</button>
+                            </li>
+                            <li className="page-item">
+                                <button onClick={() => setCurrentPage(totalPatientPages)} className="page-link">{">>"}</button>
+                            </li>
                         </ul>
                     </div>
                 </Col>

@@ -6,6 +6,7 @@ const PastTable = ( { patients }) => {
 
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 14; // 한 페이지에 표시할 항목 수
+    const totalPages =Math.ceil(patients.length/itemsPerPage);
 
     // 현재 페이지에 표시할 데이터를 계산합니다.
     const indexOfLastItem = currentPage * itemsPerPage;
@@ -23,8 +24,6 @@ const PastTable = ( { patients }) => {
 
     return (
         <div>
-
-
         <main className="ourcontent">
                 <div className="mainContent">
                     <table className="table table-borderless table-hover" style={{ textAlign: 'center' }}>
@@ -136,7 +135,6 @@ const PastTable = ( { patients }) => {
                             ))}
                         </tbody>
                     </table>
-                    
                     <div style={{ textAlign: 'center' }}>
                         <ul className="pagination justify-content-center" >
                             {pageNumbers.map(number => (

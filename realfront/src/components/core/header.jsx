@@ -12,24 +12,34 @@ const Header = () => {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+ 
 
-  const handleLogout = (e) => {
-    e.preventDefault();
-    const token = localStorage.getItem("token");
-    axios.post('http://localhost:8080/api/logout', {}, {
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
-    }).then(response => {
-      if (response.status === 200) {
-        // JWT 토큰 제거
+  const handleLogout = async () => {
+    try {
+        const token = localStorage.getItem("token");
+        const staffId = sessionStorage.getItem("staffId");
+
+        await axios.post('http://localhost:8080/api/logout',null, {
+        
+            headers: {
+                'Authorization': `Bearer ${token}`
+            },
+            params:{
+              staffId:staffId
+            },
+            withCredentials: true
+        });
+
+        // 로그아웃이 성공하면 로컬 스토리지와 세션 스토리지에서 데이터를 삭제합니다.
         localStorage.removeItem("token");
-        navigate("/");
-      }
-    }).catch(error => {
-      console.error("There was an error logging out!", error);
-    });
-  };
+        sessionStorage.removeItem("staffId");
+
+        // 로그인 페이지로 리디렉션합니다.
+        navigate('/login');
+    } catch (error) {
+        console.error('Error logging out', error);
+    }
+};
 
   return (
     <Navbar bg="" expand="lg" className="header-bg">
