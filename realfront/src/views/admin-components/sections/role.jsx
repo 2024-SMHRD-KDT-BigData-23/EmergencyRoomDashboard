@@ -81,35 +81,39 @@ const Role = ({ users, setEdit, setEditUser }) => {
         <Container fluid>
             {/* 상단 섹션 */}
             <Row className="mb-3">
-                <Col>
-                    <Form>
-                        <Form.Group controlId="search">
-                            <Form.Control type="text" placeholder="Search..." />
-                        </Form.Group>
-                    </Form>
-                </Col>
-                <Col>
-                    <Form>
-                        <Form.Group controlId="roleFilter">
-                            <Form.Control as="select">
-                                <option>All Roles</option>
-                                <option>Doctor</option>
-                                <option>Nurse</option>
-                            </Form.Control>
-                        </Form.Group>
-                    </Form>
-                </Col>
-                <Col>
-                    <Form>
-                        <Form.Group controlId="statusFilter">
-                            <Form.Control as="select">
-                                <option>All Statuses</option>
-                                <option>Active</option>
-                                <option>Inactive</option>
-                            </Form.Control>
-                        </Form.Group>
-                    </Form>
-                </Col>
+            <Col>
+                <h2>User Management</h2>
+                <Form>
+                    <Row>
+                        <Col>
+                            <Form.Group controlId="search">
+                                <Form.Control type="text" placeholder="Search..." />
+                            </Form.Group>
+                        </Col>
+                        <Col>
+                            <Form.Group controlId="roleFilter">
+                                <Form.Control as="select">
+                                    <option>All Roles</option>
+                                    <option>Doctor</option>
+                                    <option>Nurse</option>
+                                </Form.Control>
+                            </Form.Group>
+                        </Col>
+                        <Col>
+                            <Form.Group controlId="statusFilter">
+                                <Form.Control as="select">
+                                    <option>All Statuses</option>
+                                    <option>Active</option>
+                                    <option>Inactive</option>
+                                </Form.Control>
+                            </Form.Group>
+                        </Col>
+                        <Col>
+                            <Button type="submit">Search</Button>
+                        </Col>
+                    </Row>
+                </Form>
+            </Col>
             </Row>
 
             {/* 중간 섹션 */}
@@ -119,7 +123,7 @@ const Role = ({ users, setEdit, setEditUser }) => {
                         <thead>
                             <tr>
                                 <th>Name</th>
-                                <th>Email</th>
+                                <th>Id</th>
                                 <th>Role</th>
                                 <th>Last Login</th>
                                 <th>Status</th>
@@ -129,13 +133,12 @@ const Role = ({ users, setEdit, setEditUser }) => {
                         <tbody>
                             {currentItems.map(user => (
                                 <tr key={user.id}>
+                                    <td>{user.staffName}</td>
                                     <td>{user.staffId}</td>
-                                    <td>{}</td>
                                     <td>{user.staffRole}</td>
-                                    <td>{}</td>
+                                    <td></td>
                                     <td>{user.staffStatus}</td>
                                     <td>
-                                        <Button variant="info" onClick={() => handleShowUserModal(user)}>View</Button>
                                         <Button variant="warning" className="mx-2" onClick={()=> handleShowUserEdit(user)}>Edit</Button>
                                         <Button variant="danger">Delete</Button>
                                     </td>
@@ -198,15 +201,7 @@ const Role = ({ users, setEdit, setEditUser }) => {
                             <Form.Control
                                 type="text"
                                 name="name"
-                                value={selectedUser.staffId}
-                                onChange={handleEditChange}
-                            />
-                        </Form.Group>
-                        <Form.Group controlId="formEmail">
-                            <Form.Label>Email</Form.Label>
-                            <Form.Control
-                                type="email"
-                                name="email"
+                                value={selectedUser.staffName}
                                 onChange={handleEditChange}
                             />
                         </Form.Group>
@@ -215,12 +210,28 @@ const Role = ({ users, setEdit, setEditUser }) => {
                             <Form.Control
                                 as="select"
                                 name="role"
-                                value={selectedUser.staffRole}
                                 onChange={handleEditChange}
                             >
                             <option value="Doctor">Doctor</option>
                             <option value="Nurse">Nurse</option>
                             </Form.Control>
+                        </Form.Group>
+                        <Form.Group controlId="formId">
+                            <Form.Label>Id</Form.Label>
+                            <Form.Control
+                                type="id"
+                                name="id"
+                                value={selectedUser.staffId}
+                                onChange={handleEditChange}
+                            />
+                        </Form.Group>
+                        <Form.Group controlId="formPw">
+                            <Form.Label>password</Form.Label>
+                            <Form.Control
+                                type="pw"
+                                name="pw"
+                                onChange={handleEditChange}
+                            />
                         </Form.Group>
                     </Form>
                 </Modal.Body>

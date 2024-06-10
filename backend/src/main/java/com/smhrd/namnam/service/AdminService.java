@@ -96,7 +96,7 @@ public class AdminService {
     //////////////////////////////////검색관련/////////////////////////////////////////////////
     // staff들 리스트
     public List<StaffInfoVO> findStaffInfo() {
-        return convertToStaffInfoVOList(staffInfoRepo.findAll());
+        return convertToStaffInfoVOList(staffInfoRepo.findStaffInfo());
     }
 
 
