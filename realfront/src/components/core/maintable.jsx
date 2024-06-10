@@ -20,7 +20,7 @@ const MainTable = ({ patients }) => {
     const pageNumbers = [];
     for (let i = 1; i <= Math.ceil(patients.length / itemsPerPage); i++) {
         pageNumbers.push(i);
-    }
+    };
 
     return (
         <div>
@@ -47,12 +47,11 @@ const MainTable = ({ patients }) => {
                         </thead>
                         <tbody>
                             {currentItems.map(patient => (
-                                <tr key={patient.id} className='MainTableFont '>
+                                <tr key={patient.admissionId} className='MainTableFont'>
                                     <td>
                                         <Link to={`/Detail/${patient.patientId}/${patient.admissionId}`} state={{ patient }} className='tableLink'>
                                             {`${String(patient.admissionInTime.year).padStart(2, '0')}.${String(patient.admissionInTime.month).padStart(2, '0')}.${String(patient.admissionInTime.day).padStart(2, '0')}
                                             ${String(patient.admissionInTime.hour).padStart(2, '0')}:${String(patient.admissionInTime.minute).padStart(2, '0')}:${String(patient.admissionInTime.second).padStart(2, '0')}`}
-
                                         </Link>
                                     </td>
                                     <td>
@@ -120,7 +119,7 @@ const MainTable = ({ patients }) => {
                                         </Link>
                                     </td>
                                     <td>
-                                        <ActionModal selectedAdmissionId={patient.admissionId} />
+                                        <ActionModal admissionId={patient.admissionId} />
                                     </td>
                                 </tr>
                             ))}

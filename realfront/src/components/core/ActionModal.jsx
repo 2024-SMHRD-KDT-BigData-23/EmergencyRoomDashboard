@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Dropdown, DropdownButton } from "react-bootstrap";
 import '../../assets/scss/commentmodal.scss';
 
-const ActionModal = ({ selectedAdmissionId }) => {
+const ActionModal = ({ admissionId }) => {
 
     const staffId = sessionStorage.getItem("staffId");
     const [selectedResultWard, setSelectedResultWard] = useState(null);
@@ -19,7 +19,7 @@ const ActionModal = ({ selectedAdmissionId }) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        axios.post(`http://localhost:8080/api/ER/resultWards/${staffId}/${selectedAdmissionId}`, {
+        axios.post(`http://localhost:8080/api/ER/resultWards/${staffId}/${admissionId}`, {
             resultWard: selectedResultWard
         })
             .then(response => {
@@ -28,8 +28,8 @@ const ActionModal = ({ selectedAdmissionId }) => {
             .catch(error => {
                 console.log('result_ward 업데이트 실패:', error);
             });
-        
-        axios.post(`http://localhost:8080/api/ER/comments/${staffId}/${selectedAdmissionId}`, {
+
+        axios.post(`http://localhost:8080/api/ER/comments/${staffId}/${admissionId}`, {
             comment: selectedComment
         })
             .then(response => {
