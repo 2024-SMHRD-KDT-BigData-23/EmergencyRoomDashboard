@@ -52,6 +52,8 @@ const ActionModal = ({ admissionId }) => {
                         </div>
                         <div className="modal-body">
                             <form>
+                            <div className="mb-3" style={{ textAlign: 'left' }}>
+                            <label htmlFor="message-text" className="col-form-label">Disposition</label>                                                                        
                                 <DropdownButton
                                     title="Action"
                                     variant="warning"
@@ -62,6 +64,7 @@ const ActionModal = ({ admissionId }) => {
                                     <Dropdown.Item eventKey="WARD">WARD</Dropdown.Item>
                                     <Dropdown.Item eventKey="ICU">ICU</Dropdown.Item>
                                 </DropdownButton>
+                            </div>
                                 <div className="mb-3" style={{ textAlign: 'left' }}>
                                     <label htmlFor="message-text" className="col-form-label">Comment</label>
                                     <textarea className="form-control" id="message-text" onChange={changeComment} />
