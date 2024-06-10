@@ -5,7 +5,7 @@ import axios from "axios";
 const Suveillance = ({ patients, setSearch }) => {
     const [userActivities, setUserActivities] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 8; // 한 페이지에 표시할 항목 수
+    const itemsPerPage = 14; // 한 페이지에 표시할 항목 수
 
     useEffect(() => {
         axios.get('http://localhost:8080/api/user-activity').then(response => {
@@ -20,7 +20,6 @@ const Suveillance = ({ patients, setSearch }) => {
     const currentPatientItems = patients.slice(indexOfFirstItem, indexOfLastItem);
     const currentActivityItems = userActivities.slice(indexOfFirstItem, indexOfLastItem);
 
-    const totalPatientPages = Math.ceil(patients.length / itemsPerPage);
     const totalActivityPages = Math.ceil(userActivities.length / itemsPerPage);
 
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
@@ -59,7 +58,7 @@ const Suveillance = ({ patients, setSearch }) => {
     };
 
     const handleNext = () => {
-        if (currentPage < totalPatientPages) {
+        if (currentPage < totalActivityPages) {
             setCurrentPage(currentPage + 1);
         }
     };
@@ -165,12 +164,12 @@ const Suveillance = ({ patients, setSearch }) => {
                             <li className="page-item">
                                 <button onClick={handlePrev} className="page-link">{"<"}</button>
                             </li>
-                            {getPagination(totalPatientPages).map(number => (
+                            {getPagination(totalActivityPages).map(number => (
                                 <li key={number} className={`page-item ${currentPage === number ? 'active' : ''}`}>
                                     <button onClick={() => paginate(number)} className="page-link">{number}</button>
                                 </li>
                             ))}
-                            {totalPatientPages > 10 && currentPage + 4 < totalPatientPages && (
+                            {totalActivityPages > 10 && currentPage + 4 < totalActivityPages && (
                                 <li className="page-item disabled">
                                     <span className="page-link">...</span>
                                 </li>
@@ -179,7 +178,7 @@ const Suveillance = ({ patients, setSearch }) => {
                                 <button onClick={handleNext} className="page-link">{">"}</button>
                             </li>
                             <li className="page-item">
-                                <button onClick={() => setCurrentPage(totalPatientPages)} className="page-link">{">>"}</button>
+                                <button onClick={() => setCurrentPage(totalActivityPages)} className="page-link">{">>"}</button>
                             </li>
                         </ul>
                     </div>
