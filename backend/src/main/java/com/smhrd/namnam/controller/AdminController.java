@@ -63,6 +63,9 @@ public class AdminController {
     @GetMapping("/staff")
     @Operation(summary = "(staff들 리스트)")
     public List<StaffInfoVO> findStaffInfo(){
+
+        System.out.println("1번 : "+adminService.findStaffInfo().get(1).getStaffId());
+        System.out.println("2번 : "+adminService.findStaffInfo().get(1).getActivity_date());
         return adminService.findStaffInfo();
     }
 

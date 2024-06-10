@@ -136,7 +136,7 @@ const Role = ({ users, setEdit, setEditUser }) => {
                                     <td>{user.staffName}</td>
                                     <td>{user.staffId}</td>
                                     <td>{user.staffRole}</td>
-                                    <td></td>
+                                    <td>{user.activity_date}</td>
                                     <td>{user.staffStatus}</td>
                                     <td>
                                         <Button variant="warning" className="mx-2" onClick={()=> handleShowUserEdit(user)}>Edit</Button>
