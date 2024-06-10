@@ -8,6 +8,11 @@ const Dashboard = () => {
     const [userData, setUserData] = useState({ totalUsers: 0, activeUsers: 0 });
     const [systemMetrics, setSystemMetrics] = useState({ cpuUsage: '0%', memoryUsage: '0%', diskUsage: '0%' });
     const [userActivity, setUserActivity] = useState({ labels: [], data: [] });
+    const [systemComponents, setSystemComponents] = useState([
+        { component: 'Database', status: 'Offline' },
+        { component: 'Server', status: 'Offline' },
+        { component: 'API', status: 'Offline' }
+    ]);
 
     useEffect(() => {
         // 시스템 메트릭 데이터 가져오기
@@ -18,15 +23,25 @@ const Dashboard = () => {
                 memoryUsage: `${metrics.memory_usage}%`,
                 diskUsage: `${metrics.disk_usage}%`
             });
+            setSystemComponents(prevState => prevState.map(component => 
+                component.component === 'Server' ? { ...component, status: 'Online' } : component
+            ));
         }).catch(error => {
-            console.error("There was an error fetching system metrics!", error);
+            setSystemComponents(prevState => prevState.map(component => 
+                component.component === 'Server' ? { ...component, status: 'Offline' } : component
+            ));
         });
 
         // 사용자 데이터 가져오기
         axios.get('http://localhost:8080/api/users/count').then(response => {
             setUserData(prevState => ({ ...prevState, totalUsers: response.data }));
+            setSystemComponents(prevState => prevState.map(component => 
+                component.component === 'Database' ? { ...component, status: 'Online' } : component
+            ));
         }).catch(error => {
-            console.error("There was an error fetching total users!", error);
+            setSystemComponents(prevState => prevState.map(component => 
+                component.component === 'Database' ? { ...component, status: 'Offline' } : component
+            ));
         });
 
         axios.get('http://localhost:8080/api/users/active').then(response => {
@@ -64,6 +79,21 @@ const Dashboard = () => {
         }).catch(error => {
             console.error("There was an error fetching user activity!", error);
         });
+
+        // API 상태 확인
+        axios.get('http://localhost:8080/api/status')
+            .then(response => {
+                const status = response.status === 200 ? 'Online' : 'Offline';
+                setSystemComponents(prevState => prevState.map(component => 
+                    component.component === 'API' ? { ...component, status: status } : component
+                ));
+            })
+            .catch(error => {
+                setSystemComponents(prevState => prevState.map(component => 
+                    component.component === 'API' ? { ...component, status: 'Offline' } : component
+                ));
+            });
+
     }, []);
 
     const userActivityData = {
@@ -85,11 +115,21 @@ const Dashboard = () => {
         { id: 3, message: 'Database backup completed', type: 'info' }
     ];
 
-    const systemComponents = [
-        { component: 'Database', status: 'Online' },
-        { component: 'Server', status: 'Online' },
-        { component: 'API', status: 'Offline' }
-    ];
+    const getMetricColor = (metric) => {
+        const value = parseFloat(metric);
+        if (value > 60) return 'red';
+        if (value > 30) return 'orange';
+        return 'green';
+    };
+
+    const renderMetricCard = (title, value) => (
+        <Card className="text-center">
+            <Card.Body>
+                <Card.Title style={{ color: getMetricColor(value) }}>{title}</Card.Title>
+                <Card.Text style={{ color: getMetricColor(value) }}>{value}</Card.Text>
+            </Card.Body>
+        </Card>
+    );
 
     return (
         <Container fluid className="p-3">
@@ -111,30 +151,9 @@ const Dashboard = () => {
                         </Card.Body>
                     </Card>
                 </Col>
-                <Col>
-                    <Card className={`text-center text-success`}>
-                        <Card.Body>
-                            <Card.Title>CPU Usage</Card.Title>
-                            <Card.Text>{systemMetrics.cpuUsage}</Card.Text>
-                        </Card.Body>
-                    </Card>
-                </Col>
-                <Col>
-                    <Card className={`text-center text-warning`}>
-                        <Card.Body>
-                            <Card.Title>Memory Usage</Card.Title>
-                            <Card.Text>{systemMetrics.memoryUsage}</Card.Text>
-                        </Card.Body>
-                    </Card>
-                </Col>
-                <Col>
-                    <Card className={`text-center text-danger`}>
-                        <Card.Body>
-                            <Card.Title>Disk Usage</Card.Title>
-                            <Card.Text>{systemMetrics.diskUsage}</Card.Text>
-                        </Card.Body>
-                    </Card>
-                </Col>
+                <Col>{renderMetricCard('CPU Usage', systemMetrics.cpuUsage)}</Col>
+                <Col>{renderMetricCard('Memory Usage', systemMetrics.memoryUsage)}</Col>
+                <Col>{renderMetricCard('Disk Usage', systemMetrics.diskUsage)}</Col>
             </Row>
 
             {/* 중간 섹션 */}
