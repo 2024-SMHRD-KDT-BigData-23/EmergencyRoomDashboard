@@ -2,7 +2,7 @@ import { Dropdown, DropdownButton } from "react-bootstrap";
 import React from "react";
 import axios from 'axios';
 
-const DecisionDrop = ({ staffId, admissionId, updateAdmissionResultWard }) => {
+const DecisionDrop = ({ staffId, admissionId, setResultWard }) => {
     
     const handleResultWard = (eventKey) => {
         axios.post(`http://localhost:8080/api/ER/resultWards/${staffId}/${admissionId}`, {
@@ -10,7 +10,7 @@ const DecisionDrop = ({ staffId, admissionId, updateAdmissionResultWard }) => {
         })
             .then(response => {
                 console.log('DB 업데이트 성공:', response.data);
-                updateAdmissionResultWard(admissionId, response.data.resultWard);
+                setResultWard(response.data.resultWard);
             })
             .catch(error => {
                 console.error('DB 업데이트 실패:', error);
@@ -19,7 +19,7 @@ const DecisionDrop = ({ staffId, admissionId, updateAdmissionResultWard }) => {
 
     return (
         <DropdownButton
-            title="Action"
+            title=""
             variant="warning"
             size="sm"
             onSelect={handleResultWard}

@@ -74,15 +74,29 @@ public class ERService {
     ///////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////상세 페이지////////////////////////////////////////
     // 특정 입원코드에 대한 상세 정보
-
     public List<ERViewVO> findPatientDetailsByAdmissionId(String admissionId) {
         return convertToVOList(erViewRepo.findPatientDetailByAdmissionId(admissionId));
+    }
+
+    // 특정 입원코드에 대한 배치 정보
+    public List<ResultWardInfoVO> findResultWardsByAdmissionId(String admissionId) {
+        return resultWardRepo.findByAdmissionInfoOrderByResultWardUpdatedAtDesc(admissionRepo.findByAdmissionId(admissionId))
+                .stream()
+                .map(resultWardInfo -> modelMapper.map(resultWardInfo, ResultWardInfoVO.class))
+                .collect(Collectors.toList());
+    }
+
+    // 틀정 입원코드에 대한 진단 정보
+    public List<CommentInfoVO> findCommentsByAdmissionId(String admissionId) {
+        return commentRepo.findByAdmissionInfoOrderByCommentUpdatedAtDesc(admissionRepo.findByAdmissionId(admissionId))
+                .stream()
+                .map(commentInfo -> modelMapper.map(commentInfo, CommentInfoVO.class))
+                .collect(Collectors.toList());
     }
     ////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////검색 관련////////////////////////////////////////////
 
     // 검색페이지에서 patient의 name, id에 대한 입원 내역 정보 검색(각 입원코드마다 가장최신)
-
     public List<ERViewVO> searchByPatientNameId(String patientNameId){
         return convertToVOList(erViewRepo.allSearchByPatientNameId(patientNameId));
     }

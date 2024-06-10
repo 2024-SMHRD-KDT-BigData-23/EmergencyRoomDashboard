@@ -60,8 +60,22 @@ public class ERController {
     // 특정 입원코드에 대한 상세 정보
     @GetMapping("/patient-details/{admissionId}")
     @Operation(summary = "(특정 입원코드에 대한 상세 정보)")
-    public List<ERViewVO> findPatientDetailsByAdmissionId(@PathVariable("admissionId") String admissionId){
+    public List<ERViewVO> findPatientDetailsByAdmissionId(@PathVariable("admissionId") String admissionId) {
         return erService.findPatientDetailsByAdmissionId(admissionId);
+    }
+
+    // 특정 입원코드에 대한 배치 정보
+    @GetMapping("/resultWards/{admissionId}")
+    @Operation(summary = "(특정 입원코드에 대한 Result Ward 기록 정보)")
+    public List<ResultWardInfoVO> findResultWardsByAdmissionId(@PathVariable("admissionId") String admissionId) {
+        return erService.findResultWardsByAdmissionId(admissionId);
+    }
+
+    // 특정 입원코드에 대한 진단 정보
+    @GetMapping("/comments/{admissionId}")
+    @Operation(summary = "(특정 입원코드에 대한 Comment 기록 정보)")
+    public List<CommentInfoVO> findCommentsByAdmissionId(@PathVariable("admissionId") String admissionId) {
+        return erService.findCommentsByAdmissionId(admissionId);
     }
     ///////////////////////////////////////////////////////////////////////////////////////
 

@@ -1,44 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Row, Col, Card } from 'react-bootstrap';
+import { Row, Col, Card, Dropdown } from 'react-bootstrap';
 import NcdssChart from './NcdssChart';
 import DecisionDrop from '../../components/core/decisionmodal';
 import CommentModal from '../../components/core/commentmodal';
+import ResultWardTable from './ResultWardTable';
+import CommentTable from './CommentTable';
 
-const AdmissionInfo = ({ patientData, setPatientData, admissionId }) => {
+const AdmissionInfo = ({ patientData, setPatientData, admissionList, patientId, admissionId, resultWardList, commentList, setResultWard, setComment }) => {
 
     const staffId = sessionStorage.getItem("staffId");
-    const [updatedAdmissionId, setUpdatedAdmissionId] = useState(null);
-    
-    const updateAdmissionResultWard = (admissionId, newResultWard) => {
-        setPatientData(prevData => {
-            return prevData.map(patient => {
-                if(patient.admissionId === admissionId) {
-                    return { ...patient, admissionResultWard: newResultWard};
-                }
-                return patient;
-            });
-        });
-        setUpdatedAdmissionId(admissionId);
-    };
-
-    const updateAdmissionComment = (admissionId, newComment) => {
-        setPatientData(prevData => {
-            return prevData.map(patient => {
-                if (patient.admissionId === admissionId) {
-                    return { ...patient, admissionComment: newComment };
-                }
-                return patient;
-            });
-        });
-        setUpdatedAdmissionId(admissionId);
-    };
-
-    useEffect(() => {
-        if (updatedAdmissionId !== null) {
-            console.log(`admissionId ${updatedAdmissionId}의 진단 정보가 업데이트되었습니다.`);
-            setUpdatedAdmissionId(null);
-        }
-    }, [updatedAdmissionId]);
 
     return (
         <>
@@ -51,7 +21,16 @@ const AdmissionInfo = ({ patientData, setPatientData, admissionId }) => {
                                     InTime
                                 </Card.Title>
                                 <Card.Text>
-                                    {`${patientData.length && patientData[0].admissionInTime.year}/${patientData.length && patientData[0].admissionInTime.month}/${patientData.length && patientData[0].admissionInTime.day} ${patientData.length && patientData[0].admissionInTime.hour}:${patientData.length && patientData[0].admissionInTime.minute}`}
+                                    <Dropdown>
+                                        <Dropdown.Toggle variant="light">
+                                            {`${patientData.length && patientData[0].admissionInTime.year}/${patientData.length && patientData[0].admissionInTime.month}/${patientData.length && patientData[0].admissionInTime.day} ${patientData.length && patientData[0].admissionInTime.hour}:${patientData.length && patientData[0].admissionInTime.minute}`}
+                                        </Dropdown.Toggle>
+                                        <Dropdown.Menu>
+                                            {admissionList.map((admission, index) => (
+                                                <Dropdown.Item key={index} href='#' onClick={() => { window.location.href = `http://localhost:3000/Detail/${patientId}/${admission.admissionId}` }}>{`${admission.admissionInTime.year}/${admission.admissionInTime.month}/${admission.admissionInTime.day} ${admission.admissionInTime.hour}:${admission.admissionInTime.minute}`}</Dropdown.Item>
+                                            ))}
+                                        </Dropdown.Menu>
+                                    </Dropdown>
                                 </Card.Text>
                             </Card.Body>
                         </Card>
@@ -78,10 +57,9 @@ const AdmissionInfo = ({ patientData, setPatientData, admissionId }) => {
                     <Col md={3} className="w-100">
                         <Card>
                             <Card.Body>
-                                <Card.Title>Result Ward</Card.Title>
                                 <Card.Text>
-                                    <DecisionDrop staffId={staffId} admissionId={admissionId} updateAdmissionResultWard={updateAdmissionResultWard} />
-                                    {`${patientData.length && patientData[0].admissionResultWard}`}
+                                    <ResultWardTable resultWardList={resultWardList} />
+                                    <DecisionDrop staffId={staffId} admissionId={admissionId} setResultWard={setResultWard} />
                                 </Card.Text>
                             </Card.Body>
                         </Card>
@@ -89,10 +67,9 @@ const AdmissionInfo = ({ patientData, setPatientData, admissionId }) => {
                     <Col md={3} className="w-100">
                         <Card>
                             <Card.Body>
-                                <Card.Title>Comment</Card.Title>
                                 <Card.Text>
-                                    <CommentModal staffId={staffId} admissionId={admissionId} updateAdmissionComment={updateAdmissionComment} />
-                                    {`${patientData.length && patientData[0].admissionDiagnosis}`}
+                                    <CommentTable commentList={commentList} />
+                                    <CommentModal staffId={staffId} admissionId={admissionId} setComment={setComment} />
                                 </Card.Text>
                             </Card.Body>
                         </Card>

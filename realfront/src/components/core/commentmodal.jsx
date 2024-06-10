@@ -1,24 +1,28 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import '../../assets/scss/commentmodal.scss'
-const CommentModal = ({ patientData, admissionId, updateAdmissionComment }) => {
-    const [admissionComment, setAdmissionComment] = useState(patientData && patientData.length > 0 ? patientData[0].admissionDiagnosis : '');
+const CommentModal = ({ staffId, admissionId, setComment }) => {
+
+    const [admissionComment, setAdmissionComment] = useState(null);
+    
     const changeComment = (event) => {
         setAdmissionComment(event.target.value);
     }
+
     const handleSubmit = (event) => {
         event.preventDefault();
-        axios.patch(`http://localhost:8080/api/ER/set/medical-patients/${admissionId}`, {
-            admissionComment: admissionComment
+        axios.post(`http://localhost:8080/api/ER/comments/${staffId}/${admissionId}`, {
+            comment: admissionComment
         })
             .then(response => {
                 console.log('DB 업데이트 성공:', response.data);
-                updateAdmissionComment(admissionId, response.data.admissionComment);
+                setComment(response.data.comment);
             })
             .catch(error => {
                 console.error('DB 업데이트 실패:', error);
             });
     };
+
     return (
         <div>
             <button type="button" className="btn btn-sm modalBtn" data-bs-toggle="modal" style={{ color: 'white' }} data-bs-target="#exampleModal">Comment</button>
