@@ -56,10 +56,5 @@ UserController {
         int count = userService.getActiveUsers();
         return ResponseEntity.ok(count);
     }
-    @GetMapping("/user-activity")
-    public ResponseEntity<List<UserActivity>> getUserActivity() {
-        List<UserActivity> activities = userService.getUserActivityForLastWeek();
-        return ResponseEntity.ok(activities);
-    }
 
 }

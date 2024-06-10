@@ -23,12 +23,12 @@ public class ResultWardInfo {
     private Long resultWardId;
 
     // 실제 배치값
-    @Column(name = "result_ward", length = 20)
+    @Column(name = "result_ward", length = 20, nullable = false)
     private String resultWard;
 
     // 배치를 수정한 시간
     @UpdateTimestamp
-    @Column(name = "result_ward_updated_at")
+    @Column(name = "result_ward_updated_at", nullable = false)
     private Timestamp resultWardUpdatedAt;
 
     // 결정한 입실 정보
