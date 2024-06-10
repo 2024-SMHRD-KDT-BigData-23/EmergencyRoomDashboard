@@ -5,10 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
 import Login from './views/loginpage';
 import List from './views/mainpage';
-import Search from './views/searchpage';
-import AllList from './views/allpatientspage';
 import Detail from './views/detailpage';
-import Test from './views/testpage';
 import AdminPage from './views/admin-components/dashboardpage';
 import DataPage from './views/admin-components/datapage';
 import HelpPage from './views/admin-components/helppage';
@@ -25,10 +22,7 @@ root.render(
   <Router>
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/Test" element={<Test />} />
         <Route path="/:pageStatus/List/:patientNameId" element={<List />} />
-        <Route path="/Search" element={<Search />} />
-        <Route path="/AllList" element={<AllList />} />
         <Route path="/Detail/:patientId/:admissionId" element={<Detail />} />
         <Route path="/Admin" element={<AdminPage />} />
         <Route path="/Data" element={<DataPage />} />
