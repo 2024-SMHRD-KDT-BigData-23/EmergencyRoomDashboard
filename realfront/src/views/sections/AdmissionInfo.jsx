@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Row, Col, Card } from 'react-bootstrap';
 import NcdssChart from './NcdssChart';
 import DecisionDrop from '../../components/core/decisionmodal';
-import CommentModal from '../../components/core/CommentModal';
+import CommentModal from '../../components/core/commentmodal';
 
 const AdmissionInfo = ({ patientData, setPatientData, admissionId }) => {
 

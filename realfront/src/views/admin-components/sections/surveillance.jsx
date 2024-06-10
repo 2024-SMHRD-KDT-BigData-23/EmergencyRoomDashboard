@@ -106,9 +106,9 @@ const Surveillance = ({ patient , setSearch}) => {
                                     </td>
                                     <td>
                                         {patient.logDetail === 'login' || patient.logDetail === 'logout' ? (
-                                            <span>{patient.logDetail}</span>
+                                            <span>Stable {patient.logDetail}</span>
                                         ) : (
-                                            <span>ResultWard : {patient.logAction} (admission_id : {patient.logDetail}) </span>
+                                            <span>ResultWard : {patient.logAction} [ Patient_id : {patient.logDetail} ] </span>
                                         )}
                                     </td>
                                 </tr>
