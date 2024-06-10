@@ -17,7 +17,7 @@ const centerTextPlugin = {
         const maxLabel = labels[maxIndex];
 
         ctx.save();
-        ctx.font = 'bold 24px Arial';
+        ctx.font = 'bold 15px Arial';
         ctx.fillStyle = color;
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
@@ -36,11 +36,11 @@ const NcdssChart = ({ patientData }) => {
         labels: ["DISCHARGE", "WARD", "ICU"],
         datasets: [{
             data: [dischargePer, wardPer, icuPer],
-            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
-            borderColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+            backgroundColor: ['#8282EC', '#95EB95', '#DD6666'],
+            borderColor: ['#8282EC', '#95EB95', '#DD6666'],
             borderWidth: 1,
-            hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
-            hoverBorderColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+            hoverBackgroundColor: ['#8282EC', '#95EB95', '#DD6666'],
+            hoverBorderColor: ['#8282EC', '#95EB95', '#DD6666'],
             hoverBorderWidth: 2,
             weight: 1,
             cutout: '50%',
@@ -55,15 +55,32 @@ const NcdssChart = ({ patientData }) => {
         responsive: true,
         maintainAspectRatio: false,
         plugins: {
-            // legend: {
-            //     display: true,
-            //     position: "top"
-            // },
+            legend: {
+                display: false,
+                position: "top"
+            },
             title: {
                 display: true,
-                text: "NCDSS"
+                text: "NCDSS",
+                font: {
+                    size: 20, // 폰트 크기
+                    weight: 'bold', // 폰트 굵기
+                }
             },
-            centerText: {}
+            centerText: {},
+            
+            datalabels: {
+                color: '#323232', // 수치값의 폰트 색상을 흰색으로 설정
+                font: {
+                    size: 12, // 수치값의 폰트 크기 설정
+                    weight : 'bold'
+                },
+                formatter: (value, context) => {
+                    return value + '%'; // 수치값에 '%' 추가
+                }
+            },
+
+
         }
     };
 
