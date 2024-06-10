@@ -3,7 +3,7 @@ import '../../assets/scss/maintable.scss';
 import { Link } from 'react-router-dom';
 import ActionModal from './ActionModal';
 
-const MainTable = ({ patients }) => {
+const MainTable = ({ patients, pageStatus, resultWard }) => {
 
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 14; // 한 페이지에 표시할 항목 수
@@ -119,7 +119,11 @@ const MainTable = ({ patients }) => {
                                         </Link>
                                     </td>
                                     <td>
-                                        <ActionModal admissionId={patient.admissionId} />
+                                        {resultWard[patient.admissionId] ? (
+                                            resultWard[patient.admissionId]
+                                        ) : (
+                                            <ActionModal admissionId={patient.admissionId} />
+                                        )}
                                     </td>
                                 </tr>
                             ))}
