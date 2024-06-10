@@ -53,8 +53,9 @@ public class ERService {
     }
 
     // result_ward 결정 유무
-    public ResultWardInfo findResultWards(String admissionId) {
+    public ResultWardInfo findResultWard(String admissionId) {
         return resultWardRepo.findTopByAdmissionInfoOrderByResultWardUpdatedAtDesc(admissionRepo.findByAdmissionId(admissionId));
+//        return resultWardRepo.findByAdmissionInfo(admissionRepo.findByAdmissionId(admissionId));
     }
 
     // 진료 후 result_ward 결정

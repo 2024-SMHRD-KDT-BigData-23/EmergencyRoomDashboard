@@ -33,10 +33,10 @@ public class ERController {
     }
 
     // result_ward 결정 유무 조회
-    @GetMapping("/resultWards/{admissionId}")
+    @GetMapping("/resultWard/{admissionId}")
     @Operation(summary = "(환자 result_ward 유무)")
-    public ResponseEntity<ResultWardInfo> findResultWards(@PathVariable("admissionId") String admissionId) {
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(erService.findResultWards(admissionId));
+    public ResponseEntity<ResultWardInfo> findResultWard(@PathVariable("admissionId") String admissionId) {
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(erService.findResultWard(admissionId));
     }
 
     // 응급실 진료 후 result_ward 결정

@@ -14,4 +14,5 @@ public interface ResultWardInfoRepository extends JpaRepository<ResultWardInfo, 
 
     ResultWardInfo findTopByAdmissionInfoOrderByResultWardUpdatedAtDesc(AdmissionInfo admissionInfo);
 
+//    ResultWardInfo findByAdmissionInfo(AdmissionInfo admissionInfo);
 }
