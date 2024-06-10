@@ -32,6 +32,13 @@ public class ERController {
             return erService.findPatients(pageStatus, bedward, deepNcdss, patientNameId);
     }
 
+    // result_ward 결정 유무 조회
+    @GetMapping("/resultWards/{admissionId}")
+    @Operation(summary = "(환자 result_ward 유무)")
+    public ResponseEntity<ResultWardInfo> findResultWards(@PathVariable("admissionId") String admissionId) {
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(erService.findResultWards(admissionId));
+    }
+
     // 응급실 진료 후 result_ward 결정
     @PostMapping("/resultWards/{staffId}/{admissionId}")
     @Operation(summary = "(환자 result_ward 결정)")

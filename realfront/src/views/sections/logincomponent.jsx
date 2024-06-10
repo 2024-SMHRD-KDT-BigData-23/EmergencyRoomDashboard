@@ -21,7 +21,7 @@ const LoginComponent = () => {
                 if(username ==='admin' && password === 'admin'){
                     navigate('/admin'); 
                 } else {
-                    navigate('/List');
+                    navigate('/present/List/All');
             }
             } else {
                 setError('로그인 실패. 다시 시도해 주세요.');
