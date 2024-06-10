@@ -14,7 +14,7 @@ const AdmissionInfo = ({ patientData, setPatientData, admissionList, patientId, 
         <>
             <Col md={3} className="h-100">
                 <Row>
-                    <Col className="d-flex justify-content-between w-100 mb-2">
+                    <Col className="d-flex justify-content-between w-100 mb-3">
                         <Card>
                             <Card.Body>
                                 <Card.Title>
@@ -23,11 +23,11 @@ const AdmissionInfo = ({ patientData, setPatientData, admissionList, patientId, 
                                 <Card.Text>
                                     <Dropdown>
                                         <Dropdown.Toggle variant="light">
-                                            {`${patientData.length && patientData[0].admissionInTime.year}/${patientData.length && patientData[0].admissionInTime.month}/${patientData.length && patientData[0].admissionInTime.day} ${patientData.length && patientData[0].admissionInTime.hour}:${patientData.length && patientData[0].admissionInTime.minute}`}
+                                            {`${String(patientData.length && patientData[0].admissionInTime.year).padStart(2, '0')}.${String(patientData.length && patientData[0].admissionInTime.month).padStart(2, '0')}.${String(patientData.length && patientData[0].admissionInTime.day).padStart(2, '0')} ${String(patientData.length && patientData[0].admissionInTime.hour).padStart(2, '0')}:${String(patientData.length && patientData[0].admissionInTime.minute).padStart(2, '0')}`}
                                         </Dropdown.Toggle>
-                                        <Dropdown.Menu>
+                                        <Dropdown.Menu className="text-center">
                                             {admissionList.map((admission, index) => (
-                                                <Dropdown.Item key={index} href='#' onClick={() => { window.location.href = `http://localhost:3000/Detail/${patientId}/${admission.admissionId}` }}>{`${admission.admissionInTime.year}/${admission.admissionInTime.month}/${admission.admissionInTime.day} ${admission.admissionInTime.hour}:${admission.admissionInTime.minute}`}</Dropdown.Item>
+                                                <Dropdown.Item key={index} href='#' onClick={() => { window.location.href = `http://localhost:3000/Detail/${patientId}/${admission.admissionId}` }}>{`${String(admission.admissionInTime.year).padStart(2, '0')}.${String(admission.admissionInTime.month).padStart(2, '0')}.${String(admission.admissionInTime.day).padStart(2, '0')} ${String(admission.admissionInTime.hour).padStart(2, '0')}:${String(admission.admissionInTime.minute).padStart(2, '0')}`}</Dropdown.Item>
                                             ))}
                                         </Dropdown.Menu>
                                     </Dropdown>

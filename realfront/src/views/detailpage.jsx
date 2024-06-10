@@ -85,8 +85,8 @@ const Detail = () => {
     return (
         <>
             <Header />
-            <Container fluid className="p-4 bg-light">
-                <Row className="h-100">
+            <Container fluid className="p-3 bg-light">
+                <Row className="h-100 g-3">
                     <PatientInfo patientData={patientData} admissionList={admissionList} patientId={patientId} admissionId={admissionId} />
                     <VitalChart patientData={patientData} />
                     <AdmissionInfo patientData={patientData} setPatientData={setPatientData} admissionList={admissionList} patientId={patientId} admissionId={admissionId} resultWardList={resultWardList} commentList={commentList} setResultWard={setResultWard} setComment={setComment} />
