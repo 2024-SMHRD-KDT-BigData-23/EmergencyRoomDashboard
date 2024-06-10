@@ -1,9 +1,11 @@
 package com.smhrd.namnam.controller;
 
 import com.smhrd.namnam.entity.AdmissionInfo;
+import com.smhrd.namnam.entity.CommentInfo;
 import com.smhrd.namnam.entity.ResultWardInfo;
 import com.smhrd.namnam.service.ERService;
 import com.smhrd.namnam.vo.AdmissionInfoVO;
+import com.smhrd.namnam.vo.CommentInfoVO;
 import com.smhrd.namnam.vo.ERViewVO;
 import com.smhrd.namnam.vo.ResultWardInfoVO;
 import io.swagger.v3.oas.annotations.Operation;
@@ -30,16 +32,27 @@ public class ERController {
             return erService.findPatients(pageStatus, bedward, deepNcdss, patientNameId);
     }
 
-    // 응급실 진료 후 result_ward, comment 수정
-    @PatchMapping("/set/medical-patients/{admissionId}")
-    @Operation(summary = "(응급실 진료 후 result_ward, comment 수정)")
-    public ResponseEntity<ResultWardInfo> saveMedicalPatientsByAdmissionId(@PathVariable("admissionId") String admissionId, @RequestBody ResultWardInfoVO vo) {
-        try {
-            vo.setAdmissionId(admissionId);
-            return new ResponseEntity<>(erService.saveMedicalPatientsByAdmissionId(vo), HttpStatus.OK);
-        } catch (Exception err) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+    // result_ward 결정 유무 조회
+    @GetMapping("/resultWards/{admissionId}")
+    @Operation(summary = "(환자 result_ward 유무)")
+    public ResponseEntity<ResultWardInfo> findResultWards(@PathVariable("admissionId") String admissionId) {
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(erService.findResultWards(admissionId));
+    }
+
+    // 응급실 진료 후 result_ward 결정
+    @PostMapping("/resultWards/{staffId}/{admissionId}")
+    @Operation(summary = "(환자 result_ward 결정)")
+    public ResponseEntity<ResultWardInfoVO> saveResultWard(@PathVariable("staffId") String staffId, @PathVariable("admissionId") String admissionId, @RequestBody ResultWardInfoVO vo) {
+        ResultWardInfoVO savedResultWard = erService.saveResultWard(staffId, admissionId, vo);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedResultWard);
+    }
+
+    // 응급실 진료 후 comment 작성
+    @PostMapping("/comments/{staffId}/{admissionId}")
+    @Operation(summary = "(환자 comment 작성)")
+    public ResponseEntity<CommentInfoVO> saveComment(@PathVariable("staffId") String staffId, @PathVariable("admissionId") String admissionId, @RequestBody CommentInfoVO vo) {
+        CommentInfoVO savedComment = erService.saveComment(staffId, admissionId, vo);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedComment);
     }
     ///////////////////////////////////////////////////////////////////////////////////////////
 

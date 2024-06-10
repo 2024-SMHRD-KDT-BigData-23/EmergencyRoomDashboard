@@ -19,7 +19,7 @@ const Dropdown = ({ sectionContent, setSectionContent, ncdssContent, setNcdssCon
                         {sectionContent}
                     </button>
                     <ul className="dropdown-menu">
-                        <li><span className="dropdown-item" onClick={() => changeSectionContent('All')}>All</span></li>
+                        <li><span className="dropdown-item" onClick={() => changeSectionContent('Section')}>All</span></li>
                         <li><span className="dropdown-item" onClick={() => changeSectionContent('일반구역A')}>일반구역A</span></li>
                         <li><span className="dropdown-item" onClick={() => changeSectionContent('일반구역B')}>일반구역B</span></li>
                         <li><span className="dropdown-item" onClick={() => changeSectionContent('중증구역')}>중증구역</span></li>
@@ -32,10 +32,10 @@ const Dropdown = ({ sectionContent, setSectionContent, ncdssContent, setNcdssCon
                         {ncdssContent}
                     </button>
                     <ul className="dropdown-menu">
-                        <li><a className="dropdown-item" href="#" onClick={() => changeNcdssContent('All')}>All</a></li>
-                        <li><a className="dropdown-item" href="#" onClick={() => changeNcdssContent('Discharge')}>Discharge</a></li>
-                        <li><a className="dropdown-item" href="#" onClick={() => changeNcdssContent('WARD')}>WARD</a></li>
-                        <li><a className="dropdown-item" href="#" onClick={() => changeNcdssContent('ICU')}>ICU</a></li>
+                        <li><span className="dropdown-item" onClick={() => changeNcdssContent('NCDSS')}>All</span></li>
+                        <li><span className="dropdown-item" onClick={() => changeNcdssContent('Discharge')}>Discharge</span></li>
+                        <li><span className="dropdown-item" onClick={() => changeNcdssContent('WARD')}>WARD</span></li>
+                        <li><span className="dropdown-item" onClick={() => changeNcdssContent('ICU')}>ICU</span></li>
                     </ul>
                 </div>
         </div>

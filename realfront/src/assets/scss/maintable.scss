@@ -13,17 +13,17 @@
 
   .table tbody tr:nth-child(odd) td {
     background-color: white;
+    cursor: pointer;
   }
   
   .table tbody tr:nth-child(even) td {
     // background-color: #E8E4FF;
     //  background-color: #white;
      background-color: #eeeeee;
+     cursor: pointer;
   }
 
-  body {
-    background-color: #Eeeeee;
-  }
+
 
 .page-link {
     background-color: transparent; /* 배경색 없애기 */

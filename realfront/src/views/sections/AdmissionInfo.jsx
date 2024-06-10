@@ -6,6 +6,7 @@ import CommentModal from '../../components/core/CommentModal';
 
 const AdmissionInfo = ({ patientData, setPatientData, admissionId }) => {
 
+    const staffId = sessionStorage.getItem("staffId");
     const [updatedAdmissionId, setUpdatedAdmissionId] = useState(null);
     
     const updateAdmissionResultWard = (admissionId, newResultWard) => {
@@ -79,7 +80,7 @@ const AdmissionInfo = ({ patientData, setPatientData, admissionId }) => {
                             <Card.Body>
                                 <Card.Title>Result Ward</Card.Title>
                                 <Card.Text>
-                                    <DecisionDrop patientData={patientData} admissionId={admissionId} updateAdmissionResultWard={updateAdmissionResultWard} />
+                                    <DecisionDrop staffId={staffId} admissionId={admissionId} updateAdmissionResultWard={updateAdmissionResultWard} />
                                     {`${patientData.length && patientData[0].admissionResultWard}`}
                                 </Card.Text>
                             </Card.Body>
@@ -90,7 +91,7 @@ const AdmissionInfo = ({ patientData, setPatientData, admissionId }) => {
                             <Card.Body>
                                 <Card.Title>Comment</Card.Title>
                                 <Card.Text>
-                                    <CommentModal patientData={patientData} admissionId={admissionId} updateAdmissionComment={updateAdmissionComment} />
+                                    <CommentModal staffId={staffId} admissionId={admissionId} updateAdmissionComment={updateAdmissionComment} />
                                     {`${patientData.length && patientData[0].admissionDiagnosis}`}
                                 </Card.Text>
                             </Card.Body>

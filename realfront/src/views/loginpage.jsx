@@ -1,25 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
-
-
-
+import '../assets/scss/style.scss'
 import LoginComponent from "./sections/logincomponent.jsx";
-
-
 
 const Login = () => {
     
     return (
-        <div id="main-wrapper">
-           
-            <div className="page-wrapper">
-                <div className="container-fluid">
+                <div className="loginBody">
                    <LoginComponent />
-                  
                 </div>
-            </div>
-        
-        </div>
+
     );
 }
 

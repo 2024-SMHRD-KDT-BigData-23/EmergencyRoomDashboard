@@ -8,6 +8,10 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
+import java.util.List;
+
 public interface ResultWardInfoRepository extends JpaRepository<ResultWardInfo, Long> {
+
+    ResultWardInfo findTopByAdmissionInfoOrderByResultWardUpdatedAtDesc(AdmissionInfo admissionInfo);
 
 }
