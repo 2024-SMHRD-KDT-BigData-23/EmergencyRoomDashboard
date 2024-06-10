@@ -27,12 +27,12 @@ public class CommentInfo {
     private AdmissionInfo admissionInfo;
 
     // comment
-    @Column(name = "comment", columnDefinition = "TEXT")
+    @Column(name = "comment", columnDefinition = "TEXT", nullable = false)
     private String comment;
 
     // comment 작성 시간
     @UpdateTimestamp
-    @Column(name = "comment_updated_at")
+    @Column(name = "comment_updated_at", nullable = false)
     private Timestamp commentUpdatedAt;
 
     // comment를 작성한 의료진

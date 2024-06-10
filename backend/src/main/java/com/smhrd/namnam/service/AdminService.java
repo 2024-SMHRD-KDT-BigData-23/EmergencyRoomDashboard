@@ -31,6 +31,8 @@ public class AdminService {
     private ResultWardInfoRepository resultWardRepo;
     @Autowired
     private UserActivityRepository userActivityRepo;
+    @Autowired
+    private LogViewRepository logViewRepo;
 
 
 
@@ -69,29 +71,24 @@ public class AdminService {
                 .collect(Collectors.toList());
     }
 
+    // LogViewVO entity list 형태 -> vo list형태로 변환 메서드
+    private List<LogViewVO> converToLogViewVOList(List<LogView> logView){
+        return logView.stream().map(entity -> modelMapper.map(entity, LogViewVO.class))
+                .collect(Collectors.toList());
+    }
+
 
 
     //////////////////////////////////////result_ward log 페이지///////////////////////
-    // result_ward가 결정된 admission_id 전체 리스트(최신순)
-//    public List<AdmissionInfoVO> findResultWardLog() {
-//        return convertToAdmissionInfoVOList(admissionInfoRepo.findByAdmissionResultWardIsNotNullOrderByAdmissionOutTimeDesc());
-//    }
 
-    // result_ward가 결정된 admission_id 전체 리스트
-    public List<ResultWardInfoVO> findResultWardLog() {
-        return converToResultWardInfoVOList(resultWardRepo.findAllOrderByResultWardUpdatedAtDesc());
+    // admin log 리스트(login로그, resultWard로그 최신순
+    public List<LogViewVO> findLogInfo() {
+        return converToLogViewVOList(logViewRepo.findAllOrderByLogTimeDesc());
     }
 
-    // log페이지 result_ward관련 검색기능(staff_id, result_ward, 날짜)
-    public List<ResultWardInfoVO> searchResultWardLog(String staffId, String resultWard, String outTimeStart, String outTimeEnd) {
-        return converToResultWardInfoVOList(resultWardRepo.searchResultWardLog(staffId, resultWard, outTimeStart, outTimeEnd));
-    }
-
-    // log페이지 로그인 기록 리스트
-    public List<UserActivityVO> getUserActivityForLastWeek(){
-        LocalDateTime now = LocalDateTime.now();
-        LocalDateTime weekAgo= now.minusDays(7);
-        return converToUserActivityVOList(userActivityRepo.findByActivityDateBetween(weekAgo,now));
+    // admin log 검색(staff_id, action, 날짜)
+    public List<LogViewVO> searchlogInfo(String logUser, String logAction, String logTimeStart, String logTimeEnd) {
+        return converToLogViewVOList(logViewRepo.searchlogInfo(logUser, logAction, logTimeStart, logTimeEnd));
     }
 
 
@@ -112,4 +109,5 @@ public class AdminService {
 
         mailSender.send(message);
     }
+
 }

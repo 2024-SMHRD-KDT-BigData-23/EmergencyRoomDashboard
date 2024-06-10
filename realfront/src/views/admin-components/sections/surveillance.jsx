@@ -2,21 +2,20 @@ import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Table, Button, Form } from 'react-bootstrap';
 import axios from "axios";
 
-const Surveillance = ({ resultWardList, setSearch, handlePageChange, page}) => {
+const Surveillance = ({ patient , setSearch}) => {
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 8; // 한 페이지에 표시할 항목 수
 
-    console.log('page값3 : ',page)
 
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentPatientItems = resultWardList.slice(indexOfFirstItem, indexOfLastItem);
+    const currentPatientItems = patient.slice(indexOfFirstItem, indexOfLastItem);
     // const currentActivityItems = loginList.slice(indexOfFirstItem, indexOfLastItem);
 
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
     const patientPageNumbers = [];
-    for (let i = 1; i <= Math.ceil(resultWardList.length / itemsPerPage); i++) {
+    for (let i = 1; i <= Math.ceil(patient.length / itemsPerPage); i++) {
         patientPageNumbers.push(i);
     }
 
@@ -26,10 +25,10 @@ const Surveillance = ({ resultWardList, setSearch, handlePageChange, page}) => {
     // }
 
     const [filter, setFilter] = useState({
-        staffId: '',
-        ResultWard: '',
-        OutTimeStart: '',
-        OutTimeEnd: ''
+        logUser: '',
+        logAction: '',
+        logTimeStart: '',
+        logTimeEnd: ''
     });
 
     const handleFilterChange = (e) => {
@@ -51,36 +50,30 @@ const Surveillance = ({ resultWardList, setSearch, handlePageChange, page}) => {
             <Row className="my-3">
                 <Col>
                     <h2>Audit Logs</h2>
-                    <Row className="my-3">
-                        <Col>
-                            <Button variant="primary" className="me-2" onClick={() => handlePageChange('login')}>login log</Button>
-                            <Button variant="success" onClick={() => handlePageChange('resultWard')}>resultWard log</Button>
-                        </Col>
-                    </Row>
                     <Form onSubmit={handleSubmit}>
                         <Row className="mb-3">
                             <Col>
                                 <Form.Group controlId="filterUser">
                                     <Form.Label>User</Form.Label>
-                                    <Form.Control type="text" name="staffId" value={filter.staffId} onChange={handleFilterChange} />
+                                    <Form.Control type="text" name="logUser" value={filter.logUser} onChange={handleFilterChange} />
                                 </Form.Group>
                             </Col>
                             <Col>
                                 <Form.Group controlId="filterAction">
                                     <Form.Label>Action</Form.Label>
-                                    <Form.Control type="text" name="ResultWard" value={filter.ResultWard} onChange={handleFilterChange} />
+                                    <Form.Control type="text" name="logAction" value={filter.logAction} onChange={handleFilterChange} />
                                 </Form.Group>
                             </Col>
                             <Col>
                                 <Form.Group controlId="filterDateFrom">
                                     <Form.Label>Date From</Form.Label>
-                                    <Form.Control type="date" name="OutTimeStart" value={filter.OutTimeStart} onChange={handleFilterChange} />
+                                    <Form.Control type="date" name="logTimeStart" value={filter.logTimeStart} onChange={handleFilterChange} />
                                 </Form.Group>
                             </Col>
                             <Col>
                                 <Form.Group controlId="filterDateTo">
                                     <Form.Label>Date To</Form.Label>
-                                    <Form.Control type="date" name="OutTimeEnd" value={filter.OutTimeEnd} onChange={handleFilterChange} />
+                                    <Form.Control type="date" name="logTimeEnd" value={filter.logTimeEnd} onChange={handleFilterChange} />
                                 </Form.Group>
                             </Col>
                             <Col className="d-flex align-items-end">
@@ -97,33 +90,30 @@ const Surveillance = ({ resultWardList, setSearch, handlePageChange, page}) => {
                                 <th>Details</th>
                             </tr>
                         </thead>
-                        {page === 'resultWard' ? (
                         <tbody>
                             {currentPatientItems.map(patient => (
                                 <tr key={patient.id}>
-                                    <td>{String(patient.resultWardUpdatedAt.year).padStart(2, '0')}.{String(patient.resultWardUpdatedAt.month).padStart(2, '0')}.{String(patient.resultWardUpdatedAt.day).padStart(2, '0')}
-                                    .{String(patient.resultWardUpdatedAt.hour).padStart(2, '0')}:{String(patient.resultWardUpdatedAt.minute).padStart(2, '0')}:{String(patient.resultWardUpdatedAt.second).padStart(2, '0')}</td>
-                                    <td>{patient.staffId}</td>
-                                    <td>{patient.resultWard}</td>
+                                    <td>{String(patient.logTime.year).padStart(2, '0')}.{String(patient.logTime.month).padStart(2, '0')}.{String(patient.logTime.day).padStart(2, '0')}
+                                    .{String(patient.logTime.hour).padStart(2, '0')}:{String(patient.logTime.minute).padStart(2, '0')}:{String(patient.logTime.second).padStart(2, '0')}</td>
+                                    <td>{patient.logUser}</td>
                                     <td>
-                                        admission_id = {patient.admissionId}
+                                        {patient.logAction === 'login' || patient.logAction === 'logout' ? (
+                                            <span>{patient.logAction}</span>
+                                        ):(
+                                            <span>Decision</span>
+
+                                        )}
+                                    </td>
+                                    <td>
+                                        {patient.logDetail === 'login' || patient.logDetail === 'logout' ? (
+                                            <span>{patient.logDetail}</span>
+                                        ) : (
+                                            <span>ResultWard : {patient.logAction} (admission_id : {patient.logDetail}) </span>
+                                        )}
                                     </td>
                                 </tr>
                             ))}
                         </tbody>
-                        ):(
-                        <tbody>
-                            {currentPatientItems.map(activity => (
-                                <tr key={activity.id}>
-                                    <td>{new Date(activity.activityDate).toLocaleString()}</td>
-                                    <td>{activity.staffInfo.staffId}</td>
-                                    <td>{activity.activityType}</td>
-                                    <td>
-                                        Activity Type: {activity.activityType}
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>)}
                     </Table>
 
                     <div style={{ textAlign: 'center' }}>

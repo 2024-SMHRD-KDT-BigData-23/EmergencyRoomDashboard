@@ -32,76 +32,51 @@
 
 
 
-        const [resultWardList, setResultWardList] = useState([]);
+        const [patient, setPatient] = useState([]);
         // const [loginList, setLoginList] = useState([]);
         const [search, setSearch] = useState([]);
 
-        const [page, setPage] = useState('login');
 
-        const handlePageChange = (selectedPage) => {
-            setPage(selectedPage);
-        };
-
-        console.log('page값1 : ',page)
 
         useEffect(() => {
-            if (page === 'login') {
-                console.log("login들어옴")
                 axios
-                    .get('http://localhost:8080/api/user-activity')
+                    .get('http://localhost:8080/api/log')
                     .then(response => {
                         const formattedData = response.data.map(item => ({
                             ...item,
-                            activityDate: extraDateAndTime(item.activityDate)
+                            logTime: extraDateAndTime(item.logTime)
                         }));
-                        setResultWardList(formattedData);
+                        setPatient(formattedData);
                     })
                     .catch(error => {
-                        console.error("There was an error fetching user activities!", error);
+                        console.error("Error fetching search data: ", error);
                     });
-            } else if (page === 'resultWard') {
-                console.log("resultWard들어옴")
-                axios
-                    .get('http://localhost:8080/api/resultWardLog')
-                    .then(response => {
-                        const formattedData = response.data.map(item => ({
-                            ...item,
-                            resultWardUpdatedAt: extraDateAndTime(item.resultWardUpdatedAt)
-                        }));
-                        setResultWardList(formattedData);
-                    })
-                    .catch(error => {
-                        console.error('Error fetching data : ', error);
-                    });
-            }
-        }, [page]);
+        }, []);
 
         useEffect(()=>{
             
             // outTimeEnd가 존재할시 1일 더해주기
-            const nextDay = search.OutTimeEnd ? new Date(new Date(search.OutTimeEnd).getTime() + 24 * 60 * 60 * 1000).toISOString().split('T')[0] : '';
+            const nextDay = search.logTimeEnd ? new Date(new Date(search.logTimeEnd).getTime() + 24 * 60 * 60 * 1000).toISOString().split('T')[0] : '';
 
             axios
-            .get(`http://localhost:8080/api/search`,{
+            .get(`http://localhost:8080/api/log/search`,{
                 params:{
-                    staffId: search.staffId,
-                    ResultWard: search.ResultWard,
-                    OutTimeStart: search.OutTimeStart,
-                    OutTimeEnd: nextDay
+                    logUser: search.logUser,
+                    logAction: search.logAction,
+                    logTimeStart: search.logTimeStart,
+                    logTimeEnd: nextDay
                 }})
             .then(response => {
                 const formattedData = response.data.map(item => ({
                     ...item,
-                    resultWardUpdatedAt : extraDateAndTime(item.resultWardUpdatedAt),
+                    logTime : extraDateAndTime(item.logTime),
                 }));
-                setResultWardList(formattedData);
+                setPatient(formattedData);
                 })
             .catch(error => {
                 console.error('Error fetching search data: ', error);
             });
         }, [search])
-
-        console.log('page값2 : ',page)
 
         
 
@@ -109,7 +84,7 @@
             <div>
                 <AdminHeader />
                 <Container>
-                    <Surveillance resultWardList = { resultWardList } setSearch = {setSearch} handlePageChange = {handlePageChange} page = {page} />
+                    <Surveillance patient = { patient } setSearch = {setSearch}/>
                 </Container>
                 <Footer/>
             </div>
