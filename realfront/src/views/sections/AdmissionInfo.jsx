@@ -1,57 +1,36 @@
 import React, { useState, useEffect } from 'react';
-import { Row, Col, Card } from 'react-bootstrap';
+import { Row, Col, Card, Dropdown } from 'react-bootstrap';
 import NcdssChart from './NcdssChart';
 import DecisionDrop from '../../components/core/decisionmodal';
 import CommentModal from '../../components/core/commentmodal';
+import ResultWardTable from './ResultWardTable';
+import CommentTable from './CommentTable';
 
-const AdmissionInfo = ({ patientData, setPatientData, admissionId }) => {
+const AdmissionInfo = ({ patientData, setPatientData, admissionList, patientId, admissionId, resultWardList, commentList, setResultWard, setComment }) => {
 
     const staffId = sessionStorage.getItem("staffId");
-    const [updatedAdmissionId, setUpdatedAdmissionId] = useState(null);
-    
-    const updateAdmissionResultWard = (admissionId, newResultWard) => {
-        setPatientData(prevData => {
-            return prevData.map(patient => {
-                if(patient.admissionId === admissionId) {
-                    return { ...patient, admissionResultWard: newResultWard};
-                }
-                return patient;
-            });
-        });
-        setUpdatedAdmissionId(admissionId);
-    };
-
-    const updateAdmissionComment = (admissionId, newComment) => {
-        setPatientData(prevData => {
-            return prevData.map(patient => {
-                if (patient.admissionId === admissionId) {
-                    return { ...patient, admissionComment: newComment };
-                }
-                return patient;
-            });
-        });
-        setUpdatedAdmissionId(admissionId);
-    };
-
-    useEffect(() => {
-        if (updatedAdmissionId !== null) {
-            console.log(`admissionId ${updatedAdmissionId}의 진단 정보가 업데이트되었습니다.`);
-            setUpdatedAdmissionId(null);
-        }
-    }, [updatedAdmissionId]);
 
     return (
         <>
             <Col md={3} className="h-100">
                 <Row>
-                    <Col className="d-flex justify-content-between w-100 mb-2">
+                    <Col className="d-flex justify-content-between w-100 mb-3">
                         <Card>
                             <Card.Body>
                                 <Card.Title>
                                     InTime
                                 </Card.Title>
                                 <Card.Text>
-                                    {`${patientData.length && patientData[0].admissionInTime.year}/${patientData.length && patientData[0].admissionInTime.month}/${patientData.length && patientData[0].admissionInTime.day} ${patientData.length && patientData[0].admissionInTime.hour}:${patientData.length && patientData[0].admissionInTime.minute}`}
+                                    <Dropdown>
+                                        <Dropdown.Toggle variant="light">
+                                            {`${String(patientData.length && patientData[0].admissionInTime.year).padStart(2, '0')}.${String(patientData.length && patientData[0].admissionInTime.month).padStart(2, '0')}.${String(patientData.length && patientData[0].admissionInTime.day).padStart(2, '0')} ${String(patientData.length && patientData[0].admissionInTime.hour).padStart(2, '0')}:${String(patientData.length && patientData[0].admissionInTime.minute).padStart(2, '0')}`}
+                                        </Dropdown.Toggle>
+                                        <Dropdown.Menu className="text-center">
+                                            {admissionList.map((admission, index) => (
+                                                <Dropdown.Item key={index} href='#' onClick={() => { window.location.href = `http://localhost:3000/Detail/${patientId}/${admission.admissionId}` }}>{`${String(admission.admissionInTime.year).padStart(2, '0')}.${String(admission.admissionInTime.month).padStart(2, '0')}.${String(admission.admissionInTime.day).padStart(2, '0')} ${String(admission.admissionInTime.hour).padStart(2, '0')}:${String(admission.admissionInTime.minute).padStart(2, '0')}`}</Dropdown.Item>
+                                            ))}
+                                        </Dropdown.Menu>
+                                    </Dropdown>
                                 </Card.Text>
                             </Card.Body>
                         </Card>
@@ -78,10 +57,9 @@ const AdmissionInfo = ({ patientData, setPatientData, admissionId }) => {
                     <Col md={3} className="w-100">
                         <Card>
                             <Card.Body>
-                                <Card.Title>Result Ward</Card.Title>
                                 <Card.Text>
-                                    <DecisionDrop staffId={staffId} admissionId={admissionId} updateAdmissionResultWard={updateAdmissionResultWard} />
-                                    {`${patientData.length && patientData[0].admissionResultWard}`}
+                                    <ResultWardTable resultWardList={resultWardList} />
+                                    <DecisionDrop staffId={staffId} admissionId={admissionId} setResultWard={setResultWard} />
                                 </Card.Text>
                             </Card.Body>
                         </Card>
@@ -89,10 +67,9 @@ const AdmissionInfo = ({ patientData, setPatientData, admissionId }) => {
                     <Col md={3} className="w-100">
                         <Card>
                             <Card.Body>
-                                <Card.Title>Comment</Card.Title>
                                 <Card.Text>
-                                    <CommentModal staffId={staffId} admissionId={admissionId} updateAdmissionComment={updateAdmissionComment} />
-                                    {`${patientData.length && patientData[0].admissionDiagnosis}`}
+                                    <CommentTable commentList={commentList} />
+                                    <CommentModal staffId={staffId} admissionId={admissionId} setComment={setComment} />
                                 </Card.Text>
                             </Card.Body>
                         </Card>

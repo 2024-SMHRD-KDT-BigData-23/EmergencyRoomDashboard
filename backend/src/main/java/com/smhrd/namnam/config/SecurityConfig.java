@@ -22,12 +22,14 @@ public class SecurityConfig {
     private final JWTUtil jwtUtil;
     //AuthenticationManager가 인자로 받을 AuthenticationConfiguraion 객체 생성자 주입
     private final AuthenticationConfiguration authenticationConfiguration;
-
+//    private final JWTBlacklist jwtBlacklist;
     private final UserService userService;
+
     public SecurityConfig(AuthenticationConfiguration authenticationConfiguration, JWTUtil jwtUtil, UserService userService) {
         this.authenticationConfiguration = authenticationConfiguration;
         this.jwtUtil =jwtUtil;
         this.userService = userService;
+//        this.jwtBlacklist=jwtBlacklist;
     }
 
     //AuthenticationManager Bean 등록

@@ -19,25 +19,23 @@ const ActionModal = ({ admissionId }) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        axios.post(`http://localhost:8080/api/ER/resultWards/${staffId}/${admissionId}`, {
-            resultWard: selectedResultWard
-        })
-            .then(response => {
-                console.log('result_ward 업데이트 성공:', response.data);
-            })
-            .catch(error => {
-                console.log('result_ward 업데이트 실패:', error);
-            });
 
-        axios.post(`http://localhost:8080/api/ER/comments/${staffId}/${admissionId}`, {
+        const resultWardPromise = axios.post(`http://localhost:8080/api/ER/resultWards/${staffId}/${admissionId}`, {
+            resultWard: selectedResultWard
+        });
+
+        const commentPromise = axios.post(`http://localhost:8080/api/ER/comments/${staffId}/${admissionId}`, {
             comment: selectedComment
-        })
-            .then(response => {
-                console.log('comment 업데이트 완료', response.data);
+        });
+
+        Promise.all([resultWardPromise, commentPromise])
+            .then(([resultWardResponse, commentResponse]) => {
+                alert("환자 배치 결정 성공!");
             })
             .catch(error => {
-                console.log("comment 업데이트 실패 : ", error);
-            })
+                console.error("Action fail.. ", error);
+                alert("통신 오류..");
+            });
     };
 
     return (
@@ -73,7 +71,7 @@ const ActionModal = ({ admissionId }) => {
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" onClick={handleSubmit} className="btn btn-primary">Apply</button>
+                            <button type="submit" onClick={handleSubmit} className="btn btn-primary" data-bs-dismiss="modal">Apply</button>
                         </div>
                     </div>
                 </div>

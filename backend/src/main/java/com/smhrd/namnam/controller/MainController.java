@@ -1,5 +1,6 @@
 package com.smhrd.namnam.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,6 +15,7 @@ import java.util.Iterator;
 public class MainController {
 
     @GetMapping("/")
+    @Operation(summary = "(aws 배포 시)")
     public String mainP() {
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

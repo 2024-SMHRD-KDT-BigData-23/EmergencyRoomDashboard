@@ -36,6 +36,7 @@ const List = () => {
   }
 
   const [patients, setPatients] = useState([]);
+  const [resultWard, setResultWard] = useState([]);
   const [sectionContent, setSectionContent] = useState("Section");
   const [ncdssContent, setNcdssContent] = useState("NCDSS");
 
@@ -49,6 +50,7 @@ const List = () => {
     axios
       .get(`http://localhost:8080/api/ER/patients/${pageStatus}/${sectionContent}/${ncdssContent}/${patientNameId}`)
       .then((response) => {
+
         const formattedData = response.data.map(item => ({
           ...item,
           admissionInTime: extraDateAndTime(item.admissionInTime),
@@ -70,6 +72,22 @@ const List = () => {
         console.log("서버에서 가져온 데이터 ", formattedData);
         setPatients(formattedData);
         setDeepNcdssCounts(counts);
+
+        const promises = formattedData.map((patient) => {
+          return axios.get(`http://localhost:8080/api/ER/resultWard/${patient.admissionId}`);
+        });
+
+        Promise.all(promises)
+          .then((results) => {
+            const newResultWard = {};
+            results.forEach((result, index) => {
+              newResultWard[formattedData[index].admissionId] = result.data.resultWard;
+            });
+            setResultWard(newResultWard);
+          })
+          .catch((error) => {
+            console.log("result ward 불러오기 오류 : ", error);
+          });
       })
       .catch((error) => {
         console.error("Error fetching data: ", error);
@@ -90,7 +108,7 @@ const List = () => {
         </div>
       </div>
       <main className="mainTableCom">
-        <MainTable patients={patients} pageStatus={pageStatus} />
+        <MainTable patients={patients} pageStatus={pageStatus} resultWard={resultWard} />
       </main>
 
     </div>
