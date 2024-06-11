@@ -1,5 +1,6 @@
 package com.smhrd.namnam.service;
 
+import com.smhrd.namnam.entity.AdmissionInfo;
 import com.smhrd.namnam.entity.CommentInfo;
 import com.smhrd.namnam.entity.ERView;
 import com.smhrd.namnam.entity.ResultWardInfo;
@@ -60,8 +61,15 @@ public class ERService {
 
     // 진료 후 result_ward 결정
     public ResultWardInfoVO saveResultWard(String staffId, String admissionId, ResultWardInfoVO vo) {
-        ResultWardInfo entity = new ResultWardInfo(staffRepo.findByStaffId(staffId), admissionRepo.findByAdmissionId(admissionId), vo);
+        AdmissionInfo admissionInfo = admissionRepo.findByAdmissionId(admissionId);
+        ResultWardInfo entity = new ResultWardInfo(staffRepo.findByStaffId(staffId), admissionInfo, vo);
         ResultWardInfo savedEntity = resultWardRepo.save(entity);
+
+        if (admissionInfo.getAdmissionOutTime() == null) {
+            admissionInfo.setAdmissionOutTime(savedEntity.getResultWardUpdatedAt());
+            admissionRepo.save(admissionInfo);
+        }
+
         return new ResultWardInfoVO(savedEntity);
     }
 
