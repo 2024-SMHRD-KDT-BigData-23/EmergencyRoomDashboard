@@ -87,7 +87,7 @@
             <div>
                 <AdminHeader />
                 <Container className='adminBody'>
-                    <Surveillance patient = { patient } setSearch = {setSearch} setDelectId = {setDelectId} />
+                    <Surveillance patient = { patient } setSearch = {setSearch} />
                 </Container>
                 <Footer/>
             </div>

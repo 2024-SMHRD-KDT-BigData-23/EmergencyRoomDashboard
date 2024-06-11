@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { Container, Row, Col, Table, Button, Form, Modal } from 'react-bootstrap';
 
-const Role = ({ users, setEdit, setEditUser, setDeleteId, showDeleteSuccessModal, setShowDeleteSuccessModal, showDeleteFailModal, setShowDeleteFailModal }) => {
+const Role = ({ users, setEdit, handleDelete , showDeleteSuccessModal, setShowDeleteSuccessModal, showDeleteFailModal, setShowDeleteFailModal,
+    showEditSuccessModal, setShowEditSuccessModal, showEditFailModal, setShowEditFailModal, handleEdit, setEditUser, setEditId, setAddUser, handleAddUser,
+    showAddSuccessModal, setShowAddSuccessModal, showAddFailModal, setShowAddFailModal
+ }) => {
 
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 7; // 한 페이지에 표시할 항목 수
@@ -24,6 +27,7 @@ const Role = ({ users, setEdit, setEditUser, setDeleteId, showDeleteSuccessModal
     const [showUserModal, setShowUserModal] = useState(false);
     const [selectedUser, setSelectedUser] = useState(null);
     const [showUserEditModal, setUserEditModal] = useState(false);
+    const [showUserAddModal, setUserAddModal] = useState(false);
 
     const [showRoleModal, setShowRoleModal] = useState(false);
     const [roles, setRoles] = useState([
@@ -46,6 +50,22 @@ const Role = ({ users, setEdit, setEditUser, setDeleteId, showDeleteSuccessModal
     const handleShowDeleteModal = (user) => {
         setSelectedUser(user);
         setShowDeleteModal(true);
+    };
+
+
+    // 유저 추가 모달창 관련
+    const handleUserAddModal = () => {
+        setUserAddModal(true);
+    };
+
+    const handleCloseUserAddModal = () => setUserAddModal(false);
+
+    const handleUserAddChange = (e) => {
+        const { name, value } = e.target;
+        setAddUser(prevState => ({
+            ...prevState,
+            [name]: value
+        }));
     };
 
     const handleCloseDeleteModal = () => setShowDeleteModal(false);
@@ -78,13 +98,20 @@ const Role = ({ users, setEdit, setEditUser, setDeleteId, showDeleteSuccessModal
         role: ''
     })
     const handleEditChange = (e) => {
-        const{name, value} = e.target;
-        setEditFilter({ ...editFilter, [name]:value });
-    }
-    const handleEditSubmit = (e) => {
-        e.preventDefault();
-        setEdit(editFilter)
-    }
+        const { name, value } = e.target;
+        setEditUser(prevState => ({
+            ...prevState,
+            [name]: value
+        }));
+        setSelectedUser(prevUser => ({
+            ...prevUser,
+            [name]: value
+        }));
+    };
+    // const handleEditSubmit = (e) => {
+    //     e.preventDefault();
+    //     setEdit(editFilter)
+    // }
 
     return (
         <Container fluid>
@@ -148,11 +175,14 @@ const Role = ({ users, setEdit, setEditUser, setDeleteId, showDeleteSuccessModal
                                     <td>{user?.activityDate ? `${user.activityDate.year}.${user.activityDate.month}.${user.activityDate.day} ${user.activityDate.hour}:${user.activityDate.minute}` : "N/A"}</td>
                                     <td>{user.staffStatus}</td>
                                     <td>
-                                        <Button variant="warning" className="mx-2" onClick={()=> handleShowUserEdit(user)}>Edit</Button>
+                                        <Button variant="warning" className="mx-2" onClick={() => { handleShowUserEdit(user); setEditId(user.staffId); }}>Edit</Button>
                                         <Button variant="danger" onClick={() => handleShowDeleteModal(user)}>Delete</Button>
                                     </td>
                                 </tr>
                             ))}
+                            <td>
+                                <Button className="mx-2" onClick={() => handleUserAddModal()} >User Add</Button>
+                            </td>
                         </tbody>
                     </Table>
 
@@ -209,7 +239,7 @@ const Role = ({ users, setEdit, setEditUser, setDeleteId, showDeleteSuccessModal
                             <Form.Label>Name</Form.Label>
                             <Form.Control
                                 type="text"
-                                name="name"
+                                name="staffName"
                                 value={selectedUser.staffName}
                                 onChange={handleEditChange}
                             />
@@ -218,7 +248,7 @@ const Role = ({ users, setEdit, setEditUser, setDeleteId, showDeleteSuccessModal
                             <Form.Label>Role</Form.Label>
                             <Form.Control
                                 as="select"
-                                name="role"
+                                name="staffRole"
                                 value={selectedUser.staffRole}
                                 onChange={handleEditChange}
                             >
@@ -230,7 +260,7 @@ const Role = ({ users, setEdit, setEditUser, setDeleteId, showDeleteSuccessModal
                             <Form.Label>Id</Form.Label>
                             <Form.Control
                                 type="id"
-                                name="id"
+                                name="staffId"
                                 value={selectedUser.staffId}
                                 onChange={handleEditChange}
                             />
@@ -239,8 +269,8 @@ const Role = ({ users, setEdit, setEditUser, setDeleteId, showDeleteSuccessModal
                             <Form.Label>password</Form.Label>
                             <Form.Control
                                 type="pw"
-                                name="pw"
-                                placeholder="새 비밀번호를 입력하세요"
+                                name="staffPw"
+                                placeholder="새 비밀번호를 입력하세요 (미 입력시 기존 비밀번호 유지)"
                                 onChange={handleEditChange}
                             />
                         </Form.Group>
@@ -250,12 +280,75 @@ const Role = ({ users, setEdit, setEditUser, setDeleteId, showDeleteSuccessModal
                     <Button variant="secondary" onClick={handleCloseUseEditModal}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={handleEditSubmit}>
+                    <Button variant="primary" onClick={() => {handleEdit(selectedUser.staffId); handleCloseUseEditModal();}}>
                         Save Changes
                     </Button>
                 </Modal.Footer>
             </Modal>
             )}
+
+            {/* staff 추가 모달*/}
+                <Modal show={showUserAddModal} onHide={handleCloseUserAddModal}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Add User</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form>
+                        <Form.Group controlId="formName">
+                            <Form.Label>Name</Form.Label>
+                            <Form.Control
+                                type="text"
+                                name="staffName"
+                                placeholder="이름을 입력하세요"
+                                onChange={handleUserAddChange}
+                            />
+                        </Form.Group>
+                        <Form.Group controlId="formRole">
+                            <Form.Label>Role</Form.Label>
+                            <Form.Control
+                                as="select"
+                                name="staffRole"
+                                onChange={handleUserAddChange}
+                            >
+                            <option value="Doctor">Doctor</option>
+                            <option value="Nurse">Nurse</option>
+                            </Form.Control>
+                        </Form.Group>
+                        <Form.Group controlId="formId">
+                            <Form.Label>Id</Form.Label>
+                            <Form.Control
+                                type="id"
+                                name="staffId"
+                                placeholder="아이디를 입력하세요"
+                                onChange={handleUserAddChange}
+                            />
+                        </Form.Group>
+                        <Form.Group controlId="formPw">
+                            <Form.Label>password</Form.Label>
+                            <Form.Control
+                                type="pw"
+                                name="staffPw"
+                                placeholder="비밀번호를 입력하세요"
+                                onChange={handleUserAddChange}
+                            />
+                        </Form.Group>
+                    </Form>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleCloseUserAddModal}>
+                        Close
+                    </Button>
+                    <Button variant="primary" onClick={() => { handleCloseUserAddModal(); handleAddUser()}}>
+                        Save Changes
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+ 
+
+
+
+
+
 
             {/* 삭제 확인 모달 */}
             {selectedUser && (
@@ -270,7 +363,7 @@ const Role = ({ users, setEdit, setEditUser, setDeleteId, showDeleteSuccessModal
                         <Button variant="secondary" onClick={handleCloseDeleteModal} >
                             Cancel
                         </Button>
-                        <Button variant="danger" onClick={ () => {setDeleteId(selectedUser.staffId); handleCloseDeleteModal();}}>
+                        <Button variant="danger" onClick={ () => {handleDelete(selectedUser.staffId); handleCloseDeleteModal();}}>
                             Delete
                         </Button>
                     </Modal.Footer>
@@ -305,6 +398,70 @@ const Role = ({ users, setEdit, setEditUser, setDeleteId, showDeleteSuccessModal
                     </Button>
                 </Modal.Footer>
             </Modal>
+
+
+            {/* 수정 성공 모달 */}
+            <Modal show={showEditSuccessModal} onHide={() => setShowEditSuccessModal(false)}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Edit Success</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    수정이 성공적으로 완료되었습니다.
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={() => setShowEditSuccessModal(false)}>
+                        Close
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+
+            {/* 수정 실패 모달 */}
+            <Modal show={showEditFailModal} onHide={() => setShowEditFailModal(false)}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Edit Fail</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    수정이 실패했습니다. 다시 시도해주세요.
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={() => setShowEditFailModal(false)}>
+                        Close
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+
+
+            {/* 유저 추가 성공 모달 */}
+            <Modal show={showAddSuccessModal} onHide={() => setShowAddSuccessModal(false)}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Add Success</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    계정 생성이 완료되었습니다.
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={() => setShowAddSuccessModal(false)}>
+                        Close
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+
+            {/* 유저 추가 실패 모달 */}
+            <Modal show={showAddFailModal} onHide={() => setShowAddFailModal(false)}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Add Fail</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    계정 생성이 실패했습니다. 다시 시도해주세요.
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={() => setShowAddFailModal(false)}>
+                        Close
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+
+
 
 
 

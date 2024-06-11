@@ -56,10 +56,10 @@ const Suveillance = ({ patient, setSearch }) => {
     };
 
     const [filter, setFilter] = useState({
-        staffId: '',
-        ResultWard: '',
-        OutTimeStart: '',
-        OutTimeEnd: ''
+        logUser: '',
+        logAction: '',
+        logTimeStart: '',
+        logTimeEnd: ''
     });
 
     const handleFilterChange = (e) => {
@@ -86,25 +86,25 @@ const Suveillance = ({ patient, setSearch }) => {
                             <Col>
                                 <Form.Group controlId="filterUser">
                                     <Form.Label>User</Form.Label>
-                                    <Form.Control type="text" name="staffId" value={filter.staffId} onChange={handleFilterChange} />
+                                    <Form.Control type="text" name="logUser" value={filter.logUser} onChange={handleFilterChange} />
                                 </Form.Group>
                             </Col>
                             <Col>
                                 <Form.Group controlId="filterAction">
                                     <Form.Label>Action</Form.Label>
-                                    <Form.Control type="text" name="ResultWard" value={filter.ResultWard} onChange={handleFilterChange} />
+                                    <Form.Control type="text" name="logAction" value={filter.logAction} onChange={handleFilterChange} />
                                 </Form.Group>
                             </Col>
                             <Col>
                                 <Form.Group controlId="filterDateFrom">
                                     <Form.Label>Date From</Form.Label>
-                                    <Form.Control type="date" name="OutTimeStart" value={filter.OutTimeStart} onChange={handleFilterChange} />
+                                    <Form.Control type="date" name="logTimeStart" value={filter.logTimeStart} onChange={handleFilterChange} />
                                 </Form.Group>
                             </Col>
                             <Col>
                                 <Form.Group controlId="filterDateTo">
                                     <Form.Label>Date To</Form.Label>
-                                    <Form.Control type="date" name="OutTimeEnd" value={filter.OutTimeEnd} onChange={handleFilterChange} />
+                                    <Form.Control type="date" name="logTimeEnd" value={filter.logTimeEnd} onChange={handleFilterChange} />
                                 </Form.Group>
                             </Col>
                             <Col className="d-flex align-items-end">

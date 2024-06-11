@@ -1,9 +1,11 @@
 package com.smhrd.namnam.controller;
 
+import com.smhrd.namnam.entity.StaffInfo;
 import com.smhrd.namnam.entity.UserActivity;
 import com.smhrd.namnam.service.AdminService;
 import com.smhrd.namnam.vo.*;
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
@@ -64,15 +66,43 @@ public class AdminController {
     @GetMapping("/staff")
     @Operation(summary = "(role페이지 staff 리스트)")
     public List<RoleViewVO> findStaffInfo(){
-        System.out.println("메서드들어옴");
         return adminService.findStaffInfo();
     }
 
-    // role페이지
-    @GetMapping("/role/delete/{deleteId}")
-    @Operation(summary = "(role페이지 유저 계정 삭제)")
-    public  List<StaffInfoVO> staffInfoDelete(@PathVariable("delectId") String delectId ){
-        return null;
+
+    // role페이지 user 수정
+    @PutMapping("/role/edit/{id}")
+    @Operation(summary = "(role페이지 user 수정)")
+    public ResponseEntity<Void> editStaffInfo(@PathVariable("id") String id,@RequestBody StaffInfo staffInfo){
+        System.out.println("id : "+id);
+        System.out.println("staffName : "+staffInfo.getStaffName());
+        System.out.println("staffRole : "+staffInfo.getStaffRole());
+        System.out.println("staffId : "+staffInfo.getStaffId());
+        System.out.println("staffPw : "+staffInfo.getStaffPw());
+        adminService.editStaffInfo(id, staffInfo.getStaffName(), staffInfo.getStaffRole(),
+                staffInfo.getStaffId(), staffInfo.getStaffPw());
+        return ResponseEntity.ok().build();
+    }
+
+    // role페이지 user 삭제
+    @DeleteMapping("/role/delete/{id}")
+    @Operation(summary = "(role페이지 user 삭제)")
+    public ResponseEntity<Void> deleteStaffInfo(@PathVariable("id") String id){
+        adminService.deleteStaffInfo(id);
+        return ResponseEntity.ok().build();
+    }
+
+    // role페이지 user 추가
+    @PostMapping("/role/add")
+    @Operation(summary = "(role페이지 user 추가)")
+    public ResponseEntity<Void> addStaffInfo(@RequestBody StaffInfo staffInfo){
+        System.out.println("staffName1 : "+staffInfo.getStaffName());
+        System.out.println("staffRole1 : "+staffInfo.getStaffRole());
+        System.out.println("staffId1 : "+staffInfo.getStaffId());
+        System.out.println("staffPw1 : "+staffInfo.getStaffPw());
+        adminService.addStaffInfo(staffInfo.getStaffName(), staffInfo.getStaffRole(),
+                staffInfo.getStaffId(), staffInfo.getStaffPw());
+        return ResponseEntity.ok().build();
     }
 
 

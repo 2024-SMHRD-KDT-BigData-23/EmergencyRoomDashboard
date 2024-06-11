@@ -24,7 +24,7 @@ public interface LogViewRepository extends JpaRepository<LogView, Long> {
     @Query(value = "SELECT * FROM log_view " +
             "WHERE ((log_time BETWEEN :logTimeStart AND :logTimeEnd) OR (:logTimeStart = '' OR :logTimeEnd = '')) " +
             "AND ((log_user = :logUser) OR (:logUser = '')) " +
-            "AND ((log_action = :logAction) OR (:logAction = '')) " +
+            "AND (((:logAction = 'Decision') AND (log_action = 'WARD' OR log_action = 'ICD' OR log_action = 'DISCHARGE')) OR (:logAction = '')) " +
             "ORDER BY log_time DESC",
             nativeQuery = true)
     List<LogView> searchlogInfo(@Param("logUser") String logUser, @Param("logAction") String logAction,
