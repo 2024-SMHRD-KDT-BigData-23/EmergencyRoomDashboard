@@ -48,7 +48,7 @@ const RolePage = () => {
     return (
         <div>
             <AdminHeader />
-            <Container>
+            <Container > 
                 <Role users = { users } setEdit = {setEdit} setEditUser = {setEditUser} />
             </Container>
             <Footer/>
