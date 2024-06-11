@@ -33,6 +33,8 @@ public class AdminService {
     private UserActivityRepository userActivityRepo;
     @Autowired
     private LogViewRepository logViewRepo;
+    @Autowired
+    private RoleViewRepository roleViewRepo;
 
 
 
@@ -77,6 +79,12 @@ public class AdminService {
                 .collect(Collectors.toList());
     }
 
+    // RoleViewVO entity list 형태 -> vo list형태로 변환 메서드
+    private List<RoleViewVO> converToRoleViewVOList(List<RoleView> roleView){
+        return roleView.stream().map(entity -> modelMapper.map(entity, RoleViewVO.class))
+                .collect(Collectors.toList());
+    }
+
 
 
     //////////////////////////////////////result_ward log 페이지///////////////////////
@@ -93,11 +101,13 @@ public class AdminService {
 
 
 
-    //////////////////////////////////검색관련/////////////////////////////////////////////////
-    // staff들 리스트
-    public List<StaffInfoVO> findStaffInfo() {
-        return convertToStaffInfoVOList(staffInfoRepo.findStaffInfo());
+    //////////////////////////////////role 페이지/////////////////////////////////////////////////
+    public List<RoleViewVO> findStaffInfo() {
+        return converToRoleViewVOList(roleViewRepo.findAll());
     }
+
+
+
 
 
     ///////////////////////////////////////help 페이지////////////////////
@@ -109,5 +119,6 @@ public class AdminService {
 
         mailSender.send(message);
     }
+
 
 }

@@ -9,15 +9,16 @@
     const SurveillancePage = () => {
 
         // Timestamp 형식의 데이터를 "년/월/일/시/분/초"로 쪼개주는 함수
-        const extraDateAndTime = (timeStamp) => {
-            const date = new Date(timeStamp);
+        const extraDateAndTime = (timestamp) => {
+        if (timestamp !== null) {
+            const date = new Date(timestamp);
 
-            const year = date.getFullYear();
-            const month = date.getMonth() +1;
-            const day = date. getDate();
-            const hour = date.getHours();
-            const minute = date.getMinutes();
-            const second = date.getSeconds();
+            const year = String(date.getFullYear()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            const hour = String(date.getHours()).padStart(2, '0');
+            const minute = String(date.getMinutes()).padStart(2, '0');
+            const second = String(date.getSeconds()).padStart(2, '0');
 
             return {
                 year,
@@ -27,7 +28,10 @@
                 minute,
                 second
             };
-        } 
+        } else {
+            return timestamp;
+        }
+    }
 
 
 
@@ -35,7 +39,6 @@
         const [patient, setPatient] = useState([]);
         // const [loginList, setLoginList] = useState([]);
         const [search, setSearch] = useState([]);
-
 
 
         useEffect(() => {
@@ -84,7 +87,7 @@
             <div>
                 <AdminHeader />
                 <Container>
-                    <Surveillance patient = { patient } setSearch = {setSearch}/>
+                    <Surveillance patient = { patient } setSearch = {setSearch} setDelectId = {setDelectId} />
                 </Container>
                 <Footer/>
             </div>

@@ -29,7 +29,4 @@ public class StaffInfoVO {
     // HospitalInfo의 병원 식별자
     private Long hospitalId;
 
-    // activity_date
-    private Timestamp activity_date;
-
 }

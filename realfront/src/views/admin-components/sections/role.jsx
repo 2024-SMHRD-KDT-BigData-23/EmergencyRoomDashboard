@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Container, Row, Col, Table, Button, Form, Modal } from 'react-bootstrap';
 
-const Role = ({ users, setEdit, setEditUser }) => {
+const Role = ({ users, setEdit, setEditUser, setDeleteId, showDeleteSuccessModal, setShowDeleteSuccessModal, showDeleteFailModal, setShowDeleteFailModal }) => {
 
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 7; // 한 페이지에 표시할 항목 수
@@ -20,6 +20,7 @@ const Role = ({ users, setEdit, setEditUser }) => {
         pageNumbers.push(i);
     }
 
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [showUserModal, setShowUserModal] = useState(false);
     const [selectedUser, setSelectedUser] = useState(null);
     const [showUserEditModal, setUserEditModal] = useState(false);
@@ -41,6 +42,14 @@ const Role = ({ users, setEdit, setEditUser }) => {
         setSelectedUser(user);
         setShowUserModal(true);
     };
+
+    const handleShowDeleteModal = (user) => {
+        setSelectedUser(user);
+        setShowDeleteModal(true);
+    };
+
+    const handleCloseDeleteModal = () => setShowDeleteModal(false);
+
     //
     const handleCloseUseEditModal = () => setUserEditModal(false);
     //
@@ -136,11 +145,11 @@ const Role = ({ users, setEdit, setEditUser }) => {
                                     <td>{user.staffName}</td>
                                     <td>{user.staffId}</td>
                                     <td>{user.staffRole}</td>
-                                    <td>{user.activity_date}</td>
+                                    <td>{user?.activityDate ? `${user.activityDate.year}.${user.activityDate.month}.${user.activityDate.day} ${user.activityDate.hour}:${user.activityDate.minute}` : "N/A"}</td>
                                     <td>{user.staffStatus}</td>
                                     <td>
                                         <Button variant="warning" className="mx-2" onClick={()=> handleShowUserEdit(user)}>Edit</Button>
-                                        <Button variant="danger">Delete</Button>
+                                        <Button variant="danger" onClick={() => handleShowDeleteModal(user)}>Delete</Button>
                                     </td>
                                 </tr>
                             ))}
@@ -210,6 +219,7 @@ const Role = ({ users, setEdit, setEditUser }) => {
                             <Form.Control
                                 as="select"
                                 name="role"
+                                value={selectedUser.staffRole}
                                 onChange={handleEditChange}
                             >
                             <option value="Doctor">Doctor</option>
@@ -230,6 +240,7 @@ const Role = ({ users, setEdit, setEditUser }) => {
                             <Form.Control
                                 type="pw"
                                 name="pw"
+                                placeholder="새 비밀번호를 입력하세요"
                                 onChange={handleEditChange}
                             />
                         </Form.Group>
@@ -246,80 +257,60 @@ const Role = ({ users, setEdit, setEditUser }) => {
             </Modal>
             )}
 
-
-
-
-
-            {/* 하단 섹션: 새로운 사용자 추가 ->이후에 db랑 연결 */}
-            <Row className="mb-3">
-                <Col>
-                    <Form>
-                        <Row>
-                            <Form.Group as={Col} controlId="formGridName">
-                                <Form.Label>Name</Form.Label>
-                                <Form.Control type="text" placeholder="Enter name" />
-                            </Form.Group>
-
-                            <Form.Group as={Col} controlId="formGridEmail">
-                                <Form.Label>Email</Form.Label>
-                                <Form.Control type="email" placeholder="Enter email" />
-                            </Form.Group>
-                        </Row>
-
-                        <Row>
-                            <Form.Group as={Col} controlId="formGridPassword">
-                                <Form.Label>Password</Form.Label>
-                                <Form.Control type="password" placeholder="Password" />
-                            </Form.Group>
-
-                            <Form.Group as={Col} controlId="formGridRole">
-                                <Form.Label>Role</Form.Label>
-                                <Form.Control as="select">
-                                    <option>Choose...</option>
-                                    <option>Doctor</option>
-                                    <option>Nurse</option>
-                                </Form.Control>
-                            </Form.Group>
-
-                            <Form.Group as={Col} controlId="formGridStatus">
-                                <Form.Label>Status</Form.Label>
-                                <Form.Control as="select">
-                                    <option>Choose...</option>
-                                    <option>Active</option>
-                                    <option>Inactive</option>
-                                </Form.Control>
-                            </Form.Group>
-                        </Row>
-
-                        <Button variant="primary" type="submit">
-                            Add User
+            {/* 삭제 확인 모달 */}
+            {selectedUser && (
+                <Modal show={showDeleteModal} onHide={handleCloseDeleteModal}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Confirm Delete</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <p>{selectedUser.staffId} 계정을 정말 삭제 하시겠습니까?</p>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={handleCloseDeleteModal} >
+                            Cancel
                         </Button>
-                    </Form>
-                </Col>
-            </Row>
+                        <Button variant="danger" onClick={ () => {setDeleteId(selectedUser.staffId); handleCloseDeleteModal();}}>
+                            Delete
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
+            )}
+            {/* 삭제 성공 모달 */}
+            <Modal show={showDeleteSuccessModal} onHide={() => setShowDeleteSuccessModal(false)}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Delete Success</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    삭제가 성공적으로 완료되었습니다.
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={() => setShowDeleteSuccessModal(false)}>
+                        Close
+                    </Button>
+                </Modal.Footer>
+            </Modal>
 
-            {/* 역할 관리 섹션 */}
-            <Row className="mb-3">
-                <Col>
-                    <Table striped bordered hover>
-                        <thead>
-                            <tr>
-                                <th>Role Name</th>
-                                <th>Description</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {roles.map(role => (
-                                <tr key={role.id}>
-                                    <td>{role.name}</td>
-                                    <td>{role.description}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </Table>
-                    <Button variant="primary" onClick={handleShowRoleModal}>Add Role</Button>
-                </Col>
-            </Row>
+            {/* 삭제 실패 모달 */}
+            <Modal show={showDeleteFailModal} onHide={() => setShowDeleteFailModal(false)}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Delete Fail</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    삭제를 실패했습니다. 다시 시도해주세요.
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={() => setShowDeleteFailModal(false)}>
+                        Close
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+
+
+
+
+
+
 
             {/* 역할 추가 모달 */}
             <Modal show={showRoleModal} onHide={handleCloseRoleModal}>

@@ -35,6 +35,7 @@ public class AdminController {
     public List<LogViewVO> findLogInfo() {
         return adminService.findLogInfo();
     }
+
     // admin log 검색(staff_id, action, 날짜)
     @GetMapping("/log/search")
     @Operation(summary = "(admin log 검색(staff_id, action, 날짜))")
@@ -61,12 +62,17 @@ public class AdminController {
     ///////////////////////////////role 페이지////////////////////////////////////
     // staff들 리스트
     @GetMapping("/staff")
-    @Operation(summary = "(staff들 리스트)")
-    public List<StaffInfoVO> findStaffInfo(){
-
-        System.out.println("1번 : "+adminService.findStaffInfo().get(1).getStaffId());
-        System.out.println("2번 : "+adminService.findStaffInfo().get(1).getActivity_date());
+    @Operation(summary = "(role페이지 staff 리스트)")
+    public List<RoleViewVO> findStaffInfo(){
+        System.out.println("메서드들어옴");
         return adminService.findStaffInfo();
+    }
+
+    // role페이지
+    @GetMapping("/role/delete/{deleteId}")
+    @Operation(summary = "(role페이지 유저 계정 삭제)")
+    public  List<StaffInfoVO> staffInfoDelete(@PathVariable("delectId") String delectId ){
+        return null;
     }
 
 
