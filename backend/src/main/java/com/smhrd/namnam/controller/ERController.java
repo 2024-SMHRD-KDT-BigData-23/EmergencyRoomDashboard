@@ -32,6 +32,13 @@ public class ERController {
             return erService.findPatients(pageStatus, bedward, deepNcdss, patientNameId);
     }
 
+    // result_ward 결정 유무 조회
+    @GetMapping("/resultWard/{admissionId}")
+    @Operation(summary = "(환자 result_ward 유무)")
+    public ResponseEntity<ResultWardInfo> findResultWard(@PathVariable("admissionId") String admissionId) {
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(erService.findResultWard(admissionId));
+    }
+
     // 응급실 진료 후 result_ward 결정
     @PostMapping("/resultWards/{staffId}/{admissionId}")
     @Operation(summary = "(환자 result_ward 결정)")
@@ -53,8 +60,22 @@ public class ERController {
     // 특정 입원코드에 대한 상세 정보
     @GetMapping("/patient-details/{admissionId}")
     @Operation(summary = "(특정 입원코드에 대한 상세 정보)")
-    public List<ERViewVO> findPatientDetailsByAdmissionId(@PathVariable("admissionId") String admissionId){
+    public List<ERViewVO> findPatientDetailsByAdmissionId(@PathVariable("admissionId") String admissionId) {
         return erService.findPatientDetailsByAdmissionId(admissionId);
+    }
+
+    // 특정 입원코드에 대한 배치 정보
+    @GetMapping("/resultWards/{admissionId}")
+    @Operation(summary = "(특정 입원코드에 대한 Result Ward 기록 정보)")
+    public List<ResultWardInfoVO> findResultWardsByAdmissionId(@PathVariable("admissionId") String admissionId) {
+        return erService.findResultWardsByAdmissionId(admissionId);
+    }
+
+    // 특정 입원코드에 대한 진단 정보
+    @GetMapping("/comments/{admissionId}")
+    @Operation(summary = "(특정 입원코드에 대한 Comment 기록 정보)")
+    public List<CommentInfoVO> findCommentsByAdmissionId(@PathVariable("admissionId") String admissionId) {
+        return erService.findCommentsByAdmissionId(admissionId);
     }
     ///////////////////////////////////////////////////////////////////////////////////////
 

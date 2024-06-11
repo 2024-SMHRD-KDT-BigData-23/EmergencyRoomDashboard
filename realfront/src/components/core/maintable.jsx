@@ -3,7 +3,7 @@ import '../../assets/scss/maintable.scss';
 import { Link } from 'react-router-dom';
 import ActionModal from './ActionModal';
 
-const MainTable = ({ patients }) => {
+const MainTable = ({ patients, pageStatus, resultWard }) => {
 
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 14; // 한 페이지에 표시할 항목 수
@@ -64,6 +64,11 @@ const MainTable = ({ patients }) => {
             {label}{suffix}
         </Link>
     );
+    // 총 페이지 수를 계산하고 페이지 번호를 배열에 저장합니다.
+    const pageNumbers = [];
+    for (let i = 1; i <= Math.ceil(patients.length / itemsPerPage); i++) {
+        pageNumbers.push(i);
+    };
 
     return (
         <div>
@@ -103,7 +108,11 @@ const MainTable = ({ patients }) => {
                                         </Link>
                                     </td>
                                     <td>
-                                        <ActionModal selectedAdmissionId={patient.admissionId} />
+                                        {resultWard[patient.admissionId] ? (
+                                            resultWard[patient.admissionId]
+                                        ) : (
+                                            <ActionModal admissionId={patient.admissionId} />
+                                        )}
                                     </td>
                                 </tr>
                             ))}

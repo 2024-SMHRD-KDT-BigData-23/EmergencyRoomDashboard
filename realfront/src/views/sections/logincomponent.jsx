@@ -23,7 +23,7 @@ const LoginComponent = () => {
                 if(username ==='admin' && password === 'admin'){
                     navigate('/admin'); 
                 } else {
-                    navigate('/List');
+                    navigate('/present/List/All');
             }
             } else {
                 setError('로그인 실패. 다시 시도해 주세요.');
@@ -53,7 +53,7 @@ const LoginComponent = () => {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                     />
-                    <button type="submit">SIGN IN</button>
+                    <button type="submit" className='loginButton'>SIGN IN</button>
                 </div>
             </form>
             {error && <p>{error}</p>}

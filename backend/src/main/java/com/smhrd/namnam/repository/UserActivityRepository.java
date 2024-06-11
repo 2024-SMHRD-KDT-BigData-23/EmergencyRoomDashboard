@@ -10,7 +10,5 @@ import java.util.List;
 
 @Repository
 public interface UserActivityRepository extends JpaRepository<UserActivity, Long> {
-    List<UserActivity> findByActivityDateBetween(LocalDateTime startDate,LocalDateTime endDate);
-
 
 }

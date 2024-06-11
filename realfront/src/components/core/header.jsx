@@ -1,18 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Navbar, Container, Row, Col } from "react-bootstrap";
+import { Navbar, Container, Col } from "react-bootstrap";
 import "../../assets/scss/header.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStethoscope, faTable } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 
 const Header = () => {
-  const [show, setShow] = useState(false); // offCanvas 상태를 저장
-  const navigate = useNavigate();
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
- 
+  const navigate = useNavigate();
 
   const handleLogout = async () => {
     try {
@@ -48,7 +44,7 @@ const Header = () => {
         <Col className="d-flex justify-content-start align-items-center">
           <div className="titleSet d-flex">
             <div className="MainTitle">
-              <Link to="/List" className="MainLogoLink">
+              <Link to="/present/List/All" className="MainLogoLink">
                 NCDSS
               </Link>
             </div>
@@ -63,14 +59,14 @@ const Header = () => {
         >
           <div className="pageMove">
             <FontAwesomeIcon icon={faTable} className="fIcon" />
-            <Link to="/List" className="MainLogoLink">
+            <Link to="/present/List/All" className="MainLogoLink">
               Present
             </Link>
           </div>
 
           <div className="pageMove">
             <FontAwesomeIcon icon={faTable} className="fIcon" />
-            <Link to="/Alllist" className="MainLogoLink">
+            <Link to="/past/List/All" className="MainLogoLink">
               Past
             </Link>
           </div>

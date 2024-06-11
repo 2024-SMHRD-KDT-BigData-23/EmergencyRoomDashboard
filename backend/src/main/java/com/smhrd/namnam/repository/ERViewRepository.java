@@ -33,14 +33,20 @@ public interface ERViewRepository extends JpaRepository<ERView, Long> {
             "     FROM er_view " +
             "     GROUP BY admission_id) b " +
             "ON a.admission_id = b.admission_id AND a.patient_vital_created_at = b.max_vital_time " +
-            "LEFT JOIN result_ward_info r " +
+            "LEFT JOIN (SELECT * " +
+            "           FROM (SELECT *, ROW_NUMBER() OVER (PARTITION BY admission_id ORDER BY result_ward_updated_at DESC) AS rn " +
+            "           FROM result_ward_info) t " +
+            "           WHERE rn = 1) AS r " +
             "ON a.admission_id = r.admission_id " +
-            "WHERE ((:pageStatus = 'present' AND r.result_ward IS NULL) OR r.result_ward IS NOT NULL) " +
-            "AND (:ward = 'All' OR a.bed_ward = :ward) " +
-            "AND (:ncdss = 'All' OR a.deep_ncdss = :ncdss) " +
-            "ORDER BY a.admission_in_time ASC",
+            "WHERE ((:pageStatus = 'present' AND r.result_ward IS NULL)" +
+            "OR (:pageStatus = 'past' AND r.result_ward IS NOT NULL)" +
+            "OR (:pageStatus = 'search' AND" +
+            "(:patientNameId = 'All' OR a.patient_id = :patientNameId OR a.patient_name = :patientNameId))) " +
+            "AND (:ward = 'Section' OR a.bed_ward = :ward) " +
+            "AND (:ncdss = 'NCDSS' OR a.deep_ncdss = :ncdss) " +
+            "ORDER BY a.admission_in_time DESC",
             nativeQuery = true)
-    List<ERView> findMedicalPatients(@Param("pageStatus") String pageStatus, @Param("ward") String ward, @Param("ncdss") String ncdss);
+    List<ERView> findMedicalPatients(@Param("pageStatus") String pageStatus, @Param("ward") String ward, @Param("ncdss") String ncdss, @Param("patientNameId") String patientNameId);
 
     // 현재, 과거 입원 리스트 페이지에서 patient의 name, id에 대한 입원 내역 정보 검색(각 입원코드마다 가장최신)
 //    @Query(value = "SELECT a.* FROM er_view a " +
@@ -56,19 +62,19 @@ public interface ERViewRepository extends JpaRepository<ERView, Long> {
 //    List<ERView> searchByPatientNameId(@Param("patientNameId") String patientNameId,
 //                                                  @Param("admissionResultWard") String admissionResultWard);
 
-    @Query(value = "SELECT a.* " +
-            "FROM er_view a " +
-            "JOIN (SELECT admission_id, MAX(patient_vital_created_at) AS max_vital_time " +
-            "     FROM er_view " +
-            "     GROUP BY admission_id) b " +
-            "ON a.admission_id = b.admission_id AND a.patient_vital_created_at = b.max_vital_time " +
-            "LEFT JOIN result_ward_info r " +
-            "ON a.admission_id = r.admission_id " +
-            "WHERE (a.patient_name = :patientNameId OR a.patient_id = :patientNameId) " +
-            "OR (:patientNameId IS NULL) " +
-            "AND ((:pageStatus = 'present' AND r.result_ward IS NULL) OR r.result_ward IS NOT NULL)",
-            nativeQuery = true)
-    List<ERView> searchByPatientNameId(@Param("pageStatus") String pageStatus, @Param("patientNameId") String patientNameId);
+//    @Query(value = "SELECT a.* " +
+//            "FROM er_view a " +
+//            "JOIN (SELECT admission_id, MAX(patient_vital_created_at) AS max_vital_time " +
+//            "     FROM er_view " +
+//            "     GROUP BY admission_id) b " +
+//            "ON a.admission_id = b.admission_id AND a.patient_vital_created_at = b.max_vital_time " +
+//            "LEFT JOIN result_ward_info r " +
+//            "ON a.admission_id = r.admission_id " +
+//            "WHERE (a.patient_name = :patientNameId OR a.patient_id = :patientNameId) " +
+//            "OR (:patientNameId IS NULL) " +
+//            "AND ((:pageStatus = 'present' AND r.result_ward IS NULL) OR r.result_ward IS NOT NULL)",
+//            nativeQuery = true)
+//    List<ERView> searchByPatientNameId(@Param("pageStatus") String pageStatus, @Param("patientNameId") String patientNameId);
     /////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -90,7 +96,7 @@ public interface ERViewRepository extends JpaRepository<ERView, Long> {
             "WHERE patient_name = :patientNameId OR patient_id = :patientNameId " +
             "GROUP BY admission_id) b " +
             "ON a.admission_id = b.admission_id AND a.patient_vital_created_at = b.max_vital_time " +
-            "WHERE a.patient_name = :patientNameId OR a.patient_id = :patientNameId "+
+            "WHERE a.patient_name = :patientNameId OR a.patient_id = :patientNameId " +
             "ORDER BY a.admission_in_time DESC",
             nativeQuery = true)
     List<ERView> allSearchByPatientNameId(@Param("patientNameId") String patientNameId);

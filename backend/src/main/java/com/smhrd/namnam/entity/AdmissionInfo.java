@@ -34,7 +34,7 @@ public class AdmissionInfo {
     private StaffInfo staffInfo;
 
     // 도착 시간
-    @Column(name = "admission_in_time")
+    @Column(name = "admission_in_time", nullable = false)
     private Timestamp admissionInTime;
 
     // 퇴원 시간
@@ -42,7 +42,7 @@ public class AdmissionInfo {
     private Timestamp admissionOutTime;
 
     // 도착수단
-    @Column(name = "admission_arrival_transport", length = 20)
+    @Column(name = "admission_arrival_transport", length = 20, nullable = false)
     private String admissionArrivalTransport;
 
     // 통증수준
