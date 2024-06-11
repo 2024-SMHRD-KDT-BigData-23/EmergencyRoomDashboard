@@ -74,17 +74,15 @@
                     {/* 오른쪽 병원이름 드롭다운 */}
                     <Col xs="auto" className="d-flex justify-content-end align-items-center rightMenu ">
                         
-
-
                         <div class="dropdown">
                         <button class="btn hospitalUser" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <FontAwesomeIcon icon={faStethoscope} /> 스마트병원
+                        <FontAwesomeIcon icon={faStethoscope} className='ex123123'/> 스마트병원
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end">
                         <li><button className="dropdown-item" onClick={handleLogout}>Logout</button></li>
                         </ul>
                         </div>
-                        </Col>
+                    </Col>
 
                     </Row>
 
