@@ -5,7 +5,7 @@ import axios from "axios";
 const Suveillance = ({ patients = [], setSearch }) => {
     const [userActivities, setUserActivities] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 14; // 한 페이지에 표시할 항목 수
+    const itemsPerPage = 12; // 한 페이지에 표시할 항목 수
 
     useEffect(() => {
         axios.get('http://localhost:8080/api/user-activity').then(response => {
@@ -85,8 +85,8 @@ const Suveillance = ({ patients = [], setSearch }) => {
     };
 
     return (
-        <Container>
-            <Row className="my-3">
+        <Container className="p-2">
+            <Row>
                 <Col>
                     <h2>Audit Logs</h2>
                     <Form onSubmit={handleSubmit}>
@@ -117,6 +117,9 @@ const Suveillance = ({ patients = [], setSearch }) => {
                             </Col>
                             <Col className="d-flex align-items-end">
                                 <Button variant="primary" type="submit">Search</Button>
+                            </Col>
+                            <Col className="d-flex align-items-end SurCsvBtn justify-content-end">
+                                <Button variant="success" onClick={handleExportLogs}>Export Logs</Button>
                             </Col>
                         </Row>
                     </Form>
@@ -182,11 +185,6 @@ const Suveillance = ({ patients = [], setSearch }) => {
                             </li>
                         </ul>
                     </div>
-                </Col>
-            </Row>
-            <Row className="my-3">
-                <Col>
-                    <Button variant="success" onClick={handleExportLogs}>Export Logs</Button>
                 </Col>
             </Row>
         </Container>

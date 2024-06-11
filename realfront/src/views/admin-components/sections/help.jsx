@@ -24,9 +24,9 @@ const Help = () => {
             })
     };
     return (
-        <Container fluid>
+        <Container fluid className="">
             {/* 상단 섹션 */}
-            <Row className="my-3">
+            <Row>
                 <Col>
                     <h1>지원 및 도움말</h1>
                     <Form>

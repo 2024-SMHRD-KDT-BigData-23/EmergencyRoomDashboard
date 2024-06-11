@@ -26,7 +26,6 @@ const SearchForm = () => {
                             <input name="search" ref={inputRef} className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
                             <button className="btn SearchBtn" type="submit">
                             <FontAwesomeIcon icon={faMagnifyingGlass} />
-                            {/* <img src={SearchImg} alt="Search" style={{ width: '20px', height: '20px',  }}></img> */}
                             </button>
                         </form>
                     </div>
