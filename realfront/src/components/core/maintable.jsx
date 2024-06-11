@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import '../../assets/scss/maintable.scss';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import ActionModal from './ActionModal';
 
 const MainTable = ({ patients, pageStatus, resultWard }) => {
