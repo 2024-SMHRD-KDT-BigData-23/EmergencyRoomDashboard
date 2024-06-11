@@ -9,6 +9,8 @@ import com.smhrd.namnam.repository.UserActivityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -37,9 +39,9 @@ public class UserService {
     public int getActiveUsers() {
         return (int) userRepository.countByStaffStatus("active");
     }
-    public void updateStatus(String staffId,String status){
-        Optional<StaffInfo> user =userRepository.findById(staffId);
-        if(user.isPresent()){
+    public void updateStatus(String staffId, String status) {
+        Optional<StaffInfo> user = userRepository.findById(staffId);
+        if (user.isPresent()) {
             StaffInfo staffInfo = user.get();
             staffInfo.setStaffStatus(status);
             userRepository.save(staffInfo);
@@ -48,9 +50,15 @@ public class UserService {
             UserActivity activity = new UserActivity();
             activity.setStaffInfo(staffInfo);
             activity.setActivityDate(LocalDateTime.now());
-            activity.setActivityType(status.equals("active")?"login":"logout");
+            activity.setActivityType(status.equals("active") ? "login" : "logout");
             userActivityRepository.save(activity);
-
         }
     }
+
+    public List<UserActivity> getUserActivityForLastWeek(){
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime weekAgo= now.minusDays(7);
+        return userActivityRepository.findByActivityDateBetween(weekAgo,now);
+    }
 }
+
