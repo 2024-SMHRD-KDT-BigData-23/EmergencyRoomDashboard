@@ -7,15 +7,63 @@ const MainTable = ({ patients, pageStatus, resultWard }) => {
 
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 14; // 한 페이지에 표시할 항목 수
+    const totalPages = Math.ceil(patients.length / itemsPerPage);
 
     // 현재 페이지에 표시할 데이터를 계산합니다.
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentItems = patients.slice(indexOfFirstItem, indexOfLastItem);
 
-    // 페이지를 변경하는 함수입니다.
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
+    const getPagination = () => {
+        const pageNumbers = [];
+        let startPage, endPage;
+
+        if (totalPages <= 10) {
+            startPage = 1;
+            endPage = totalPages;
+        } else {
+            if (currentPage <= 6) {
+                startPage = 1;
+                endPage = 10;
+            } else if (currentPage + 4 >= totalPages) {
+                startPage = totalPages - 9;
+                endPage = totalPages;
+            } else {
+                startPage = currentPage - 5;
+                endPage = currentPage + 4;
+            }
+        }
+
+        for (let i = startPage; i <= endPage; i++) {
+            pageNumbers.push(i);
+        }
+
+        return pageNumbers;
+    };
+
+    const handlePrev = () => {
+        if (currentPage > 1) {
+            setCurrentPage(currentPage - 1);
+        }
+    };
+
+    const handleNext = () => {
+        if (currentPage < totalPages) {
+            setCurrentPage(currentPage + 1);
+        }
+    };
+
+    const formatDate = (dateObj) => {
+        return `${String(dateObj.year).padStart(2, '0')}.${String(dateObj.month).padStart(2, '0')}.${String(dateObj.day).padStart(2, '0')} ${String(dateObj.hour).padStart(2, '0')}:${String(dateObj.minute).padStart(2, '0')}:${String(dateObj.second).padStart(2, '0')}`;
+    };
+
+    const renderLink = (patient, field, label, suffix = '') => (
+        <Link to={`/Detail/${patient.patientId}/${patient.admissionId}`} state={{ patient }} className='tableLink'>
+            {label}{suffix}
+        </Link>
+    );
     // 총 페이지 수를 계산하고 페이지 번호를 배열에 저장합니다.
     const pageNumbers = [];
     for (let i = 1; i <= Math.ceil(patients.length / itemsPerPage); i++) {
@@ -29,88 +77,29 @@ const MainTable = ({ patients, pageStatus, resultWard }) => {
                     <table className="table table-hover" style={{ textAlign: 'center' }}>
                         <thead>
                             <tr>
-                                <th scope="col">In Time</th>
-                                <th scope="col">MT(Measurement)</th>
-                                <th scope="col">Patient ID</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Sex</th>
-                                <th scope="col">Temp</th>
-                                <th scope="col">HR</th>
-                                <th scope="col">RR</th>
-                                <th scope="col">SPO2</th>
-                                <th scope="col">SBP</th>
-                                <th scope="col">DBP</th>
-                                <th scope="col">Section</th>
-                                <th scope="col">NCDSS</th>
-                                <th scope="col">Decision</th>
+                                {[
+                                    "In Time", "MT(Measurement)", "Patient ID", "Name", "Sex", "Temp",
+                                    "HR", "RR", "SPO2", "SBP", "DBP", "Section", "NCDSS", "Decision"
+                                ].map((header, index) => (
+                                    <th key={index} scope="col">{header}</th>
+                                ))}
                             </tr>
                         </thead>
                         <tbody>
                             {currentItems.map(patient => (
-                                <tr key={patient.admissionId} className='MainTableFont'>
-                                    <td>
-                                        <Link to={`/Detail/${patient.patientId}/${patient.admissionId}`} state={{ patient }} className='tableLink'>
-                                            {`${String(patient.admissionInTime.year).padStart(2, '0')}.${String(patient.admissionInTime.month).padStart(2, '0')}.${String(patient.admissionInTime.day).padStart(2, '0')}
-                                            ${String(patient.admissionInTime.hour).padStart(2, '0')}:${String(patient.admissionInTime.minute).padStart(2, '0')}:${String(patient.admissionInTime.second).padStart(2, '0')}`}
-                                        </Link>
-                                    </td>
-                                    <td>
-                                        <Link to={`/Detail/${patient.patientId}/${patient.admissionId}`} state={{ patient }} className='tableLink'>
-                                            {`${patient.patientVitalCreatedAt.year}.${String(patient.patientVitalCreatedAt.month).padStart(2, '0')}.${String(patient.patientVitalCreatedAt.day).padStart(2, '0')}
-                                            ${String(patient.patientVitalCreatedAt.hour).padStart(2, '0')}:${String(patient.patientVitalCreatedAt.minute).padStart(2, '0')}:${String(patient.patientVitalCreatedAt.second).padStart(2, '0')}
-                                            `}
-                                        </Link>
-                                    </td>
-                                    <td>
-                                        <Link to={`/Detail/${patient.patientId}/${patient.admissionId}`} state={{ patient }} className='tableLink'>
-                                            {patient.patientId}
-                                        </Link>
-                                    </td>
-                                    <td>
-                                        <Link to={`/Detail/${patient.patientId}/${patient.admissionId}`} state={{ patient }} className='tableLink'>
-                                            {patient.patientName}
-                                        </Link>
-                                    </td>
-                                    <td>
-                                        <Link to={`/Detail/${patient.patientId}/${patient.admissionId}`} state={{ patient }} className='tableLink'>
-                                            {patient.patientSex}
-                                        </Link>
-                                    </td>
-                                    <td>
-                                        <Link to={`/Detail/${patient.patientId}/${patient.admissionId}`} state={{ patient }} className='tableLink'>
-                                            {patient.patientVitalTemperature}°C
-                                        </Link>
-                                    </td>
-                                    <td>
-                                        <Link to={`/Detail/${patient.patientId}/${patient.admissionId}`} state={{ patient }} className='tableLink'>
-                                            {patient.patientVitalHr}
-                                        </Link>
-                                    </td>
-                                    <td>
-                                        <Link to={`/Detail/${patient.patientId}/${patient.admissionId}`} state={{ patient }} className='tableLink'>
-                                            {patient.patientVitalRespiratoryRate}
-                                        </Link>
-                                    </td>
-                                    <td>
-                                        <Link to={`/Detail/${patient.patientId}/${patient.admissionId}`} state={{ patient }} className='tableLink'>
-                                            {patient.patientVitalSpo2}
-                                        </Link>
-                                    </td>
-                                    <td>
-                                        <Link to={`/Detail/${patient.patientId}/${patient.admissionId}`} state={{ patient }} className='tableLink'>
-                                            {patient.patientVitalNibpS}
-                                        </Link>
-                                    </td>
-                                    <td>
-                                        <Link to={`/Detail/${patient.patientId}/${patient.admissionId}`} state={{ patient }} className='tableLink'>
-                                            {patient.patientVitalNibpD}
-                                        </Link>
-                                    </td>
-                                    <td>
-                                        <Link to={`/Detail/${patient.patientId}/${patient.admissionId}`} state={{ patient }} className='tableLink'>
-                                            {patient.bedWard}
-                                        </Link>
-                                    </td>
+                                <tr key={patient.id} className='MainTableFont '>
+                                    <td>{renderLink(patient, 'admissionInTime', formatDate(patient.admissionInTime))}</td>
+                                    <td>{renderLink(patient, 'patientVitalCreatedAt', formatDate(patient.patientVitalCreatedAt))}</td>
+                                    <td>{renderLink(patient, 'patientId', patient.patientId)}</td>
+                                    <td>{renderLink(patient, 'patientName', patient.patientName)}</td>
+                                    <td>{renderLink(patient, 'patientSex', patient.patientSex)}</td>
+                                    <td>{renderLink(patient, 'patientVitalTemperature', patient.patientVitalTemperature, '°C')}</td>
+                                    <td>{renderLink(patient, 'patientVitalHr', patient.patientVitalHr)}</td>
+                                    <td>{renderLink(patient, 'patientVitalRespiratoryRate', patient.patientVitalRespiratoryRate)}</td>
+                                    <td>{renderLink(patient, 'patientVitalSpo2', patient.patientVitalSpo2)}</td>
+                                    <td>{renderLink(patient, 'patientVitalNibpS', patient.patientVitalNibpS)}</td>
+                                    <td>{renderLink(patient, 'patientVitalNibpD', patient.patientVitalNibpD)}</td>
+                                    <td>{renderLink(patient, 'bedWard', patient.bedWard)}</td>
                                     <td>
                                         <Link to={`/Detail/${patient.patientId}/${patient.admissionId}`} state={{ patient }} className='tableLink'>
                                             <span style={{ color: patient.deepNcdss === 'Discharge' ? 'rgb(130, 130, 236)' : patient.deepNcdss === 'WARD' ? 'rgb(100, 200, 100)' : patient.deepNcdss === 'ICU' ? 'rgb(221, 102, 102)' : 'inherit' }}>
@@ -131,14 +120,29 @@ const MainTable = ({ patients, pageStatus, resultWard }) => {
                     </table>
 
                     <div style={{ textAlign: 'center' }}>
-                        <ul className="pagination justify-content-center" >
-                            {pageNumbers.map(number => (
-                                <li key={number} className="page-item">
-                                    <button onClick={() => paginate(number)} className="page-link" >
-                                        {number}
-                                    </button>
+                        <ul className="pagination justify-content-center">
+                            <li className="page-item">
+                                <button onClick={() => setCurrentPage(1)} className="page-link">{"<<"}</button>
+                            </li>
+                            <li className="page-item">
+                                <button onClick={handlePrev} className="page-link">{"<"}</button>
+                            </li>
+                            {getPagination().map(number => (
+                                <li key={number} className={`page-item ${currentPage === number ? 'active' : ''}`}>
+                                    <button onClick={() => paginate(number)} className="page-link">{number}</button>
                                 </li>
                             ))}
+                            {totalPages > 10 && currentPage + 4 < totalPages && (
+                                <li className="page-item disabled">
+                                    <button className="page-link">...</button>
+                                </li>
+                            )}
+                            <li className="page-item">
+                                <button onClick={handleNext} className="page-link">{">"}</button>
+                            </li>
+                            <li className="page-item">
+                                <button onClick={() => setCurrentPage(totalPages)} className="page-link">{">>"}</button>
+                            </li>
                         </ul>
                     </div>
                 </div>
