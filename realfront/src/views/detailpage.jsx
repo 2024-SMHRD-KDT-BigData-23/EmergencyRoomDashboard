@@ -20,23 +20,27 @@ const Detail = () => {
 
     // Timestamp 형식의 데이터를 "년/월/일/시/분/초"로 쪼개주는 함수
     const extraDateAndTime = (timestamp) => {
-        const date = new Date(timestamp);
+        if (timestamp !== null) {
+            const date = new Date(timestamp);
 
-        const year = date.getFullYear();
-        const month = date.getMonth() + 1;
-        const day = date.getDate();
-        const hour = date.getHours();
-        const minute = date.getMinutes();
-        const second = date.getSeconds();
+            const year = String(date.getFullYear()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            const hour = String(date.getHours()).padStart(2, '0');
+            const minute = String(date.getMinutes()).padStart(2, '0');
+            const second = String(date.getSeconds()).padStart(2, '0');
 
-        return {
-            year,
-            month,
-            day,
-            hour,
-            minute,
-            second
-        };
+            return {
+                year,
+                month,
+                day,
+                hour,
+                minute,
+                second
+            };
+        } else {
+            return timestamp;
+        }
     }
 
     // 서버와 통신을 통해 환자의 상세 정보 가져오기
@@ -73,9 +77,13 @@ const Detail = () => {
                 }));
 
                 setPatientData(patientData);
+                console.log("patientData : ", patientData);
                 setAdmissionList(admissionList);
+                console.log("admissonList : ", admissionList);
                 setResultWardList(resultWardList);
+                console.log("resultWardList : ", resultWardList);
                 setCommentList(commentList);
+                console.log("commentList : ", commentList);
             })
             .catch(error => {
                 console.error('Error fetching data: ', error);
@@ -85,7 +93,7 @@ const Detail = () => {
     return (
         <>
             <Header />
-            <Container fluid className="p-3 bg-light">
+            <Container fluid className="p-3">
                 <Row className="h-100 g-3">
                     <PatientInfo patientData={patientData} admissionList={admissionList} patientId={patientId} admissionId={admissionId} />
                     <VitalChart patientData={patientData} />

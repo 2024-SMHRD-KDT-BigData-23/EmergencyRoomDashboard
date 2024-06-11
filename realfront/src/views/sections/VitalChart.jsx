@@ -173,7 +173,7 @@ const VitalChart = ({ patientData }) => {
                         </Col>
                     ))}
                     <Col>
-                        <Card style={{ height: "72vh" }}>
+                        <Card style={{ height: "45rem" }}>
                             <Line data={lineData} options={options} />
                         </Card>
                     </Col>

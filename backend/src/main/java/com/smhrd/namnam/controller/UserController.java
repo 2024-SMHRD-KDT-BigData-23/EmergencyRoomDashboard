@@ -41,7 +41,7 @@ public class UserController {
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<String> logout(@RequestHeader("Authorization") String authorization, @RequestParam String staffId) {
+    public ResponseEntity<String> logout(@RequestHeader("Authorization") String authorization, @RequestParam("staffId") String staffId) {
         if (authorization == null || !authorization.startsWith("Bearer ")) {
             return ResponseEntity.status(400).body("Invalid token");
         }

@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import '../../assets/scss/maintable.scss';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import ActionModal from './ActionModal';
 
 const MainTable = ({ patients, pageStatus, resultWard }) => {
 
+    const navigate = useNavigate();
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 14; // 한 페이지에 표시할 항목 수
     const totalPages = Math.ceil(patients.length / itemsPerPage);
@@ -59,11 +60,20 @@ const MainTable = ({ patients, pageStatus, resultWard }) => {
         return `${String(dateObj.year).padStart(2, '0')}.${String(dateObj.month).padStart(2, '0')}.${String(dateObj.day).padStart(2, '0')} ${String(dateObj.hour).padStart(2, '0')}:${String(dateObj.minute).padStart(2, '0')}:${String(dateObj.second).padStart(2, '0')}`;
     };
 
-    const renderLink = (patient, field, label, suffix = '') => (
-        <Link to={`/Detail/${patient.patientId}/${patient.admissionId}`} state={{ patient }} className='tableLink'>
-            {label}{suffix}
-        </Link>
-    );
+    const renderLink = (patient, field, label, suffix = '') => {
+        if (label !== "deepNcdss") {
+            return (<td onClick={() => navigate(`/Detail/${patient.patientId}/${patient.admissionId}`)}>
+                {label}{suffix}
+            </td>)
+        } else {
+            return (<td onClick={() => navigate(`/Detail/${patient.patientId}/${patient.admissionId}`)}>
+                <span style={{ color: patient.deepNcdss === 'Discharge' ? 'rgb(130, 130, 236)' : patient.deepNcdss === 'WARD' ? 'rgb(100, 200, 100)' : patient.deepNcdss === 'ICU' ? 'rgb(221, 102, 102)' : 'inherit' }}>
+                    {label}{suffix}
+                </span>
+            </td>)
+        }
+    };
+
     // 총 페이지 수를 계산하고 페이지 번호를 배열에 저장합니다.
     const pageNumbers = [];
     for (let i = 1; i <= Math.ceil(patients.length / itemsPerPage); i++) {
@@ -87,33 +97,27 @@ const MainTable = ({ patients, pageStatus, resultWard }) => {
                         </thead>
                         <tbody>
                             {currentItems.map(patient => (
-                                <tr key={patient.id} className='MainTableFont '>
-                                    <td>{renderLink(patient, 'admissionInTime', formatDate(patient.admissionInTime))}</td>
-                                    <td>{renderLink(patient, 'patientVitalCreatedAt', formatDate(patient.patientVitalCreatedAt))}</td>
-                                    <td>{renderLink(patient, 'patientId', patient.patientId)}</td>
-                                    <td>{renderLink(patient, 'patientName', patient.patientName)}</td>
-                                    <td>{renderLink(patient, 'patientSex', patient.patientSex)}</td>
-                                    <td>{renderLink(patient, 'patientVitalTemperature', patient.patientVitalTemperature, '°C')}</td>
-                                    <td>{renderLink(patient, 'patientVitalHr', patient.patientVitalHr)}</td>
-                                    <td>{renderLink(patient, 'patientVitalRespiratoryRate', patient.patientVitalRespiratoryRate)}</td>
-                                    <td>{renderLink(patient, 'patientVitalSpo2', patient.patientVitalSpo2)}</td>
-                                    <td>{renderLink(patient, 'patientVitalNibpS', patient.patientVitalNibpS)}</td>
-                                    <td>{renderLink(patient, 'patientVitalNibpD', patient.patientVitalNibpD)}</td>
-                                    <td>{renderLink(patient, 'bedWard', patient.bedWard)}</td>
-                                    <td>
-                                        <Link to={`/Detail/${patient.patientId}/${patient.admissionId}`} state={{ patient }} className='tableLink'>
-                                            <span style={{ color: patient.deepNcdss === 'Discharge' ? 'rgb(130, 130, 236)' : patient.deepNcdss === 'WARD' ? 'rgb(100, 200, 100)' : patient.deepNcdss === 'ICU' ? 'rgb(221, 102, 102)' : 'inherit' }}>
-                                                {patient.deepNcdss}
-                                            </span>
-                                        </Link>
-                                    </td>
-                                    <td>
-                                        {resultWard[patient.admissionId] ? (
-                                            resultWard[patient.admissionId]
-                                        ) : (
+                                <tr key={patient.id} className='align-middle' style={{ height: '3rem', cursor: 'pointer' }}>
+                                    {renderLink(patient, 'admissionInTime', formatDate(patient.admissionInTime))}
+                                    {renderLink(patient, 'patientVitalCreatedAt', formatDate(patient.patientVitalCreatedAt))}
+                                    {renderLink(patient, 'patientId', patient.patientId)}
+                                    {renderLink(patient, 'patientName', patient.patientName)}
+                                    {renderLink(patient, 'patientSex', patient.patientSex)}
+                                    {renderLink(patient, 'patientVitalTemperature', patient.patientVitalTemperature, '°C')}
+                                    {renderLink(patient, 'patientVitalHr', patient.patientVitalHr)}
+                                    {renderLink(patient, 'patientVitalRespiratoryRate', patient.patientVitalRespiratoryRate)}
+                                    {renderLink(patient, 'patientVitalSpo2', patient.patientVitalSpo2)}
+                                    {renderLink(patient, 'patientVitalNibpS', patient.patientVitalNibpS)}
+                                    {renderLink(patient, 'patientVitalNibpD', patient.patientVitalNibpD)}
+                                    {renderLink(patient, 'bedWard', patient.bedWard)}
+                                    {renderLink(patient, 'deepNcdss', patient.deepNcdss)}
+                                    {resultWard[patient.admissionId] ? (
+                                        renderLink(patient, 'resultWard', resultWard[patient.admissionId])
+                                    ) : (
+                                        <td>
                                             <ActionModal admissionId={patient.admissionId} />
-                                        )}
-                                    </td>
+                                        </td>
+                                    )}
                                 </tr>
                             ))}
                         </tbody>
