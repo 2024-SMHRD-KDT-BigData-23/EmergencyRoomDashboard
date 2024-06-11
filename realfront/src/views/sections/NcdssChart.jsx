@@ -17,7 +17,7 @@ const centerTextPlugin = {
         const maxLabel = labels[maxIndex];
 
         ctx.save();
-        ctx.font = 'bold 15px Arial';
+        ctx.font = 'bold 20px Arial';
         ctx.fillStyle = color;
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
@@ -56,8 +56,8 @@ const NcdssChart = ({ patientData }) => {
         maintainAspectRatio: false,
         plugins: {
             legend: {
-                display: false,
-                position: "top"
+                display: true,
+                position: "chartArea"
             },
             title: {
                 display: true,
@@ -72,7 +72,7 @@ const NcdssChart = ({ patientData }) => {
             datalabels: {
                 color: '#323232', // 수치값의 폰트 색상을 흰색으로 설정
                 font: {
-                    size: 12, // 수치값의 폰트 크기 설정
+                    size: 15, // 수치값의 폰트 크기 설정
                     weight : 'bold'
                 },
                 formatter: (value, context) => {

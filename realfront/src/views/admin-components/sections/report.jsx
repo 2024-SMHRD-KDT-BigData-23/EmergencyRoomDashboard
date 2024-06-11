@@ -14,8 +14,10 @@ const Report = () => {
     return (
         <Container>
             <Row className="my-4">
-                <Col>
-                    <h1>Report Page</h1>
+                    <div>
+                    <div className="reportTitle">Report Download</div>
+                    </div>
+                <Col className="ReportCol d-flex align-items-center justify-content-center">
                     <Form>
                         <Form.Group controlId="reportType" className="mb-3">
                             <Form.Label>보고서 종류 선택:</Form.Label>
@@ -23,6 +25,7 @@ const Report = () => {
                                 as="select" 
                                 value={reportType} 
                                 onChange={(e) => setReportType(e.target.value)}
+                                style={{width : '35rem'}}
                             >
                                 <option value="userActivity">사용자 활동 보고서</option>
                                 <option value="systemUsage">시스템 사용 보고서</option>
@@ -35,6 +38,7 @@ const Report = () => {
                                 type="date" 
                                 value={startDate} 
                                 onChange={(e) => setStartDate(e.target.value)} 
+                                style={{width : '35rem'}}
                             />
                         </Form.Group>
                         <Form.Group controlId="endDate" className="mb-3">
@@ -43,6 +47,7 @@ const Report = () => {
                                 type="date" 
                                 value={endDate} 
                                 onChange={(e) => setEndDate(e.target.value)} 
+                                style={{width : '35rem'}}
                             />
                         </Form.Group>
                         <Button variant="primary" onClick={handleDownload}>보고서 다운로드</Button>

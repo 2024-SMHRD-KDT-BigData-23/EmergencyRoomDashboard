@@ -21,63 +21,39 @@ public class JWTFilter extends OncePerRequestFilter {
     private final UserService userService;
 
     public JWTFilter(JWTUtil jwtUtil, UserService userService) {
-
         this.jwtUtil = jwtUtil;
         this.userService = userService;
     }
 
-
-
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+        String authorization = request.getHeader("Authorization");
 
-    //request에서 Authorization 헤더를 찾음
-    String authorization= request.getHeader("Authorization");
+        if (authorization == null || !authorization.startsWith("Bearer ")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
 
-    //Authorization 헤더 검증
-    if (authorization == null || !authorization.startsWith("Bearer ")) {
-        System.out.println("token null");
+        String token = authorization.split(" ")[1];
+
+        if (jwtUtil.isExpired(token)) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
+        String username = jwtUtil.getUsername(token);
+        String role = jwtUtil.getRole(token);
+
+        Optional<StaffInfo> staffInfoOptional = userService.findById(username);
+
+        if (staffInfoOptional.isPresent()) {
+            StaffInfo staffInfo = staffInfoOptional.get();
+            CustomUserDetails customUserDetails = new CustomUserDetails(staffInfo);
+
+            Authentication authToken = new UsernamePasswordAuthenticationToken(customUserDetails, null, customUserDetails.getAuthorities());
+            SecurityContextHolder.getContext().setAuthentication(authToken);
+        }
+
         filterChain.doFilter(request, response);
-
-        //조건이 해당되면 메소드 종료 (필수)
-        return;
     }
-
-    System.out.println("authorization now");
-    //Bearer 부분 제거 후 순수 토큰만 획득
-    String token = authorization.split(" ")[1];
-
-    //토큰 소멸 시간 검증
-    if (jwtUtil.isExpired(token)) {
-
-        System.out.println("token expired");
-        filterChain.doFilter(request, response);
-
-        //조건이 해당되면 메소드 종료 (필수)
-        return;
-
-    }
-
-    //토큰에서 username과 role 획득
-    String username = jwtUtil.getUsername(token);
-    String role = jwtUtil.getRole(token);
-
-    Optional<StaffInfo> staffInfoOptional = userService.findById(username);
-
-    //staff 생성하여 값 set
-    StaffInfo staffInfo = staffInfoOptional.get();
-    staffInfo.setStaffPw("temppassword");  // 임시 비밀번호 설정
-
-    //UserDetails에 회원 정보 객체 담기
-    CustomUserDetails customUserDetails = new CustomUserDetails(staffInfo);
-
-    //스프링 시큐리티 인증 토큰 생성
-    Authentication authToken = new UsernamePasswordAuthenticationToken(customUserDetails, null, customUserDetails.getAuthorities());
-    //세션에 사용자 등록
-    SecurityContextHolder.getContext().setAuthentication(authToken);
-
-    filterChain.doFilter(request, response);
-}
-
-
 }

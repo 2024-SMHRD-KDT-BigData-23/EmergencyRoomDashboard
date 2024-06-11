@@ -159,10 +159,10 @@ const Dashboard = () => {
             {/* 중간 섹션 */}
             <Row className="mb-3">
                 <Col>
-                    <Card>
+                    <Card className="UserAGraphBody">
                         <Card.Body>
                             <Card.Title>User Activity</Card.Title>
-                            <Line data={userActivityData} />
+                            <Line data={userActivityData} className="UserAGraph" />
                         </Card.Body>
                     </Card>
                 </Col>
