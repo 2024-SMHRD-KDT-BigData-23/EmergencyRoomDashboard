@@ -15,7 +15,7 @@ const Header = () => {
         const token = localStorage.getItem("token");
         const staffId = sessionStorage.getItem("staffId");
 
-        await axios.post('http://localhost:8080/api/logout',null, {
+        await axios.post('http://localhost:8080/api/logout',{}, {
         
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -31,7 +31,7 @@ const Header = () => {
         sessionStorage.removeItem("staffId");
 
         // 로그인 페이지로 리디렉션합니다.
-        navigate('/login');
+        navigate('/');
     } catch (error) {
         console.error('Error logging out', error);
     }
