@@ -20,7 +20,7 @@ const LoginComponent = () => {
             if (response.data === "Login Successful") {
                 localStorage.setItem("token", (token||'').split(" ")[1]); // JWT 토큰 저장
                 sessionStorage.setItem("staffId", username); // 브라우저 세션에 사용자 아이디 저장
-                if(username ==='admin' && password === 'admin'){
+                if(username ==='admin' && password === 'admin') {
                     navigate('/admin'); 
                 } else {
                     navigate('/present/List/All');

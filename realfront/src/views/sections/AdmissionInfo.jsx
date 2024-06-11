@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Row, Col, Card, Dropdown } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 import NcdssChart from './NcdssChart';
 import DecisionDrop from '../../components/core/decisionmodal';
 import CommentModal from '../../components/core/commentmodal';
@@ -8,54 +9,55 @@ import CommentTable from './CommentTable';
 
 const AdmissionInfo = ({ patientData, setPatientData, admissionList, patientId, admissionId, resultWardList, commentList, setResultWard, setComment }) => {
 
+    const navigate = useNavigate();
     const staffId = sessionStorage.getItem("staffId");
 
     return (
         <>
             <Col md={3} className="h-100">
                 <Row>
-                    <Col className="d-flex justify-content-between w-100 mb-3">
-                        <Card>
+                    <Col className="d-flex justify-content-between w-100 mb-3 text-center">
+                        <Card style={{ height: '5.63rem', width: '13.8rem' }}>
                             <Card.Body>
-                                <Card.Title>
+                                <Card.Title className="m-0">
                                     InTime
                                 </Card.Title>
-                                <Card.Text>
+                                <Card.Text className="" style={{  }}>
                                     <Dropdown>
-                                        <Dropdown.Toggle variant="light">
-                                            {`${String(patientData.length && patientData[0].admissionInTime.year).padStart(2, '0')}.${String(patientData.length && patientData[0].admissionInTime.month).padStart(2, '0')}.${String(patientData.length && patientData[0].admissionInTime.day).padStart(2, '0')} ${String(patientData.length && patientData[0].admissionInTime.hour).padStart(2, '0')}:${String(patientData.length && patientData[0].admissionInTime.minute).padStart(2, '0')}`}
+                                        <Dropdown.Toggle variant="white">
+                                            {patientData[0] ? `${patientData[0].admissionInTime.year}.${patientData[0].admissionInTime.month}.${patientData[0].admissionInTime.day} ${patientData[0].admissionInTime.hour}:${patientData[0].admissionInTime.minute}` : "N/A"}
                                         </Dropdown.Toggle>
                                         <Dropdown.Menu className="text-center">
                                             {admissionList.map((admission, index) => (
-                                                <Dropdown.Item key={index} href='#' onClick={() => { window.location.href = `http://localhost:3000/Detail/${patientId}/${admission.admissionId}` }}>{`${String(admission.admissionInTime.year).padStart(2, '0')}.${String(admission.admissionInTime.month).padStart(2, '0')}.${String(admission.admissionInTime.day).padStart(2, '0')} ${String(admission.admissionInTime.hour).padStart(2, '0')}:${String(admission.admissionInTime.minute).padStart(2, '0')}`}</Dropdown.Item>
+                                                <Dropdown.Item key={index} href='#' onClick={() => { navigate(`/Detail/${patientId}/${admission.admissionId}`) }}>{admission ? `${admission.admissionInTime.year}.${admission.admissionInTime.month}.${admission.admissionInTime.day} ${admission.admissionInTime.hour}:${admission.admissionInTime.minute}` : "N/A"}</Dropdown.Item>
                                             ))}
                                         </Dropdown.Menu>
                                     </Dropdown>
                                 </Card.Text>
                             </Card.Body>
                         </Card>
-                        <Card>
+                        <Card style={{ width: '13.8rem' }}>
                             <Card.Body>
                                 <Card.Title>
                                     OutTime
                                 </Card.Title>
                                 <Card.Text>
-                                    {`${patientData.length && patientData[0].admissionOutTime.year}/${patientData.length && patientData[0].admissionOutTime.month}/${patientData.length && patientData[0].admissionOutTime.day} ${patientData.length && patientData[0].admissionOutTime.hour}:${patientData.length && patientData[0].admissionOutTime.minute}`}
+                                {patientData[0]?.admissionOutTime ? `${patientData[0].admissionOutTime.year}.${patientData[0].admissionOutTime.month}.${patientData[0].admissionOutTime.day} ${patientData[0].admissionOutTime.hour}:${patientData[0].admissionOutTime.minute}` : "N/A"}
                                 </Card.Text>
                             </Card.Body>
                         </Card>
                     </Col>
                 </Row>
-                <Row className="d-flex flex-column g-3">
-                    <Col md={6} className="w-100">
-                        <Card className="w-100">
+                <Row className="d-flex g-3 text-center">
+                    <Col md={12} className="w-100">
+                        <Card className="w-100" style={{ height: '15rem' }}>
                             <Card.Body className="w-100">
                                 <NcdssChart patientData={patientData} />
                             </Card.Body>
                         </Card>
                     </Col>
-                    <Col md={3} className="w-100">
-                        <Card>
+                    <Col md={12} className="w-100">
+                        <Card style={{ height: '14rem' }}>
                             <Card.Body>
                                 <Card.Text>
                                     <ResultWardTable resultWardList={resultWardList} />
@@ -64,8 +66,8 @@ const AdmissionInfo = ({ patientData, setPatientData, admissionList, patientId, 
                             </Card.Body>
                         </Card>
                     </Col>
-                    <Col md={3} className="w-100">
-                        <Card>
+                    <Col md={12} className="w-100">
+                        <Card style={{ height: '14rem' }}>
                             <Card.Body>
                                 <Card.Text>
                                     <CommentTable commentList={commentList} />

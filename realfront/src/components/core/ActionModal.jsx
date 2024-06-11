@@ -53,7 +53,7 @@ const ActionModal = ({ admissionId }) => {
                             <div className="mb-3" style={{ textAlign: 'left' }}>
                             <label htmlFor="message-text" className="col-form-label">Disposition</label>                                                                        
                                 <DropdownButton
-                                    title="Action"
+                                    title={selectedResultWard !== null ? selectedResultWard : "Action"}
                                     variant="warning"
                                     size="sm"
                                     onSelect={changeResultWard}
