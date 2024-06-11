@@ -75,6 +75,8 @@ const Dashboard = () => {
             const labels = Object.keys(activityCountMap);
             const data = Object.values(activityCountMap);
 
+            console.log("labels : ", labels);
+            console.log("data : ", data);
             setUserActivity({ labels, data });
         }).catch(error => {
             console.error("There was an error fetching user activity!", error);
@@ -107,6 +109,27 @@ const Dashboard = () => {
                 borderWidth: 1,
             }
         ]
+    };
+
+    const options = {
+        maintainAspectRatio: false, // maintainAspectRatio를 false로 설정하여 차트가 지정한 크기로 고정됩니다.
+        responsive: true, // 차트가 반응형으로 동작하도록 설정합니다.
+
+        plugins: {
+            legend: {
+                display: false,
+                // position: "top"
+            },
+
+            layout: {
+                padding: {
+                    top: 25,
+                    bottom: 20,
+                    left: 20,
+                    right: 20
+                }
+            },
+        }
     };
 
     const alerts = [
@@ -159,10 +182,12 @@ const Dashboard = () => {
             {/* 중간 섹션 */}
             <Row className="mb-3">
                 <Col>
-                    <Card className="UserAGraphBody">
+                    <Card>
                         <Card.Body>
                             <Card.Title>User Activity</Card.Title>
-                            <Line data={userActivityData} className="UserAGraph" />
+                            <Card.Text style={{ height: '18rem' }}>
+                                <Line data={userActivityData} options={options} />
+                            </Card.Text>
                         </Card.Body>
                     </Card>
                 </Col>
