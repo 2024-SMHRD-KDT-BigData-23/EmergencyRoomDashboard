@@ -5,9 +5,12 @@ import com.smhrd.namnam.repository.*;
 import com.smhrd.namnam.vo.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -33,6 +36,8 @@ public class AdminService {
     private UserActivityRepository userActivityRepo;
     @Autowired
     private LogViewRepository logViewRepo;
+    @Autowired
+    private RoleViewRepository roleViewRepo;
 
 
 
@@ -58,6 +63,10 @@ public class AdminService {
         return staffInfo.stream().map(entity -> modelMapper.map(entity, StaffInfoVO.class))
                 .collect(Collectors.toList());
     }
+    // StaffInfoVO entity 형태 -> vo 형태로 변환 메서드
+    private StaffInfoVO convertToStaffOneVO(StaffInfo staffInfo){
+        return modelMapper.map(staffInfo, StaffInfoVO.class);
+    }
 
     // ResultWardInfoVO entity list 형태 -> vo list형태로 변환 메서드
     private List<ResultWardInfoVO> converToResultWardInfoVOList(List<ResultWardInfo> resultWardInfo){
@@ -77,6 +86,12 @@ public class AdminService {
                 .collect(Collectors.toList());
     }
 
+    // RoleViewVO entity list 형태 -> vo list형태로 변환 메서드
+    private List<RoleViewVO> converToRoleViewVOList(List<RoleView> roleView){
+        return roleView.stream().map(entity -> modelMapper.map(entity, RoleViewVO.class))
+                .collect(Collectors.toList());
+    }
+
 
 
     //////////////////////////////////////result_ward log 페이지///////////////////////
@@ -93,11 +108,31 @@ public class AdminService {
 
 
 
-    //////////////////////////////////검색관련/////////////////////////////////////////////////
+    //////////////////////////////////role 페이지/////////////////////////////////////////////////
     // staff들 리스트
-    public List<StaffInfoVO> findStaffInfo() {
-        return convertToStaffInfoVOList(staffInfoRepo.findAll());
+    public List<RoleViewVO> findStaffInfo() {
+        return converToRoleViewVOList(roleViewRepo.findAll());
     }
+
+    // role페이지 user 수정
+    @Transactional
+    public void  editStaffInfo(String id, String staffName, String staffRole, String staffId, String staffPw) {
+        staffInfoRepo.editStaffInfo(id, staffName, staffRole, staffId, staffPw);
+    }
+
+    // role페이지 user 삭제
+    @Transactional
+    public void deleteStaffInfo(String id) {
+        staffInfoRepo.deleteByIdd(id);
+    }
+
+    // role페이지 user 추가
+    @Transactional
+    public void addStaffInfo(String staffName, String staffRole, String staffId, String staffPw) {
+        staffInfoRepo.AddStaffInfo(staffName, staffRole, staffId, staffPw);
+    }
+
+
 
 
     ///////////////////////////////////////help 페이지////////////////////
