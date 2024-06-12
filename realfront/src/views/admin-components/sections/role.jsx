@@ -7,7 +7,7 @@ const Role = ({ users, setEdit, handleDelete , showDeleteSuccessModal, setShowDe
  }) => {
 
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 7; // 한 페이지에 표시할 항목 수
+    const itemsPerPage = 10; // 한 페이지에 표시할 항목 수
 
     // 현재 페이지에 표시할 데이터를 계산합니다.
     const indexOfLastItem = currentPage * itemsPerPage;
@@ -114,7 +114,7 @@ const Role = ({ users, setEdit, handleDelete , showDeleteSuccessModal, setShowDe
     // }
 
     return (
-        <Container fluid>
+        <Container fluid className="p-2">
             {/* 상단 섹션 */}
             <Row className="mb-3">
             <Col>
@@ -128,24 +128,27 @@ const Role = ({ users, setEdit, handleDelete , showDeleteSuccessModal, setShowDe
                         </Col>
                         <Col>
                             <Form.Group controlId="roleFilter">
-                                <Form.Control as="select">
+                                <Form.Select>
                                     <option>All Roles</option>
                                     <option>Doctor</option>
                                     <option>Nurse</option>
-                                </Form.Control>
+                                </Form.Select>
                             </Form.Group>
                         </Col>
                         <Col>
                             <Form.Group controlId="statusFilter">
-                                <Form.Control as="select">
+                                <Form.Select>
                                     <option>All Statuses</option>
                                     <option>Active</option>
                                     <option>Inactive</option>
-                                </Form.Control>
+                                </Form.Select>
                             </Form.Group>
                         </Col>
                         <Col>
                             <Button type="submit">Search</Button>
+                        </Col>
+                        <Col className="d-flex align-items-end justify-content-end">
+                        <Button className="mx-2 btn-success" onClick={() => handleUserAddModal()} >User Add</Button>
                         </Col>
                     </Row>
                 </Form>
@@ -155,11 +158,11 @@ const Role = ({ users, setEdit, handleDelete , showDeleteSuccessModal, setShowDe
             {/* 중간 섹션 */}
             <Row className="mb-3">
                 <Col>
-                    <Table striped bordered hover>
+                    <Table bordered hover style={{textAlign:"center"}}>
                         <thead>
                             <tr>
                                 <th>Name</th>
-                                <th>Id</th>
+                                <th>ID</th>
                                 <th>Role</th>
                                 <th>Last Login</th>
                                 <th>Status</th>
@@ -175,14 +178,11 @@ const Role = ({ users, setEdit, handleDelete , showDeleteSuccessModal, setShowDe
                                     <td>{user?.activityDate ? `${user.activityDate.year}.${user.activityDate.month}.${user.activityDate.day} ${user.activityDate.hour}:${user.activityDate.minute}` : "N/A"}</td>
                                     <td>{user.staffStatus}</td>
                                     <td>
-                                        <Button variant="warning" className="mx-2" onClick={() => { handleShowUserEdit(user); setEditId(user.staffId); }}>Edit</Button>
-                                        <Button variant="danger" onClick={() => handleShowDeleteModal(user)}>Delete</Button>
+                                        <Button className="btn-sm mx-2" variant="warning" onClick={() => { handleShowUserEdit(user); setEditId(user.staffId); }}>Edit</Button>
+                                        <Button className="btn-sm" variant="danger" onClick={() => handleShowDeleteModal(user)}>Delete</Button>
                                     </td>
                                 </tr>
                             ))}
-                            <td>
-                                <Button className="mx-2" onClick={() => handleUserAddModal()} >User Add</Button>
-                            </td>
                         </tbody>
                     </Table>
 

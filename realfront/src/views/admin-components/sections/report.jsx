@@ -17,12 +17,11 @@ const Report = () => {
                     <div>
                     <div className="reportTitle">Report Download</div>
                     </div>
-                <Col className="ReportCol d-flex align-items-center justify-content-center">
+                <Col className="d-flex align-items-center justify-content-center">
                     <Form>
                         <Form.Group controlId="reportType" className="mb-3">
                             <Form.Label>보고서 종류 선택:</Form.Label>
-                            <Form.Control 
-                                as="select" 
+                            <Form.Select
                                 value={reportType} 
                                 onChange={(e) => setReportType(e.target.value)}
                                 style={{width : '35rem'}}
@@ -30,7 +29,7 @@ const Report = () => {
                                 <option value="userActivity">사용자 활동 보고서</option>
                                 <option value="systemUsage">시스템 사용 보고서</option>
                                 <option value="patientCare">환자 진료 보고서</option>
-                            </Form.Control>
+                            </Form.Select>
                         </Form.Group>
                         <Form.Group controlId="startDate" className="mb-3">
                             <Form.Label>보고서 시작 날짜:</Form.Label>
@@ -50,7 +49,9 @@ const Report = () => {
                                 style={{width : '35rem'}}
                             />
                         </Form.Group>
-                        <Button variant="primary" onClick={handleDownload}>보고서 다운로드</Button>
+                        <Col className="d-flex justify-content-start">
+                        <Button variant="primary" onClick={handleDownload}>Download</Button>
+                        </Col>
                     </Form>
                 </Col>
             </Row>

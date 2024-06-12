@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../../assets/scss/login.scss';
+import backmp4 from '../../assets/images/background.mp4';
 
 const LoginComponent = () => {
     const [username, setUsername] = useState('');
@@ -30,34 +31,48 @@ const LoginComponent = () => {
             }
         } catch (error) {
             console.error('Error logging in', error);
-            setError('로그인 실패. 다시 시도해 주세요.');
+            setError('아이디와 비밀번호를 확인해주세요.');
         }
     };
 
     return (
-        <div className='loginbox'>
-            <h1 className="title font-bold">NCDSS</h1>
-            <form onSubmit={handleLogin}>
-                <div className="idpwbox">
-                    <input
-                        type="text"
-                        placeholder="아이디를 입력하세요."
-                        className="logininput"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                    />
-                    <input
-                        type="password"
-                        placeholder="비밀번호를 입력하세요."
-                        className="logininput"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
-                    <button type="submit" className='loginButton'>SIGN IN</button>
+        
+        <div className='login-container'>
+            
+
+
+            <video autoPlay loop muted id="background-video">
+                    <source src={backmp4} type="video/mp4" />
+                    Your browser does not support the video tag.
+            </video>
+                <div className='loginbox'>
+                    <form onSubmit={handleLogin}>
+                        <label className='loginTitle'>NCDSS</label>
+                        <div className="idpwbox">
+                            <input
+                                type="text"
+                                placeholder="USER NAME"
+                                className="logininput"
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
+                            />
+                            <input
+                                type="password"
+                                placeholder="PASSWORD"
+                                className="logininput"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
+                            <button type="submit" className='loginButton'>LOGIN</button>
+                            {error && <p className='errorMent'>{error}</p>}
+                        </div>
+                    </form>
                 </div>
-            </form>
-            {error && <p>{error}</p>}
         </div>
+
+        
+   
+
     );
 };
 
