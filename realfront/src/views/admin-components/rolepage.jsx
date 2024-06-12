@@ -7,16 +7,73 @@ import axios from 'axios';
 
 const RolePage = () => {
 
-    const [ users, setUsers ] = useState([]);
-    const [ edit, setEdit ] = useState([]);
-    const [ editUser, setEditUser ] = useState([]);
+    // Timestamp 형식의 데이터를 "년/월/일/시/분/초"로 쪼개주는 함수
+    const extraDateAndTime = (timestamp) => {
+        if (timestamp !== null) {
+            const date = new Date(timestamp);
 
+            const year = String(date.getFullYear()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            const hour = String(date.getHours()).padStart(2, '0');
+            const minute = String(date.getMinutes()).padStart(2, '0');
+            const second = String(date.getSeconds()).padStart(2, '0');
+
+            return {
+                year,
+                month,
+                day,
+                hour,
+                minute,
+                second
+            };
+        } else {
+            return timestamp;
+        }
+    }
+    const [ users, setUsers ] = useState([]);
+
+    // 삭제 성공 실패 여부 함수
+    const [showDeleteSuccessModal, setShowDeleteSuccessModal] = useState(false);
+    const [showDeleteFailModal, setShowDeleteFailModal] = useState(false);
+    // 수정 성공 실패 여부 함수
+    const [showEditSuccessModal, setShowEditSuccessModal] = useState(false);
+    const [showEditFailModal, setShowEditFailModal] = useState(false);
+    // 유저 추가 성공 실패 여부 함수
+    const [showAddSuccessModal, setShowAddSuccessModal] = useState(false);
+    const [showAddFailModal, setShowAddFailModal] = useState(false);
+
+    // 수정사항을 저장하는 변수
+    const [editUser, setEditUser] = useState({
+        staffName: '',
+        staffRole: '',
+        staffId: '',
+        staffPw: ''
+    });
+    // 수정할 유저 id
+    const [editId, setEditId] = useState([]);
+
+
+    // 유저 추가 변수
+    const [addUser, setAddUser] = useState({
+        staffName: '',
+        staffRole: '',
+        staffId: '',
+        staffPw: ''
+    });
+
+
+    // user 리스트
     useEffect(() => {
 
         axios
         .get(`http://localhost:8080/api/staff`)
         .then(response => {
-            setUsers(response.data)
+            const formattedData = response.data.map(item => ({
+                ...item,
+                activityDate: extraDateAndTime(item.activityDate)
+            }));
+            setUsers(formattedData);
         })
         .catch((error) => {
             console.error('Error fetching data : ', error);
@@ -24,36 +81,95 @@ const RolePage = () => {
 
     }, []);
 
-    useEffect(() => {
+    // user 수정
+    const handleEdit = () => {
         console.log('staffId : ',editUser.staffId)
         axios
-        .get(`http://localhost:8080/api/edit/staff/${editUser.staffId}`,{
-            params:{
-                staffId : edit.name,
-                staffRole : edit.role
-            }
-        })
+        .put(`http://localhost:8080/api/role/edit/${editId}`, editUser)
         .then(response => {
+            setShowEditSuccessModal(true);
+                // 데이터 갱신을 위해 사용자 목록 재호출
+                axios.get(`http://localhost:8080/api/staff`).then(response => {
+                    const formattedData = response.data.map(item => ({
+                        ...item,
+                        activityDate: extraDateAndTime(item.activityDate)
+                    }));
+                    setUsers(formattedData);
+                }).catch(error => console.error('Error fetching data: ', error));
         })
         .catch((error) => {
+            setShowEditFailModal(true);
+            console.error('Error fetching search data : ',error);
+        });
+    };
+
+    // user 삭제
+    const handleDelete = async (id) => {
+        try {
+          const deleteResponse = await axios.delete(`http://localhost:8080/api/role/delete/${id}`);
+          
+          if (deleteResponse.status === 200) {
+            setShowDeleteSuccessModal(true);
+            
+            // 데이터 갱신을 위해 사용자 목록 재호출
+            const getResponse = await axios.get(`http://localhost:8080/api/staff`);
+            
+            const formattedData = getResponse.data.map(item => ({
+              ...item,
+              activityDate: extraDateAndTime(item.activityDate)
+            }));
+            
+            setUsers(formattedData);
+          } else {
+            throw new Error('Failed to delete user');
+          }
+        } catch (error) {
+          setShowDeleteFailModal(true);
+          console.error('Error deleting user: ', error);
+        }
+      };
+
+      // user 추가
+      const handleAddUser = async () => {
+        console.log("staffRole값은?? : ", addUser.staffRole)
+        axios
+        .post(`http://localhost:8080/api/role/add`, addUser)
+        .then(response => {
+            setShowAddSuccessModal(true);
+                // 데이터 갱신을 위해 사용자 목록 재호출
+                axios.get(`http://localhost:8080/api/staff`).then(response => {
+                    const formattedData = response.data.map(item => ({
+                        ...item,
+                        activityDate: extraDateAndTime(item.activityDate)
+                    }));
+                    setUsers(formattedData);
+                }).catch(error => console.error('Error fetching data: ', error));
+        })
+        .catch((error) => {
+            setShowAddFailModal(true);
             console.error('Error fetching data : ', error);
         });
-    }, [edit, editUser]);
+
+    }
     
-
-
 
 
 
     return (
         <div>
             <AdminHeader />
-            <Container > 
-                <Role users = { users } setEdit = {setEdit} setEditUser = {setEditUser} />
+            <Container>
+                <Role users = { users } showDeleteSuccessModal={showDeleteSuccessModal} setShowDeleteSuccessModal={setShowDeleteSuccessModal}
+                showDeleteFailModal={showDeleteFailModal} setShowDeleteFailModal={setShowDeleteFailModal}
+                handleDelete={handleDelete}
+                showEditSuccessModal = {showEditSuccessModal} setShowEditSuccessModal={setShowEditSuccessModal}
+                showEditFailModal={showEditFailModal} setShowEditFailModal={setShowEditFailModal} handleEdit = {handleEdit} setEditUser={setEditUser}
+                setEditId={setEditId} setAddUser={setAddUser} handleAddUser={handleAddUser} showAddSuccessModal={showAddSuccessModal} 
+                setShowAddSuccessModal={setShowAddSuccessModal} showAddFailModal={showAddFailModal} setShowAddFailModal={setShowAddFailModal} 
+                addUser={addUser} />
             </Container>
             <Footer/>
         </div>
     );
 };
-
 export default RolePage;
