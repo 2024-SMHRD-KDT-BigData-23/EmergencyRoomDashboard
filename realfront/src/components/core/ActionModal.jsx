@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Dropdown, DropdownButton } from "react-bootstrap";
 import '../../assets/scss/commentmodal.scss';
 
-const ActionModal = ({ admissionId }) => {
+const ActionModal = ({ admissionId, setAction }) => {
 
     const staffId = sessionStorage.getItem("staffId");
     const [selectedResultWard, setSelectedResultWard] = useState(null);
@@ -30,12 +30,17 @@ const ActionModal = ({ admissionId }) => {
 
         Promise.all([resultWardPromise, commentPromise])
             .then(([resultWardResponse, commentResponse]) => {
+                setAction(true);
                 alert("환자 배치 결정 성공!");
             })
             .catch(error => {
                 console.error("Action fail.. ", error);
                 alert("통신 오류..");
             });
+
+        setSelectedResultWard(null);
+        setSelectedComment(null);
+        setAction(false);
     };
 
     return (

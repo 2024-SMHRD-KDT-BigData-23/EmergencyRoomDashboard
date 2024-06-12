@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import '../../assets/scss/maintable.scss';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import ActionModal from './ActionModal';
 
-const MainTable = ({ patients, pageStatus, resultWard }) => {
+const MainTable = ({ patients, resultWard, setAction }) => {
 
     const navigate = useNavigate();
     const [currentPage, setCurrentPage] = useState(1);
@@ -115,7 +115,7 @@ const MainTable = ({ patients, pageStatus, resultWard }) => {
                                         renderLink(patient, 'resultWard', resultWard[patient.admissionId])
                                     ) : (
                                         <td>
-                                            <ActionModal admissionId={patient.admissionId} />
+                                            <ActionModal admissionId={patient.admissionId} setAction={setAction} />
                                         </td>
                                     )}
                                 </tr>
