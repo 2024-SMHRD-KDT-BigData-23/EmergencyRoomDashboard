@@ -57,7 +57,7 @@ const RolePage = () => {
     // 유저 추가 변수
     const [addUser, setAddUser] = useState({
         staffName: '',
-        staffRole: '',
+        staffRole: 'Doctor',
         staffId: '',
         staffPw: ''
     });

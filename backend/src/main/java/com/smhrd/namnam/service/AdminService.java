@@ -141,7 +141,6 @@ public class AdminService {
         message.setTo("dlwlgnsrhy@gmail.com"); // 받는 이메일 주소
         message.setSubject("지원 티켓 제출: " + issueType);
         message.setText("설명: " + description + "\n연락처 정보: " + contactInfo);
-
         mailSender.send(message);
     }
 
