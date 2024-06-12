@@ -86,6 +86,7 @@ public class DataLoader {
                     staff.setStaffPw(role.toLowerCase() + i);
                     staff.setStaffName(faker.name().name());
                     staff.setStaffRole(role);
+                    staff.setStaffAuthority("usable");
                     staff.setStaffStatus("inactive");
                 } else { // i가 0일 때, admin 생성
                     staff.setHospitalInfo(selectedHospital);
@@ -93,6 +94,7 @@ public class DataLoader {
                     staff.setStaffPw("admin");
                     staff.setStaffName("admin");
                     staff.setStaffRole("admin");
+                    staff.setStaffAuthority("usable");
                     staff.setStaffStatus("inactive");
                 }
 

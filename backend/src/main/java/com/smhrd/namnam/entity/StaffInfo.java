@@ -38,14 +38,14 @@ public class StaffInfo {
     @Column(name = "staff_status", nullable = false, length = 30)
     private String staffStatus;
 
+    // 로그인 권한
+    @Column(name = "staff_authority", nullable = false, length = 10)
+    private String staffAuthority;
+
     // 의료진 생성 날짜
     @UpdateTimestamp
     @Column(name = "staff_created_at", nullable = false)
     private Timestamp staffCreatedAt;
-
-    // 마지막 로그인 날짜
-    @Column(name = "staff_updated_at", nullable = true)
-    private Timestamp staffUpdatedAt;
 
     // HospitalInfo의 병원 식별자
     @ManyToOne(cascade = CascadeType.REMOVE)
