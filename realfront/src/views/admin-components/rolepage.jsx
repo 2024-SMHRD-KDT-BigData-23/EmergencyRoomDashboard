@@ -177,7 +177,7 @@ const RolePage = () => {
     return (
         <div>
             <AdminHeader />
-            <Container>
+            <Container className='adminBody'>
                 <Role users = { users } showDeleteSuccessModal={showDeleteSuccessModal} setShowDeleteSuccessModal={setShowDeleteSuccessModal}
                 showDeleteFailModal={showDeleteFailModal} setShowDeleteFailModal={setShowDeleteFailModal}
                 handleDelete={handleDelete}
