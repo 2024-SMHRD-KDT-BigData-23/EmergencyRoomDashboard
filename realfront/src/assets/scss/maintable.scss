@@ -6,22 +6,18 @@
 
 // 테이블 헤더 배경색 투명
 .table thead th {
-  // background-color: #464964;
-  background-color: #0B3A65;
+  // background-color: #0B3A65;
+  background-color: #0c3d54;
   color: white;
 }
 
 
 .table tbody tr:nth-child(odd) td {
   background-color: white;
-  // cursor: pointer;
 }
 
 .table tbody tr:nth-child(even) td {
-  // background-color: #E8E4FF;
-  //  background-color: #white;
   background-color: #eeeeee;
-  // cursor: pointer;
 }
 
 .page-link {

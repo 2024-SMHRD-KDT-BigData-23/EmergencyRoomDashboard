@@ -25,55 +25,28 @@ const Help = () => {
     };
     return (
         <Container fluid className="">
-            {/* 상단 섹션 */}
-            <Row>
-                <Col>
-                    <h1>지원 및 도움말</h1>
-                    <Form>
-                        <Form.Group controlId="searchHelp">
-                            <Form.Control type="text" placeholder="도움말 기사 또는 FAQ 검색..." />
-                        </Form.Group>
-                    </Form>
-                </Col>
-            </Row>
-
-            {/* 중간 섹션 */}
+            
+            {/* 섹션 */}
             <Row className="my-3">
-                <Col>
-                    <h2>도움말 주제</h2>
-                    <Row>
-                        <Col>
-                            <Button variant="outline-primary" className="w-100 mb-2">사용자 관리</Button>
-                        </Col>
-                        <Col>
-                            <Button variant="outline-primary" className="w-100 mb-2">시스템 설정</Button>
-                        </Col>
-                        <Col>
-                            <Button variant="outline-primary" className="w-100 mb-2">데이터 관리</Button>
-                        </Col>
-                    </Row>
-                </Col>
-            </Row>
-
-            {/* 하단 섹션 */}
-            <Row className="my-3">
-                <Col>
-                    <h2>지원 티켓 제출</h2>
+                    <div>
+                    <div className="SubmitTitle">Submit Ticket</div>
+                    </div>
+                <Col className="d-flex align-items-center justify-content-center">
                     <Form onSubmit={handleSubmit}>
                         <Form.Group controlId="issueType" className="mb-3">
                             <Form.Label>문제 유형</Form.Label>
-                            <Form.Control
-                                as="select"
+                            <Form.Select
                                 name="issueType"
                                 value={ticket.issueType}
                                 onChange={handleInputChange}
+                                style={{width : '35rem'}}
                             >
                                 <option>선택...</option>
                                 <option>계정 문제</option>
                                 <option>시스템 오류</option>
                                 <option>데이터 관련</option>
                                 <option>기타</option>
-                            </Form.Control>
+                            </Form.Select>
                         </Form.Group>
                         <Form.Group controlId="description" className="mb-3">
                             <Form.Label>설명</Form.Label>
@@ -84,6 +57,7 @@ const Help = () => {
                                 onChange={handleInputChange}
                                 rows={3}
                                 placeholder="문제에 대한 자세한 설명을 입력하세요."
+                                style={{width : '35rem'}}
                             />
                         </Form.Group>
                         <Form.Group controlId="contactInfo" className="mb-3">
@@ -94,9 +68,10 @@ const Help = () => {
                                 value={ticket.contactInfo}
                                 onChange={handleInputChange}
                                 placeholder="연락 가능한 이메일 또는 전화번호를 입력하세요."
+                                style={{width : '35rem'}}
                             />
                         </Form.Group>
-                        <Button variant="primary" type="submit">티켓 제출</Button>
+                        <Button variant="primary" type="submit">Submit</Button>
                     </Form>
                 </Col>
             </Row>
