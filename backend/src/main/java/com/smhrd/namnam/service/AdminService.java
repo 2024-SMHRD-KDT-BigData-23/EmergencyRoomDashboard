@@ -132,6 +132,11 @@ public class AdminService {
         staffInfoRepo.AddStaffInfo(staffName, staffRole, staffId, staffPw);
     }
 
+    // role 페이지 search
+    public List<RoleViewVO> searchStaffInfo(String staffId, String staffRole, String staffStatus) {
+        return converToRoleViewVOList(roleViewRepo.searchStaffInfo(staffId, staffRole, staffStatus));
+    }
+
 
 
 
@@ -144,5 +149,4 @@ public class AdminService {
 
         mailSender.send(message);
     }
-
 }
