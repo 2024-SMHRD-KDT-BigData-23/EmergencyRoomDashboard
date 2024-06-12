@@ -1,5 +1,5 @@
-import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Navbar, Container, Col } from "react-bootstrap";
 import "../../assets/scss/header.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,6 +9,10 @@ import axios from "axios";
 const Header = () => {
 
   const navigate = useNavigate();
+
+  /* 동완 추가 함수 */
+  const location = useLocation();
+  const [activeLink, setActiveLink] = useState(location.pathname);
 
   const handleLogout = async () => {
     try {
@@ -37,14 +41,23 @@ const Header = () => {
     }
   };
 
+
+  /* 동완 추가 함수 */
+  const handleLinkClick = (path) => {
+    setActiveLink(path);
+  };
+
   return (
     <Navbar bg="" expand="lg" className="header-bg">
       <Container fluid>
-        {/* 메인 타이틀 중앙 배치 */}
+        {/* 메인 타이틀 왼쪽 배치 */}
         <Col className="d-flex justify-content-start align-items-center">
           <div className="titleSet d-flex">
             <div className="MainTitle">
-              <Link to="/present/List/All" className="MainLogoLink">
+              <Link to="/present/List/All" 
+              className="MainLogoTitleLink"
+              onClick={() => handleLinkClick("/present/List/All")}
+              >
                 NCDSS
               </Link>
             </div>
@@ -57,16 +70,24 @@ const Header = () => {
           xs="auto"
           className="d-flex justify-content-end align-items-center rightMenu "
         >
-          <div className="pageMove">
+          <div className={`pageMove ${activeLink === "/present/List/All" ? "active" : ""}`}>
+            <Link 
+            to="/present/List/All" 
+            className="MainLogoLink"
+            onClick={() => handleLinkClick("/present/List/All")}
+            >
             <FontAwesomeIcon icon={faTable} className="fIcon" />
-            <Link to="/present/List/All" className="MainLogoLink">
               In-ER Patients
             </Link>
           </div>
 
-          <div className="pageMove">
+          <div className={`pageMove ${activeLink === "/past/List/All" ? "active" : ""}`}>
+            <Link 
+            to="/past/List/All" 
+            className="MainLogoLink"
+            onClick={() => handleLinkClick("/past/List/All")}
+            >
             <FontAwesomeIcon icon={faTable} className="fIcon" />
-            <Link to="/past/List/All" className="MainLogoLink">
               Ex-ER Patients
             </Link>
           </div>
