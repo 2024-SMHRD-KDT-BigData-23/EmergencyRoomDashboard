@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Navbar, Container, Col } from "react-bootstrap";
 import "../../assets/scss/header.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStethoscope, faTable } from "@fortawesome/free-solid-svg-icons";
+import { faStethoscope, faTable} from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 
 const Header = () => {
@@ -60,14 +60,14 @@ const Header = () => {
           <div className="pageMove">
             <FontAwesomeIcon icon={faTable} className="fIcon" />
             <Link to="/present/List/All" className="MainLogoLink">
-              Present
+              In-ER Patients
             </Link>
           </div>
 
           <div className="pageMove">
             <FontAwesomeIcon icon={faTable} className="fIcon" />
             <Link to="/past/List/All" className="MainLogoLink">
-              Past
+              Ex-ER Patients
             </Link>
           </div>
 

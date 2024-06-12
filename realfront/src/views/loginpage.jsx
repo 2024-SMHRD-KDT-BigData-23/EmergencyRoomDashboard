@@ -4,12 +4,11 @@ import '../assets/scss/style.scss'
 import LoginComponent from "./sections/logincomponent.jsx";
 
 const Login = () => {
-    
-    return (
-                <div className="loginBody">
-                   <LoginComponent />
-                </div>
 
+    return (
+        <div className="loginBody">
+            <LoginComponent />
+        </div>
     );
 }
 

@@ -85,14 +85,24 @@ const Suveillance = ({ patient, setSearch }) => {
                         <Row className="mb-3">
                             <Col>
                                 <Form.Group controlId="filterUser">
-                                    <Form.Label>User</Form.Label>
-                                    <Form.Control type="text" name="logUser" value={filter.logUser} onChange={handleFilterChange} />
+                                    <Form.Label>Id</Form.Label>
+                                    <Form.Control type="text" name="logUser" value={filter.logUser} onChange={handleFilterChange} 
+                                    placeholder="Search Id..." />
                                 </Form.Group>
                             </Col>
                             <Col>
                                 <Form.Group controlId="filterAction">
                                     <Form.Label>Action</Form.Label>
-                                    <Form.Control type="text" name="logAction" value={filter.logAction} onChange={handleFilterChange} />
+                                    <Form.Select
+                                        name="logAction"
+                                        value={filter.logAction}
+                                        onChange={handleFilterChange}
+                                    >
+                                    <option value="All action">All action</option>    
+                                    <option value="login">Login</option>
+                                    <option value="logout">Logout</option>
+                                    <option value="Decision">Decision</option>
+                                    </Form.Select>
                                 </Form.Group>
                             </Col>
                             <Col>
@@ -119,7 +129,7 @@ const Suveillance = ({ patient, setSearch }) => {
                         <thead>
                             <tr>
                                 <th>Timestamp</th>
-                                <th>User</th>
+                                <th>Id</th>
                                 <th>Action</th>
                                 <th>Details</th>
                             </tr>

@@ -1,6 +1,6 @@
 .header-bg {
-  background-color: #0B3A65;
-  // background-color: #464964;
+  // background-color: #0B3A65;
+  background-color: #0c3d54;
 }
 
 .MainTitle {
@@ -36,6 +36,15 @@ color: inherit; /* 부모 요소의 색상 상속 */
   font-size: 20px;
   color: white;
   font-weight: 700;
+
+    &:hover {
+    color: #c9c5c5;
+    }
+
+    &:focus {
+      color: #c9c5c5;
+      border : none;
+    }
 }
 
 /* AdminPage */

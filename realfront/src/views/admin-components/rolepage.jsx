@@ -62,6 +62,9 @@ const RolePage = () => {
         staffPw: ''
     });
 
+    // Search 변수
+    const [search, setSearch] = useState([]);
+
 
     // user 리스트
     useEffect(() => {
@@ -151,6 +154,22 @@ const RolePage = () => {
         });
 
     }
+
+    // search
+    useEffect(() => {
+        axios
+        .get(`http://localhost:8080/api/role/search`,  { params: search })
+        .then(response => {
+            const formattedData = response.data.map(item => ({
+                ...item,
+                activityDate: extraDateAndTime(item.activityDate)
+            }));
+            setUsers(formattedData);
+        })
+        .catch(error => {
+            console.error('Error fetching search data : ', error);
+        });
+    }, [search])
     
 
 
@@ -158,7 +177,7 @@ const RolePage = () => {
     return (
         <div>
             <AdminHeader />
-            <Container>
+            <Container className='adminBody'>
                 <Role users = { users } showDeleteSuccessModal={showDeleteSuccessModal} setShowDeleteSuccessModal={setShowDeleteSuccessModal}
                 showDeleteFailModal={showDeleteFailModal} setShowDeleteFailModal={setShowDeleteFailModal}
                 handleDelete={handleDelete}
@@ -166,7 +185,7 @@ const RolePage = () => {
                 showEditFailModal={showEditFailModal} setShowEditFailModal={setShowEditFailModal} handleEdit = {handleEdit} setEditUser={setEditUser}
                 setEditId={setEditId} setAddUser={setAddUser} handleAddUser={handleAddUser} showAddSuccessModal={showAddSuccessModal} 
                 setShowAddSuccessModal={setShowAddSuccessModal} showAddFailModal={showAddFailModal} setShowAddFailModal={setShowAddFailModal} 
-                addUser={addUser} />
+                addUser={addUser} setSearch={setSearch} />
             </Container>
             <Footer/>
         </div>

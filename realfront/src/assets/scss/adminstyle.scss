@@ -1,15 +1,6 @@
 /* Admin All Body Page Size */
 .adminBody {
-    height: 79.3vh;
-}
-/* DashBoard Page Graph Body*/
-.UserAGraphBody {
-    height: 44vh;
-}
-/* DashBoard Page Graph */
-.UserAGraph {
-    width: 100% !important;
-    height: 35vh !important;
+    height: 79vh;
 }
 
 /* Report Page Title */
@@ -21,3 +12,11 @@
     margin-bottom : 1rem;
 }
 
+/* SubmitTitle */
+.SubmitTitle {
+    font-size: 3rem;
+    font-weight: 700;
+    text-align: center;
+    margin-right :15rem;
+    margin-bottom : 1rem;
+}
