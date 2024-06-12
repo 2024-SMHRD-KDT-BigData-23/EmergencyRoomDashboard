@@ -44,6 +44,8 @@ dependencies {
 	implementation 'io.jsonwebtoken:jjwt-jackson:0.12.3'
 	//email
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
+	//pdf
+	implementation 'com.itextpdf:itext7-core:7.2.2'
 }
 
 tasks.named('test') {

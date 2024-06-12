@@ -1,16 +1,37 @@
 import React, { useState } from "react";
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import axios from "axios";
 
 const Report = () => {
     const [reportType, setReportType] = useState("userActivity");
     const [startDate, setStartDate] = useState("");
     const [endDate, setEndDate] = useState("");
 
-    const handleDownload = () => {
-        // 보고서 다운로드 로직을 구현하세요
-        alert(`Downloading ${reportType} report from ${startDate} to ${endDate}`);
+    const handleDownload =async () => {
+        try{
+            const response = await axios.get('http://localhost:8080/api/pdf/generate',{
+                params:{
+                    reportType,
+                    startDate,
+                    endDate
+                },
+                responseType: 'blob'
+            });
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link =document.createElement('a');
+            link.href =url;
+            link.setAttribute('download','report.pdf');
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+            alert('다운로드 완료');
+        } catch (error){
+            console.error('Error downloading report:',error);
+            alert('다운르도 실패');
+        }
     };
 
+     
     return (
         <Container>
             <Row className="my-4">
