@@ -86,14 +86,14 @@ public class DataLoader {
                     staff.setStaffPw(role.toLowerCase() + i);
                     staff.setStaffName(faker.name().name());
                     staff.setStaffRole(role);
-                    staff.setStaffStatus("active");
+                    staff.setStaffStatus("inactive");
                 } else { // i가 0일 때, admin 생성
                     staff.setHospitalInfo(selectedHospital);
                     staff.setStaffId("admin");
                     staff.setStaffPw("admin");
                     staff.setStaffName("admin");
                     staff.setStaffRole("admin");
-                    staff.setStaffStatus("active");
+                    staff.setStaffStatus("inactive");
                 }
 
                 staffRepo.save(staff);
