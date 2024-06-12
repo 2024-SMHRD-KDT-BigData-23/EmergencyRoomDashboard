@@ -6,6 +6,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Immutable;
 import org.hibernate.annotations.Subselect;
@@ -59,5 +60,6 @@ public class LogView {
     // 상세내역
     @Column(name = "log_detail")
     private String logDetail;
+
 
 }

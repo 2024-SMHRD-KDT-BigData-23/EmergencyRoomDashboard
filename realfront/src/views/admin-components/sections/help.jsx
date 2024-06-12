@@ -2,10 +2,8 @@ import React, { useState } from "react";
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import axios from 'axios';
 
-
 const Help = () => {
     const [ticket, setTicket] = useState({ issueType: '', description: '', contactInfo: '' });
-
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setTicket({ ...ticket, [name]: value });
@@ -13,7 +11,7 @@ const Help = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post('http://localhost:8080/api/admin/sendEmail',ticket)
+        axios.post('http://localhost:8080/api/sendEmail',ticket)
             .then(response =>{
                 console.log('지원 티켓 제출 성공 !:',response.data);
                 alert('티켓 제출 성공');

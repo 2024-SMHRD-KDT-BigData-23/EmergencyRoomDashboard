@@ -1,19 +1,30 @@
 package com.smhrd.namnam.service;
 
+import com.itextpdf.kernel.geom.PageSize;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Cell;
+import com.itextpdf.layout.element.Paragraph;
 import com.smhrd.namnam.entity.*;
 import com.smhrd.namnam.repository.*;
 import com.smhrd.namnam.vo.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.server.ResponseStatusException;
+import com.itextpdf.layout.element.Table;
+import com.smhrd.namnam.entity.LogView;
+import com.smhrd.namnam.entity.ERView;
+import com.smhrd.namnam.entity.RoleView;
+import com.smhrd.namnam.repository.LogViewRepository;
+import com.smhrd.namnam.repository.ERViewRepository;
+import com.smhrd.namnam.repository.RoleViewRepository;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
+import java.io.ByteArrayOutputStream;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -91,9 +102,6 @@ public class AdminService {
         return roleView.stream().map(entity -> modelMapper.map(entity, RoleViewVO.class))
                 .collect(Collectors.toList());
     }
-
-
-
     //////////////////////////////////////result_ward log 페이지///////////////////////
 
     // admin log 리스트(login로그, resultWard로그 최신순
@@ -105,8 +113,6 @@ public class AdminService {
     public List<LogViewVO> searchlogInfo(String logUser, String logAction, String logTimeStart, String logTimeEnd) {
         return converToLogViewVOList(logViewRepo.searchlogInfo(logUser, logAction, logTimeStart, logTimeEnd));
     }
-
-
 
     //////////////////////////////////role 페이지/////////////////////////////////////////////////
     // staff들 리스트
@@ -138,15 +144,131 @@ public class AdminService {
     }
 
 
-
-
-    ///////////////////////////////////////help 페이지////////////////////
+    ////////////////////help 페이지////////////////
+    // 페이지 submit ticket
     public void sendEmail(String issueType, String description, String contactInfo) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo("dlwlgnsrhy@gmail.com"); // 받는 이메일 주소
         message.setSubject("지원 티켓 제출: " + issueType);
         message.setText("설명: " + description + "\n연락처 정보: " + contactInfo);
-
         mailSender.send(message);
+    }
+    ///////////////// report 페이지/////////////////////
+    public byte[] generatePdf(String reportType, String startDate, String endDate) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        PdfWriter writer = new PdfWriter(baos);
+        PdfDocument pdf = new PdfDocument(writer);
+        // Custom page size (e.g., A3 landscape)
+        pdf.setDefaultPageSize(PageSize.A3.rotate());
+        Document document = new Document(pdf);
+
+        document.add(new Paragraph("Hospital Report"));
+
+        if ("userActivity".equals(reportType)) {
+            addLogViewData(document);
+        } else if ("systemUsage".equals(reportType)) {
+            addRoleViewData(document);
+        } else if ("patientCare".equals(reportType)) {
+            addERViewData(document);
+        }
+        document.close();
+        return baos.toByteArray();
+    }
+
+    private void addLogViewData(Document document) {
+        List<LogView> logViews = logViewRepo.findAll();
+        document.add(new Paragraph("Log Information"));
+        float[] columnWidths = new float[5];  // Assuming there are 19 columns
+        Arrays.fill(columnWidths, 1);  // Set each column width to 1 (equal width)
+        Table table = new Table(columnWidths);
+        table.addCell("Log Id");
+        table.addCell("Log Time");
+        table.addCell("Log Action");
+        table.addCell("Log User");
+        table.addCell("Log Detail");
+        for (LogView log : logViews) {
+            table.addCell(log.getLogId().toString());
+            table.addCell(log.getLogTime().toString());
+            table.addCell(log.getLogAction());
+            table.addCell(log.getLogUser()!= null ? log.getLogUser() : "N/A");
+            table.addCell(log.getLogDetail());
+        }
+        document.add(table);
+    }
+
+    private void addRoleViewData(Document document) {
+        List<RoleView> roleViews = roleViewRepo.findAll();
+        document.add(new Paragraph("Role Information"));
+        float[] columnWidths = new float[8];  // Assuming there are 19 columns
+        Arrays.fill(columnWidths, 1);  // Set each column width to 1 (equal width)
+        Table table = new Table(columnWidths);
+        table.addCell("Role View ID");
+        table.addCell("Hospital ID");
+        table.addCell("Staff Created At");
+        table.addCell("Staff ID");
+        table.addCell("Staff Name");
+        table.addCell("Staff Role");
+        table.addCell("Staff Status");
+        table.addCell("Activity Date");
+        for (RoleView role : roleViews) {
+            table.addCell(role.getRoleViewId().toString());
+            table.addCell(role.getHospitalId().toString());
+            table.addCell(role.getStaffCreatedAt().toString());
+            table.addCell(role.getStaffId());
+            table.addCell(role.getStaffName());
+            table.addCell(role.getStaffRole());
+            table.addCell(role.getStaffStatus());
+            table.addCell(role.getActivityDate() != null ? role.getActivityDate().toString() : "N/A");
+        }
+        document.add(table);
+    }
+
+    private void addERViewData(Document document) {
+        List<ERView> erViews = erViewRepo.findAll();
+        document.add(new Paragraph("ER Information"));
+        float[] columnWidths = new float[19];  // Assuming there are 19 columns
+        Arrays.fill(columnWidths, 1);  // Set each column width to 1 (equal width)
+        Table table = new Table(columnWidths);
+        table.addCell("ER View ID");
+        table.addCell("Patient ID");
+        table.addCell("Patient Name");
+        table.addCell("Patient Sex");
+        table.addCell("Patient Birthdate");
+        table.addCell("Patient Age");
+        table.addCell("Patient Disease History");
+        table.addCell("Bed Ward");
+        table.addCell("Admission ID");
+        table.addCell("Admission In Time");
+        table.addCell("Admission Out Time");
+        table.addCell("Admission Acuity");
+        table.addCell("Admission Pain");
+        table.addCell("Admission Chief Complaint");
+        table.addCell("Staff ID");
+        table.addCell("Deep NCDSS");
+        table.addCell("Deep Home Percent");
+        table.addCell("Deep ICU Percent");
+        table.addCell("Deep Ward Percent");
+        for (ERView er : erViews) {
+            table.addCell(er.getViewId().toString());
+            table.addCell(er.getPatientId());
+            table.addCell(er.getPatientName());
+            table.addCell(er.getPatientSex());
+            table.addCell(er.getPatientBirthdate().toString());
+            table.addCell(String.valueOf(er.getPatientAge()));
+            table.addCell(er.getPatientDiseaseHistory());
+            table.addCell(er.getBedWard());
+            table.addCell(er.getAdmissionId());
+            table.addCell(er.getAdmissionInTime().toString());
+            table.addCell(er.getAdmissionOutTime() != null ? er.getAdmissionOutTime().toString() : "N/A");
+            table.addCell(String.valueOf(er.getAdmissionAcuity()));
+            table.addCell(String.valueOf(er.getAdmissionPain()));
+            table.addCell(er.getAdmissionChiefComplaint());
+            table.addCell(er.getStaffId());
+            table.addCell(er.getDeepNcdss());
+            table.addCell(er.getDeepHomePercent().toString());
+            table.addCell(er.getDeepIcuPercent().toString());
+            table.addCell(er.getDeepWardPercent().toString());
+        }
+        document.add(table);
     }
 }

@@ -1,2 +1,4 @@
 .DS_Store
-NCDSS_flask/venv/
+
+# Ignore Python virtual environment
+venv/
