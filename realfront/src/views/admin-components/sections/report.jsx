@@ -31,16 +31,7 @@ const Report = () => {
         }
     };
 
-            const url = window.URL.createObjectURL(new Blob([response.data]));
-            const link = document.createElement('a');
-            link.href = url;
-            link.setAttribute('download', `${reportType}_report.pdf`);
-            document.body.appendChild(link);
-            link.click();
-        } catch (error) {
-            console.error('Error downloading report:', error);
-        }
-    };
+     
     return (
         <Container>
             <Row className="my-4">

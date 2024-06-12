@@ -94,15 +94,16 @@ public class AdminController {
     @GetMapping("/pdf/generate")
     public ResponseEntity<byte[]>generatePdf(@RequestParam String reportType,
                                              @RequestParam String startDate,
-                                             @RequestParam String endDate){
-        byte[] pdfContents = adminService.generatePdf(reportType,startDate,endDate);
+                                             @RequestParam String endDate) {
+        byte[] pdfContents = adminService.generatePdf(reportType, startDate, endDate);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_PDF);
-        headers.setContentDispositionFormData("attachment","report.pdf");
+        headers.setContentDispositionFormData("attachment", "report.pdf");
 
         return ResponseEntity.ok()
                 .headers(headers)
                 .body(pdfContents);
+    }
     // role 페이지 search
     @GetMapping("/role/search")
     @Operation(summary = "(role 페이지 search)")
@@ -113,5 +114,5 @@ public class AdminController {
 
 
     }
-    }
+
 
