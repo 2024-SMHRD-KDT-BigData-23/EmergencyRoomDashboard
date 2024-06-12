@@ -3,7 +3,8 @@ import { Container, Row, Col, Table, Button, Form, Modal } from 'react-bootstrap
 
 const Role = ({ users, setEdit, handleDelete , showDeleteSuccessModal, setShowDeleteSuccessModal, showDeleteFailModal, setShowDeleteFailModal,
     showEditSuccessModal, setShowEditSuccessModal, showEditFailModal, setShowEditFailModal, handleEdit, setEditUser, setEditId, setAddUser, handleAddUser,
-    showAddSuccessModal, setShowAddSuccessModal, showAddFailModal, setShowAddFailModal, addUser
+    showAddSuccessModal, setShowAddSuccessModal, showAddFailModal, setShowAddFailModal, addUser,
+    setSearch
  }) => {
 
     const [currentPage, setCurrentPage] = useState(1);
@@ -107,11 +108,27 @@ const Role = ({ users, setEdit, handleDelete , showDeleteSuccessModal, setShowDe
             ...prevUser,
             [name]: value
         }));
+        
     };
-    // const handleEditSubmit = (e) => {
-    //     e.preventDefault();
-    //     setEdit(editFilter)
-    // }
+
+
+    // 검색관련
+    const [filter, setFilter] = useState({
+        staffId: '',
+        staffRole: 'All Roles',
+        staffStatus: 'All Statuses'
+    });
+    const handleFilterChange = (e) => {
+        const { name, value } = e.target;
+        setFilter({ ...filter, [name]: value });
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        setSearch(filter);
+    };
+
+
 
     return (
         <Container fluid>
@@ -119,28 +136,38 @@ const Role = ({ users, setEdit, handleDelete , showDeleteSuccessModal, setShowDe
             <Row className="mb-3">
             <Col>
                 <h2>User Management</h2>
-                <Form>
+                <Form onSubmit={handleSubmit}>
                     <Row>
                         <Col>
                             <Form.Group controlId="search">
-                                <Form.Control type="text" placeholder="Search..." />
+                                <Form.Control type="text" name="staffId" value={filter.staffId} onChange={handleFilterChange} placeholder="Search Id..." />
                             </Form.Group>
                         </Col>
                         <Col>
                             <Form.Group controlId="roleFilter">
-                                <Form.Control as="select">
-                                    <option>All Roles</option>
-                                    <option>Doctor</option>
-                                    <option>Nurse</option>
+                                <Form.Control as="select" name="staffRole" value={filter.staffRole} onChange={handleFilterChange}>
+                                    <option value="All Roles">All Roles</option>
+                                    <option value="Doctor">Doctor</option>
+                                    <option value="Nurse">Nurse</option>
+                                    {/* <option value="Attending Physicians">Attending Physicians</option>
+                                    <option value="Resident Physicians">Resident Physicians</option>
+                                    <option value="Fellows">Fellows</option>
+                                    <option value="Emergency Medicine Specialists">Emergency Medicine Specialists</option>
+                                    <option value="Consulting Physicians">Consulting Physicians</option>
+                                    <option value="Registered Nurses">Registered Nurses</option>
+                                    <option value="Emergency Room Nurses">Emergency Room Nurses</option>
+                                    <option value="Nurse Practitioners">Nurse Practitioners</option>
+                                    <option value="Clinical Nurse Specialists">Clinical Nurse Specialists</option>
+                                    <option value="Charge Nurses">Charge Nurses</option> */}
                                 </Form.Control>
                             </Form.Group>
                         </Col>
                         <Col>
                             <Form.Group controlId="statusFilter">
-                                <Form.Control as="select">
-                                    <option>All Statuses</option>
-                                    <option>Active</option>
-                                    <option>Inactive</option>
+                                <Form.Control as="select" name="staffStatus" value={filter.staffStatus} onChange={handleFilterChange}>
+                                    <option value="All Statuses">All Statuses</option>
+                                    <option value="active">Active</option>
+                                    <option value="inactive">Inactive</option>
                                 </Form.Control>
                             </Form.Group>
                         </Col>
@@ -254,6 +281,16 @@ const Role = ({ users, setEdit, handleDelete , showDeleteSuccessModal, setShowDe
                             >
                             <option value="Doctor">Doctor</option>
                             <option value="Nurse">Nurse</option>
+                            {/* <option value="Attending Physicians">Attending Physicians</option>
+                            <option value="Resident Physicians">Resident Physicians</option>
+                            <option value="Fellows">Fellows</option>
+                            <option value="Emergency Medicine Specialists">Emergency Medicine Specialists</option>
+                            <option value="Consulting Physicians">Consulting Physicians</option>
+                            <option value="Registered Nurses">Registered Nurses</option>
+                            <option value="Emergency Room Nurses">Emergency Room Nurses</option>
+                            <option value="Nurse Practitioners">Nurse Practitioners</option>
+                            <option value="Clinical Nurse Specialists">Clinical Nurse Specialists</option>
+                            <option value="Charge Nurses">Charge Nurses</option>     */}
                             </Form.Control>
                         </Form.Group>
                         <Form.Group controlId="formId">
@@ -268,7 +305,7 @@ const Role = ({ users, setEdit, handleDelete , showDeleteSuccessModal, setShowDe
                         <Form.Group controlId="formPw">
                             <Form.Label>password</Form.Label>
                             <Form.Control
-                                type="pw"
+                                type="password"
                                 name="staffPw"
                                 placeholder="새 비밀번호를 입력하세요 (미 입력시 기존 비밀번호 유지)"
                                 onChange={handleEditChange}
@@ -313,6 +350,16 @@ const Role = ({ users, setEdit, handleDelete , showDeleteSuccessModal, setShowDe
                             >
                             <option value="Doctor">Doctor</option>
                             <option value="Nurse">Nurse</option>
+                            {/* <option value="Attending Physicians">Attending Physicians</option>
+                            <option value="Resident Physicians">Resident Physicians</option>
+                            <option value="Fellows">Fellows</option>
+                            <option value="Emergency Medicine Specialists">Emergency Medicine Specialists</option>
+                            <option value="Consulting Physicians">Consulting Physicians</option>
+                            <option value="Registered Nurses">Registered Nurses</option>
+                            <option value="Emergency Room Nurses">Emergency Room Nurses</option>
+                            <option value="Nurse Practitioners">Nurse Practitioners</option>
+                            <option value="Clinical Nurse Specialists">Clinical Nurse Specialists</option>
+                            <option value="Charge Nurses">Charge Nurses</option> */}
                             </Form.Control>
                         </Form.Group>
                         <Form.Group controlId="formId">
@@ -327,7 +374,7 @@ const Role = ({ users, setEdit, handleDelete , showDeleteSuccessModal, setShowDe
                         <Form.Group controlId="formPw">
                             <Form.Label>password</Form.Label>
                             <Form.Control
-                                type="pw"
+                                type="password"
                                 name="staffPw"
                                 placeholder="비밀번호를 입력하세요"
                                 onChange={handleUserAddChange}
@@ -340,7 +387,7 @@ const Role = ({ users, setEdit, handleDelete , showDeleteSuccessModal, setShowDe
                         Close
                     </Button>
                     <Button variant="primary" onClick={() => { handleCloseUserAddModal(); handleAddUser()}}>
-                        Save Changes
+                        Add User
                     </Button>
                 </Modal.Footer>
             </Modal>

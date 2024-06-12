@@ -73,14 +73,9 @@ public class AdminController {
     // role페이지 user 수정
     @PutMapping("/role/edit/{id}")
     @Operation(summary = "(role페이지 user 수정)")
-    public ResponseEntity<Void> editStaffInfo(@PathVariable("id") String id,@RequestBody StaffInfo staffInfo){
-        System.out.println("id : "+id);
-        System.out.println("staffName : "+staffInfo.getStaffName());
-        System.out.println("staffRole : "+staffInfo.getStaffRole());
-        System.out.println("staffId : "+staffInfo.getStaffId());
-        System.out.println("staffPw : "+staffInfo.getStaffPw());
-        adminService.editStaffInfo(id, staffInfo.getStaffName(), staffInfo.getStaffRole(),
-                staffInfo.getStaffId(), staffInfo.getStaffPw());
+    public ResponseEntity<Void> editStaffInfo(@PathVariable("id") String id,@RequestBody StaffInfoVO staffInfoVO){
+        adminService.editStaffInfo(id, staffInfoVO.getStaffName(), staffInfoVO.getStaffRole(),
+                staffInfoVO.getStaffId(), staffInfoVO.getStaffPw());
         return ResponseEntity.ok().build();
     }
 
@@ -96,13 +91,17 @@ public class AdminController {
     @PostMapping("/role/add")
     @Operation(summary = "(role페이지 user 추가)")
     public ResponseEntity<Void> addStaffInfo(@RequestBody StaffInfoVO staffInfoVO){
-        System.out.println("staffName1 : "+staffInfoVO.getStaffName());
-        System.out.println("staffRole1 : "+staffInfoVO.getStaffRole());
-        System.out.println("staffId1 : "+staffInfoVO.getStaffId());
-        System.out.println("staffPw1 : "+staffInfoVO.getStaffPw());
         adminService.addStaffInfo(staffInfoVO.getStaffName(), staffInfoVO.getStaffRole(),
                 staffInfoVO.getStaffId(), staffInfoVO.getStaffPw());
         return ResponseEntity.ok().build();
+    }
+
+    // role 페이지 search
+    @GetMapping("/role/search")
+    @Operation(summary = "(role 페이지 search)")
+    public List<RoleViewVO> searchStaffInfo(@RequestParam(value = "staffId") String staffId, @RequestParam(value = "staffRole") String staffRole,
+                                            @RequestParam(value = "staffStatus") String staffStatus){
+        return adminService.searchStaffInfo(staffId, staffRole, staffStatus);
     }
 
 
