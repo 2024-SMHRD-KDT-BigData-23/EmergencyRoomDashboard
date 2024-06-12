@@ -262,7 +262,7 @@ const Role = ({ users, setEdit, handleDelete , showDeleteSuccessModal, setShowDe
                 </Modal.Header>
                 <Modal.Body>
                     <Form>
-                        <Form.Group controlId="formName">
+                        <Form.Group controlId="formName" style={{ marginBottom: '20px' }}>
                             <Form.Label>Name</Form.Label>
                             <Form.Control
                                 type="text"
@@ -271,10 +271,9 @@ const Role = ({ users, setEdit, handleDelete , showDeleteSuccessModal, setShowDe
                                 onChange={handleEditChange}
                             />
                         </Form.Group>
-                        <Form.Group controlId="formRole">
+                        <Form.Group controlId="formRole" style={{ marginBottom: '20px' }}>
                             <Form.Label>Role</Form.Label>
-                            <Form.Control
-                                as="select"
+                            <Form.Select
                                 name="staffRole"
                                 value={selectedUser.staffRole}
                                 onChange={handleEditChange}
@@ -291,9 +290,9 @@ const Role = ({ users, setEdit, handleDelete , showDeleteSuccessModal, setShowDe
                             <option value="Nurse Practitioners">Nurse Practitioners</option>
                             <option value="Clinical Nurse Specialists">Clinical Nurse Specialists</option>
                             <option value="Charge Nurses">Charge Nurses</option>     */}
-                            </Form.Control>
+                            </Form.Select>
                         </Form.Group>
-                        <Form.Group controlId="formId">
+                        <Form.Group controlId="formId" style={{ marginBottom: '20px' }}>
                             <Form.Label>Id</Form.Label>
                             <Form.Control
                                 type="id"
@@ -302,8 +301,8 @@ const Role = ({ users, setEdit, handleDelete , showDeleteSuccessModal, setShowDe
                                 onChange={handleEditChange}
                             />
                         </Form.Group>
-                        <Form.Group controlId="formPw">
-                            <Form.Label>password</Form.Label>
+                        <Form.Group controlId="formPw" style={{ marginBottom: '20px' }}>
+                            <Form.Label>Password</Form.Label>
                             <Form.Control
                                 type="password"
                                 name="staffPw"
@@ -331,7 +330,7 @@ const Role = ({ users, setEdit, handleDelete , showDeleteSuccessModal, setShowDe
                 </Modal.Header>
                 <Modal.Body>
                     <Form>
-                        <Form.Group controlId="formName">
+                        <Form.Group controlId="formName" style={{ marginBottom: '20px' }} >
                             <Form.Label>Name</Form.Label>
                             <Form.Control
                                 type="text"
@@ -340,10 +339,9 @@ const Role = ({ users, setEdit, handleDelete , showDeleteSuccessModal, setShowDe
                                 onChange={handleUserAddChange}
                             />
                         </Form.Group>
-                        <Form.Group controlId="formRole">
+                        <Form.Group controlId="formRole" style={{ marginBottom: '20px' }}>
                             <Form.Label>Role</Form.Label>
-                            <Form.Control
-                                as="select"
+                            <Form.Select
                                 name="staffRole"
                                 value={addUser.staffRole}
                                 onChange={handleUserAddChange}
@@ -360,9 +358,9 @@ const Role = ({ users, setEdit, handleDelete , showDeleteSuccessModal, setShowDe
                             <option value="Nurse Practitioners">Nurse Practitioners</option>
                             <option value="Clinical Nurse Specialists">Clinical Nurse Specialists</option>
                             <option value="Charge Nurses">Charge Nurses</option> */}
-                            </Form.Control>
+                            </Form.Select>
                         </Form.Group>
-                        <Form.Group controlId="formId">
+                        <Form.Group controlId="formId" style={{ marginBottom: '20px' }}>
                             <Form.Label>Id</Form.Label>
                             <Form.Control
                                 type="id"
@@ -371,7 +369,7 @@ const Role = ({ users, setEdit, handleDelete , showDeleteSuccessModal, setShowDe
                                 onChange={handleUserAddChange}
                             />
                         </Form.Group>
-                        <Form.Group controlId="formPw">
+                        <Form.Group controlId="formPw" style={{ marginBottom: '20px' }}>
                             <Form.Label>password</Form.Label>
                             <Form.Control
                                 type="password"
