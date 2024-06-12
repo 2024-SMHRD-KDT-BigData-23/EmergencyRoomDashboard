@@ -3,7 +3,7 @@ import { Container, Row, Col, Table, Button, Form, Modal } from 'react-bootstrap
 
 const Role = ({ users, setEdit, handleDelete , showDeleteSuccessModal, setShowDeleteSuccessModal, showDeleteFailModal, setShowDeleteFailModal,
     showEditSuccessModal, setShowEditSuccessModal, showEditFailModal, setShowEditFailModal, handleEdit, setEditUser, setEditId, setAddUser, handleAddUser,
-    showAddSuccessModal, setShowAddSuccessModal, showAddFailModal, setShowAddFailModal
+    showAddSuccessModal, setShowAddSuccessModal, showAddFailModal, setShowAddFailModal, addUser
  }) => {
 
     const [currentPage, setCurrentPage] = useState(1);
@@ -308,6 +308,7 @@ const Role = ({ users, setEdit, handleDelete , showDeleteSuccessModal, setShowDe
                             <Form.Control
                                 as="select"
                                 name="staffRole"
+                                value={addUser.staffRole}
                                 onChange={handleUserAddChange}
                             >
                             <option value="Doctor">Doctor</option>

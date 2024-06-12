@@ -95,13 +95,13 @@ public class AdminController {
     // role페이지 user 추가
     @PostMapping("/role/add")
     @Operation(summary = "(role페이지 user 추가)")
-    public ResponseEntity<Void> addStaffInfo(@RequestBody StaffInfo staffInfo){
-        System.out.println("staffName1 : "+staffInfo.getStaffName());
-        System.out.println("staffRole1 : "+staffInfo.getStaffRole());
-        System.out.println("staffId1 : "+staffInfo.getStaffId());
-        System.out.println("staffPw1 : "+staffInfo.getStaffPw());
-        adminService.addStaffInfo(staffInfo.getStaffName(), staffInfo.getStaffRole(),
-                staffInfo.getStaffId(), staffInfo.getStaffPw());
+    public ResponseEntity<Void> addStaffInfo(@RequestBody StaffInfoVO staffInfoVO){
+        System.out.println("staffName1 : "+staffInfoVO.getStaffName());
+        System.out.println("staffRole1 : "+staffInfoVO.getStaffRole());
+        System.out.println("staffId1 : "+staffInfoVO.getStaffId());
+        System.out.println("staffPw1 : "+staffInfoVO.getStaffPw());
+        adminService.addStaffInfo(staffInfoVO.getStaffName(), staffInfoVO.getStaffRole(),
+                staffInfoVO.getStaffId(), staffInfoVO.getStaffPw());
         return ResponseEntity.ok().build();
     }
 

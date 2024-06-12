@@ -131,6 +131,7 @@ const RolePage = () => {
 
       // user 추가
       const handleAddUser = async () => {
+        console.log("staffRole값은?? : ", addUser.staffRole)
         axios
         .post(`http://localhost:8080/api/role/add`, addUser)
         .then(response => {
@@ -164,7 +165,8 @@ const RolePage = () => {
                 showEditSuccessModal = {showEditSuccessModal} setShowEditSuccessModal={setShowEditSuccessModal}
                 showEditFailModal={showEditFailModal} setShowEditFailModal={setShowEditFailModal} handleEdit = {handleEdit} setEditUser={setEditUser}
                 setEditId={setEditId} setAddUser={setAddUser} handleAddUser={handleAddUser} showAddSuccessModal={showAddSuccessModal} 
-                setShowAddSuccessModal={setShowAddSuccessModal} showAddFailModal={showAddFailModal} setShowAddFailModal={setShowAddFailModal} />
+                setShowAddSuccessModal={setShowAddSuccessModal} showAddFailModal={showAddFailModal} setShowAddFailModal={setShowAddFailModal} 
+                addUser={addUser} />
             </Container>
             <Footer/>
         </div>
