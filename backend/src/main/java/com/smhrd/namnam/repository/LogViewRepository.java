@@ -13,6 +13,7 @@ import java.util.List;
 @Repository
 public interface LogViewRepository extends JpaRepository<LogView, Long> {
 
+
     // admin log 리스트(login로그, resultWard로그 최신순
     @Query(value = "SELECT * " +
             "FROM log_view " +

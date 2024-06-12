@@ -7,6 +7,8 @@ import com.smhrd.namnam.vo.*;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
@@ -21,13 +23,6 @@ public class AdminController {
 
     @Autowired
     private AdminService adminService;
-
-    @GetMapping("/admin")
-    @Operation(summary = "(admin계정 로그인 시)")
-    public String adminP(){
-        return  "admin Controller";
-
-    }
 
     ////////////////////////////////admin log 페이지/////////////////////////////
 
@@ -104,8 +99,20 @@ public class AdminController {
                 staffInfoVO.getStaffId(), staffInfoVO.getStaffPw());
         return ResponseEntity.ok().build();
     }
+    //////////////////////////////admin reportpage/////////////////////////////
+    @GetMapping("/pdf/generate")
+    public ResponseEntity<byte[]>generatePdf(@RequestParam String reportType,
+                                             @RequestParam String startDate,
+                                             @RequestParam String endDate){
+        byte[] pdfContents = adminService.generatePdf(reportType,startDate,endDate);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PDF);
+        headers.setContentDispositionFormData("attachment","report.pdf");
 
+        return ResponseEntity.ok()
+                .headers(headers)
+                .body(pdfContents);
 
-    ////////////////////////////////////////////////////////////////////////////
+    }
     }
 
