@@ -13,6 +13,7 @@ import NCount from "../components/core/ncdsscount";
 const List = () => {
 
   const { pageStatus, patientNameId } = useParams();
+  const [action, setAction] = useState(false);
 
   // Timestamp 형식의 데이터를 "년/월/일/시/분/초"로 쪼개주는 함수
   const extraDateAndTime = (timestamp) => {
@@ -92,7 +93,7 @@ const List = () => {
       .catch((error) => {
         console.error("Error fetching data: ", error);
       });
-  }, [pageStatus, sectionContent, ncdssContent, patientNameId]);
+  }, [pageStatus, sectionContent, ncdssContent, patientNameId, action]);
 
   return (
     <div>
@@ -108,7 +109,7 @@ const List = () => {
         </div>
       </div>
       <main className="mainTableCom">
-        <MainTable patients={patients} pageStatus={pageStatus} resultWard={resultWard} />
+        <MainTable patients={patients} resultWard={resultWard} setAction={setAction} />
       </main>
 
     </div>
