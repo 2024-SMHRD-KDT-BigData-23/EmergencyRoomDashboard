@@ -160,29 +160,32 @@ public class AdminService {
         document.add(new Paragraph("Hospital Report"));
 
         if ("userActivity".equals(reportType)) {
-            addLogViewData(document, startDate, endDate);
+            addLogViewData(document);
         } else if ("systemUsage".equals(reportType)) {
             addRoleViewData(document);
         } else if ("patientCare".equals(reportType)) {
             addERViewData(document);
         }
-
         document.close();
         return baos.toByteArray();
     }
 
-    private void addLogViewData(Document document, String startDate, String endDate) {
-        List<LogView> logViews = logViewRepo.searchlogInfo("", "", startDate, endDate);
+    private void addLogViewData(Document document) {
+        List<LogView> logViews = logViewRepo.findAll();
         document.add(new Paragraph("Log Information"));
-        Table table = new Table(new float[]{ 3, 2, 2, 3});
+        float[] columnWidths = new float[5];  // Assuming there are 19 columns
+        Arrays.fill(columnWidths, 1);  // Set each column width to 1 (equal width)
+        Table table = new Table(columnWidths);
+        table.addCell("Log Id");
         table.addCell("Log Time");
         table.addCell("Log Action");
         table.addCell("Log User");
         table.addCell("Log Detail");
         for (LogView log : logViews) {
+            table.addCell(log.getLogId().toString());
             table.addCell(log.getLogTime().toString());
             table.addCell(log.getLogAction());
-            table.addCell(log.getLogUser());
+            table.addCell(log.getLogUser()!= null ? log.getLogUser() : "N/A");
             table.addCell(log.getLogDetail());
         }
         document.add(table);
@@ -191,11 +194,12 @@ public class AdminService {
     private void addRoleViewData(Document document) {
         List<RoleView> roleViews = roleViewRepo.findAll();
         document.add(new Paragraph("Role Information"));
-        Table table = new Table(new float[]{2, 2, 2, 2, 2, 2, 2, 2, 3});
+        float[] columnWidths = new float[8];  // Assuming there are 19 columns
+        Arrays.fill(columnWidths, 1);  // Set each column width to 1 (equal width)
+        Table table = new Table(columnWidths);
         table.addCell("Role View ID");
         table.addCell("Hospital ID");
         table.addCell("Staff Created At");
-        table.addCell("Staff Updated At");
         table.addCell("Staff ID");
         table.addCell("Staff Name");
         table.addCell("Staff Role");
@@ -205,7 +209,6 @@ public class AdminService {
             table.addCell(role.getRoleViewId().toString());
             table.addCell(role.getHospitalId().toString());
             table.addCell(role.getStaffCreatedAt().toString());
-            table.addCell(role.getStaffUpdatedAt().toString());
             table.addCell(role.getStaffId());
             table.addCell(role.getStaffName());
             table.addCell(role.getStaffRole());
@@ -218,7 +221,7 @@ public class AdminService {
     private void addERViewData(Document document) {
         List<ERView> erViews = erViewRepo.findAll();
         document.add(new Paragraph("ER Information"));
-        float[] columnWidths = new float[19];  // Assuming there are 25 columns
+        float[] columnWidths = new float[19];  // Assuming there are 19 columns
         Arrays.fill(columnWidths, 1);  // Set each column width to 1 (equal width)
         Table table = new Table(columnWidths);
         table.addCell("ER View ID");
