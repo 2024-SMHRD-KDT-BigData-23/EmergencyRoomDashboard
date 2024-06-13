@@ -60,17 +60,34 @@ const MainTable = ({ patients, resultWard, setAction }) => {
         return `${String(dateObj.year).padStart(2, '0')}.${String(dateObj.month).padStart(2, '0')}.${String(dateObj.day).padStart(2, '0')} ${String(dateObj.hour).padStart(2, '0')}:${String(dateObj.minute).padStart(2, '0')}:${String(dateObj.second).padStart(2, '0')}`;
     };
 
-    const renderLink = (patient, field, label, suffix = '') => {
-        if (label !== "deepNcdss") {
-            return (<td onClick={() => navigate(`/Detail/${patient.patientId}/${patient.admissionId}`)}>
-                {label}{suffix}
-            </td>)
-        } else {
-            return (<td onClick={() => navigate(`/Detail/${patient.patientId}/${patient.admissionId}`)}>
-                <span style={{ color: patient.deepNcdss === 'Discharge' ? 'rgb(130, 130, 236)' : patient.deepNcdss === 'WARD' ? 'rgb(100, 200, 100)' : patient.deepNcdss === 'ICU' ? 'rgb(221, 102, 102)' : 'inherit' }}>
-                    {label}{suffix}
+    const renderDeepNcdssLink = (patient) => {
+        let color = 'inherit';
+        if (patient.deepNcdss === 'Discharge') {
+            color = 'rgb(130, 130, 236)';
+        } else if (patient.deepNcdss === 'Ward') {
+            color = 'rgb(100, 200, 100)';
+        } else if (patient.deepNcdss === 'ICU') {
+            color = 'rgb(221, 102, 102)';
+        }
+
+        return (
+            <td onClick={() => navigate(`/Detail/${patient.patientId}/${patient.admissionId}`)}>
+                <span style={{ color }}>
+                    {patient.deepNcdss}
                 </span>
-            </td>)
+            </td>
+        );
+    };
+
+    const renderLink = (patient, field, label, suffix = '') => {
+        if (field !== 'deepNcdss') {
+            return (
+                <td onClick={() => navigate(`/Detail/${patient.patientId}/${patient.admissionId}`)}>
+                    {label}{suffix}
+                </td>
+            );
+        } else {
+            return renderDeepNcdssLink(patient);
         }
     };
 
