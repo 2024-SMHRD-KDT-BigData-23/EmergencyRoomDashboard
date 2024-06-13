@@ -23,9 +23,14 @@
   padding-left : 3px;
 }
 
+.MainLogoTitleLink {
+  color: inherit; /* 부모 요소의 색상 상속 */
+  text-decoration: none; /* 밑줄 제거 */
+}
+
 .MainLogoLink {
-color: inherit; /* 부모 요소의 색상 상속 */
-text-decoration: none; /* 밑줄 제거 */
+  color: inherit; /* 부모 요소의 색상 상속 */
+  text-decoration: none; /* 밑줄 제거 */
 }
 
 .MainLogoLink:hover {
@@ -75,25 +80,41 @@ color: inherit; /* 부모 요소의 색상 상속 */
   background-color: #E8E4FF; /* 호버 시 배경색 변경 */
 }
 
-.hamburger {
-  color : white;
-  cursor: pointer;
-  font-size: 30px;
-}
-
 .rightMenu {
   gap : 4rem;
 }
 
 .pageMove {
   font-size: 18px;
-  color: white;
+  color: #c9c5c5;
   font-weight: 700;
 }
 
 .fIcon {
-  color: white;
   margin-right: 0.3rem;
 }
 
 
+/* 동완 추가 함수 */
+
+.pageMove.active {
+  color: white; /* 원하는 글씨색으로 변경 */
+}
+
+.MainLogoLink {
+  color: inherit; /* 부모 요소의 색상 상속 */
+  text-decoration: none; /* 밑줄 제거 */
+}
+
+.MainLogoLink:hover {
+  color: inherit; /* 부모 요소의 색상 상속 */
+}
+
+.MainLogoLink.active {
+  color: white; /* 원하는 글씨색으로 변경 */
+}
+
+/* styles.css */
+.pageMove.active .MainLogoLink {
+  color: white;
+}

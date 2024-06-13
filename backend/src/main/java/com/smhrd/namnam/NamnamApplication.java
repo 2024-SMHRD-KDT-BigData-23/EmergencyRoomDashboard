@@ -23,7 +23,8 @@ public class NamnamApplication implements CommandLineRunner {
 	// 더미 데이터 생성 실행
 	@Override
 	public void run(String... args) throws Exception {
-//		dataLoader.generateData();
+//		dataLoader.ExGenerateData();
+//		dataLoader.InGenerateData();
 //		System.out.println("더미 데이터 생성 끄읏!");
 	}
 

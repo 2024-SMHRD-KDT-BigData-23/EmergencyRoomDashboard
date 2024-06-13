@@ -38,7 +38,7 @@ public class CommentInfo {
 
     // comment를 작성한 의료진
     @ManyToOne
-    @JoinColumn(name = "staff_id")
+    @JoinColumn(name = "staff_id", nullable = false)
     private StaffInfo staffInfo;
 
     public CommentInfo(StaffInfo byStaffId, AdmissionInfo byAdmissionId, CommentInfoVO vo) {

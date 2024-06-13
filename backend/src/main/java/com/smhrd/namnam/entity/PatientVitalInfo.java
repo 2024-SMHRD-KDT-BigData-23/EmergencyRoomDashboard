@@ -53,10 +53,8 @@ public class PatientVitalInfo {
     @Column(name = "patient_vital_nibp_d", nullable = false)
     private int patientVitalNibpD;
 
-
-
     // 등록 일자
-//   @UpdateTimestamp
+//    @UpdateTimestamp
     @Column(name = "patient_vital_created_at", nullable = false)
     private Timestamp patientVitalCreatedAt;
 
