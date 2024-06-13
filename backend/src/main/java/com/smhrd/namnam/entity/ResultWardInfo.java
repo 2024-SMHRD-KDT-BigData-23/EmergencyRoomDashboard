@@ -37,7 +37,7 @@ public class ResultWardInfo {
     private AdmissionInfo admissionInfo;
 
     // 결정한 의료진 정보
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "staff_id", nullable = false)
     private StaffInfo staffInfo;
 
