@@ -24,6 +24,9 @@ import com.smhrd.namnam.repository.ERViewRepository;
 import com.smhrd.namnam.repository.RoleViewRepository;
 
 import java.io.ByteArrayOutputStream;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -135,7 +138,14 @@ public class AdminService {
     // role페이지 user 추가
     @Transactional
     public void addStaffInfo(String staffName, String staffRole, String staffId, String staffPw) {
-        staffInfoRepo.AddStaffInfo(staffName, staffRole, staffId, staffPw);
+
+        // 현재 로컬 날짜와 시간
+        LocalDateTime now = LocalDateTime.now();
+        // String 형태로 변환
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formattedNow = now.format(formatter);
+
+        staffInfoRepo.AddStaffInfo(staffName, staffRole, staffId, staffPw, formattedNow);
     }
 
     // role 페이지 search
