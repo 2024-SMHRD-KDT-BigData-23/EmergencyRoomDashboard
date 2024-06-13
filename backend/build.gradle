@@ -4,7 +4,8 @@ plugins {
 	id 'io.spring.dependency-management' version '1.1.4'
 }
 
-group = 'com.smhrd'
+
+group = 'com.smhrd.namnam'
 version = '0.0.1-SNAPSHOT'
 
 java {
@@ -22,16 +23,29 @@ repositories {
 }
 
 dependencies {
+	implementation 'org.modelmapper:modelmapper:2.4.4' // 객체간 매핑시 필요한 라이브러리
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0' // swagger(http://localhost:8080/swagger-ui/index.html)
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-//	runtimeOnly 'com.h2database:h2'
-	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
+	runtimeOnly 'com.mysql:mysql-connector-j'
+	//주석처러기를 통한 기능 활성화
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	//security(0521failure)
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.security:spring-security-test'
+	// 더미 데이터 생성 라이브러리
+	implementation 'net.datafaker:datafaker:2.2.2'
+	//jwt
+	implementation 'io.jsonwebtoken:jjwt-api:0.12.3'
+	implementation 'io.jsonwebtoken:jjwt-impl:0.12.3'
+	implementation 'io.jsonwebtoken:jjwt-jackson:0.12.3'
+	//email
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
+	//pdf
+	implementation 'com.itextpdf:itext7-core:7.2.2'
 }
 
 tasks.named('test') {

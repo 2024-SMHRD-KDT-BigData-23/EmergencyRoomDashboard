@@ -1,0 +1,120 @@
+.header-bg {
+  // background-color: #0B3A65;
+  background-color: #0c3d54;
+}
+
+.MainTitle {
+  font-size: 30px;
+  font-weight: bold;
+  color: white;
+}
+
+.SubTitle {
+  font-size: 16px;
+  color: white;
+  padding-top : 15px;
+  padding-left : 3px;
+}
+
+.SubTitle2 {
+  font-size: 12px;
+  color: white;
+  padding-top : 18px;
+  padding-left : 3px;
+}
+
+.MainLogoTitleLink {
+  color: inherit; /* 부모 요소의 색상 상속 */
+  text-decoration: none; /* 밑줄 제거 */
+}
+
+.MainLogoLink {
+  color: inherit; /* 부모 요소의 색상 상속 */
+  text-decoration: none; /* 밑줄 제거 */
+}
+
+.MainLogoLink:hover {
+color: inherit; /* 부모 요소의 색상 상속 */
+}
+
+.hospitalUser { 
+  font-size: 20px;
+  color: white;
+  font-weight: 700;
+
+    &:hover {
+    color: #c9c5c5;
+    }
+
+    &:focus {
+      color: #c9c5c5;
+      border : none;
+    }
+}
+
+/* AdminPage */
+.AdminPage {
+  color: white;
+  font-weight: 700;
+}
+
+#offcanvasNavbar {
+  width: 300px;
+}
+
+.offBody {
+  font-size: 1.5rem;
+  padding: 1rem;
+  padding-top :1.5rem;
+}
+
+.NavCategory {
+  border-bottom: 1px solid #dee2e6; /* 아래쪽 선 스타일 및 색상 */
+  display: inline-flex; /* 아이콘과 텍스트를 가로로 정렬하기 위해 inline-flex 사용 */
+  align-items: center; /* 수직 가운데 정렬 */
+  gap: 8px; /* 아이콘과 텍스트 사이의 간격 조정 */
+}
+
+.NavCategory:hover {
+  // background-color: #f8f9fa; /* 호버 시 배경색 변경 */
+  background-color: #E8E4FF; /* 호버 시 배경색 변경 */
+}
+
+.rightMenu {
+  gap : 4rem;
+}
+
+.pageMove {
+  font-size: 18px;
+  color: #c9c5c5;
+  font-weight: 700;
+}
+
+.fIcon {
+  margin-right: 0.3rem;
+}
+
+
+/* 동완 추가 함수 */
+
+.pageMove.active {
+  color: white; /* 원하는 글씨색으로 변경 */
+}
+
+.MainLogoLink {
+  color: inherit; /* 부모 요소의 색상 상속 */
+  text-decoration: none; /* 밑줄 제거 */
+}
+
+.MainLogoLink:hover {
+  color: inherit; /* 부모 요소의 색상 상속 */
+}
+
+.MainLogoLink.active {
+  color: white; /* 원하는 글씨색으로 변경 */
+}
+
+/* styles.css */
+.pageMove.active .MainLogoLink {
+  color: white;
+}

@@ -1,0 +1,34 @@
+.CountFont {
+    font-weight: 700;
+}
+
+.CountGap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.2rem;
+}
+
+.countCircle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+}
+
+.CircleOne {
+    // background-color: lightblue;
+    background-color: rgb(130, 130, 236);
+}
+
+.CircleTwo {
+    // background-color: lightgreen;
+    background-color: rgb(149, 235, 149);
+}
+
+.CircleThr {
+    // background-color: lightcoral;
+    background-color: rgb(221, 102, 102);
+}
