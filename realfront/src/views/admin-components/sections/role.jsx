@@ -150,7 +150,7 @@ const Role = ({ users, setEdit, handleDelete , showDeleteSuccessModal, setShowDe
                             <Form.Group controlId="roleFilter">
                                 <Form.Select name="staffRole" value={filter.staffRole} onChange={handleFilterChange}>
                                     <option value="All Roles">All Roles</option>
-                                    <option value="Attending Physicians">Attending Physicians</option>
+                                    <option value="Attending Physician">Attending Physician</option>
                                     <option value="Resident Physician">Resident Physician</option>
                                     <option value="Fellow">Fellow</option>
                                     <option value="Emergency Medicine Specialist">Emergency Medicine Specialist</option>
@@ -176,7 +176,7 @@ const Role = ({ users, setEdit, handleDelete , showDeleteSuccessModal, setShowDe
                             <Button type="submit">Search</Button>
                         </Col>
                         <Col className="d-flex align-items-end justify-content-end">
-                        <Button className="mx-2 btn-success" onClick={() => handleUserAddModal()} >User Add</Button>
+                        <Button className="mx-2 btn-success" onClick={() => handleUserAddModal()} >Add user</Button>
                         </Col>
                     </Row>
                 </Form>
@@ -212,7 +212,7 @@ const Role = ({ users, setEdit, handleDelete , showDeleteSuccessModal, setShowDe
                                             </>
                                         ) : (
                                             <>
-                                                <Button className="btn-sm mx-2" variant="warning" onClick={() => { handleShowUserEdit(user); setEditId(user.staffId); }}>Edit</Button>
+                                                <Button className="btn-sm mx-2" variant="warning" onClick={() => { handleShowUserEdit(user); setEditId(user.staffId); setModal("edit") }}>Edit</Button>
                                                 <Button className="btn-sm" variant="danger" onClick={() => {handleShowDeleteModal(user); setModal("delete") }  }>Unusable</Button>
                                             </>
                                         )}
@@ -281,7 +281,7 @@ const Role = ({ users, setEdit, handleDelete , showDeleteSuccessModal, setShowDe
                                 value={selectedUser.staffRole}
                                 onChange={handleEditChange}
                             >
-                            <option value="Attending Physicians">Attending Physicians</option>
+                            <option value="Attending Physician">Attending Physician</option>
                             <option value="Resident Physician">Resident Physician</option>
                             <option value="Fellow">Fellow</option>
                             <option value="Emergency Medicine Specialist">Emergency Medicine Specialist</option>
@@ -338,7 +338,7 @@ const Role = ({ users, setEdit, handleDelete , showDeleteSuccessModal, setShowDe
                                 value={addUser.staffRole}
                                 onChange={handleUserAddChange}
                             >
-                            <option value="Attending Physicians">Attending Physicians</option>
+                            <option value="Attending Physician">Attending Physician</option>
                             <option value="Resident Physician">Resident Physician</option>
                             <option value="Fellow">Fellow</option>
                             <option value="Emergency Medicine Specialist">Emergency Medicine Specialist</option>
@@ -459,7 +459,7 @@ const Role = ({ users, setEdit, handleDelete , showDeleteSuccessModal, setShowDe
                 <Modal.Header closeButton>
                     <Modal.Title>Edit Success</Modal.Title>
                 </Modal.Header>
-                {modal === 'delete' && (
+                {modal === 'edit' && (
                     <Modal.Body>
                     수정이 성공적으로 완료되었습니다.
                     </Modal.Body>
@@ -481,7 +481,7 @@ const Role = ({ users, setEdit, handleDelete , showDeleteSuccessModal, setShowDe
                 <Modal.Header closeButton>
                     <Modal.Title>Edit Fail</Modal.Title>
                 </Modal.Header>
-                {modal === 'delete' && (
+                {modal === 'edit' && (
                     <Modal.Body>
                     수정이 실패했습니다. 다시 시도해주세요.
                     </Modal.Body>

@@ -4,8 +4,11 @@ import Role from './sections/role';
 import AdminHeader from '../../components/core/adminheader';
 import Footer from '../../components/core/footer';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 const RolePage = () => {
+
+    
 
     // Timestamp 형식의 데이터를 "년/월/일/시/분/초"로 쪼개주는 함수
     const extraDateAndTime = (timestamp) => {
@@ -63,6 +66,9 @@ const RolePage = () => {
 
     // Search 변수
     const [search, setSearch] = useState([]);
+
+    // const { id, role, status} = useParams();
+    
 
 
     // user 리스트
@@ -182,6 +188,7 @@ const RolePage = () => {
 
     // search
     useEffect(() => {
+        
         axios
         .get(`http://localhost:8080/api/role/search`,  { params: search })
         .then(response => {
