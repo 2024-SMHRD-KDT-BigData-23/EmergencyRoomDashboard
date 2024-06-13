@@ -125,14 +125,24 @@ public class AdminService {
 
     // role페이지 user 수정
     @Transactional
-    public void  editStaffInfo(String id, String staffName, String staffRole, String staffId, String staffPw) {
-        staffInfoRepo.editStaffInfo(id, staffName, staffRole, staffId, staffPw);
+    public void  editStaffInfo(String id, String staffRole, String staffPw) {
+        staffInfoRepo.editStaffInfo(id, staffRole, staffPw);
     }
 
-    // role페이지 user 삭제
+    // role페이지 user 권한해제
     @Transactional
-    public void deleteStaffInfo(String id) {
-        staffInfoRepo.deleteByIdd(id);
+    public void unuseableStaffInfo(String id) {
+        StaffInfo staffInfo = staffInfoRepo.findByStaffId(id);
+        staffInfo.setStaffAuthority("unusable");
+        staffInfoRepo.save(staffInfo);
+    }
+
+    // role페이지 user 권한부여
+    @Transactional
+    public void restoreStaffInfo(String id) {
+        StaffInfo staffInfo = staffInfoRepo.findByStaffId(id);
+        staffInfo.setStaffAuthority("usable");
+        staffInfoRepo.save(staffInfo);
     }
 
     // role페이지 user 추가
@@ -281,4 +291,5 @@ public class AdminService {
         }
         document.add(table);
     }
+
 }

@@ -37,7 +37,7 @@ public class CommentInfo {
     private Timestamp commentUpdatedAt;
 
     // comment를 작성한 의료진
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "staff_id", nullable = false)
     private StaffInfo staffInfo;
 
