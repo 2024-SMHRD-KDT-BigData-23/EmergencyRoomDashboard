@@ -23,8 +23,8 @@ public class RoleViewVO {
     // 유저 생성 시간
     private Timestamp staffCreatedAt;
 
-    // 유저 업데이트 시간
-    private Timestamp staffUpdatedAt;
+    // 로그인 권한;
+    private String staffAuthority;
 
     // 유저 아이디
     private String staffId;
@@ -40,6 +40,7 @@ public class RoleViewVO {
 
     // 유저 비밀번호
     private String staffPw;
+
 
     // 마지막 로그인 날짜
     private Timestamp activityDate;

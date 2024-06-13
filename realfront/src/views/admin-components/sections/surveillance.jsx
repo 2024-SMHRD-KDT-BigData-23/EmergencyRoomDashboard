@@ -85,7 +85,7 @@ const Suveillance = ({ patient, setSearch }) => {
                         <Row className="mb-3">
                             <Col>
                                 <Form.Group controlId="filterUser">
-                                    <Form.Label>Id</Form.Label>
+                                    <Form.Label>ID</Form.Label>
                                     <Form.Control type="text" name="logUser" value={filter.logUser} onChange={handleFilterChange} 
                                     placeholder="Search Id..." />
                                 </Form.Group>
@@ -129,7 +129,7 @@ const Suveillance = ({ patient, setSearch }) => {
                         <thead>
                             <tr>
                                 <th>Timestamp</th>
-                                <th>Id</th>
+                                <th>ID</th>
                                 <th>Action</th>
                                 <th>Details</th>
                             </tr>
