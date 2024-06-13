@@ -19,7 +19,7 @@ public class UserActivity {
     private Long id;
 
     // 의료진 식별자
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "staff_id", nullable = false)
     private StaffInfo staffInfo;
 

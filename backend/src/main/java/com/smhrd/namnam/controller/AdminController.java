@@ -77,6 +77,7 @@ public class AdminController {
     @DeleteMapping("/role/unusable/{id}")
     @Operation(summary = "(role페이지 user 권한해제)")
     public ResponseEntity<Void> unuseableStaffInfo(@PathVariable("id") String id){
+        System.out.println("1번3333333333333333");
         adminService.unuseableStaffInfo(id);
         return ResponseEntity.ok().build();
     }
