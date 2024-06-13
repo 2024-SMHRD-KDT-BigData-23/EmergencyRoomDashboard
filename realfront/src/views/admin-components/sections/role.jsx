@@ -3,7 +3,7 @@ import { Container, Row, Col, Table, Button, Form, Modal } from 'react-bootstrap
 
 const Role = ({ users, setEdit, handleDelete , showDeleteSuccessModal, setShowDeleteSuccessModal, showDeleteFailModal, setShowDeleteFailModal,
     showEditSuccessModal, setShowEditSuccessModal, showEditFailModal, setShowEditFailModal, handleEdit, setEditUser, setEditId, setAddUser, handleAddUser,
-    showAddSuccessModal, setShowAddSuccessModal, showAddFailModal, setShowAddFailModal, addUser,
+    showAddSuccessModal, setShowAddSuccessModal, showAddFailModal, setShowAddFailModal, addUser, setModal, modal, handleRestore,
     setSearch
  }) => {
 
@@ -40,7 +40,7 @@ const Role = ({ users, setEdit, handleDelete , showDeleteSuccessModal, setShowDe
     const handleShowUserEdit = (user) => {
         setSelectedUser(user);
         setEditUser(user);
-        setUserEditModal(true);
+        setUserEditModal(true);  
     };
 
     const handleShowUserModal = (user) => {
@@ -48,9 +48,10 @@ const Role = ({ users, setEdit, handleDelete , showDeleteSuccessModal, setShowDe
         setShowUserModal(true);
     };
 
-    const handleShowDeleteModal = (user) => {
+    const handleShowDeleteModal = (user, a) => {
         setSelectedUser(user);
         setShowDeleteModal(true);
+        setModal(a)
     };
 
 
@@ -69,7 +70,9 @@ const Role = ({ users, setEdit, handleDelete , showDeleteSuccessModal, setShowDe
         }));
     };
 
-    const handleCloseDeleteModal = () => setShowDeleteModal(false);
+    const handleCloseDeleteModal = () => {
+        setShowDeleteModal(false);
+    };    
 
     //
     const handleCloseUseEditModal = () => setUserEditModal(false);
@@ -148,15 +151,15 @@ const Role = ({ users, setEdit, handleDelete , showDeleteSuccessModal, setShowDe
                                 <Form.Select name="staffRole" value={filter.staffRole} onChange={handleFilterChange}>
                                     <option value="All Roles">All Roles</option>
                                     <option value="Attending Physicians">Attending Physicians</option>
-                                    <option value="Resident Physicians">Resident Physicians</option>
-                                    <option value="Fellows">Fellows</option>
-                                    <option value="Emergency Medicine Specialists">Emergency Medicine Specialists</option>
-                                    <option value="Consulting Physicians">Consulting Physicians</option>
-                                    <option value="Registered Nurses">Registered Nurses</option>
-                                    <option value="Emergency Room Nurses">Emergency Room Nurses</option>
-                                    <option value="Nurse Practitioners">Nurse Practitioners</option>
-                                    <option value="Clinical Nurse Specialists">Clinical Nurse Specialists</option>
-                                    <option value="Charge Nurses">Charge Nurses</option>
+                                    <option value="Resident Physician">Resident Physician</option>
+                                    <option value="Fellow">Fellow</option>
+                                    <option value="Emergency Medicine Specialist">Emergency Medicine Specialist</option>
+                                    <option value="Consulting Physician">Consulting Physician</option>
+                                    <option value="Registered Nurse">Registered Nurse</option>
+                                    <option value="Emergency Room Nurse">Emergency Room Nurse</option>
+                                    <option value="Nurse Practitioner">Nurse Practitioner</option>
+                                    <option value="Clinical Nurse Specialist">Clinical Nurse Specialist</option>
+                                    <option value="Charge Nurse">Charge Nurse</option> 
                                 </Form.Select>
                             </Form.Group>
                         </Col>
@@ -196,15 +199,23 @@ const Role = ({ users, setEdit, handleDelete , showDeleteSuccessModal, setShowDe
                         </thead>
                         <tbody>
                             {currentItems.map(user => (
-                                <tr key={user.id}>
+                                <tr key={user.id} className={user.staffAuthority === 'unusable' ? 'unusable-row' : ''}>
                                     <td>{user.staffName}</td>
                                     <td>{user.staffId}</td>
                                     <td>{user.staffRole}</td>
                                     <td>{user?.activityDate ? `${user.activityDate.year}.${user.activityDate.month}.${user.activityDate.day} ${user.activityDate.hour}:${user.activityDate.minute}` : "N/A"}</td>
                                     <td>{user.staffStatus}</td>
                                     <td>
-                                        <Button className="btn-sm mx-2" variant="warning" onClick={() => { handleShowUserEdit(user); setEditId(user.staffId); }}>Edit</Button>
-                                        <Button className="btn-sm" variant="danger" onClick={() => handleShowDeleteModal(user)}>Delete</Button>
+                                        {user.staffAuthority === 'unusable' ? (
+                                            <>
+                                                <Button className="btn-sm mx-2 custom-primary" onClick={() => {handleShowDeleteModal(user); setModal("restore") }  }>Restore</Button>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <Button className="btn-sm mx-2" variant="warning" onClick={() => { handleShowUserEdit(user); setEditId(user.staffId); }}>Edit</Button>
+                                                <Button className="btn-sm" variant="danger" onClick={() => {handleShowDeleteModal(user); setModal("delete") }  }>Unusable</Button>
+                                            </>
+                                        )}
                                     </td>
                                 </tr>
                             ))}
@@ -260,14 +271,8 @@ const Role = ({ users, setEdit, handleDelete , showDeleteSuccessModal, setShowDe
                 </Modal.Header>
                 <Modal.Body>
                     <Form>
-                        <Form.Group controlId="formName" style={{ marginBottom: '20px' }}>
-                            <Form.Label>Name</Form.Label>
-                            <Form.Control
-                                type="text"
-                                name="staffName"
-                                value={selectedUser.staffName}
-                                onChange={handleEditChange}
-                            />
+                        <Form.Group controlId="formId" style={{ marginBottom: '20px', marginTop : '20px', style : "font-weight: bold", fontSize:'18px'}}>
+                            <Form.Label>User Id : {selectedUser.staffId}</Form.Label>
                         </Form.Group>
                         <Form.Group controlId="formRole" style={{ marginBottom: '20px' }}>
                             <Form.Label>Role</Form.Label>
@@ -277,25 +282,16 @@ const Role = ({ users, setEdit, handleDelete , showDeleteSuccessModal, setShowDe
                                 onChange={handleEditChange}
                             >
                             <option value="Attending Physicians">Attending Physicians</option>
-                            <option value="Resident Physicians">Resident Physicians</option>
-                            <option value="Fellows">Fellows</option>
-                            <option value="Emergency Medicine Specialists">Emergency Medicine Specialists</option>
-                            <option value="Consulting Physicians">Consulting Physicians</option>
-                            <option value="Registered Nurses">Registered Nurses</option>
-                            <option value="Emergency Room Nurses">Emergency Room Nurses</option>
-                            <option value="Nurse Practitioners">Nurse Practitioners</option>
-                            <option value="Clinical Nurse Specialists">Clinical Nurse Specialists</option>
-                            <option value="Charge Nurses">Charge Nurses</option>    
+                            <option value="Resident Physician">Resident Physician</option>
+                            <option value="Fellow">Fellow</option>
+                            <option value="Emergency Medicine Specialist">Emergency Medicine Specialist</option>
+                            <option value="Consulting Physician">Consulting Physician</option>
+                            <option value="Registered Nurse">Registered Nurse</option>
+                            <option value="Emergency Room Nurse">Emergency Room Nurse</option>
+                            <option value="Nurse Practitioner">Nurse Practitioner</option>
+                            <option value="Clinical Nurse Specialist">Clinical Nurse Specialist</option>
+                            <option value="Charge Nurse">Charge Nurse</option>    
                             </Form.Select>
-                        </Form.Group>
-                        <Form.Group controlId="formId" style={{ marginBottom: '20px' }}>
-                            <Form.Label>Id</Form.Label>
-                            <Form.Control
-                                type="id"
-                                name="staffId"
-                                value={selectedUser.staffId}
-                                onChange={handleEditChange}
-                            />
                         </Form.Group>
                         <Form.Group controlId="formPw" style={{ marginBottom: '20px' }}>
                             <Form.Label>Password</Form.Label>
@@ -343,15 +339,15 @@ const Role = ({ users, setEdit, handleDelete , showDeleteSuccessModal, setShowDe
                                 onChange={handleUserAddChange}
                             >
                             <option value="Attending Physicians">Attending Physicians</option>
-                            <option value="Resident Physicians">Resident Physicians</option>
-                            <option value="Fellows">Fellows</option>
-                            <option value="Emergency Medicine Specialists">Emergency Medicine Specialists</option>
-                            <option value="Consulting Physicians">Consulting Physicians</option>
-                            <option value="Registered Nurses">Registered Nurses</option>
-                            <option value="Emergency Room Nurses">Emergency Room Nurses</option>
-                            <option value="Nurse Practitioners">Nurse Practitioners</option>
-                            <option value="Clinical Nurse Specialists">Clinical Nurse Specialists</option>
-                            <option value="Charge Nurses">Charge Nurses</option>
+                            <option value="Resident Physician">Resident Physician</option>
+                            <option value="Fellow">Fellow</option>
+                            <option value="Emergency Medicine Specialist">Emergency Medicine Specialist</option>
+                            <option value="Consulting Physician">Consulting Physician</option>
+                            <option value="Registered Nurse">Registered Nurse</option>
+                            <option value="Emergency Room Nurse">Emergency Room Nurse</option>
+                            <option value="Nurse Practitioner">Nurse Practitioner</option>
+                            <option value="Clinical Nurse Specialist">Clinical Nurse Specialist</option>
+                            <option value="Charge Nurse">Charge Nurse</option>
                             </Form.Select>
                         </Form.Group>
                         <Form.Group controlId="formId" style={{ marginBottom: '20px' }}>
@@ -390,22 +386,40 @@ const Role = ({ users, setEdit, handleDelete , showDeleteSuccessModal, setShowDe
 
 
 
-            {/* 삭제 확인 모달 */}
+            {/* 삭제 확인 모달, 권한부여 확인모달 */}
             {selectedUser && (
                 <Modal show={showDeleteModal} onHide={handleCloseDeleteModal}>
                     <Modal.Header closeButton>
-                        <Modal.Title>Confirm Delete</Modal.Title>
+                        {modal === 'delete' && (
+                        <Modal.Title>Confirm Unusable</Modal.Title>
+                        )}
+                        {modal === 'restore' && (
+                        <Modal.Title>Confirm Restore</Modal.Title>
+                        )}
+
                     </Modal.Header>
                     <Modal.Body>
-                        <p>{selectedUser.staffId} 계정을 정말 삭제 하시겠습니까?</p>
+                        {modal === 'delete' && (
+                        <p>{selectedUser.staffId}의 권한을 해제 하시겠습니까? </p>
+                        )}
+                        {modal === 'restore' && (
+                        <p>{selectedUser.staffId}의 권한을 복구 시키겠습니까? </p>
+                        )}
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={handleCloseDeleteModal} >
                             Cancel
                         </Button>
+                        {modal === 'delete' && (
                         <Button variant="danger" onClick={ () => {handleDelete(selectedUser.staffId); handleCloseDeleteModal();}}>
-                            Delete
+                            Unusable
                         </Button>
+                        )}
+                        {modal === 'restore' && (
+                        <Button variant="danger" onClick={ () => {handleRestore(selectedUser.staffId); handleCloseDeleteModal();}}>
+                            Restore
+                        </Button>
+                        )}
                     </Modal.Footer>
                 </Modal>
             )}
@@ -415,7 +429,7 @@ const Role = ({ users, setEdit, handleDelete , showDeleteSuccessModal, setShowDe
                     <Modal.Title>Delete Success</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    삭제가 성공적으로 완료되었습니다.
+                    권한 해제가 완료되었습니다.
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={() => setShowDeleteSuccessModal(false)}>
@@ -430,7 +444,7 @@ const Role = ({ users, setEdit, handleDelete , showDeleteSuccessModal, setShowDe
                     <Modal.Title>Delete Fail</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    삭제를 실패했습니다. 다시 시도해주세요.
+                    권한 해제를 실패했습니다. 다시 시도해주세요.
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={() => setShowDeleteFailModal(false)}>
@@ -440,14 +454,21 @@ const Role = ({ users, setEdit, handleDelete , showDeleteSuccessModal, setShowDe
             </Modal>
 
 
-            {/* 수정 성공 모달 */}
+            {/* 수정 성공 모달, 권한부여 성공 모달 */}
             <Modal show={showEditSuccessModal} onHide={() => setShowEditSuccessModal(false)}>
                 <Modal.Header closeButton>
                     <Modal.Title>Edit Success</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>
+                {modal === 'delete' && (
+                    <Modal.Body>
                     수정이 성공적으로 완료되었습니다.
-                </Modal.Body>
+                    </Modal.Body>
+                )}
+                {modal === 'restore' && (
+                    <Modal.Body>
+                    권한 부여가 완료되었습니다.
+                    </Modal.Body>
+                )}
                 <Modal.Footer>
                     <Button variant="secondary" onClick={() => setShowEditSuccessModal(false)}>
                         Close
@@ -455,14 +476,21 @@ const Role = ({ users, setEdit, handleDelete , showDeleteSuccessModal, setShowDe
                 </Modal.Footer>
             </Modal>
 
-            {/* 수정 실패 모달 */}
+            {/* 수정 실패 모달, 권한부여 실패 모달 */}
             <Modal show={showEditFailModal} onHide={() => setShowEditFailModal(false)}>
                 <Modal.Header closeButton>
                     <Modal.Title>Edit Fail</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>
+                {modal === 'delete' && (
+                    <Modal.Body>
                     수정이 실패했습니다. 다시 시도해주세요.
-                </Modal.Body>
+                    </Modal.Body>
+                )}
+                {modal === 'restore' && (
+                    <Modal.Body>
+                    권한 부여를 실패했습니다. 다시 시도해주세요.
+                    </Modal.Body>
+                )}
                 <Modal.Footer>
                     <Button variant="secondary" onClick={() => setShowEditFailModal(false)}>
                         Close

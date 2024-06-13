@@ -32,6 +32,7 @@ const RolePage = () => {
         }
     }
     const [ users, setUsers ] = useState([]);
+    const [ modal, setModal ] = useState([]);
 
     // 삭제 성공 실패 여부 함수
     const [showDeleteSuccessModal, setShowDeleteSuccessModal] = useState(false);
@@ -56,9 +57,7 @@ const RolePage = () => {
 
     // 유저 추가 변수
     const [addUser, setAddUser] = useState({
-        staffName: '',
-        staffRole: 'Doctor',
-        staffId: '',
+        staffRole: 'Attending Physicians',
         staffPw: ''
     });
 
@@ -106,10 +105,10 @@ const RolePage = () => {
         });
     };
 
-    // user 삭제
+    // user 권한해제
     const handleDelete = async (id) => {
         try {
-          const deleteResponse = await axios.delete(`http://localhost:8080/api/role/delete/${id}`);
+          const deleteResponse = await axios.delete(`http://localhost:8080/api/role/unusable/${id}`);
           
           if (deleteResponse.status === 200) {
             setShowDeleteSuccessModal(true);
@@ -124,10 +123,36 @@ const RolePage = () => {
             
             setUsers(formattedData);
           } else {
-            throw new Error('Failed to delete user');
+            throw new Error('Failed to restore user');
           }
         } catch (error) {
           setShowDeleteFailModal(true);
+          console.error('Error restoring user: ', error);
+        }
+      };
+
+      // user 권한부여
+    const handleRestore = async (id) => {
+        try {
+          const deleteResponse = await axios.delete(`http://localhost:8080/api/role/restore/${id}`);
+          
+          if (deleteResponse.status === 200) {
+            setShowEditSuccessModal(true);
+            
+            // 데이터 갱신을 위해 사용자 목록 재호출
+            const getResponse = await axios.get(`http://localhost:8080/api/staff`);
+            
+            const formattedData = getResponse.data.map(item => ({
+              ...item,
+              activityDate: extraDateAndTime(item.activityDate)
+            }));
+            
+            setUsers(formattedData);
+          } else {
+            throw new Error('Failed to delete user');
+          }
+        } catch (error) {
+          setShowEditFailModal(true);
           console.error('Error deleting user: ', error);
         }
       };
@@ -185,7 +210,7 @@ const RolePage = () => {
                 showEditFailModal={showEditFailModal} setShowEditFailModal={setShowEditFailModal} handleEdit = {handleEdit} setEditUser={setEditUser}
                 setEditId={setEditId} setAddUser={setAddUser} handleAddUser={handleAddUser} showAddSuccessModal={showAddSuccessModal} 
                 setShowAddSuccessModal={setShowAddSuccessModal} showAddFailModal={showAddFailModal} setShowAddFailModal={setShowAddFailModal} 
-                addUser={addUser} setSearch={setSearch} />
+                addUser={addUser} setSearch={setSearch} setModal={setModal} modal={modal} handleRestore={handleRestore} />
             </Container>
             <Footer/>
         </div>
