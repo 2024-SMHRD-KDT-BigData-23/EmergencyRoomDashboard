@@ -42,9 +42,9 @@ public class RoleView {
     @Column(name = "staff_created_at")
     private Timestamp staffCreatedAt;
 
-    // 유저 업데이트 시간
-    @Column(name = "staff_updated_at")
-    private Timestamp staffUpdatedAt;
+    // 로그인 권한;
+    @Column(name = "staff_authority")
+    private String staffAuthority;
 
     // 유저 아이디
     @Column(name = "staff_id")
