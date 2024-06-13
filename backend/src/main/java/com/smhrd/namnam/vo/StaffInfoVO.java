@@ -22,10 +22,10 @@ public class StaffInfoVO {
     private String staffRole;
     // 의료진 상태
     private String staffStatus;
+    // 로그인 권한
+    private String staffAuthority;
     // 의료진 생성 날짜
     private Timestamp staffCreatedAt;
-    // 마지막 로그인 날짜
-    private Timestamp staffUpdatedAt;
     // HospitalInfo의 병원 식별자
     private Long hospitalId;
 
