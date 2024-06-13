@@ -64,7 +64,7 @@ const List = () => {
             acc.ICU++;
           } else if (item.deepNcdss === 'Discharge') {
             acc.Discharge++;
-          } else if (item.deepNcdss === 'WARD') {
+          } else if (item.deepNcdss === 'Ward') {
             acc.Ward++;
           }
           return acc;
