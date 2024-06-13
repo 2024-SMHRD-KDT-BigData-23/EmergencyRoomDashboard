@@ -29,7 +29,7 @@ public class AdmissionInfo {
     private PatientInfo patientInfo;
 
     // 담당 의료진
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "staff_id", nullable = false)
     private StaffInfo staffInfo;
 
