@@ -15,8 +15,8 @@ const Detail = () => {
     const [admissionList, setAdmissionList] = useState([]);
     const [resultWardList, setResultWardList] = useState([]);
     const [commentList, setCommentList] = useState([]);
-    const [resultWard, setResultWard] = useState(null);
-    const [comment, setComment] = useState(null);
+    const [resultWard, setResultWard] = useState('');
+    const [comment, setComment] = useState('');
 
     // Timestamp 형식의 데이터를 "년/월/일/시/분/초"로 쪼개주는 함수
     const extraDateAndTime = (timestamp) => {
@@ -97,7 +97,7 @@ const Detail = () => {
                 <Row className="h-100 g-3">
                     <PatientInfo patientData={patientData} admissionList={admissionList} patientId={patientId} admissionId={admissionId} />
                     <VitalChart patientData={patientData} />
-                    <AdmissionInfo patientData={patientData} setPatientData={setPatientData} admissionList={admissionList} patientId={patientId} admissionId={admissionId} resultWardList={resultWardList} commentList={commentList} setResultWard={setResultWard} setComment={setComment} />
+                    <AdmissionInfo patientData={patientData} setPatientData={setPatientData} admissionList={admissionList} patientId={patientId} admissionId={admissionId} resultWardList={resultWardList} commentList={commentList} resultWard={resultWard} setResultWard={setResultWard} comment={comment} setComment={setComment} />
                 </Row>
             </Container >
         </>

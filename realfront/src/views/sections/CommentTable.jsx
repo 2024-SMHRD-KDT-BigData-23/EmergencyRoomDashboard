@@ -1,15 +1,17 @@
-import React from 'react';
-import { Table } from 'react-bootstrap';
+import React, { useState } from 'react';
+import axios from 'axios';
+import { Table, Form, Button } from 'react-bootstrap';
 import '../../assets/scss/maintable.scss';
 import usePagination from '../../hooks/usePagination';
-import CommentModal from '../../components/core/commentmodal';
+// import CommentModal from '../../components/core/commentmodal';
 
-const CommentTable = ({ commentList, staffId, admissionId, setComment }) => {
-    const { currentItems, pageNumbers, paginate, currentPage, prevPage, nextPage } = usePagination(commentList, 2);
+const CommentTable = ({ commentList, staffId, admissionId, comment, setComment }) => {
+
+    const { currentItems, pageNumbers, paginate, currentPage, prevPage, nextPage } = usePagination(commentList, 1);
 
     return (
         <>
-            <Table>
+            <Table className="mb-0">
                 <thead>
                     <tr>
                         <th>Time</th>
@@ -18,13 +20,6 @@ const CommentTable = ({ commentList, staffId, admissionId, setComment }) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {/* {commentList.map(comment => (
-                        <tr key={comment.commentId}>
-                            <td>{`${comment.commentUpdatedAt.month}/${comment.commentUpdatedAt.day} ${comment.commentUpdatedAt.hour}:${comment.commentUpdatedAt.minute}`}</td>
-                            <td>{comment.staffId}</td>
-                            <td>{comment.comment}</td>
-                        </tr>
-                    ))} */}
                     {currentItems.map((item) => (
                         <tr key={item.commentId}>
                             <td>{`${item.commentUpdatedAt.month}.${item.commentUpdatedAt.day} ${item.commentUpdatedAt.hour}:${item.commentUpdatedAt.minute}`}</td>
@@ -42,7 +37,7 @@ const CommentTable = ({ commentList, staffId, admissionId, setComment }) => {
                     <button className="page-link" onClick={nextPage}>다음</button>
                 </li>
             </ul>
-            <CommentModal staffId={staffId} admissionId={admissionId} setComment={setComment} />
+            {/* <CommentModal staffId={staffId} admissionId={admissionId} comment={comment} setComment={setComment} /> */}
         </>
     );
 }
