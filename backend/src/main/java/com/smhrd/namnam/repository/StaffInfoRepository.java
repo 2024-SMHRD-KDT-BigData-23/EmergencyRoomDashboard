@@ -41,9 +41,9 @@ public interface StaffInfoRepository extends JpaRepository<StaffInfo, String> {
 
     // role페이지 user 추가
     @Modifying
-    @Query(value = "INSERT INTO staff_info (hospital_id, staff_id, staff_name, staff_role, staff_status, staff_pw) " +
-            "VALUES (1, :staffId, :staffName, :staffRole, 'inactive', :staffPw)",
+    @Query(value = "INSERT INTO staff_info (hospital_id, staff_created_at, staff_authority, staff_id, staff_name, staff_role, staff_status, staff_pw) " +
+            "VALUES (1, :formattedNow, 'usable', :staffId, :staffName, :staffRole, 'inactive', :staffPw)",
             nativeQuery = true)
     void AddStaffInfo(@Param("staffName") String staffName, @Param("staffRole") String staffRole,
-                      @Param("staffId") String staffId, @Param("staffPw") String staffPw);
+                      @Param("staffId") String staffId, @Param("staffPw") String staffPw, @Param("formattedNow") String formattedNow);
 }

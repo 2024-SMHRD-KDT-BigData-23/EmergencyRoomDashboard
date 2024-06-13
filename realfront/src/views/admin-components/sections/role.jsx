@@ -147,9 +147,7 @@ const Role = ({ users, setEdit, handleDelete , showDeleteSuccessModal, setShowDe
                             <Form.Group controlId="roleFilter">
                                 <Form.Select name="staffRole" value={filter.staffRole} onChange={handleFilterChange}>
                                     <option value="All Roles">All Roles</option>
-                                    <option value="Doctor">Doctor</option>
-                                    <option value="Nurse">Nurse</option>
-                                    {/* <option value="Attending Physicians">Attending Physicians</option>
+                                    <option value="Attending Physicians">Attending Physicians</option>
                                     <option value="Resident Physicians">Resident Physicians</option>
                                     <option value="Fellows">Fellows</option>
                                     <option value="Emergency Medicine Specialists">Emergency Medicine Specialists</option>
@@ -158,7 +156,7 @@ const Role = ({ users, setEdit, handleDelete , showDeleteSuccessModal, setShowDe
                                     <option value="Emergency Room Nurses">Emergency Room Nurses</option>
                                     <option value="Nurse Practitioners">Nurse Practitioners</option>
                                     <option value="Clinical Nurse Specialists">Clinical Nurse Specialists</option>
-                                    <option value="Charge Nurses">Charge Nurses</option> */}
+                                    <option value="Charge Nurses">Charge Nurses</option>
                                 </Form.Select>
                             </Form.Group>
                         </Col>
@@ -278,9 +276,7 @@ const Role = ({ users, setEdit, handleDelete , showDeleteSuccessModal, setShowDe
                                 value={selectedUser.staffRole}
                                 onChange={handleEditChange}
                             >
-                            <option value="Doctor">Doctor</option>
-                            <option value="Nurse">Nurse</option>
-                            {/* <option value="Attending Physicians">Attending Physicians</option>
+                            <option value="Attending Physicians">Attending Physicians</option>
                             <option value="Resident Physicians">Resident Physicians</option>
                             <option value="Fellows">Fellows</option>
                             <option value="Emergency Medicine Specialists">Emergency Medicine Specialists</option>
@@ -289,7 +285,7 @@ const Role = ({ users, setEdit, handleDelete , showDeleteSuccessModal, setShowDe
                             <option value="Emergency Room Nurses">Emergency Room Nurses</option>
                             <option value="Nurse Practitioners">Nurse Practitioners</option>
                             <option value="Clinical Nurse Specialists">Clinical Nurse Specialists</option>
-                            <option value="Charge Nurses">Charge Nurses</option>     */}
+                            <option value="Charge Nurses">Charge Nurses</option>    
                             </Form.Select>
                         </Form.Group>
                         <Form.Group controlId="formId" style={{ marginBottom: '20px' }}>
@@ -346,9 +342,7 @@ const Role = ({ users, setEdit, handleDelete , showDeleteSuccessModal, setShowDe
                                 value={addUser.staffRole}
                                 onChange={handleUserAddChange}
                             >
-                            <option value="Doctor">Doctor</option>
-                            <option value="Nurse">Nurse</option>
-                            {/* <option value="Attending Physicians">Attending Physicians</option>
+                            <option value="Attending Physicians">Attending Physicians</option>
                             <option value="Resident Physicians">Resident Physicians</option>
                             <option value="Fellows">Fellows</option>
                             <option value="Emergency Medicine Specialists">Emergency Medicine Specialists</option>
@@ -357,7 +351,7 @@ const Role = ({ users, setEdit, handleDelete , showDeleteSuccessModal, setShowDe
                             <option value="Emergency Room Nurses">Emergency Room Nurses</option>
                             <option value="Nurse Practitioners">Nurse Practitioners</option>
                             <option value="Clinical Nurse Specialists">Clinical Nurse Specialists</option>
-                            <option value="Charge Nurses">Charge Nurses</option> */}
+                            <option value="Charge Nurses">Charge Nurses</option>
                             </Form.Select>
                         </Form.Group>
                         <Form.Group controlId="formId" style={{ marginBottom: '20px' }}>
