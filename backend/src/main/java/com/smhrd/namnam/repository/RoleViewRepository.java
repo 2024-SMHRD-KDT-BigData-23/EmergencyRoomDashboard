@@ -13,7 +13,7 @@ public interface RoleViewRepository extends JpaRepository<RoleView, Long> {
 
 
     @Query(value = "SELECT * FROM role_view " +
-            "WHERE ((staff_id = :staffId) OR (:staffId = '')) " +
+            "WHERE ((staff_id = :staffId) OR (:staffId = 'All')) " +
             "AND ((staff_role = :staffRole) OR (:staffRole = 'All Roles')) " +
             "AND ((staff_status = :staffStatus) OR (:staffStatus = 'All Statuses'))",
             nativeQuery = true)

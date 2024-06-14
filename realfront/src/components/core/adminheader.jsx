@@ -45,7 +45,7 @@
                     </Link>
                     </Col>
                     <Col className='d-flex align-items-center justify-content-center pageMove'>
-                    <Link to='/Role' className='MainLogoLink'>
+                    <Link to='/Role/All/All Roles/All Statuses' className='MainLogoLink'>
                     Role
                     </Link>
                     </Col>

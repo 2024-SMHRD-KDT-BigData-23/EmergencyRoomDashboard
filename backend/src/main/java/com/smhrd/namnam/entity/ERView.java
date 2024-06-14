@@ -164,4 +164,8 @@ public class ERView {
     @Column(name = "deep_ward_percent")
     private BigDecimal deepWardPercent;
 
+    // resultWard
+    @Column(name = "result_ward")
+    private String resultWard;
+
 }

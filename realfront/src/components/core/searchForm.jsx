@@ -16,7 +16,7 @@ const SearchForm = () => {
         } else {
             navigate(`/search/List/${searchValue}`);
         }
-        inputRef.current.value = '';
+        inputRef.current.value = '';  
     };
 
     return (
