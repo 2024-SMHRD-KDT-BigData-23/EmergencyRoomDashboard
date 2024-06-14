@@ -442,7 +442,7 @@
                 {/* 삭제 성공 모달 */}
                 <Modal show={showDeleteSuccessModal} onHide={() => setShowDeleteSuccessModal(false)}>
                     <Modal.Header closeButton>
-                        <Modal.Title>Delete Success</Modal.Title>
+                        <Modal.Title>Unuseable Success</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                         권한 해제가 완료되었습니다.
@@ -473,9 +473,14 @@
                 {/* 수정 성공 모달, 권한부여 성공 모달 */}
                 <Modal show={showEditSuccessModal} onHide={() => setShowEditSuccessModal(false)}>
                     <Modal.Header closeButton>
+                        {modal === 'edit' && ( 
                         <Modal.Title>Edit Success</Modal.Title>
+                        )}
+                        {modal === 'restore' && (
+                        <Modal.Title>Restore Success</Modal.Title>
+                        )}
                     </Modal.Header>
-                    {modal === 'edit' && (
+                    {modal === 'edit' && (       
                         <Modal.Body>
                         수정이 성공적으로 완료되었습니다.
                         </Modal.Body>
@@ -495,7 +500,12 @@
                 {/* 수정 실패 모달, 권한부여 실패 모달 */}
                 <Modal show={showEditFailModal} onHide={() => setShowEditFailModal(false)}>
                     <Modal.Header closeButton>
+                        {modal === 'edit' && ( 
                         <Modal.Title>Edit Fail</Modal.Title>
+                        )}
+                        {modal === 'restore' && (
+                        <Modal.Title>Restore Fail</Modal.Title>
+                        )}
                     </Modal.Header>
                     {modal === 'edit' && (
                         <Modal.Body>
