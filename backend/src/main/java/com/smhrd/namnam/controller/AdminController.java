@@ -99,10 +99,10 @@ public class AdminController {
     }
 
     // role 페이지 search
-    @GetMapping("/role/search")
+    @GetMapping("/role/search/{staffId}/{staffRole}/{staffStatus}")
     @Operation(summary = "(role 페이지 search)")
-    public List<RoleViewVO> searchStaffInfo(@RequestParam(value = "staffId") String staffId, @RequestParam(value = "staffRole") String staffRole,
-                                            @RequestParam(value = "staffStatus") String staffStatus){
+    public List<RoleViewVO> searchStaffInfo(@PathVariable("staffId") String staffId, @PathVariable("staffRole") String staffRole,
+                                            @PathVariable("staffStatus") String staffStatus){
         return adminService.searchStaffInfo(staffId, staffRole, staffStatus);
     }
 
