@@ -27,7 +27,7 @@ root.render(
         <Route path="/Admin" element={<AdminPage />} />
         <Route path="/Data" element={<DataPage />} />
         <Route path="/Help" element={<HelpPage />} />
-        <Route path="/Role" element={<RolePage />} />
+        <Route path="/Role/" element={<RolePage />} />
         <Route path="/Surveillance" element={<SuveillancePage />} />
         <Route path="/Report" element={<ReportPage />} />
       </Routes>
