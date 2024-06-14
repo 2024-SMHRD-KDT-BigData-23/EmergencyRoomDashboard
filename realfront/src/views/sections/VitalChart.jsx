@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Row, Col, Card } from "react-bootstrap";
+import { Row, Col, Card, Button } from "react-bootstrap";
 import { Line } from "react-chartjs-2";
 import {
     Chart as ChartJS,
@@ -12,6 +12,8 @@ import {
     Legend,
 } from "chart.js";
 import ChartDataLabels from 'chartjs-plugin-datalabels';
+import VitalTable from "./VitalTable";
+import ToggleButton from "./ToggleButton";
 
 // ChartJS에 필요한 구성 요소들과 플러그인을 등록합니다.
 ChartJS.register(
@@ -28,7 +30,12 @@ ChartJS.register(
 const VitalChart = ({ patientData, selectedPointIndex, setSelectedPointIndex }) => {
 
     const [selectedLine, setSelectedLine] = useState(0);
-    
+    const [isToggled, setIsToggled] = useState(false);
+
+    const handleToggle = () => {
+        setIsToggled(!isToggled);
+    };
+
     // "월/일 시:분" 형식의 문자열로 만들어 labels 배열에 저장
     const labels = patientData.map(data => {
         const month = data.patientVitalCreatedAt.month;
@@ -120,14 +127,14 @@ const VitalChart = ({ patientData, selectedPointIndex, setSelectedPointIndex }) 
             legend: {
                 display: false
             },
-            title: {
-                display: true,
-                text: "Patient Vitals",
-                font: {
-                    size: 20, // 폰트 크기
-                    weight: 'bold', // 폰트 굵기
-                }
-            },
+            // title: {
+            //     display: true,
+            //     text: "Patient Vitals",
+            //     font: {
+            //         size: 20, // 폰트 크기
+            //         weight: 'bold', // 폰트 굵기
+            //     }
+            // },
             // tooltip: {}
         },
         layout: {
@@ -159,6 +166,18 @@ const VitalChart = ({ patientData, selectedPointIndex, setSelectedPointIndex }) 
         },
     };
 
+    const handleCellClick = (rowIndex, columnIndex) => {
+        // 선택된 셀의 정보를 활용하여 필요한 작업 수행
+        if (rowIndex === -1) {
+            setSelectedPointIndex(columnIndex);
+        } else if (columnIndex === -1) {
+            setSelectedLine(rowIndex);
+        } else {
+            setSelectedLine(rowIndex);
+            setSelectedPointIndex(columnIndex);
+        }
+    };
+
     return (
         <>
             <Col md={7}>
@@ -177,7 +196,20 @@ const VitalChart = ({ patientData, selectedPointIndex, setSelectedPointIndex }) 
                     ))}
                     <Col>
                         <Card style={{ height: "45rem" }}>
-                            <Line data={lineData} options={options} />
+                            <Card.Body className="h-100">
+                                <Card.Title className="d-flex justify-content-between align-items-center m-0">
+                                    <span>Patient Vitals</span>
+                                    {/* <Button variant={isToggled ? 'primary' : 'outline-primary'} onClick={handleToggle}>
+                                        {isToggled ? 'Show Chart' : 'Show Table'}
+                                    </Button> */}
+                                    <ToggleButton checked={isToggled} onChange={handleToggle} />
+                                </Card.Title>
+                                <Card.Text className="h-100 d-flex justify-content-center align-items-center">
+                                    {isToggled === false ?
+                                        <Line data={lineData} options={options} />
+                                        : <VitalTable data={lineData} onCellClick={handleCellClick} />}
+                                </Card.Text>
+                            </Card.Body>
                         </Card>
                     </Col>
                 </Row>

@@ -7,7 +7,7 @@ const ResultWardTable = ({ currentItems }) => {
     return (
         <>
             <div>
-                <Table className="mb-0">
+                <Table className="mb-0" >
                     <thead>
                         <tr>
                             <th>Time</th>

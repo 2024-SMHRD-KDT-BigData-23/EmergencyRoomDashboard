@@ -24,7 +24,7 @@ const CommentForm = ({ pageNumbers, prevPage, nextPage, staffId, admissionId, co
     return (
         <>
             {pageNumbers.length >= 0 ? (
-                <div className="d-flex justify-content-start align-items-center">
+                <div className="d-flex justify-content-start">
                     <ul className="pagination m-0">
                         <li className="page-item">
                             <button className="page-link" onClick={prevPage}>
