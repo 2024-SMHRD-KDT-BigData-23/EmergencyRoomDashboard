@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Button, Modal } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
 const ResultWardButtons = ({ pageNumbers, prevPage, nextPage, staffId, admissionId, resultWard, setResultWard }) => {
 
@@ -42,26 +44,30 @@ const ResultWardButtons = ({ pageNumbers, prevPage, nextPage, staffId, admission
 
     return (
         <>
-            {pageNumbers.length >= 1 ? (
+            {pageNumbers.length >= 0 ? (
                 <div className="d-flex justify-content-start">
                     <ul className="pagination m-0">
                         <li className="page-item">
-                            <button className="page-link" onClick={prevPage}>이전</button>
+                            <button className="page-link" onClick={prevPage}>
+                            <FontAwesomeIcon icon={faChevronLeft} />
+                            </button>
                         </li>
                         <li className="page-item">
-                            <button className="page-link" onClick={nextPage}>다음</button>
+                            <button className="page-link" onClick={nextPage}>
+                            <FontAwesomeIcon icon={faChevronRight} />
+                            </button>
                         </li>
                     </ul>
                 </div>
             ) : null}
             <div className="d-flex justify-content-end">
-                <Button variant="primary" onClick={handleDischargeClick} className="me-2">
+                <Button onClick={handleDischargeClick} className="me-2 detailBtn1">
                     Discharge
                 </Button>
-                <Button variant="success" onClick={handleWardClick} className="me-2">
+                <Button onClick={handleWardClick} className="me-2 detailBtn2">
                     Ward
                 </Button>
-                <Button variant="danger" onClick={handleICUClick} className="me-2">
+                <Button onClick={handleICUClick} className="me-2 detailBtn3">
                     ICU
                 </Button>
             </div>

@@ -23,7 +23,7 @@ const SearchForm = () => {
             <nav className="navbar navbar-light">
                     <div className="container-fluid">
                         <form onSubmit={ search } className="d-flex">
-                            <input name="search" ref={inputRef} className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+                            <input name="search" ref={inputRef} className="form-control me-2" type="search" placeholder="Patient ID or Name" aria-label="Search" />
                             <button className="btn SearchBtn" type="submit">
                             <FontAwesomeIcon icon={faMagnifyingGlass} />
                             </button>

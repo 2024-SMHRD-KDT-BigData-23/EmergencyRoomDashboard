@@ -108,9 +108,9 @@ public class AdminController {
 
     //////////////////////////////admin reportpage/////////////////////////////
     @GetMapping("/pdf/generate")
-    public ResponseEntity<byte[]>generatePdf(@RequestParam("arg0") String reportType,
-                                             @RequestParam("arg1") String startDate,
-                                             @RequestParam("arg2") String endDate) {
+    public ResponseEntity<byte[]>generatePdf(@RequestParam("reportType") String reportType,
+                                             @RequestParam("startDate") String startDate,
+                                             @RequestParam("endDate") String endDate) {
         byte[] pdfContents = adminService.generatePdf(reportType, startDate, endDate);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_PDF);

@@ -3,7 +3,7 @@
     import { Navbar, Container, Row, Col, Dropdown } from 'react-bootstrap';
     import '../../assets/scss/header.scss';
     import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-    import { faStar, faStethoscope } from '@fortawesome/free-solid-svg-icons';
+    import { faHospital } from '@fortawesome/free-solid-svg-icons';
 
     const AdminHeader = () => {
 
@@ -50,11 +50,6 @@
                     </Link>
                     </Col>
                     <Col className='d-flex align-items-center justify-content-center pageMove'>
-                    <Link to='/Data' className='MainLogoLink'>
-                    Data
-                    </Link>
-                    </Col>
-                    <Col className='d-flex align-items-center justify-content-center pageMove'>
                     <Link to='/Surveillance' className='MainLogoLink'>
                     Surveillance
                     </Link>
@@ -76,7 +71,7 @@
                         
                         <div class="dropdown">
                         <button class="btn hospitalUser" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <FontAwesomeIcon icon={faStethoscope} className='ex123123'/> 스마트병원
+                        <FontAwesomeIcon icon={faHospital} className='ex123123'/> 스마트병원
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end">
                         <li><button className="dropdown-item" onClick={handleLogout}>Logout</button></li>
