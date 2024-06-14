@@ -123,7 +123,11 @@ const VitalChart = ({ patientData }) => {
             },
             title: {
                 display: true,
-                text: "Patient Vitals"
+                text: "Patient Vitals",
+                font: {
+                    size: 20, // 폰트 크기
+                    weight: 'bold', // 폰트 굵기
+                }
             },
             // tooltip: {}
         },
