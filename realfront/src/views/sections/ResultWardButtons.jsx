@@ -55,13 +55,13 @@ const ResultWardButtons = ({ pageNumbers, prevPage, nextPage, staffId, admission
                 </div>
             ) : null}
             <div className="d-flex justify-content-end">
-                <Button variant="primary" onClick={handleDischargeClick} className="me-2">
+                <Button onClick={handleDischargeClick} className="me-2 detailBtn1">
                     Discharge
                 </Button>
-                <Button variant="success" onClick={handleWardClick} className="me-2">
+                <Button onClick={handleWardClick} className="me-2 detailBtn2">
                     Ward
                 </Button>
-                <Button variant="danger" onClick={handleICUClick} className="me-2">
+                <Button onClick={handleICUClick} className="me-2 detailBtn3">
                     ICU
                 </Button>
             </div>

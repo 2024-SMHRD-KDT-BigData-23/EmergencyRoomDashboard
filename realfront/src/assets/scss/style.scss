@@ -17,3 +17,22 @@
 body {
     background-color: #Eeeeee;
 }
+
+.detailBtn1 {
+    background-color: #8282EC;
+    border : none;
+
+    &:hover {
+        color : #8282EC;
+    }
+}
+
+.detailBtn2 {
+    background-color: #95EB95;
+    border : none;
+}
+
+.detailBtn3 {
+    background-color: #DD6666;
+    border : none;
+}
