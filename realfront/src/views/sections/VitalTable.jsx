@@ -35,13 +35,13 @@ const TableCell = styled.td`
   text-align: center;
   vertical-align: middle;
   font-size: 1.2rem;
-  height: 3rem;
+  height: 5.5rem;
   cursor: ${({ isHovered }) => (isHovered ? 'pointer' : 'default')};
 `;
 
 const TableWrapper = styled.div`
-  width: 95%;
-  height: 93%;
+  width: 100%;
+  height: 99%;
   overflow-x: auto;
 `;
 
@@ -63,7 +63,7 @@ const VitalTable = ({ data, onCellClick }) => {
 
     return (
         <TableWrapper>
-            <Table hover className="m-0" style={{ width: 'max-content', height: '96%' }}>
+            <Table hover style={{ width: 'max-content' }}>
                 <tbody>
                     <tr>
                         <FixedCol style={{ backgroundColor: '#0c3d54', color: 'white' }}>MT</FixedCol>

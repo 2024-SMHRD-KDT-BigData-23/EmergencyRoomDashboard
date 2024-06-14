@@ -100,11 +100,29 @@ const VitalChart = ({ patientData, selectedPointIndex, setSelectedPointIndex }) 
         responsive: true, // 차트가 반응형으로 동작하도록 설정합니다.
         scales: {
             x: {
-                display: true
+                title: {
+                    display: true,
+                    text: 'MT',
+                    font: {
+                        size: 16,
+                    },
+                },
+                ticks: {
+                    fontSize: 16,
+                },
             },
             y: {
-                display: true
-            }
+                title: {
+                    display: true,
+                    text: 'Value',
+                    font: {
+                        size: 16,
+                    },
+                },
+                ticks: {
+                    fontSize: 16,
+                },
+            },
         },
         plugins: {
             datalabels: {
@@ -143,11 +161,11 @@ const VitalChart = ({ patientData, selectedPointIndex, setSelectedPointIndex }) 
                 bottom: 20,
                 left: 20,
                 right: 20
-            }
+            },
         },
         elements: {
             line: {
-                tension: 0
+                tension: 0.5
             },
             point: {
                 radius: 3,
@@ -195,7 +213,7 @@ const VitalChart = ({ patientData, selectedPointIndex, setSelectedPointIndex }) 
                         </Col>
                     ))}
                     <Col>
-                        <Card style={{ height: "45rem" }}>
+                        <Card>
                             <Card.Body className="h-100">
                                 <Card.Title className="d-flex justify-content-between align-items-center m-0">
                                     <span>Patient Vitals</span>
@@ -204,7 +222,7 @@ const VitalChart = ({ patientData, selectedPointIndex, setSelectedPointIndex }) 
                                     </Button> */}
                                     <ToggleButton checked={isToggled} onChange={handleToggle} />
                                 </Card.Title>
-                                <Card.Text className="h-100 d-flex justify-content-center align-items-center">
+                                <Card.Text className="d-flex justify-content-center align-items-center" style={{ height: '41.1rem' }}>
                                     {isToggled === false ?
                                         <Line data={lineData} options={options} />
                                         : <VitalTable data={lineData} onCellClick={handleCellClick} />}
