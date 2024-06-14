@@ -5,6 +5,7 @@ import "../../assets/scss/header.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faNotesMedical, faStethoscope, faTable } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
+import mainH from '../../assets/images/mainHeader.png';
 
 const Header = () => {
 
@@ -59,6 +60,7 @@ const Header = () => {
               className="MainLogoTitleLink"
               onClick={() => handleLinkClick("/present/List/All")}
               >
+                <img src={mainH} className="HeaderLogo"></img>
                 NCDSS
               </Link>
             </div>
