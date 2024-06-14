@@ -120,9 +120,6 @@ const Suveillance = ({ patient, setSearch }) => {
                             <Col className="d-flex align-items-end">
                                 <Button variant="primary" type="submit">Search</Button>
                             </Col>
-                            <Col className="d-flex align-items-end SurCsvBtn justify-content-end">
-                                <Button variant="success" onClick={handleExportLogs}>Export Logs</Button>
-                            </Col>
                         </Row>
                     </Form>
                     <Table striped bordered hover>

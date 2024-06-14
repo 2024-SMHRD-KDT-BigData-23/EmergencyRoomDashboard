@@ -50,11 +50,6 @@
                     </Link>
                     </Col>
                     <Col className='d-flex align-items-center justify-content-center pageMove'>
-                    <Link to='/Data' className='MainLogoLink'>
-                    Data
-                    </Link>
-                    </Col>
-                    <Col className='d-flex align-items-center justify-content-center pageMove'>
                     <Link to='/Surveillance' className='MainLogoLink'>
                     Surveillance
                     </Link>
