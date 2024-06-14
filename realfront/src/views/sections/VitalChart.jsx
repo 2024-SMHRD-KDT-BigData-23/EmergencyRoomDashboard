@@ -25,11 +25,10 @@ ChartJS.register(
     ChartDataLabels // DataLabels 플러그인을 등록합니다.
 );
 
-const VitalChart = ({ patientData }) => {
+const VitalChart = ({ patientData, selectedPointIndex, setSelectedPointIndex }) => {
 
     const [selectedLine, setSelectedLine] = useState(0);
-    const [selectedPointIndex, setSelectedPointIndex] = useState(null);
-
+    
     // "월/일 시:분" 형식의 문자열로 만들어 labels 배열에 저장
     const labels = patientData.map(data => {
         const month = data.patientVitalCreatedAt.month;
