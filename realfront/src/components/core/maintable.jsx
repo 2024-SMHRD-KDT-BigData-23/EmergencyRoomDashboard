@@ -3,7 +3,7 @@ import '../../assets/scss/maintable.scss';
 import { useNavigate } from 'react-router-dom';
 import ActionModal from './ActionModal';
 
-const MainTable = ({ patients, resultWard, setAction }) => {
+const MainTable = ({ patients, setAction }) => {
 
     const navigate = useNavigate();
     const [currentPage, setCurrentPage] = useState(1);
@@ -128,8 +128,8 @@ const MainTable = ({ patients, resultWard, setAction }) => {
                                     {renderLink(patient, 'patientVitalNibpD', patient.patientVitalNibpD)}
                                     {renderLink(patient, 'bedWard', patient.bedWard)}
                                     {renderLink(patient, 'deepNcdss', patient.deepNcdss)}
-                                    {resultWard[patient.admissionId] ? (
-                                        renderLink(patient, 'resultWard', resultWard[patient.admissionId])
+                                    {patient && patient.resultWard ? (
+                                        renderLink(patient, 'resultWard', patient.resultWard)
                                     ) : (
                                         <td>
                                             <ActionModal admissionId={patient.admissionId} setAction={setAction} />
