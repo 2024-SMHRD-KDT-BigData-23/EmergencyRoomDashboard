@@ -23,16 +23,24 @@ body {
     border : none;
 
     &:hover {
-        color : #8282EC;
+        background-color : #9a9ae0;
     }
 }
 
 .detailBtn2 {
     background-color: #95EB95;
     border : none;
+
+    &:hover {
+        background-color : #a8d3a8;
+    }
 }
 
 .detailBtn3 {
     background-color: #DD6666;
     border : none;
+
+    &:hover {
+        background-color : #dd9c9c;
+    }
 }
