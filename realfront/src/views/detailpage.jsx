@@ -95,7 +95,7 @@ const Detail = () => {
             <Header />
             <Container fluid className="p-3">
                 <Row className="h-100 g-3">
-                    <PatientInfo patientData={patientData} admissionList={admissionList} patientId={patientId} admissionId={admissionId} />
+                    <PatientInfo patientData={patientData} />
                     <VitalChart patientData={patientData} />
                     <AdmissionInfo patientData={patientData} setPatientData={setPatientData} admissionList={admissionList} patientId={patientId} admissionId={admissionId} resultWardList={resultWardList} commentList={commentList} resultWard={resultWard} setResultWard={setResultWard} comment={comment} setComment={setComment} />
                 </Row>
