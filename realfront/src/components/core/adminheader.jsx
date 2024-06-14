@@ -1,9 +1,10 @@
     import React from 'react';
     import { Link ,useNavigate } from 'react-router-dom';
-    import { Navbar, Container, Row, Col, Dropdown } from 'react-bootstrap';
+    import { Navbar, Container, Row, Col } from 'react-bootstrap';
     import '../../assets/scss/header.scss';
     import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
     import { faHospital } from '@fortawesome/free-solid-svg-icons';
+    import mainH from '../../assets/images/mainHeader.png';
 
     const AdminHeader = () => {
 
@@ -29,6 +30,7 @@
                             <div className="titleSet d-flex">
                                 <div className="MainTitle">
                                     <Link to='/admin' className='MainLogoLink'>
+                                    <img src={mainH} className="HeaderLogo"></img>
                                         NCDSS
                                     </Link>
                                 </div>
