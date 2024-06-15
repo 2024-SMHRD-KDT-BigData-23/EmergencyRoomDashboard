@@ -8,7 +8,7 @@ import ResultWardButtons from './ResultWardButtons';
 import CommentForm from './CommentForm';
 import usePagination from '../../hooks/usePagination';
 
-const AdmissionInfo = ({ patientData, setPatientData, admissionList, patientId, admissionId, resultWardList, commentList, resultWard, setResultWard, comment, setComment }) => {
+const AdmissionInfo = ({ patientData, admissionList, patientId, admissionId, selectedPointIndex, resultWardList, commentList, resultWard, setResultWard, comment, setComment }) => {
 
     const navigate = useNavigate();
     const staffId = sessionStorage.getItem("staffId");
@@ -55,7 +55,7 @@ const AdmissionInfo = ({ patientData, setPatientData, admissionList, patientId, 
                     <Col md={12} className="w-100">
                         <Card className="w-100" style={{ height: '15rem' }}>
                             <Card.Body className="w-100">
-                                <NcdssChart patientData={patientData} />
+                                <NcdssChart patientData={patientData} selectedPointIndex={selectedPointIndex} />
                             </Card.Body>
                         </Card>
                     </Col>

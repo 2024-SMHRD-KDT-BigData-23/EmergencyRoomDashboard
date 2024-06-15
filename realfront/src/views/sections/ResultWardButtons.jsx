@@ -76,7 +76,7 @@ const ResultWardButtons = ({ pageNumbers, prevPage, nextPage, staffId, admission
                     <Modal.Title>환자 배치 확인</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    {`환자를 ${resultWard}로 배치시키겠습니까?`}
+                    {`환자를 정말 ${resultWard}로 배치시키겠습니까?`}
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleCancel}>
