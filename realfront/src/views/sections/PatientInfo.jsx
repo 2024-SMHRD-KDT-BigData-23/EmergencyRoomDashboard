@@ -64,7 +64,7 @@ const PatientInfo = ({ patientData }) => {
                         <Card className="w-100" style={{ height: "9.8rem" }}>
                             <Card.Body className="text-center">
                                 <Card.Title>{patientInfo[8].title}</Card.Title>
-                                <Card.Text className="align-center" style={{ fontWeight: '700', fontSize: '4rem', color: patientData.length && patientData[0][patientInfo[6].key] >= 7 ? 'red' : 'inherit' }}>
+                                <Card.Text className="align-center" style={{ fontWeight: '700', fontSize: '4rem', color: patientData.length && patientData[0][patientInfo[8].key] >= 7 ? 'red' : 'inherit' }}>
                                     {patientData.length && `${patientData[0][patientInfo[8].key]}`}
                                 </Card.Text>
                             </Card.Body>
