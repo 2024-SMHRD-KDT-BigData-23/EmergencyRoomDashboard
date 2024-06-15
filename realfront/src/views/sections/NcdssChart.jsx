@@ -26,14 +26,18 @@ const centerTextPlugin = {
     }
 };
 
-const NcdssChart = ({ patientData }) => {
+const NcdssChart = ({ patientData, selectedPointIndex }) => {
 
-    const dischargePer = patientData.length && patientData[patientData.length - 1].deepHomePercent;
-    const wardPer = patientData.length && patientData[patientData.length - 1].deepWardPercent;
-    const icuPer = patientData.length && patientData[patientData.length - 1].deepIcuPercent;
+    if (!patientData || selectedPointIndex === undefined || selectedPointIndex === null) {
+        return null; // 데이터가 없거나 selectedPointIndex가 undefined/null이면 컴포넌트를 렌더링하지 않음
+    }
+
+    const dischargePer = patientData[selectedPointIndex].deepHomePercent;
+    const wardPer = patientData[selectedPointIndex].deepWardPercent;
+    const icuPer = patientData[selectedPointIndex].deepIcuPercent;
 
     const data = {
-        labels: ["DISCHARGE", "WARD", "ICU"],
+        labels: ["Discharge", "Ward", "ICU"],
         datasets: [{
             data: [dischargePer, wardPer, icuPer],
             backgroundColor: ['#8282EC', '#95EB95', '#DD6666'],
@@ -57,7 +61,13 @@ const NcdssChart = ({ patientData }) => {
         plugins: {
             legend: {
                 display: true,
-                position: "chartArea"
+                position: "chartArea",
+                labels: {
+                    font: {
+                        // size: 16,
+                        weight: 'bold'
+                    }
+                }
             },
             title: {
                 display: true,
@@ -72,15 +82,13 @@ const NcdssChart = ({ patientData }) => {
             datalabels: {
                 color: '#323232', // 수치값의 폰트 색상을 흰색으로 설정
                 font: {
-                    size: 15, // 수치값의 폰트 크기 설정
+                    size: 16, // 수치값의 폰트 크기 설정
                     weight : 'bold'
                 },
                 formatter: (value, context) => {
                     return value + '%'; // 수치값에 '%' 추가
                 }
             },
-
-
         }
     };
 

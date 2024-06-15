@@ -164,4 +164,12 @@ public class ERView {
     @Column(name = "deep_ward_percent")
     private BigDecimal deepWardPercent;
 
+    // resultWard
+    @Column(name = "result_ward")
+    private String resultWard;
+
+    // 도착수단
+    @Column(name = "admission_arrival_transport")
+    private String admissionArrivalTransport;
+
 }

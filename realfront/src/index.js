@@ -25,7 +25,7 @@ root.render(
         <Route path="/Detail/:patientId/:admissionId" element={<Detail />} />
         <Route path="/Admin" element={<AdminPage />} />
         <Route path="/Help" element={<HelpPage />} />
-        <Route path="/Role/" element={<RolePage />} />
+        <Route path="/Role/:id/:role/:status" element={<RolePage />} />
         <Route path="/Surveillance" element={<SuveillancePage />} />
         <Route path="/Report" element={<ReportPage />} />
       </Routes>

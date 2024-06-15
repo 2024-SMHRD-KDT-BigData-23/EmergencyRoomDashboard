@@ -17,6 +17,7 @@ const Detail = () => {
     const [commentList, setCommentList] = useState([]);
     const [resultWard, setResultWard] = useState('');
     const [comment, setComment] = useState('');
+    const [selectedPointIndex, setSelectedPointIndex] = useState(null);
 
     // Timestamp 형식의 데이터를 "년/월/일/시/분/초"로 쪼개주는 함수
     const extraDateAndTime = (timestamp) => {
@@ -77,6 +78,7 @@ const Detail = () => {
                 }));
 
                 setPatientData(patientData);
+                setSelectedPointIndex(patientData.length - 1);
                 console.log("patientData : ", patientData);
                 setAdmissionList(admissionList);
                 console.log("admissonList : ", admissionList);
@@ -95,9 +97,9 @@ const Detail = () => {
             <Header />
             <Container fluid className="p-3">
                 <Row className="h-100 g-3">
-                    <PatientInfo patientData={patientData} admissionList={admissionList} patientId={patientId} admissionId={admissionId} />
-                    <VitalChart patientData={patientData} />
-                    <AdmissionInfo patientData={patientData} setPatientData={setPatientData} admissionList={admissionList} patientId={patientId} admissionId={admissionId} resultWardList={resultWardList} commentList={commentList} resultWard={resultWard} setResultWard={setResultWard} comment={comment} setComment={setComment} />
+                    <PatientInfo patientData={patientData} />
+                    <VitalChart patientData={patientData} selectedPointIndex={selectedPointIndex} setSelectedPointIndex={setSelectedPointIndex} />
+                    <AdmissionInfo patientData={patientData} admissionList={admissionList} patientId={patientId} admissionId={admissionId} selectedPointIndex={selectedPointIndex} resultWardList={resultWardList} commentList={commentList} resultWard={resultWard} setResultWard={setResultWard} comment={comment} setComment={setComment} />
                 </Row>
             </Container >
         </>

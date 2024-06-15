@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
+import { Row, Col } from 'react-bootstrap';
 import '../../assets/scss/maintable.scss';
 import { useNavigate } from 'react-router-dom';
 import ActionModal from './ActionModal';
+import CopyButton from '../../views/sections/CopyButton';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleLeft, faAnglesLeft, faAngleRight, faAnglesRight } from '@fortawesome/free-solid-svg-icons';
 
-const MainTable = ({ patients, resultWard, setAction }) => {
+const MainTable = ({ patients, setAction }) => {
 
     const navigate = useNavigate();
     const [currentPage, setCurrentPage] = useState(1);
@@ -79,15 +83,49 @@ const MainTable = ({ patients, resultWard, setAction }) => {
         );
     };
 
+    const renderPatientId = (patient) => {
+        return (
+            <td onClick={() => navigate(`/Detail/${patient.patientId}/${patient.admissionId}`)}>
+                <Row className="justify-content-center align-items-center">
+                    <Col md={7} className="p-0">
+                        <span className="">{patient.patientId}</span>
+                    </Col>
+                    <Col md={1} className="p-0">
+                        <CopyButton text={patient.patientId} />
+                    </Col>
+                </Row>
+            </td>
+        );
+    };
+
+    const renderPatientName = (patient) => {
+        return (
+            <td onClick={() => navigate(`/Detail/${patient.patientId}/${patient.admissionId}`)}>
+                <Row className="justify-content-center align-items-center">
+                    <Col md={6} className="p-0">
+                        <span>{patient.patientName}</span>
+                    </Col>
+                    <Col md={1} className="p-0">
+                        <CopyButton text={patient.patientName} />
+                    </Col>
+                </Row>
+            </td>
+        );
+    };
+
     const renderLink = (patient, field, label, suffix = '') => {
-        if (field !== 'deepNcdss') {
+        if (field === 'deepNcdss') {
+            return renderDeepNcdssLink(patient);
+        } else if (field === 'patientId') {
+            return renderPatientId(patient);
+        } else if (field === 'patientName') {
+            return renderPatientName(patient);
+        } else {
             return (
                 <td onClick={() => navigate(`/Detail/${patient.patientId}/${patient.admissionId}`)}>
-                    {label}{suffix}
+                    <span>{label}{suffix}</span>
                 </td>
             );
-        } else {
-            return renderDeepNcdssLink(patient);
         }
     };
 
@@ -128,10 +166,10 @@ const MainTable = ({ patients, resultWard, setAction }) => {
                                     {renderLink(patient, 'patientVitalNibpD', patient.patientVitalNibpD)}
                                     {renderLink(patient, 'bedWard', patient.bedWard)}
                                     {renderLink(patient, 'deepNcdss', patient.deepNcdss)}
-                                    {resultWard[patient.admissionId] ? (
-                                        renderLink(patient, 'resultWard', resultWard[patient.admissionId])
+                                    {patient && patient.resultWard ? (
+                                        renderLink(patient, 'resultWard', patient.resultWard)
                                     ) : (
-                                        <td>
+                                        <td onClick={() => navigate(`/Detail/${patient.patientId}/${patient.admissionId}`)}>
                                             <ActionModal admissionId={patient.admissionId} setAction={setAction} />
                                         </td>
                                     )}
@@ -140,13 +178,17 @@ const MainTable = ({ patients, resultWard, setAction }) => {
                         </tbody>
                     </table>
 
-                    <div style={{ textAlign: 'center' }}>
+                    <div style={{ position: 'fixed', bottom: '0', left: '0', right: '0', textAlign: 'center' }}>
                         <ul className="pagination justify-content-center">
                             <li className="page-item">
-                                <button onClick={() => setCurrentPage(1)} className="page-link">{"<<"}</button>
+                                <button onClick={() => setCurrentPage(1)} className="page-link">
+                                    <FontAwesomeIcon icon={faAnglesLeft} />
+                                </button>
                             </li>
                             <li className="page-item">
-                                <button onClick={handlePrev} className="page-link">{"<"}</button>
+                                <button onClick={handlePrev} className="page-link">
+                                    <FontAwesomeIcon icon={faAngleLeft} />
+                                </button>
                             </li>
                             {getPagination().map(number => (
                                 <li key={number} className={`page-item ${currentPage === number ? 'active' : ''}`}>
@@ -159,10 +201,14 @@ const MainTable = ({ patients, resultWard, setAction }) => {
                                 </li>
                             )}
                             <li className="page-item">
-                                <button onClick={handleNext} className="page-link">{">"}</button>
+                                <button onClick={handleNext} className="page-link">
+                                    <FontAwesomeIcon icon={faAngleRight} />
+                                </button>
                             </li>
                             <li className="page-item">
-                                <button onClick={() => setCurrentPage(totalPages)} className="page-link">{">>"}</button>
+                                <button onClick={() => setCurrentPage(totalPages)} className="page-link">
+                                    <FontAwesomeIcon icon={faAnglesRight} />
+                                </button>
                             </li>
                         </ul>
                     </div>

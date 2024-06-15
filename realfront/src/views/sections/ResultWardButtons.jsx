@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Button, Modal } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
 const ResultWardButtons = ({ pageNumbers, prevPage, nextPage, staffId, admissionId, resultWard, setResultWard }) => {
 
@@ -42,14 +44,18 @@ const ResultWardButtons = ({ pageNumbers, prevPage, nextPage, staffId, admission
 
     return (
         <>
-            {pageNumbers.length >= 1 ? (
+            {pageNumbers.length >= 0 ? (
                 <div className="d-flex justify-content-start">
                     <ul className="pagination m-0">
                         <li className="page-item">
-                            <button className="page-link" onClick={prevPage}>이전</button>
+                            <button className="page-link" onClick={prevPage}>
+                            <FontAwesomeIcon icon={faChevronLeft} />
+                            </button>
                         </li>
                         <li className="page-item">
-                            <button className="page-link" onClick={nextPage}>다음</button>
+                            <button className="page-link" onClick={nextPage}>
+                            <FontAwesomeIcon icon={faChevronRight} />
+                            </button>
                         </li>
                     </ul>
                 </div>
@@ -70,7 +76,7 @@ const ResultWardButtons = ({ pageNumbers, prevPage, nextPage, staffId, admission
                     <Modal.Title>환자 배치 확인</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    {`환자를 ${resultWard}로 배치시키겠습니까?`}
+                    {`환자를 정말 ${resultWard}로 배치시키겠습니까?`}
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleCancel}>
