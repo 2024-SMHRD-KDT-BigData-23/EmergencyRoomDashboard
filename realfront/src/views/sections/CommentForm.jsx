@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import axios from 'axios';
-import { Table, Form, Button } from 'react-bootstrap';
+import { Form, Button } from 'react-bootstrap';
 import '../../assets/scss/maintable.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
@@ -33,7 +33,7 @@ const CommentForm = ({ pageNumbers, prevPage, nextPage, staffId, admissionId, co
                         </li>
                         <li className="page-item">
                             <button className="page-link" onClick={nextPage}>
-                            <FontAwesomeIcon icon={faChevronRight} />
+                                <FontAwesomeIcon icon={faChevronRight} />
                             </button>
                         </li>
                     </ul>
@@ -44,7 +44,7 @@ const CommentForm = ({ pageNumbers, prevPage, nextPage, staffId, admissionId, co
                     <Form.Control
                         as="textarea"
                         rows={1}
-                        placeholder="Write Your Patient Status.."
+                        placeholder="Write down the patient's condition"
                         value={comment}
                         onChange={(e) => setComment(e.target.value)}
                     />

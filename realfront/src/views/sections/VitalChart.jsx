@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Row, Col, Card } from "react-bootstrap";
+import { Row, Col, Card, Button } from "react-bootstrap";
 import { Line } from "react-chartjs-2";
 import {
     Chart as ChartJS,
@@ -12,6 +12,8 @@ import {
     Legend,
 } from "chart.js";
 import ChartDataLabels from 'chartjs-plugin-datalabels';
+import VitalTable from "./VitalTable";
+import ToggleButton from "./ToggleButton";
 
 // ChartJS에 필요한 구성 요소들과 플러그인을 등록합니다.
 ChartJS.register(
@@ -25,10 +27,14 @@ ChartJS.register(
     ChartDataLabels // DataLabels 플러그인을 등록합니다.
 );
 
-const VitalChart = ({ patientData }) => {
+const VitalChart = ({ patientData, selectedPointIndex, setSelectedPointIndex }) => {
 
     const [selectedLine, setSelectedLine] = useState(0);
-    const [selectedPointIndex, setSelectedPointIndex] = useState(null);
+    const [isToggled, setIsToggled] = useState(false);
+
+    const handleToggle = () => {
+        setIsToggled(!isToggled);
+    };
 
     // "월/일 시:분" 형식의 문자열로 만들어 labels 배열에 저장
     const labels = patientData.map(data => {
@@ -94,11 +100,29 @@ const VitalChart = ({ patientData }) => {
         responsive: true, // 차트가 반응형으로 동작하도록 설정합니다.
         scales: {
             x: {
-                display: true
+                title: {
+                    display: true,
+                    text: 'MT',
+                    font: {
+                        size: 16,
+                    },
+                },
+                ticks: {
+                    fontSize: 16,
+                },
             },
             y: {
-                display: true
-            }
+                title: {
+                    display: true,
+                    text: 'Value',
+                    font: {
+                        size: 16,
+                    },
+                },
+                ticks: {
+                    fontSize: 16,
+                },
+            },
         },
         plugins: {
             datalabels: {
@@ -121,14 +145,14 @@ const VitalChart = ({ patientData }) => {
             legend: {
                 display: false
             },
-            title: {
-                display: true,
-                text: "Patient Vitals",
-                font: {
-                    size: 20, // 폰트 크기
-                    weight: 'bold', // 폰트 굵기
-                }
-            },
+            // title: {
+            //     display: true,
+            //     text: "Patient Vitals",
+            //     font: {
+            //         size: 20, // 폰트 크기
+            //         weight: 'bold', // 폰트 굵기
+            //     }
+            // },
             // tooltip: {}
         },
         layout: {
@@ -137,11 +161,11 @@ const VitalChart = ({ patientData }) => {
                 bottom: 20,
                 left: 20,
                 right: 20
-            }
+            },
         },
         elements: {
             line: {
-                tension: 0
+                tension: 0.5
             },
             point: {
                 radius: 3,
@@ -158,6 +182,18 @@ const VitalChart = ({ patientData }) => {
                 setSelectedPointIndex(index);
             }
         },
+    };
+
+    const handleCellClick = (rowIndex, columnIndex) => {
+        // 선택된 셀의 정보를 활용하여 필요한 작업 수행
+        if (rowIndex === -1) {
+            setSelectedPointIndex(columnIndex);
+        } else if (columnIndex === -1) {
+            setSelectedLine(rowIndex);
+        } else {
+            setSelectedLine(rowIndex);
+            setSelectedPointIndex(columnIndex);
+        }
     };
 
     return (
@@ -177,8 +213,21 @@ const VitalChart = ({ patientData }) => {
                         </Col>
                     ))}
                     <Col>
-                        <Card style={{ height: "45rem" }}>
-                            <Line data={lineData} options={options} />
+                        <Card>
+                            <Card.Body className="h-100">
+                                <Card.Title className="d-flex justify-content-between align-items-center m-0">
+                                    <span>Patient Vitals</span>
+                                    {/* <Button variant={isToggled ? 'primary' : 'outline-primary'} onClick={handleToggle}>
+                                        {isToggled ? 'Show Chart' : 'Show Table'}
+                                    </Button> */}
+                                    <ToggleButton checked={isToggled} onChange={handleToggle} />
+                                </Card.Title>
+                                <Card.Text className="d-flex justify-content-center align-items-center" style={{ height: '41.1rem' }}>
+                                    {isToggled === false ?
+                                        <Line data={lineData} options={options} />
+                                        : <VitalTable data={lineData} onCellClick={handleCellClick} />}
+                                </Card.Text>
+                            </Card.Body>
                         </Card>
                     </Col>
                 </Row>

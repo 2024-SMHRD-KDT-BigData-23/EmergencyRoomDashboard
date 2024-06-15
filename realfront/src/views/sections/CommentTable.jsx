@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table, Form, Button } from 'react-bootstrap';
+import { Table } from 'react-bootstrap';
 import '../../assets/scss/maintable.scss';
 
 const CommentTable = ({ currentItems }) => {
@@ -15,13 +15,21 @@ const CommentTable = ({ currentItems }) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {currentItems.map((item) => (
-                        <tr key={item.commentId} className="align-middle" style={{ height : '45.05px' }}>
-                            <td>{`${item.commentUpdatedAt.month}.${item.commentUpdatedAt.day} ${item.commentUpdatedAt.hour}:${item.commentUpdatedAt.minute}`}</td>
-                            <td>{item.staffId}</td>
-                            <td>{item.comment}</td>
+                    {currentItems.length > 0 ? (
+                        currentItems.map((item) => (
+                            <tr key={item.commentId} className="align-middle" style={{ height: '45.05px' }}>
+                                <td>{`${item.commentUpdatedAt.month}.${item.commentUpdatedAt.day} ${item.commentUpdatedAt.hour}:${item.commentUpdatedAt.minute}`}</td>
+                                <td>{item.staffId}</td>
+                                <td>{item.comment}</td>
+                            </tr>
+                        ))
+                    ) : (
+                        <tr>
+                            <td colSpan={3} className="text-center py-3">
+                                No data available.
+                            </td>
                         </tr>
-                    ))}
+                    )}
                 </tbody>
             </Table>
         </>
