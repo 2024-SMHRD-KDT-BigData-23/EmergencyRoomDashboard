@@ -13,6 +13,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.itextpdf.layout.element.Table;
@@ -52,6 +53,8 @@ public class AdminService {
     private LogViewRepository logViewRepo;
     @Autowired
     private RoleViewRepository roleViewRepo;
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
 
@@ -149,13 +152,16 @@ public class AdminService {
     @Transactional
     public void addStaffInfo(String staffName, String staffRole, String staffId, String staffPw) {
 
+        // 비밀번호 인코딩
+        String encodedPassword = bCryptPasswordEncoder.encode(staffPw);
+
         // 현재 로컬 날짜와 시간
         LocalDateTime now = LocalDateTime.now();
         // String 형태로 변환
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String formattedNow = now.format(formatter);
 
-        staffInfoRepo.AddStaffInfo(staffName, staffRole, staffId, staffPw, formattedNow);
+        staffInfoRepo.AddStaffInfo(staffName, staffRole, staffId, encodedPassword, formattedNow);
     }
 
     // role 페이지 search

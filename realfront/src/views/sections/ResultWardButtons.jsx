@@ -7,20 +7,33 @@ import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons
 const ResultWardButtons = ({ pageNumbers, prevPage, nextPage, staffId, admissionId, resultWard, setResultWard }) => {
 
     const [showModal, setShowModal] = useState(false);
+    const [showWarning, setShowWarning] = useState(false);
 
     const handleDischargeClick = () => {
-        setResultWard('Discharge');
-        setShowModal(true);
+        if (staffId.startsWith('D')) {
+            setResultWard('Discharge');
+            setShowModal(true);
+        } else {
+            setShowWarning(true);
+        }
     };
 
     const handleWardClick = () => {
-        setResultWard('Ward');
-        setShowModal(true);
+        if (staffId.startsWith('D')) {
+            setResultWard('Ward');
+            setShowModal(true);
+        } else {
+            setShowWarning(true);
+        }
     };
 
     const handleICUClick = () => {
-        setResultWard('ICU');
-        setShowModal(true);
+        if (staffId.startsWith('D')) {
+            setResultWard('ICU');
+            setShowModal(true);
+        } else {
+            setShowWarning(true);
+        }
     };
 
     const handleConfirm = () => {
@@ -41,6 +54,9 @@ const ResultWardButtons = ({ pageNumbers, prevPage, nextPage, staffId, admission
     const handleCancel = () => {
         setShowModal(false);
     };
+    const handleWarningClose = () => {
+        setShowWarning(false);
+    };
 
     return (
         <>
@@ -60,6 +76,7 @@ const ResultWardButtons = ({ pageNumbers, prevPage, nextPage, staffId, admission
                     </ul>
                 </div>
             ) : null}
+            
             <div className="d-flex justify-content-end">
                 <Button onClick={handleDischargeClick} className="me-2 detailBtn1">
                     Discharge
@@ -71,6 +88,7 @@ const ResultWardButtons = ({ pageNumbers, prevPage, nextPage, staffId, admission
                     ICU
                 </Button>
             </div>
+
             < Modal show={showModal} onHide={handleCancel} >
                 <Modal.Header closeButton>
                     <Modal.Title>환자 배치 확인</Modal.Title>
@@ -87,6 +105,20 @@ const ResultWardButtons = ({ pageNumbers, prevPage, nextPage, staffId, admission
                     </Button>
                 </Modal.Footer>
             </Modal >
+
+            <Modal show={showWarning} onHide={handleWarningClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>권한 없음</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    이 작업을 수행할 권한이 없습니다.
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleWarningClose}>
+                        닫기
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </>
     );
 }
