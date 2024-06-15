@@ -168,4 +168,8 @@ public class ERView {
     @Column(name = "result_ward")
     private String resultWard;
 
+    // admission
+    @Column(name = "admission_arrival_tranport")
+    private String admissionArrivalTransport;
+
 }
