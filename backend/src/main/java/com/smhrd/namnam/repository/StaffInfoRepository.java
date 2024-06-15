@@ -22,21 +22,20 @@ public interface StaffInfoRepository extends JpaRepository<StaffInfo, String> {
     // role페이지 user 수정
     @Modifying
     @Query(value = "UPDATE staff_info " +
-            "SET staff_id = :staffId, " +
-            "    staff_name = :staffName, " +
-            "    staff_role = :staffRole, " +
+            "SET staff_role = :staffRole, " +
             "    staff_pw = CASE WHEN :staffPw <> '' THEN :staffPw ELSE staff_pw END " +
             "WHERE staff_id = :id",
             nativeQuery = true)
-    void editStaffInfo(@Param("id") String id, @Param("staffName") String staffName,
-                                  @Param("staffRole") String staffRole, @Param("staffId") String staffId, @Param("staffPw") String staffPw);
+    void editStaffInfo(@Param("id") String id, @Param("staffRole") String staffRole, @Param("staffPw") String staffPw);
 
-    // role페이지 user 삭제
-    @Modifying
-    @Query(value = "DELETE FROM staff_info " +
-            "WHERE staff_id = :id",
-            nativeQuery = true)
-    void deleteByIdd(@Param("id") String id);
+//    // role페이지 user 삭제
+//    @Modifying
+//    @Query(value = "DELETE FROM staff_info " +
+//            "WHERE staff_id = :id",
+//            nativeQuery = true)
+//    void deleteByIdd(@Param("id") String id);
+
+
 
 
     // role페이지 user 추가

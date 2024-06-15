@@ -34,7 +34,7 @@ const Dropdown = ({ sectionContent, setSectionContent, ncdssContent, setNcdssCon
                     <ul className="dropdown-menu">
                         <li><span className="dropdown-item" onClick={() => changeNcdssContent('NCDSS')}>All</span></li>
                         <li><span className="dropdown-item" onClick={() => changeNcdssContent('Discharge')}>Discharge</span></li>
-                        <li><span className="dropdown-item" onClick={() => changeNcdssContent('WARD')}>WARD</span></li>
+                        <li><span className="dropdown-item" onClick={() => changeNcdssContent('Ward')}>Ward</span></li>
                         <li><span className="dropdown-item" onClick={() => changeNcdssContent('ICU')}>ICU</span></li>
                     </ul>
                 </div>

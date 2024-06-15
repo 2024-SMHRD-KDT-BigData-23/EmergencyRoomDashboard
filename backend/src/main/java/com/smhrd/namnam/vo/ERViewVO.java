@@ -1,5 +1,6 @@
 package com.smhrd.namnam.vo;
 
+import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -89,4 +90,12 @@ public class ERViewVO {
 
     // ward 확률
     private BigDecimal deepWardPercent;
+
+    // resultWard
+    private String resultWard;
+
+    // 도착수단
+    private String admissionArrivalTransport;
+
+
 }

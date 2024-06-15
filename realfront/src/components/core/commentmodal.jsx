@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import '../../assets/scss/commentmodal.scss'
-const CommentModal = ({ staffId, admissionId, setComment }) => {
+import { Row, Col, Form, Button } from 'react-bootstrap';
+import '../../assets/scss/commentmodal.scss';
+
+const CommentModal = ({ staffId, admissionId, comment, setComment }) => {
 
     const [admissionComment, setAdmissionComment] = useState(null);
-    
+
     const changeComment = (event) => {
         setAdmissionComment(event.target.value);
     }
@@ -47,6 +49,7 @@ const CommentModal = ({ staffId, admissionId, setComment }) => {
                 </div>
             </div>
         </div>
+
     );
 };
 

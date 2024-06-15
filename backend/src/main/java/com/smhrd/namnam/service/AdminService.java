@@ -125,14 +125,24 @@ public class AdminService {
 
     // role페이지 user 수정
     @Transactional
-    public void  editStaffInfo(String id, String staffName, String staffRole, String staffId, String staffPw) {
-        staffInfoRepo.editStaffInfo(id, staffName, staffRole, staffId, staffPw);
+    public void  editStaffInfo(String id, String staffRole, String staffPw) {
+        staffInfoRepo.editStaffInfo(id, staffRole, staffPw);
     }
 
-    // role페이지 user 삭제
+    // role페이지 user 권한해제
     @Transactional
-    public void deleteStaffInfo(String id) {
-        staffInfoRepo.deleteByIdd(id);
+    public void unuseableStaffInfo(String id) {
+        StaffInfo staffInfo = staffInfoRepo.findByStaffId(id);
+        staffInfo.setStaffAuthority("unusable");
+        staffInfoRepo.save(staffInfo);
+    }
+
+    // role페이지 user 권한부여
+    @Transactional
+    public void restoreStaffInfo(String id) {
+        StaffInfo staffInfo = staffInfoRepo.findByStaffId(id);
+        staffInfo.setStaffAuthority("usable");
+        staffInfoRepo.save(staffInfo);
     }
 
     // role페이지 user 추가
@@ -171,7 +181,6 @@ public class AdminService {
         // Custom page size (e.g., A3 landscape)
         pdf.setDefaultPageSize(PageSize.A3.rotate());
         Document document = new Document(pdf);
-
         document.add(new Paragraph("Hospital Report"));
 
         if ("userActivity".equals(reportType)) {
@@ -236,14 +245,13 @@ public class AdminService {
     private void addERViewData(Document document) {
         List<ERView> erViews = erViewRepo.findAll();
         document.add(new Paragraph("ER Information"));
-        float[] columnWidths = new float[19];  // Assuming there are 19 columns
+        float[] columnWidths = new float[18];  // Assuming there are 19 columns
         Arrays.fill(columnWidths, 1);  // Set each column width to 1 (equal width)
         Table table = new Table(columnWidths);
         table.addCell("ER View ID");
         table.addCell("Patient ID");
         table.addCell("Patient Name");
         table.addCell("Patient Sex");
-        table.addCell("Patient Birthdate");
         table.addCell("Patient Age");
         table.addCell("Patient Disease History");
         table.addCell("Bed Ward");
@@ -263,7 +271,6 @@ public class AdminService {
             table.addCell(er.getPatientId());
             table.addCell(er.getPatientName());
             table.addCell(er.getPatientSex());
-            table.addCell(er.getPatientBirthdate().toString());
             table.addCell(String.valueOf(er.getPatientAge()));
             table.addCell(er.getPatientDiseaseHistory());
             table.addCell(er.getBedWard());
@@ -274,11 +281,12 @@ public class AdminService {
             table.addCell(String.valueOf(er.getAdmissionPain()));
             table.addCell(er.getAdmissionChiefComplaint());
             table.addCell(er.getStaffId());
-            table.addCell(er.getDeepNcdss());
-            table.addCell(er.getDeepHomePercent().toString());
-            table.addCell(er.getDeepIcuPercent().toString());
-            table.addCell(er.getDeepWardPercent().toString());
+            table.addCell(er.getDeepNcdss()!=null? er.getDeepNcdss():"N/A");
+            table.addCell(er.getDeepHomePercent()!=null? er.getDeepHomePercent().toString():"N/A");
+            table.addCell(er.getDeepIcuPercent()!=null? er.getDeepIcuPercent().toString():"N/A");
+            table.addCell(er.getDeepWardPercent()!=null? er.getDeepWardPercent().toString():"N/A");
         }
         document.add(table);
     }
+
 }

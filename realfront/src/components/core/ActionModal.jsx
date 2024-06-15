@@ -44,7 +44,7 @@ const ActionModal = ({ admissionId, setAction }) => {
     };
 
     return (
-        <div>
+        <div onClick={(event) => {event.stopPropagation()}}>
             <button type="button" className="btn btn-sm btn-warning modalBtn" data-bs-toggle="modal" style={{ color: 'white' }} data-bs-target="#exampleModal">Action</button>
             <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog">
@@ -63,8 +63,8 @@ const ActionModal = ({ admissionId, setAction }) => {
                                     size="sm"
                                     onSelect={changeResultWard}
                                 >
-                                    <Dropdown.Item eventKey="DISCHARGE">DISCHARGE</Dropdown.Item>
-                                    <Dropdown.Item eventKey="WARD">WARD</Dropdown.Item>
+                                    <Dropdown.Item eventKey="Discharge">Discharge</Dropdown.Item>
+                                    <Dropdown.Item eventKey="Ward">Ward</Dropdown.Item>
                                     <Dropdown.Item eventKey="ICU">ICU</Dropdown.Item>
                                 </DropdownButton>
                             </div>

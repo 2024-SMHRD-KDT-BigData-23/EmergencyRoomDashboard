@@ -1,9 +1,10 @@
     import React from 'react';
     import { Link ,useNavigate } from 'react-router-dom';
-    import { Navbar, Container, Row, Col, Dropdown } from 'react-bootstrap';
+    import { Navbar, Container, Row, Col } from 'react-bootstrap';
     import '../../assets/scss/header.scss';
     import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-    import { faStar, faStethoscope } from '@fortawesome/free-solid-svg-icons';
+    import { faHospital } from '@fortawesome/free-solid-svg-icons';
+    import mainH from '../../assets/images/mainHeader.png';
 
     const AdminHeader = () => {
 
@@ -29,6 +30,7 @@
                             <div className="titleSet d-flex">
                                 <div className="MainTitle">
                                     <Link to='/admin' className='MainLogoLink'>
+                                    <img src={mainH} className="HeaderLogo"></img>
                                         NCDSS
                                     </Link>
                                 </div>
@@ -45,13 +47,8 @@
                     </Link>
                     </Col>
                     <Col className='d-flex align-items-center justify-content-center pageMove'>
-                    <Link to='/Role' className='MainLogoLink'>
+                    <Link to='/Role/All/All Roles/All Statuses' className='MainLogoLink'>
                     Role
-                    </Link>
-                    </Col>
-                    <Col className='d-flex align-items-center justify-content-center pageMove'>
-                    <Link to='/Data' className='MainLogoLink'>
-                    Data
                     </Link>
                     </Col>
                     <Col className='d-flex align-items-center justify-content-center pageMove'>
@@ -76,7 +73,7 @@
                         
                         <div class="dropdown">
                         <button class="btn hospitalUser" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <FontAwesomeIcon icon={faStethoscope} className='ex123123'/> 스마트병원
+                        <FontAwesomeIcon icon={faHospital} className='ex123123'/> 스마트병원
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end">
                         <li><button className="dropdown-item" onClick={handleLogout}>Logout</button></li>

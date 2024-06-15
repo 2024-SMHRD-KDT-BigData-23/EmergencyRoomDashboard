@@ -3,12 +3,14 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Navbar, Container, Col } from "react-bootstrap";
 import "../../assets/scss/header.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStethoscope, faTable} from "@fortawesome/free-solid-svg-icons";
+import { faNotesMedical, faStethoscope, faTable } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
+import mainH from '../../assets/images/mainHeader.png';
 
 const Header = () => {
 
   const navigate = useNavigate();
+  const staffId = sessionStorage.getItem("staffId"); // 브라우저 세션 사용자 아이디 불러오기
 
   /* 동완 추가 함수 */
   const location = useLocation();
@@ -58,6 +60,7 @@ const Header = () => {
               className="MainLogoTitleLink"
               onClick={() => handleLinkClick("/present/List/All")}
               >
+                <img src={mainH} className="HeaderLogo"></img>
                 NCDSS
               </Link>
             </div>
@@ -99,7 +102,12 @@ const Header = () => {
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
-              <FontAwesomeIcon icon={faStethoscope} /> 스마트병원
+              {staffId.startsWith('D') ? (
+              <FontAwesomeIcon icon={faStethoscope} style={{ marginRight: '0.5rem' }}/> 
+              ) : staffId.startsWith('N') ? (
+                <FontAwesomeIcon icon={faNotesMedical} style={{ marginRight: '0.5rem' }}/>
+              ) : null}
+              {staffId}
             </button>
             <ul className="dropdown-menu dropdown-menu-end">
               <li><button className="dropdown-item" onClick={handleLogout}>Logout</button></li>

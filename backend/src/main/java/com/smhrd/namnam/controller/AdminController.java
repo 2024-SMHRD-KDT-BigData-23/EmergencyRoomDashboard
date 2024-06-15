@@ -69,16 +69,23 @@ public class AdminController {
     @PutMapping("/role/edit/{id}")
     @Operation(summary = "(role페이지 user 수정)")
     public ResponseEntity<Void> editStaffInfo(@PathVariable("id") String id,@RequestBody StaffInfoVO staffInfoVO){
-        adminService.editStaffInfo(id, staffInfoVO.getStaffName(), staffInfoVO.getStaffRole(),
-                staffInfoVO.getStaffId(), staffInfoVO.getStaffPw());
+        adminService.editStaffInfo(id, staffInfoVO.getStaffRole(), staffInfoVO.getStaffPw());
         return ResponseEntity.ok().build();
     }
 
-    // role페이지 user 삭제
-    @DeleteMapping("/role/delete/{id}")
-    @Operation(summary = "(role페이지 user 삭제)")
-    public ResponseEntity<Void> deleteStaffInfo(@PathVariable("id") String id){
-        adminService.deleteStaffInfo(id);
+    // role페이지 user 권한해제
+    @DeleteMapping("/role/unusable/{id}")
+    @Operation(summary = "(role페이지 user 권한해제)")
+    public ResponseEntity<Void> unuseableStaffInfo(@PathVariable("id") String id){
+        adminService.unuseableStaffInfo(id);
+        return ResponseEntity.ok().build();
+    }
+
+    // role페이지 user 권한부여
+    @DeleteMapping("/role/restore/{id}")
+    @Operation(summary = "(role페이지 user 권한부여)")
+    public ResponseEntity<Void> restoreStaffInfo(@PathVariable("id") String id){
+        adminService.restoreStaffInfo(id);
         return ResponseEntity.ok().build();
     }
 
@@ -90,11 +97,20 @@ public class AdminController {
                 staffInfoVO.getStaffId(), staffInfoVO.getStaffPw());
         return ResponseEntity.ok().build();
     }
+
+    // role 페이지 search
+    @GetMapping("/role/search/{staffId}/{staffRole}/{staffStatus}")
+    @Operation(summary = "(role 페이지 search)")
+    public List<RoleViewVO> searchStaffInfo(@PathVariable("staffId") String staffId, @PathVariable("staffRole") String staffRole,
+                                            @PathVariable("staffStatus") String staffStatus){
+        return adminService.searchStaffInfo(staffId, staffRole, staffStatus);
+    }
+
     //////////////////////////////admin reportpage/////////////////////////////
     @GetMapping("/pdf/generate")
-    public ResponseEntity<byte[]>generatePdf(@RequestParam("arg0") String reportType,
-                                             @RequestParam("arg1") String startDate,
-                                             @RequestParam("arg2") String endDate) {
+    public ResponseEntity<byte[]>generatePdf(@RequestParam("reportType") String reportType,
+                                             @RequestParam("startDate") String startDate,
+                                             @RequestParam("endDate") String endDate) {
         byte[] pdfContents = adminService.generatePdf(reportType, startDate, endDate);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_PDF);
@@ -103,13 +119,6 @@ public class AdminController {
         return ResponseEntity.ok()
                 .headers(headers)
                 .body(pdfContents);
-    }
-    // role 페이지 search
-    @GetMapping("/role/search")
-    @Operation(summary = "(role 페이지 search)")
-    public List<RoleViewVO> searchStaffInfo(@RequestParam(value = "staffId") String staffId, @RequestParam(value = "staffRole") String staffRole,
-                                            @RequestParam(value = "staffStatus") String staffStatus){
-        return adminService.searchStaffInfo(staffId, staffRole, staffStatus);
     }
 
 

@@ -4,11 +4,16 @@ import { useNavigate } from 'react-router-dom';
 import NcdssChart from './NcdssChart';
 import ResultWardTable from './ResultWardTable';
 import CommentTable from './CommentTable';
+import ResultWardButtons from './ResultWardButtons';
+import CommentForm from './CommentForm';
+import usePagination from '../../hooks/usePagination';
 
-const AdmissionInfo = ({ patientData, setPatientData, admissionList, patientId, admissionId, resultWardList, commentList, setResultWard, setComment }) => {
+const AdmissionInfo = ({ patientData, admissionList, patientId, admissionId, selectedPointIndex, resultWardList, commentList, resultWard, setResultWard, comment, setComment }) => {
 
     const navigate = useNavigate();
     const staffId = sessionStorage.getItem("staffId");
+    const { currentItems: resultWardItems, pageNumbers: resultWardPageNumbers, prevPage: resultWardPrevPage, nextPage: resultWardNextPage } = usePagination(resultWardList, 3);
+    const { currentItems: commentItems, pageNumbers: commentPageNumbers, prevPage: commentPrevPage, nextPage: commentNextPage } = usePagination(commentList, 3);
 
     return (
         <>
@@ -50,26 +55,28 @@ const AdmissionInfo = ({ patientData, setPatientData, admissionList, patientId, 
                     <Col md={12} className="w-100">
                         <Card className="w-100" style={{ height: '15rem' }}>
                             <Card.Body className="w-100">
-                                <NcdssChart patientData={patientData} />
+                                <NcdssChart patientData={patientData} selectedPointIndex={selectedPointIndex} />
                             </Card.Body>
                         </Card>
                     </Col>
                     <Col md={12} className="w-100">
                         <Card style={{ height: '14rem' }}>
-                            <Card.Body>
-                                <Card.Text>
-                                    <ResultWardTable resultWardList={resultWardList} staffId={staffId} admissionId={admissionId} setResultWard={setResultWard} />
-                                </Card.Text>
+                            <Card.Body className="d-flex flex-column justify-content-between p-0">
+                                <ResultWardTable currentItems={resultWardItems} />
                             </Card.Body>
+                            <Card.Footer className="p-1 d-flex justify-content-between">
+                                <ResultWardButtons pageNumbers={resultWardPageNumbers} prevPage={resultWardPrevPage} nextPage={resultWardNextPage} staffId={staffId} admissionId={admissionId} resultWard={resultWard} setResultWard={setResultWard} />
+                            </Card.Footer>
                         </Card>
                     </Col>
                     <Col md={12} className="w-100">
                         <Card style={{ height: '14rem' }}>
-                            <Card.Body>
-                                <Card.Text>
-                                    <CommentTable commentList={commentList} staffId={staffId} admissionId={admissionId} setComment={setComment} />
-                                </Card.Text>
+                            <Card.Body className="d-flex flex-column justify-content-between p-0">
+                                <CommentTable currentItems={commentItems} />
                             </Card.Body>
+                            <Card.Footer className="p-1 d-flex justify-content-between">
+                                <CommentForm pageNumbers={commentPageNumbers} prevPage={commentPrevPage} nextPage={commentNextPage} staffId={staffId} admissionId={admissionId} comment={comment} setComment={setComment} />
+                            </Card.Footer>
                         </Card>
                     </Col>
                 </Row>

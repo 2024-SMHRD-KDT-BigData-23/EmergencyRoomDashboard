@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../../assets/scss/login.scss';
 import backmp4 from '../../assets/images/background.mp4';
+import mainH from '../../assets/images/mainHeader.png';
 
 const LoginComponent = () => {
     const [username, setUsername] = useState('');
@@ -47,7 +48,10 @@ const LoginComponent = () => {
             </video>
                 <div className='loginbox'>
                     <form onSubmit={handleLogin}>
-                        <label className='loginTitle'>NCDSS</label>
+                    <img src={mainH} className="loginLogo"></img>
+                        <label className='loginTitle'>
+                            NCDSS
+                            </label>
                         <div className="idpwbox">
                             <input
                                 type="text"

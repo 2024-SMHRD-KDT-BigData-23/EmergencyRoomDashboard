@@ -20,7 +20,9 @@ const Report = () => {
             const url = window.URL.createObjectURL(new Blob([response.data]));
             const link =document.createElement('a');
             link.href =url;
-            link.setAttribute('download','report.pdf');
+             // 파일 이름을 reportType에 따라 결정합니다.
+            const filename = reportType + '_' + new Date().toISOString().slice(0, 10) + '.pdf';
+            link.setAttribute('download', filename);
             document.body.appendChild(link);
             link.click();
             link.remove();
