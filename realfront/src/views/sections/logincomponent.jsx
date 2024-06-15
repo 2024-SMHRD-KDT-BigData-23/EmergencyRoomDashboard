@@ -39,9 +39,6 @@ const LoginComponent = () => {
     return (
         
         <div className='login-container'>
-            
-
-
             <video autoPlay loop muted id="background-video">
                     <source src={backmp4} type="video/mp4" />
                     Your browser does not support the video tag.
@@ -73,10 +70,6 @@ const LoginComponent = () => {
                     </form>
                 </div>
         </div>
-
-        
-   
-
     );
 };
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Row, Col } from 'react-bootstrap';
 import '../../assets/scss/maintable.scss';
 import { useNavigate } from 'react-router-dom';
@@ -6,60 +6,12 @@ import ActionModal from './ActionModal';
 import CopyButton from '../../views/sections/CopyButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleLeft, faAnglesLeft, faAngleRight, faAnglesRight } from '@fortawesome/free-solid-svg-icons';
+import usePagination from '../../hooks/usePagination';
 
 const MainTable = ({ patients, setAction }) => {
 
     const navigate = useNavigate();
-    const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 14; // 한 페이지에 표시할 항목 수
-    const totalPages = Math.ceil(patients.length / itemsPerPage);
-
-    // 현재 페이지에 표시할 데이터를 계산합니다.
-    const indexOfLastItem = currentPage * itemsPerPage;
-    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentItems = patients.slice(indexOfFirstItem, indexOfLastItem);
-
-    const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
-    const getPagination = () => {
-        const pageNumbers = [];
-        let startPage, endPage;
-
-        if (totalPages <= 10) {
-            startPage = 1;
-            endPage = totalPages;
-        } else {
-            if (currentPage <= 6) {
-                startPage = 1;
-                endPage = 10;
-            } else if (currentPage + 4 >= totalPages) {
-                startPage = totalPages - 9;
-                endPage = totalPages;
-            } else {
-                startPage = currentPage - 5;
-                endPage = currentPage + 4;
-            }
-        }
-
-        for (let i = startPage; i <= endPage; i++) {
-            pageNumbers.push(i);
-        }
-
-        return pageNumbers;
-    };
-
-    const handlePrev = () => {
-        if (currentPage > 1) {
-            setCurrentPage(currentPage - 1);
-        }
-    };
-
-    const handleNext = () => {
-        if (currentPage < totalPages) {
-            setCurrentPage(currentPage + 1);
-        }
-    };
-
+    const { currentItems, pageNumbers, paginate, currentPage, prevPage, nextPage, goToFirstPage, goToLastPage } = usePagination(patients, 14);
     const formatDate = (dateObj) => {
         return `${String(dateObj.year).padStart(2, '0')}.${String(dateObj.month).padStart(2, '0')}.${String(dateObj.day).padStart(2, '0')} ${String(dateObj.hour).padStart(2, '0')}:${String(dateObj.minute).padStart(2, '0')}:${String(dateObj.second).padStart(2, '0')}`;
     };
@@ -120,6 +72,7 @@ const MainTable = ({ patients, setAction }) => {
             return renderPatientId(patient);
         } else if (field === 'patientName') {
             return renderPatientName(patient);
+        } else if (field === 'resultWard') {
         } else {
             return (
                 <td onClick={() => navigate(`/Detail/${patient.patientId}/${patient.admissionId}`)}>
@@ -127,12 +80,6 @@ const MainTable = ({ patients, setAction }) => {
                 </td>
             );
         }
-    };
-
-    // 총 페이지 수를 계산하고 페이지 번호를 배열에 저장합니다.
-    const pageNumbers = [];
-    for (let i = 1; i <= Math.ceil(patients.length / itemsPerPage); i++) {
-        pageNumbers.push(i);
     };
 
     return (
@@ -177,44 +124,33 @@ const MainTable = ({ patients, setAction }) => {
                             ))}
                         </tbody>
                     </table>
-
-                    <div style={{ position: 'fixed', bottom: '0', left: '0', right: '0', textAlign: 'center' }}>
-                        <ul className="pagination justify-content-center">
-                            <li className="page-item">
-                                <button onClick={() => setCurrentPage(1)} className="page-link">
-                                    <FontAwesomeIcon icon={faAnglesLeft} />
-                                </button>
-                            </li>
-                            <li className="page-item">
-                                <button onClick={handlePrev} className="page-link">
-                                    <FontAwesomeIcon icon={faAngleLeft} />
-                                </button>
-                            </li>
-                            {getPagination().map(number => (
-                                <li key={number} className={`page-item ${currentPage === number ? 'active' : ''}`}>
-                                    <button onClick={() => paginate(number)} className="page-link">{number}</button>
-                                </li>
-                            ))}
-                            {totalPages > 10 && currentPage + 4 < totalPages && (
-                                <li className="page-item disabled">
-                                    <button className="page-link">...</button>
-                                </li>
-                            )}
-                            <li className="page-item">
-                                <button onClick={handleNext} className="page-link">
-                                    <FontAwesomeIcon icon={faAngleRight} />
-                                </button>
-                            </li>
-                            <li className="page-item">
-                                <button onClick={() => setCurrentPage(totalPages)} className="page-link">
-                                    <FontAwesomeIcon icon={faAnglesRight} />
-                                </button>
-                            </li>
-                        </ul>
+                    <div className="d-flex justify-content-center align-items-center pagination" style={{ position: 'fixed', bottom: '0', left: '0', right: '0', textAlign: 'center' }}>
+                        <button onClick={goToFirstPage} className="page-link">
+                            <FontAwesomeIcon icon={faAnglesLeft} />
+                        </button>
+                        <button onClick={prevPage} className="page-link">
+                            <FontAwesomeIcon icon={faAngleLeft} />
+                        </button>
+                        {pageNumbers.map((number, index) => (
+                            <button
+                                key={index}
+                                onClick={() => (typeof number === 'number' ? paginate(number) : null)}
+                                className={`page-link ${currentPage === number ? 'active' : ''}`}
+                                disabled={typeof number !== 'number'}
+                            >
+                                {number}
+                            </button>
+                        ))}
+                        <button onClick={nextPage} className="page-link">
+                            <FontAwesomeIcon icon={faAngleRight} />
+                        </button>
+                        <button onClick={goToLastPage} className="page-link">
+                            <FontAwesomeIcon icon={faAnglesRight} />
+                        </button>
                     </div>
                 </div>
-            </main>
-        </div>
+            </main >
+        </div >
     );
 };
 

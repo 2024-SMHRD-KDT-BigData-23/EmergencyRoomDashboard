@@ -10,8 +10,38 @@ const usePagination = (items, itemsPerPage) => {
 
   // 페이지 번호 배열을 생성합니다.
   const pageNumbers = [];
-  for (let i = 1; i <= Math.ceil(items.length / itemsPerPage); i++) {
-    pageNumbers.push(i);
+  const totalPages = Math.ceil(items.length / itemsPerPage);
+  const maxVisiblePages = 10; // 최대 표시할 페이지 번호 개수
+
+  if (totalPages <= maxVisiblePages) {
+    for (let i = 1; i <= totalPages; i++) {
+      pageNumbers.push(i);
+    }
+  } else {
+    let startPage = currentPage - Math.floor(maxVisiblePages / 2);
+    let endPage = currentPage + Math.floor(maxVisiblePages / 2);
+
+    if (startPage < 1) {
+      startPage = 1;
+      endPage = maxVisiblePages;
+    } else if (endPage > totalPages) {
+      startPage = totalPages - maxVisiblePages + 1;
+      endPage = totalPages;
+    }
+
+    if (startPage > 1) {
+      pageNumbers.push(1);
+      pageNumbers.push('...');
+    }
+
+    for (let i = startPage; i <= endPage; i++) {
+      pageNumbers.push(i);
+    }
+
+    if (endPage < totalPages) {
+      pageNumbers.push('...');
+      pageNumbers.push(totalPages);
+    }
   }
 
   // 페이지 번호 클릭 시 현재 페이지 상태를 업데이트합니다.
@@ -26,12 +56,20 @@ const usePagination = (items, itemsPerPage) => {
 
   // 다음 페이지로 이동합니다.
   const nextPage = () => {
-    if (currentPage < pageNumbers.length) {
+    if (currentPage < totalPages) {
       setCurrentPage(currentPage + 1);
     }
   };
 
-  return { currentItems, pageNumbers, paginate, currentPage, prevPage, nextPage };
+  const goToFirstPage = () => {
+    paginate(pageNumbers[0]);
+  };
+
+  const goToLastPage = () => {
+    paginate(pageNumbers[pageNumbers.length - 1]);
+  };
+
+  return { currentItems, pageNumbers, paginate, currentPage, prevPage, nextPage, goToFirstPage, goToLastPage };
 };
 
 export default usePagination;

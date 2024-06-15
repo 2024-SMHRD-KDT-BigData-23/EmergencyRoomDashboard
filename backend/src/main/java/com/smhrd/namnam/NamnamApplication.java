@@ -25,6 +25,7 @@ public class NamnamApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 //		dataLoader.ExGenerateData();
 //		dataLoader.InGenerateData();
+//		dataLoader.randomGenerateData();
 //		System.out.println("더미 데이터 생성 끄읏!");
 	}
 

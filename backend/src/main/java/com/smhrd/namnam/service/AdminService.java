@@ -129,7 +129,7 @@ public class AdminService {
     // role페이지 user 수정
     @Transactional
     public void  editStaffInfo(String id, String staffRole, String staffPw) {
-        staffInfoRepo.editStaffInfo(id, staffRole, staffPw);
+        staffInfoRepo.editStaffInfo(id, staffRole, bCryptPasswordEncoder.encode(staffPw));
     }
 
     // role페이지 user 권한해제
