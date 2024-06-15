@@ -1,4 +1,9 @@
 .copy-button:hover {
-    background-color: #f0f0f0;
+    background-color: transparent;
     border-radius: 4px;
+}
+
+.copy-button {
+    background-color: transparent;
+    border: none;
 }
