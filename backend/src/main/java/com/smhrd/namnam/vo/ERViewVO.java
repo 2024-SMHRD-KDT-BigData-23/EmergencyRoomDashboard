@@ -93,4 +93,10 @@ public class ERViewVO {
 
     // resultWard
     private String resultWard;
+
+    // 도착 수단
+    private String admissionArrivalTransport;
+
+
+    
 }
