@@ -7,6 +7,7 @@ import com.smhrd.namnam.entity.UserActivity;
 import com.smhrd.namnam.repository.StaffInfoRepository;
 import com.smhrd.namnam.repository.UserActivityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -22,15 +23,21 @@ public class UserService {
     private StaffInfoRepository userRepository;
     @Autowired
     private UserActivityRepository userActivityRepository;
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
 
 
     public StaffInfo save(StaffInfo staffId) {
-        // Spring Security가 제거되었으므로 password encoding을 하지 않습니다.
         return userRepository.save(staffId);
     }
 
     public Optional<StaffInfo> findById(String staffId) {
         return userRepository.findById(staffId);
+    }
+    // 비밀번호 비교 메소드 추가
+    public boolean checkPassword(String rawPassword, String encodedPassword) {
+        return bCryptPasswordEncoder.matches(rawPassword, encodedPassword);
     }
     //admin-dashboard
     public int getTotalUsers(){
