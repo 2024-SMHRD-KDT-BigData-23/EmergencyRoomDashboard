@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Tooltip, OverlayTrigger } from 'react-bootstrap';
 import copyIcon from '../../assets/images/Copy-24.png';
-// import '../../assets/scss/copybutton.scss';
+import '../../assets/scss/copybutton.scss';
 
 const CopyButton = ({ text }) => {
     const [isCopied, setIsCopied] = useState(false);
@@ -29,7 +29,7 @@ const CopyButton = ({ text }) => {
             show={showTooltip}
         >
             <Button
-                className="btn-light p-0 ms-1 copy-button"
+                className="p-0 ms-1 copy-button"
                 onClick={handleCopy}
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
