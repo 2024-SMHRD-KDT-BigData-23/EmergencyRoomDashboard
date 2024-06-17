@@ -11,7 +11,7 @@ const Help = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post('http://localhost:8080/api/sendEmail',ticket)
+        axios.post('http://3.144.162.188:8080/api/sendEmail',ticket)
             .then(response =>{
                 console.log('지원 티켓 제출 성공 !:',response.data);
                 alert('티켓 제출 성공');

@@ -16,7 +16,7 @@ const Dashboard = () => {
 
     useEffect(() => {
         // 시스템 메트릭 데이터 가져오기
-        axios.get('http://localhost:5000/api/system_metrics').then(response => {
+        axios.get('http://3.133.139.93:5000/api/system_metrics').then(response => {
             const metrics = response.data;
             setSystemMetrics({
                 cpuUsage: `${metrics.cpu_usage}%`,
@@ -33,7 +33,7 @@ const Dashboard = () => {
         });
 
         // 사용자 데이터 가져오기
-        axios.get('http://localhost:8080/api/users/count').then(response => {
+        axios.get('http://3.144.162.188:8080/api/users/count').then(response => {
             setUserData(prevState => ({ ...prevState, totalUsers: response.data }));
             setSystemComponents(prevState => prevState.map(component => 
                 component.component === 'Database' ? { ...component, status: 'Online' } : component
@@ -44,14 +44,14 @@ const Dashboard = () => {
             ));
         });
 
-        axios.get('http://localhost:8080/api/users/active').then(response => {
+        axios.get('http://3.144.162.188:8080/api/users/active').then(response => {
             setUserData(prevState => ({ ...prevState, activeUsers: response.data }));
         }).catch(error => {
             console.error("There was an error fetching active users!", error);
         });
 
         // 사용자 활동 데이터 가져오기
-        axios.get('http://localhost:8080/api/user-activity').then(response => {
+        axios.get('http://3.144.162.188:8080/api/user-activity').then(response => {
             const activityData = response.data;
             const today = new Date();
             const pastWeekDates = Array.from({ length: 7 }, (_, i) => {
@@ -83,7 +83,7 @@ const Dashboard = () => {
         });
 
         // API 상태 확인
-        axios.get('http://localhost:8080/api/status')
+        axios.get('http://3.144.162.188:8080/api/status')
             .then(response => {
                 const status = response.status === 200 ? 'Online' : 'Offline';
                 setSystemComponents(prevState => prevState.map(component => 

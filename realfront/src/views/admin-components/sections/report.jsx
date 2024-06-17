@@ -9,7 +9,7 @@ const Report = () => {
 
     const handleDownload =async () => {
         try{
-            const response = await axios.get('http://localhost:8080/api/pdf/generate',{
+            const response = await axios.get('http://3.144.162.188:8080/api/pdf/generate',{
                 params:{
                     reportType,
                     startDate,

@@ -48,7 +48,7 @@ const List = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/api/ER/patients/${pageStatus}/${sectionContent}/${ncdssContent}/${patientNameId}`)
+      .get(`http://3.144.162.188:8080/api/ER/patients/${pageStatus}/${sectionContent}/${ncdssContent}/${patientNameId}`)
       .then((response) => {
 
         const formattedData = response.data.map(item => ({

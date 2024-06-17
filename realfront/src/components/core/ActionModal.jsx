@@ -21,11 +21,11 @@ const ActionModal = ({ admissionId, setAction }) => {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        const resultWardPromise = axios.post(`http://localhost:8080/api/ER/resultWards/${staffId}/${admissionId}`, {
+        const resultWardPromise = axios.post(`http://3.144.162.188:8080/api/ER/resultWards/${staffId}/${admissionId}`, {
             resultWard: selectedResultWard
         });
 
-        const commentPromise = axios.post(`http://localhost:8080/api/ER/comments/${staffId}/${admissionId}`, {
+        const commentPromise = axios.post(`http://3.144.162.188:8080/api/ER/comments/${staffId}/${admissionId}`, {
             comment: selectedComment
         });
 

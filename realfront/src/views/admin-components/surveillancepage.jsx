@@ -43,7 +43,7 @@
 
         useEffect(() => {
                 axios
-                    .get('http://localhost:8080/api/log')
+                    .get('http://3.144.162.188:8080/api/log')
                     .then(response => {
                         const formattedData = response.data.map(item => ({
                             ...item,
@@ -62,7 +62,7 @@
             const nextDay = search.logTimeEnd ? new Date(new Date(search.logTimeEnd).getTime() + 24 * 60 * 60 * 1000).toISOString().split('T')[0] : '';
 
             axios
-            .get(`http://localhost:8080/api/log/search`,{
+            .get(`http://3.144.162.188:8080/api/log/search`,{
                 params:{
                     logUser: search.logUser,
                     logAction: search.logAction,

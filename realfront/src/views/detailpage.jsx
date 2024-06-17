@@ -47,10 +47,10 @@ const Detail = () => {
     // 서버와 통신을 통해 환자의 상세 정보 가져오기
     useEffect(() => {
         Promise.all([
-            axios.get(`http://localhost:8080/api/ER/patient-details/${admissionId}`),
-            axios.get(`http://localhost:8080/api/ER/search/patient-name-id/${patientId}`),
-            axios.get(`http://localhost:8080/api/ER/resultWards/${admissionId}`),
-            axios.get(`http://localhost:8080/api/ER/comments/${admissionId}`)
+            axios.get(`http://3.144.162.188:8080/api/ER/patient-details/${admissionId}`),
+            axios.get(`http://3.144.162.188:8080/api/ER/search/patient-name-id/${patientId}`),
+            axios.get(`http://3.144.162.188:8080/api/ER/resultWards/${admissionId}`),
+            axios.get(`http://3.144.162.188:8080/api/ER/comments/${admissionId}`)
         ])
             .then(([patientDetailsResponse, patientNameIdResponse, resultWardsResponse, commentsResponse]) => {
                 const patientData = patientDetailsResponse.data.map(item => ({

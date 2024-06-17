@@ -14,7 +14,7 @@ const LoginComponent = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:8080/api/login', {
+            const response = await axios.post('http://3.144.162.188:8080/api/login', {
                 staffId: username,
                 staffPw: password
             }, { withCredentials: true });

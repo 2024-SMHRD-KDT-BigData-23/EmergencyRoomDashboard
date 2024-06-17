@@ -77,7 +77,7 @@
         useEffect(() => {
 
             axios
-            .get(`http://localhost:8080/api/staff`)
+            .get(`http://3.144.162.188:8080/api/staff`)
             .then(response => {
                 const formattedData = response.data.map(item => ({
                     ...item,
@@ -95,11 +95,11 @@
         const handleEdit = () => {
             console.log('staffId : ',editUser.staffId)
             axios
-            .put(`http://localhost:8080/api/role/edit/${editId}`, editUser)
+            .put(`http://3.144.162.188:8080/api/role/edit/${editId}`, editUser)
             .then(response => {
                 setShowEditSuccessModal(true);
                     // 데이터 갱신을 위해 사용자 목록 재호출
-                    axios.get(`http://localhost:8080/api/staff`).then(response => {
+                    axios.get(`http://3.144.162.188:8080/api/staff`).then(response => {
                         const formattedData = response.data.map(item => ({
                             ...item,
                             activityDate: extraDateAndTime(item.activityDate)
@@ -116,13 +116,13 @@
         // user 권한해제
         const handleDelete = async (id) => {
             try {
-            const deleteResponse = await axios.delete(`http://localhost:8080/api/role/unusable/${id}`);
+            const deleteResponse = await axios.delete(`http://3.144.162.188:8080/api/role/unusable/${id}`);
             
             if (deleteResponse.status === 200) {
                 setShowDeleteSuccessModal(true);
                 
                 // 데이터 갱신을 위해 사용자 목록 재호출
-                const getResponse = await axios.get(`http://localhost:8080/api/staff`);
+                const getResponse = await axios.get(`http://3.144.162.188:8080/api/staff`);
                 
                 const formattedData = getResponse.data.map(item => ({
                 ...item,
@@ -142,13 +142,13 @@
         // user 권한부여
         const handleRestore = async (id) => {
             try {
-            const deleteResponse = await axios.delete(`http://localhost:8080/api/role/restore/${id}`);
+            const deleteResponse = await axios.delete(`http://3.144.162.188:8080/api/role/restore/${id}`);
             
             if (deleteResponse.status === 200) {
                 setShowEditSuccessModal(true);
                 
                 // 데이터 갱신을 위해 사용자 목록 재호출
-                const getResponse = await axios.get(`http://localhost:8080/api/staff`);
+                const getResponse = await axios.get(`http://3.144.162.188:8080/api/staff`);
                 
                 const formattedData = getResponse.data.map(item => ({
                 ...item,
@@ -169,11 +169,11 @@
         const handleAddUser = async () => {
             console.log("staffRole값은?? : ", addUser.staffRole)
             axios
-            .post(`http://localhost:8080/api/role/add`, addUser)
+            .post(`http://3.144.162.188:8080/api/role/add`, addUser)
             .then(response => {
                 setShowAddSuccessModal(true);
                     // 데이터 갱신을 위해 사용자 목록 재호출
-                    axios.get(`http://localhost:8080/api/staff`).then(response => {
+                    axios.get(`http://3.144.162.188:8080/api/staff`).then(response => {
                         const formattedData = response.data.map(item => ({
                             ...item,
                             activityDate: extraDateAndTime(item.activityDate)
@@ -192,7 +192,7 @@
         useEffect(() => {
             
             axios
-            .get(`http://localhost:8080/api/role/search/${id}/${role}/${status}`)
+            .get(`http://3.144.162.188:8080/api/role/search/${id}/${role}/${status}`)
             .then(response => {
                 const formattedData = response.data.map(item => ({
                     ...item,

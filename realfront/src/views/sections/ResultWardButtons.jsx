@@ -37,7 +37,7 @@ const ResultWardButtons = ({ pageNumbers, prevPage, nextPage, staffId, admission
     };
 
     const handleConfirm = () => {
-        axios.post(`http://localhost:8080/api/ER/resultWards/${staffId}/${admissionId}`, {
+        axios.post(`http://3.144.162.188:8080/api/ER/resultWards/${staffId}/${admissionId}`, {
             resultWard: resultWard
         })
             .then(response => {

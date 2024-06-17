@@ -13,7 +13,7 @@ const CommentModal = ({ staffId, admissionId, comment, setComment }) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        axios.post(`http://localhost:8080/api/ER/comments/${staffId}/${admissionId}`, {
+        axios.post(`http://3.144.162.188:8080/api/ER/comments/${staffId}/${admissionId}`, {
             comment: admissionComment
         })
             .then(response => {
