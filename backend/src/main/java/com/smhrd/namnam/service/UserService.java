@@ -29,10 +29,12 @@ public class UserService {
 
 
     public StaffInfo save(StaffInfo staffId) {
+
         return userRepository.save(staffId);
     }
 
     public Optional<StaffInfo> findById(String staffId) {
+
         return userRepository.findById(staffId);
     }
     // 비밀번호 비교 메소드 추가

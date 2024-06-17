@@ -50,7 +50,7 @@ const LoginComponent = () => {
                     <form onSubmit={handleLogin}>
                     <img src={mainH} className="loginLogo"></img>
                         <label className='loginTitle'>
-                            NCDSS
+                            NTAS
                             </label>
                         <div className="idpwbox">
                             <input
