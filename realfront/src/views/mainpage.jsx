@@ -38,7 +38,7 @@ const List = () => {
 
   const [patients, setPatients] = useState([]);
   const [sectionContent, setSectionContent] = useState("Section");
-  const [ncdssContent, setNcdssContent] = useState("NCDSS");
+  const [ncdssContent, setNcdssContent] = useState("NTAS");
 
   const [deepNcdssCounts, setDeepNcdssCounts] = useState({
     ICU: 0,

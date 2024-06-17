@@ -91,7 +91,7 @@ const MainTable = ({ patients, setAction }) => {
                             <tr>
                                 {[
                                     "In Time", "MT(Measurement)", "Patient ID", "Name", "Sex", "Temp",
-                                    "HR", "RR", "SPO2", "SBP", "DBP", "Section", "NCDSS", "Decision"
+                                    "HR", "RR", "SPO2", "SBP", "DBP", "Section", "NTAS", "Decision"
                                 ].map((header, index) => (
                                     <th key={index} scope="col">{header}</th>
                                 ))}

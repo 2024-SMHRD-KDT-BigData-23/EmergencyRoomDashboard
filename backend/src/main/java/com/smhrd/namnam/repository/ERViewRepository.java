@@ -43,7 +43,7 @@ public interface ERViewRepository extends JpaRepository<ERView, Long> {
             "OR (:pageStatus = 'search' AND" +
             "(:patientNameId = 'All' OR a.patient_id = :patientNameId OR a.patient_name = :patientNameId))) " +
             "AND (:ward = 'Section' OR a.bed_ward = :ward) " +
-            "AND (:ncdss = 'NCDSS' OR a.deep_ncdss = :ncdss) " +
+            "AND (:ncdss = 'NTAS' OR a.deep_ncdss = :ncdss) " +
             "ORDER BY a.admission_in_time DESC",
             nativeQuery = true)
     List<ERView> findMedicalPatients(@Param("pageStatus") String pageStatus, @Param("ward") String ward, @Param("ncdss") String ncdss, @Param("patientNameId") String patientNameId);

@@ -71,7 +71,7 @@ const NcdssChart = ({ patientData, selectedPointIndex }) => {
             },
             title: {
                 display: true,
-                text: "NCDSS",
+                text: "NTAS",
                 font: {
                     size: 20, // 폰트 크기
                     weight: 'bold', // 폰트 굵기
