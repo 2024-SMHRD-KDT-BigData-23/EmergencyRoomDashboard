@@ -168,7 +168,7 @@ public class ERView {
     @Column(name = "result_ward")
     private String resultWard;
 
-    // 도착 수단
+    // 도착수단
     @Column(name = "admission_arrival_transport")
     private String admissionArrivalTransport;
 

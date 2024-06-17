@@ -31,7 +31,7 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody StaffInfo staffInfo) {
         Optional<StaffInfo> foundUser = userService.findById(staffInfo.getStaffId());
-        if (foundUser.isPresent() && foundUser.get().getStaffPw().equals(staffInfo.getStaffPw())) {
+        if (foundUser.isPresent() && userService.checkPassword(staffInfo.getStaffPw(), foundUser.get().getStaffPw())) {
             String token = jwtUtil.createJwt(foundUser.get().getStaffId(), "ROLE_USER", 60 * 60 * 1000L);
             userService.updateStatus(staffInfo.getStaffId(), "active");
             return ResponseEntity.ok().header("Authorization", "Bearer " + token).body("Login Successful");

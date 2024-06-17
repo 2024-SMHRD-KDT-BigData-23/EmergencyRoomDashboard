@@ -11,7 +11,7 @@ const MainTable = ({ patients, setAction }) => {
 
     const navigate = useNavigate();
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 14 ; // 한 페이지에 표시할 항목 수
+    const itemsPerPage = 14; // 한 페이지에 표시할 항목 수
     const totalPages = Math.ceil(patients.length / itemsPerPage);
 
     // 현재 페이지에 표시할 데이터를 계산합니다.
