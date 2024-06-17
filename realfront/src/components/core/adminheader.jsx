@@ -31,7 +31,7 @@
                                 <div className="MainTitle">
                                     <Link to='/admin' className='MainLogoLink'>
                                     <img src={mainH} className="HeaderLogo"></img>
-                                        NCDSS
+                                        NTAS
                                     </Link>
                                 </div>
                                 <div className="SubTitle2">

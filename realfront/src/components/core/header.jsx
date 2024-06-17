@@ -61,7 +61,7 @@ const Header = () => {
               onClick={() => handleLinkClick("/present/List/All")}
               >
                 <img src={mainH} className="HeaderLogo"></img>
-                NCDSS
+                NTAS
               </Link>
             </div>
             <div className="SubTitle2">by NAMNAM</div>
