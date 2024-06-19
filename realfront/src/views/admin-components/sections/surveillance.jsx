@@ -57,7 +57,7 @@ const Suveillance = ({ patient, setSearch }) => {
 
     const [filter, setFilter] = useState({
         logUser: '',
-        logAction: '',
+        logAction: 'All action',
         logTimeStart: '',
         logTimeEnd: ''
     });
