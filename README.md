@@ -119,13 +119,7 @@
 
 <br>
 
-## 📌 SW유스케이스
-![SW유스케이스](https://github.com/Eehnodu/Portfolio/assets/155121578/4b2b8080-f20b-4640-a29e-289b082fd6c8)
-<br>
 
-## 📌 서비스 흐름도
-![서비스 흐름도](https://github.com/2024-SMHRD-KDT-BigData-23/FitNeeds/assets/155061141/65e87772-bcaa-4644-aab5-a7c8e661cf55)
-<br>
 
 ## 📌 ER다이어그램
 ![ER다이어그램](https://github.com/2024-SMHRD-KDT-BigData-23/EmergencyRoomDashboard/assets/155136709/61862d77-f664-46bc-a7e1-2ccc207db17a)
