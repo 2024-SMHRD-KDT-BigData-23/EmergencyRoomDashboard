@@ -99,7 +99,8 @@
 <br>
 
 ## ⚙ 시스템 아키텍처
-![image](https://github.com/2024-SMHRD-KDT-BigData-23/FitNeeds/assets/155136709/911d56fd-1a63-4e86-a44b-98940a326cba)
+![Read-me아키텍처](https://github.com/2024-SMHRD-KDT-BigData-23/EmergencyRoomDashboard/assets/155136709/5ac9c5c9-bba1-4369-b0c7-a909b6fb1790)
+
 <br>
 
 ## 📌 SW유스케이스
@@ -111,7 +112,8 @@
 <br>
 
 ## 📌 ER다이어그램
-![FitNeedsERD](https://github.com/Eehnodu/Portfolio/assets/155121578/a013ec85-8ba4-4a8c-bf8d-565984ee2319)
+![ER다이어그램](https://github.com/2024-SMHRD-KDT-BigData-23/EmergencyRoomDashboard/assets/155136709/61862d77-f664-46bc-a7e1-2ccc207db17a)
+
 <br>
 
 ## 🖥 화면 구성
@@ -153,24 +155,21 @@
     <td align="center"><img src="https://pbs.twimg.com/media/B-n6uPYUUAAZSUx.png" width="100" height="100"/></td>
   </tr>
   <tr>
-    <td align="center"><strong>강아람</strong></td>
-    <td align="center"><strong>강우석</strong></td>
-    <td align="center"><strong>우동희</strong></td>
-    <td align="center"><strong>조범수</strong></td>
+    <td align="center"><strong>정연재</strong></td>
+    <td align="center"><strong>김동완</strong></td>
+    <td align="center"><strong>이병헌</strong></td>
     <td align="center"><strong>이지훈</strong></td>
   </tr>
   <tr>
+    <td align="center"><b>PM, Full-Stack, Data Modeling</b></td>
     <td align="center"><b>Front-end</b></td>
-    <td align="center"><b>Front-end</b></td>
     <td align="center"><b>Back-end</b></td>
-    <td align="center"><b>Back-end</b></td>
-    <td align="center"><b>Back-end</b></td>
+    <td align="center"><b>Full-Stack, Devops</b></td>
   </tr>
   <tr>
-    <td align="center"><a href="https://github.com/zzoorong/ARAM" target='_blank'>github</a></td>
-    <td align="center"><a href="https://github.com/fakouho" target='_blank'>github</a></td>
-    <td align="center"><a href="https://github.com/Eehnodu" target='_blank'>github</a></td>
-    <td align="center"><a href="https://github.com/beomsu-j" target='_blank'>github</a></td>
+    <td align="center"><a href="https://github.com/YeonjaeMan" target='_blank'>github</a></td>
+    <td align="center"><a href="https://github.com/wandongk" target='_blank'>github</a></td>
+    <td align="center"><a href="https://github.com/LBH1226" target='_blank'>github</a></td>
     <td align="center"><a href="https://github.com/dlwlgnsrhy" target='_blank'>github</a></td>
   </tr>
   <tr>
