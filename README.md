@@ -12,6 +12,21 @@
 <br>
 
 ## ⭐ 주요 기능
+<div style="display: flex; justify-content: center; white-space: nowrap;">
+    <img width="360" alt="image" src="https://github.com/2024-SMHRD-KDT-BigData-23/EmergencyRoomDashboard/assets/76952340/7274b085-cb74-442a-bd8a-c20cfe6ee872">
+    <img width="360" alt="image" src="https://github.com/2024-SMHRD-KDT-BigData-23/EmergencyRoomDashboard/assets/76952340/66530d9a-4fd6-456d-b9ef-8a9c1627c951">
+    <img width="360" alt="image" src="https://github.com/2024-SMHRD-KDT-BigData-23/EmergencyRoomDashboard/assets/76952340/9fa926e2-a365-48e6-abed-5b85ae3c2ac8">
+    <img width="360" alt="image" src="https://github.com/2024-SMHRD-KDT-BigData-23/EmergencyRoomDashboard/assets/76952340/14159389-61d3-4554-a558-04865e54f414">
+</div>
+
+<div style="display: flex; justify-content: center; white-space: nowrap;">
+    <img width="288" alt="image" src="https://github.com/2024-SMHRD-KDT-BigData-23/EmergencyRoomDashboard/assets/76952340/c99b9154-4a9d-4953-9bf5-70b830e5ed31">
+    <img width="288" alt="image" src="https://github.com/2024-SMHRD-KDT-BigData-23/EmergencyRoomDashboard/assets/76952340/f68fe3af-1f3c-4fdf-b201-aee47761cd20">
+    <img width="288" alt="image" src="https://github.com/2024-SMHRD-KDT-BigData-23/EmergencyRoomDashboard/assets/76952340/b712a99c-0da0-4e2b-961e-ef13ede575ac">
+    <img width="288" alt="image" src="https://github.com/2024-SMHRD-KDT-BigData-23/EmergencyRoomDashboard/assets/76952340/c6c09e07-7640-4148-86c3-8eb298759a4a">
+    <img width="288" alt="image" src="https://github.com/2024-SMHRD-KDT-BigData-23/EmergencyRoomDashboard/assets/76952340/955d15ac-4b8d-4a97-aa39-817c31109757">
+</div>
+
 * 기능1 : 응급실의 응급 환자 데이터 업데이트 환경
 * 기능2 : 응급실 환자 데이터(MIMIC-IV-ED)를 활용한 위험도 평가 인공지능 모델
 * 기능3 : 의료진과 환자의 개인정보 보호와 생체 신호 데이터 보안 적용
