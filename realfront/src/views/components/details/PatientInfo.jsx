@@ -10,7 +10,7 @@ function PatientInfo({ patientData, navigate }) {
       <Col>P-ID {patientData.patientId}</Col>
       <Col>Name {patientData.patientName}</Col>
       <Col>Sex {patientData.patientSex}</Col>
-      <Col>NCDSS {patientData.deepNcdss}</Col>
+      <Col>NTAS {patientData.deepNcdss}</Col>
       <Col>
         <Dropdown>
           <Dropdown.Toggle variant="outline-secondary">

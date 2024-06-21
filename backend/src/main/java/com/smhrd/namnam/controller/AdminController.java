@@ -108,6 +108,7 @@ public class AdminController {
 
     //////////////////////////////admin reportpage/////////////////////////////
     @GetMapping("/pdf/generate")
+    @Operation(summary = "(report 페이지 pdf)")
     public ResponseEntity<byte[]>generatePdf(@RequestParam("reportType") String reportType,
                                              @RequestParam("startDate") String startDate,
                                              @RequestParam("endDate") String endDate) {
