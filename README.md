@@ -46,10 +46,6 @@
 ## ⛏ 기술스택
 <table>
     <tr>
-        <th>구분</th>
-        <th>내용</th>
-    </tr>
-    <tr>
         <td>사용언어</td>
         <td>
             <img src="https://img.shields.io/badge/Java-007396?style=for-the-badge&logo=java&logoColor=white"/>
@@ -61,16 +57,17 @@
     <tr>
         <td>라이브러리</td>
         <td>
-	<img src="https://img.shields.io/badge/AJAX-FFFFFF?style=for-the-badge"/>
-	<img src="https://img.shields.io/badge/BootStrap-7952B3?style=for-the-badge&logo=BootStrap&logoColor=white"/>
+            <img src="https://img.shields.io/badge/AJAX-FFFFFF?style=for-the-badge"/>
+            <img src="https://img.shields.io/badge/BootStrap-7952B3?style=for-the-badge&logo=BootStrap&logoColor=white"/>
+            <img src="https://img.shields.io/badge/Chart.js-F5788D?style=for-the-badge&logo=Chart.js&logoColor=white"/>
         </td>
     </tr>
     <tr>
         <td>개발도구</td>
         <td>
-	    <img src="https://img.shields.io/badge/Eclipse-2C2255?style=for-the-badge&logo=Eclipse&logoColor=white"/>
+            <img src="https://img.shields.io/badge/IntelliJ-000000?style=for-the-badge&logo=IntelliJ%20IDEA&logoColor=white"/>
             <img src="https://img.shields.io/badge/VSCode-007ACC?style=for-the-badge&logo=VisualStudioCode&logoColor=white"/>
-	    <img src="https://img.shields.io/badge/Jupyter%20Notebook-F37626.svg?&style=for-the-badge&logo=Jupyter&logoColor=white"/>
+            <img src="https://img.shields.io/badge/Jupyter%20Notebook-F37626.svg?&style=for-the-badge&logo=Jupyter&logoColor=white"/>
         </td>
     </tr>
     <tr>
@@ -78,6 +75,7 @@
         <td>
             <img src="https://img.shields.io/badge/Apache Tomcat-D22128?style=for-the-badge&logo=Apache Tomcat&logoColor=white"/>
             <img src="https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=Flask&logoColor=white"/> 
+            <img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=Node.js&logoColor=white"/>
         </td>
     </tr>
     <tr>
@@ -91,6 +89,15 @@
         <td>
             <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=Git&logoColor=white"/>
             <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=GitHub&logoColor=white"/>
+        </td>
+    </tr>
+    <tr>
+        <td>런타임 환경</td>
+        <td>
+            <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=Docker&logoColor=white"/>
+            <img src="https://img.shields.io/badge/Docker%20Hub-2496ED?style=for-the-badge&logo=Docker&logoColor=white"/>
+            <img src="https://img.shields.io/badge/AWS-232F3E?style=for-the-badge&logo=Amazon%20AWS&logoColor=white"/>
+            <img src="https://img.shields.io/badge/Jenkins-D24939?style=for-the-badge&logo=Jenkins&logoColor=white"/>
         </td>
     </tr>
 </table>
