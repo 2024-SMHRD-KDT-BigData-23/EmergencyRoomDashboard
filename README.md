@@ -20,8 +20,7 @@
 </div>
 
 <div style="display: flex; justify-content: center; white-space: nowrap;">
-    ![image](https://github.com/2024-SMHRD-KDT-BigData-23/EmergencyRoomDashboard/assets/76952340/acc88ac1-2d9a-4b08-b9f6-0a4bd12d8ce6)
-	
+    <img width="288" alt="image" src="https://github.com/2024-SMHRD-KDT-BigData-23/EmergencyRoomDashboard/assets/76952340/acc88ac1-2d9a-4b08-b9f6-0a4bd12d8ce6">
     <img width="288" alt="image" src="https://github.com/2024-SMHRD-KDT-BigData-23/EmergencyRoomDashboard/assets/76952340/f68fe3af-1f3c-4fdf-b201-aee47761cd20">
     <img width="288" alt="image" src="https://github.com/2024-SMHRD-KDT-BigData-23/EmergencyRoomDashboard/assets/76952340/b712a99c-0da0-4e2b-961e-ef13ede575ac">
     <img width="288" alt="image" src="https://github.com/2024-SMHRD-KDT-BigData-23/EmergencyRoomDashboard/assets/76952340/c6c09e07-7640-4148-86c3-8eb298759a4a">
