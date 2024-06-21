@@ -29,6 +29,7 @@
 <details>
 <summary><b>주요 기능 설명 펼치기</b></summary>
 <div markdown="1">
+	
 * 주요기능1 : 환자 관리 웹 대시보드 기능
 	
 ![주요 기능1](https://github.com/2024-SMHRD-KDT-BigData-23/EmergencyRoomDashboard/assets/155136709/44b1e44f-4e9d-4aa4-9f91-09fafdd8fe33)
