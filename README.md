@@ -30,15 +30,14 @@
 <summary><b>주요 기능 설명 펼치기</b></summary>
 <div markdown="1">
 * 주요기능1 : 
-![주요 기능1](https://github.com/2024-SMHRD-KDT-BigData-23/EmergencyRoomDashboard/assets/155136709/f19f6e5a-f5ec-40a5-9342-b52bed2262b8)
-![image](https://github.com/2024-SMHRD-KDT-BigData-23/EmergencyRoomDashboard/assets/155136709/9f92ad42-373d-4acf-93dd-bcd9067c3e81)
-![주요기능3](https://github.com/2024-SMHRD-KDT-BigData-23/EmergencyRoomDashboard/assets/155136709/895ef969-4f91-4d80-97cc-57d8eddace65)
+![주요 기능1](https://github.com/2024-SMHRD-KDT-BigData-23/EmergencyRoomDashboard/assets/155136709/44b1e44f-4e9d-4aa4-9f91-09fafdd8fe33)
+![주요기능2](https://github.com/2024-SMHRD-KDT-BigData-23/EmergencyRoomDashboard/assets/155136709/9fb7dc02-87b9-418e-b49a-1420f69f9d75)
+![주요기능2](https://github.com/2024-SMHRD-KDT-BigData-23/EmergencyRoomDashboard/assets/155136709/ae6ecc1a-2442-47f5-bfd2-0db7a08e8d39)
+
+
 * 주요기능2 : 
-![주요기능3](https://github.com/2024-SMHRD-KDT-BigData-23/EmergencyRoomDashboard/assets/155136709/e723688d-eca6-481c-92ff-11653d50b82e)
-![주요기능5](https://github.com/2024-SMHRD-KDT-BigData-23/EmergencyRoomDashboard/assets/155136709/a8ce1c07-725d-42a9-af51-debad45cd6ac)
-
-
-
+![주요기능4](https://github.com/2024-SMHRD-KDT-BigData-23/EmergencyRoomDashboard/assets/155136709/9c0b7f4c-60fa-41e0-8fad-36d6a7a83002)
+![주요기능5](https://github.com/2024-SMHRD-KDT-BigData-23/EmergencyRoomDashboard/assets/155136709/742539f7-22e9-4cc4-9de8-a5522bc4b96f)
 </div>
 </details>
 
