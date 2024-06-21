@@ -100,7 +100,7 @@
         </td>
     </tr>
     <tr>
-        <td>런타임 환경</td>
+        <td>DevOps 도구</td>
         <td>
             <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=Docker&logoColor=white"/>
             <img src="https://img.shields.io/badge/Docker%20Hub-2496ED?style=for-the-badge&logo=Docker&logoColor=white"/>
