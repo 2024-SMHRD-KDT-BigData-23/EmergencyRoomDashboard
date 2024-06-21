@@ -135,8 +135,7 @@
     <td align="center"><img src="https://mb.ntdtv.kr/assets/uploads/2019/01/Screen-Shot-2019-01-08-at-4.31.55-PM-e1546932545978.png" width="100" height="100"/></td>
     <td align="center"><img src="https://github.com/2024-SMHRD-KDT-BigData-23/FitNeeds/assets/155136709/60cfda0f-23f4-4e5d-a953-12565033b91b" height="100"/></td>
     <td align="center"><img src="https://i.pinimg.com/236x/ed/bb/53/edbb53d4f6dd710431c1140551404af9.jpg" width="100" height="100"/></td>
-    <td align="center"><img src="https://pbs.twimg.com/media/B-n6uPYUUAAZSUx.png" width="100" height="100"/></td>
-  </tr>
+  
   <tr>
     <td align="center"><strong>정연재</strong></td>
     <td align="center"><strong>김동완</strong></td>
