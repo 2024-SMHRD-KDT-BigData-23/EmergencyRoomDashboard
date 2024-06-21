@@ -155,9 +155,9 @@
     <td align="center"><a href="https://github.com/dlwlgnsrhy" target='_blank'>github</a></td>
   </tr>
   <tr>
-    <td align="center"><b> 프로젝트&산출문서관리&발표 <br><br> EMR과 유사한 더미데이터 생성 기능 <br><br> 환자 상세 정보 페이지 UI/UX <br><br> 환자의 배치 결정 & 상태 기록 기능 <br><br> MIMIC 데이터 전처리 및 LightGBM 모델링<br> React Component Hook 관리<br> React useParams를 이용한 SPA 구현<br> React Promise 병렬 비동기 통신을 이용한 서버 데이터 불러오기 </td>
-    <td align="center"><b>UI/UX 디자인 <br><br> 전체적인 프론트영역 구현 <br><br> 회원가입 페이지 <br><br> 서비스 소개페이지 구현 <br><br> 프론트엔드 오류수정 전담 <br><br> 발표</b></td>
-    <td align="center"><b>DB 설계 및 구축<br>회원관리기능<br><br>비밀번호 암호화 기능<br><br>사용자의 운동, 체중 입력 기능<br><br>신체변화와 운동정보 차트 구현<br><br>Fullcalendar<br><br>일정 추가, 수정, 삭제 기능<br><br>PT예약 일정 연동 기능</b></td>
+    <td align="center"> 프로젝트&산출문서관리&발표 <br><br> EMR과 유사한 더미데이터 생성 기능 <br><br> 환자 상세 정보 페이지 UI/UX <br><br> 환자의 배치 결정 & 상태 기록 기능 <br><br> MIMIC 데이터 전처리 및 LightGBM 모델링<br> React Component Hook 관리<br> React useParams를 이용한 SPA 구현<br> React Promise 병렬 비동기 통신을 이용한 서버 데이터 불러오기 </td>
+    <td align="center"> 화면 UI/UX 설계 & PPT 제작 Bootstrap을 사용해 전체 페이지 Design <br><br> login & Header & In-ER & Ex-ER & Search 화면 구성 <br><br> React axios 미동기 통신을 이용한 서버 데이터 불러오기 <br><br> React useState를 이용한 상태관리 <br><br> React useNavigate를 이용한 페이지 간 이동</b></td>
+    <td align="center"> 데이터베이스 요구 사항 분석 & 테이블 설계 & 시연 영상 제작 <br> VIEW와 Spring Data JPA를 사용한 환자 기본 정보 & 상세 정보 조회 기능 & 환자 입원 구역과 NTAS 위험도 필터링 기능 & 환자 검색 기능<br>Role UI/UX 및 사용자 계정 추가, 수정, 권한 관련 기능<br><br>Log 목록 조회, 검색 기능<br><br>신체변화와 운동정보 차트 구현<br><br>Fullcalendar<br><br>일정 추가, 수정, 삭제 기능<br><br>PT예약 일정 연동 기능</b></td>
     <td align="center"><b>예약페이지 구현 <br><br> Chart.js 구현<br><br> 트레이너 DB 구현 <br><br> MVC패턴 구체화 <br><br> 시연 영상 및 편집 </b></td>
     <td align="center"><b>PM<br><br>네이버 로그인 api<br><br> Fullcalendar api <br><br> 뉴스 및 블로그서비스 <br><br> 비교페이지 디자인 <br><br>ppt제작 </b></td>
   </tr>
