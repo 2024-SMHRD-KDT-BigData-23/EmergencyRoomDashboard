@@ -48,7 +48,7 @@
     <tr>
         <td>사용언어</td>
         <td>
-            <img src="https://img.shields.io/badge/Java-007396?style=for-the-badge&logo=java&logoColor=white"/>
+            <img src="https://img.shields.io/badge/Spring%20Boot-6DB33F?style=for-the-badge&logo=Spring%20Boot&logoColor=white"/>
             <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=HTML5&logoColor=white"/>
             <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=CSS3&logoColor=white"/>
             <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=white"/>
@@ -57,9 +57,16 @@
     <tr>
         <td>라이브러리</td>
         <td>
-            <img src="https://img.shields.io/badge/AJAX-FFFFFF?style=for-the-badge"/>
+            <img src="https://img.shields.io/badge/axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white"/>
             <img src="https://img.shields.io/badge/BootStrap-7952B3?style=for-the-badge&logo=BootStrap&logoColor=white"/>
             <img src="https://img.shields.io/badge/Chart.js-F5788D?style=for-the-badge&logo=Chart.js&logoColor=white"/>
+            <img src="https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=JSON%20web%20tokens&logoColor=white"/>
+            <img src="https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&logo=Swagger&logoColor=black"/>
+            <img src="https://img.shields.io/badge/send%20email-4285F4?style=for-the-badge&logo=Gmail&logoColor=white"/>
+            <img src="https://img.shields.io/badge/PDF-E34F26?style=for-the-badge&logo=Adobe%20Acrobat%20Reader&logoColor=white"/>
+            <img src="https://img.shields.io/badge/DataFaker-FF8C00?style=for-the-badge&logo=datafaker&logoColor=white"/>
+            <img src="https://img.shields.io/badge/Security-FF0000?style=for-the-badge&logo=Secure&logoColor=white"/>
+            <img src="https://img.shields.io/badge/Lombok-FF4500?style=for-the-badge&logo=lombok&logoColor=white"/>
         </td>
     </tr>
     <tr>
@@ -68,6 +75,7 @@
             <img src="https://img.shields.io/badge/IntelliJ-000000?style=for-the-badge&logo=IntelliJ%20IDEA&logoColor=white"/>
             <img src="https://img.shields.io/badge/VSCode-007ACC?style=for-the-badge&logo=VisualStudioCode&logoColor=white"/>
             <img src="https://img.shields.io/badge/Jupyter%20Notebook-F37626.svg?&style=for-the-badge&logo=Jupyter&logoColor=white"/>
+            <img src="https://img.shields.io/badge/Gradle-02303A?style=for-the-badge&logo=Gradle&logoColor=white"/>
         </td>
     </tr>
     <tr>
@@ -101,6 +109,7 @@
         </td>
     </tr>
 </table>
+
 
 
 <br>
