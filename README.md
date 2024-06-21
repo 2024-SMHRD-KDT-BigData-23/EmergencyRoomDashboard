@@ -29,15 +29,14 @@
 <details>
 <summary><b>주요 기능 설명 펼치기</b></summary>
 <div markdown="1">
-* 주요기능1 : 
-![주요 기능1](https://github.com/2024-SMHRD-KDT-BigData-23/EmergencyRoomDashboard/assets/155136709/4194759f-2e88-4acc-aeed-e11573408983)
-
+* 주요기능1 : 환자 관리 웹 대시보드 기능
+	
 ![주요 기능1](https://github.com/2024-SMHRD-KDT-BigData-23/EmergencyRoomDashboard/assets/155136709/44b1e44f-4e9d-4aa4-9f91-09fafdd8fe33)
 ![주요기능2](https://github.com/2024-SMHRD-KDT-BigData-23/EmergencyRoomDashboard/assets/155136709/9fb7dc02-87b9-418e-b49a-1420f69f9d75)
 ![주요기능2](https://github.com/2024-SMHRD-KDT-BigData-23/EmergencyRoomDashboard/assets/155136709/ae6ecc1a-2442-47f5-bfd2-0db7a08e8d39)
 
 
-* 주요기능2 : 
+* 주요기능2 : 상세 정보 페이지
 ![주요기능4](https://github.com/2024-SMHRD-KDT-BigData-23/EmergencyRoomDashboard/assets/155136709/9c0b7f4c-60fa-41e0-8fad-36d6a7a83002)
 ![주요기능5](https://github.com/2024-SMHRD-KDT-BigData-23/EmergencyRoomDashboard/assets/155136709/742539f7-22e9-4cc4-9de8-a5522bc4b96f)
 </div>
