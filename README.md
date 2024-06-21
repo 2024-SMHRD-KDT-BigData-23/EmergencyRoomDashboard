@@ -29,16 +29,15 @@
 <details>
 <summary><b>주요 기능 설명 펼치기</b></summary>
 <div markdown="1">
+* 주요기능1 : 
+![주요 기능1](https://github.com/2024-SMHRD-KDT-BigData-23/EmergencyRoomDashboard/assets/155136709/f19f6e5a-f5ec-40a5-9342-b52bed2262b8)
+![image](https://github.com/2024-SMHRD-KDT-BigData-23/EmergencyRoomDashboard/assets/155136709/9f92ad42-373d-4acf-93dd-bcd9067c3e81)
+![주요기능3](https://github.com/2024-SMHRD-KDT-BigData-23/EmergencyRoomDashboard/assets/155136709/895ef969-4f91-4d80-97cc-57d8eddace65)
+* 주요기능2 : 
+![주요기능3](https://github.com/2024-SMHRD-KDT-BigData-23/EmergencyRoomDashboard/assets/155136709/e723688d-eca6-481c-92ff-11653d50b82e)
+![주요기능5](https://github.com/2024-SMHRD-KDT-BigData-23/EmergencyRoomDashboard/assets/155136709/a8ce1c07-725d-42a9-af51-debad45cd6ac)
 
-* 기능1 : 반응형 웹![image](https://github.com/2024-SMHRD-KDT-BigData-23/FitNeeds/assets/155136709/97fa57ab-2eca-4958-9f1f-fe32d6919aba)
-* 기능2 : 서비스 소개 페이지![image](https://github.com/2024-SMHRD-KDT-BigData-23/FitNeeds/assets/155136709/303d9ae0-d7c9-42e5-9e92-a3c5266d0466)
-* 기능3 : 네이버 로그인 api![image](https://github.com/2024-SMHRD-KDT-BigData-23/FitNeeds/assets/155136709/0c279508-1241-4bcd-af27-2171720d8c2f)
-* 기능4 : 사용자 ui/ux![image](https://github.com/2024-SMHRD-KDT-BigData-23/FitNeeds/assets/155136709/86b0cfa5-908d-4695-859a-7660039b5c3a)
-* 기능5 : Chart.js를 활용한 다양한 차트 시각화![image](https://github.com/2024-SMHRD-KDT-BigData-23/FitNeeds/assets/155136709/ca4ae21d-8973-4e8c-b08e-84624b58d705)
-![image](https://github.com/2024-SMHRD-KDT-BigData-23/FitNeeds/assets/155136709/6ae83fa0-41a3-422a-92e2-eb4b9f986fcd)
-![image](https://github.com/2024-SMHRD-KDT-BigData-23/FitNeeds/assets/155136709/91733c07-bdd0-44cd-897f-053c975be8d9)
-* 기능6 : 최신뉴스 및 블로그 크롤링![image](https://github.com/2024-SMHRD-KDT-BigData-23/FitNeeds/assets/155136709/d7a14b23-f542-4503-9c47-e54b6e6f6f13)
-* 기능7 : 예약 서비스 및 Fullcalendar api![image](https://github.com/2024-SMHRD-KDT-BigData-23/FitNeeds/assets/155136709/8c11627a-59a1-4b5a-a424-50247fec82a3)
+
 
 </div>
 </details>
