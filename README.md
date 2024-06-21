@@ -138,7 +138,8 @@
 
 
 ## 📌 ER다이어그램
-![ER다이어그램](https://github.com/2024-SMHRD-KDT-BigData-23/EmergencyRoomDashboard/assets/155136709/61862d77-f664-46bc-a7e1-2ccc207db17a)
+![ER다이어그램](https://github.com/2024-SMHRD-KDT-BigData-23/EmergencyRoomDashboard/assets/155137287/853fbe42-9dca-4b67-8ac5-8e011c1d72c1)
+
 
 <br>
 
