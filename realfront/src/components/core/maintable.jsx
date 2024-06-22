@@ -72,7 +72,6 @@ const MainTable = ({ patients, setAction }) => {
             return renderPatientId(patient);
         } else if (field === 'patientName') {
             return renderPatientName(patient);
-        } else if (field === 'resultWard') {
         } else {
             return (
                 <td onClick={() => navigate(`/Detail/${patient.patientId}/${patient.admissionId}`)}>
