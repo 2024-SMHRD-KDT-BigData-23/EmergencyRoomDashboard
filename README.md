@@ -12,7 +12,7 @@
 <br>
 
 ## ⭐ 주요 기능
-<div style="display: flex; justify-content: center; white-space: nowrap;">
+<div>
     <img width="25%" alt="image" src="https://github.com/2024-SMHRD-KDT-BigData-23/EmergencyRoomDashboard/assets/76952340/7274b085-cb74-442a-bd8a-c20cfe6ee872">
     <img width="25%" alt="image" src="https://github.com/2024-SMHRD-KDT-BigData-23/EmergencyRoomDashboard/assets/76952340/66530d9a-4fd6-456d-b9ef-8a9c1627c951">
     <img width="25%" alt="image" src="https://github.com/2024-SMHRD-KDT-BigData-23/EmergencyRoomDashboard/assets/76952340/9fa926e2-a365-48e6-abed-5b85ae3c2ac8">
