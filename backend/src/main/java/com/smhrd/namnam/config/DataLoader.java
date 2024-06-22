@@ -6,7 +6,9 @@ import com.smhrd.namnam.service.ERService;
 import net.datafaker.Faker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cglib.core.Local;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -38,6 +40,9 @@ public class DataLoader {
     private final MapInfoRepository mapRepo;
     private final Faker faker = new Faker();
     private final Random random = new Random();
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public DataLoader(HospitalInfoRepository hospitalRepo, StaffInfoRepository staffRepo, PatientInfoRepository patientRepo, AdmissionInfoRepository admissionRepo, PatientVitalInfoRepository patientVitalRepo, DeepInfoRepository deepRepo, ResultWardInfoRepository resultWardRepo, CommentInfoRepository commentRepo, MapInfoRepository mapRepo, BedInfoRepository bedRepo) {
         this.hospitalRepo = hospitalRepo;
@@ -169,6 +174,10 @@ public class DataLoader {
         }
     }
 
+    public void randomGenerateData() {
+        randomStaffGenerator();
+    }
+
     // 병원 생성 메소드
     public void hospitalGenerator() {
         HospitalInfo hospital = new HospitalInfo();
@@ -267,6 +276,114 @@ public class DataLoader {
                         staff.setStaffId(role);
                         staff.setStaffPw(role);
                         staff.setStaffRole(role);
+                        break;
+                }
+                staffRepo.save(staff);
+            }
+        }
+    }
+
+    // 랜덤 의료진 1:4 생성 메소드
+    public void randomStaffGenerator() {
+        List<HospitalInfo> allHospitals = hospitalRepo.findAll();
+
+        Random random = new Random();
+        String[] doctorRoles = {"Attending Physician", "Resident Physician", "Fellow", "Emergency Medicine Specialist", "Consulting Physician"};
+        String[] nurseRoles = {"Registered Nurse", "Emergency Room Nurse", "Nurse Practitioner", "Clinical Nurse Specialist", "Charge Nurse"};
+
+        for(HospitalInfo selectedHospital : allHospitals) {
+
+            int staffCnt = random.nextInt(10, 30) + 1;
+
+            for (int i = 0 ; i < staffCnt; i++) {
+                StaffInfo staff = new StaffInfo();
+
+                staff.setHospitalInfo(selectedHospital);
+                staff.setStaffStatus("inactive");
+                staff.setStaffAuthority("usable");
+
+                String name = faker.name().firstName();
+                String randomRole = doctorRoles[random.nextInt(doctorRoles.length)];
+
+                switch (randomRole) {
+                    case "Attending Physician":
+                        staff.setStaffName(name);
+                        staff.setStaffId("D-AP-" + name);
+                        staff.setStaffPw(bCryptPasswordEncoder.encode("dap"));
+                        staff.setStaffRole("Attending Physician");
+                        break;
+                    case "Resident Physician":
+                        staff.setStaffName(name);
+                        staff.setStaffId("D-RP-" + name);
+                        staff.setStaffPw(bCryptPasswordEncoder.encode("drp"));
+                        staff.setStaffRole("Resident Physician");
+                        break;
+                    case "Fellow":
+                        staff.setStaffName(name);
+                        staff.setStaffId("D-F-" + name);
+                        staff.setStaffPw(bCryptPasswordEncoder.encode("df"));
+                        staff.setStaffRole("Fellow");
+                        break;
+                    case "Emergency Medicine Specialist":
+                        staff.setStaffName(name);
+                        staff.setStaffId("D-EMS-" + name);
+                        staff.setStaffPw(bCryptPasswordEncoder.encode("dems"));
+                        staff.setStaffRole("Emergency Medicine Specialist");
+                        break;
+                    case "Consulting Physician":
+                        staff.setStaffName(name);
+                        staff.setStaffId("D-CP-" + name);
+                        staff.setStaffPw(bCryptPasswordEncoder.encode("dcp"));
+                        staff.setStaffRole("Consulting Physician");
+                        break;
+                    default:
+                        break;
+                }
+                staffRepo.save(staff);
+            }
+
+            for(int i = 0 ; i < staffCnt * 4; i++) {
+                StaffInfo staff = new StaffInfo();
+
+                staff.setHospitalInfo(selectedHospital);
+                staff.setStaffStatus("inactive");
+                staff.setStaffAuthority("usable");
+
+                String name = faker.name().firstName();
+                String randomRole = nurseRoles[random.nextInt(nurseRoles.length)];
+
+                switch (randomRole) {
+                    case "Registered Nurse":
+                        staff.setStaffName(name);
+                        staff.setStaffId("N-RN-" + name);
+                        staff.setStaffPw(bCryptPasswordEncoder.encode("nrn"));
+                        staff.setStaffRole("Registered Nurse");
+                        break;
+                    case "Emergency Room Nurse":
+                        staff.setStaffName(name);
+                        staff.setStaffId("N-ERN-" + name);
+                        staff.setStaffPw(bCryptPasswordEncoder.encode("nern"));
+                        staff.setStaffRole("Emergency Room Nurse");
+                        break;
+                    case "Nurse Practitioner":
+                        staff.setStaffName(name);
+                        staff.setStaffId("N-NP-" + name);
+                        staff.setStaffPw(bCryptPasswordEncoder.encode("nnp"));
+                        staff.setStaffRole("Nurse Practitioner");
+                        break;
+                    case "Clinical Nurse Specialist":
+                        staff.setStaffName(name);
+                        staff.setStaffId("N-CNS-" + name);
+                        staff.setStaffPw(bCryptPasswordEncoder.encode("ncns"));
+                        staff.setStaffRole("Clinical Nurse Specialist");
+                        break;
+                    case "Charge Nurse":
+                        staff.setStaffName(name);
+                        staff.setStaffId("N-CN-" + name);
+                        staff.setStaffPw(bCryptPasswordEncoder.encode("ncn"));
+                        staff.setStaffRole("Charge Nurse");
+                        break;
+                    default:
                         break;
                 }
                 staffRepo.save(staff);
