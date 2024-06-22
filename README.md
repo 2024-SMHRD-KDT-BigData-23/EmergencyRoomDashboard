@@ -148,11 +148,11 @@
 ## 👨‍👩‍👦‍👦 팀원 역할
 <table>
   <tr>
-    <td align="center">![image](https://github.com/2024-SMHRD-KDT-BigData-23/NTAS/assets/76952340/ef0d9200-f578-44b6-996a-fa23b1e115a8)</td>
-    <td align="center"><img src="https://mb.ntdtv.kr/assets/uploads/2019/01/Screen-Shot-2019-01-08-at-4.31.55-PM-e1546932545978.png" width="100" height="100"/></td>
-    <td align="center"><img src="https://github.com/2024-SMHRD-KDT-BigData-23/EmergencyRoomDashboard/assets/155137287/6a0f23fb-3dae-4a2c-84f9-a675d71c5f78" height="300"/></td>
-    <td align="center"><img src="https://i.pinimg.com/236x/ed/bb/53/edbb53d4f6dd710431c1140551404af9.jpg" width="100" height="100"/></td>
-</tr>
+    <td align="center"><img src="https://github.com/2024-SMHRD-KDT-BigData-23/NTAS/assets/76952340/ef0d9200-f578-44b6-996a-fa23b1e115a8" width="100" height="100"/></td>
+    <td align="center"><img src="https://github.com/2024-SMHRD-KDT-BigData-23/NTAS/assets/76952340/ada52a7c-d663-4b8e-8a92-717c26cf393d" width="100" height="100"/></td>
+    <td align="center"><img src="https://github.com/2024-SMHRD-KDT-BigData-23/NTAS/assets/76952340/8c2c4b81-3598-4c93-b2ca-2a36b3faf89b" width="100" height="100"/></td>
+    <td align="center"><img src="https://github.com/2024-SMHRD-KDT-BigData-23/NTAS/assets/76952340/aaae7886-cce2-4247-84e4-ff1cd435934e" width="100" height="100"/></td>
+  </tr>
   
   <tr>
     <td align="center"><strong>정연재</strong></td>
