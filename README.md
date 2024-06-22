@@ -148,10 +148,10 @@
 ## 👨‍👩‍👦‍👦 팀원 역할
 <table>
   <tr>
-    <td align="center"><img src="https://github.com/2024-SMHRD-KDT-BigData-23/NTAS/assets/76952340/ef0d9200-f578-44b6-996a-fa23b1e115a8" width="200" height="250"/></td>
-    <td align="center"><img src="https://github.com/2024-SMHRD-KDT-BigData-23/NTAS/assets/76952340/ada52a7c-d663-4b8e-8a92-717c26cf393d" width="200" height="250"/></td>
-    <td align="center"><img src="https://github.com/2024-SMHRD-KDT-BigData-23/NTAS/assets/76952340/8c2c4b81-3598-4c93-b2ca-2a36b3faf89b" width="200" height="250"/></td>
-    <td align="center"><img src="https://github.com/2024-SMHRD-KDT-BigData-23/NTAS/assets/76952340/aaae7886-cce2-4247-84e4-ff1cd435934e" width="200" height="250"/></td>
+    <td align="center" width="25%"><img src="https://github.com/2024-SMHRD-KDT-BigData-23/NTAS/assets/76952340/ef0d9200-f578-44b6-996a-fa23b1e115a8" height="250"/></td>
+    <td align="center" width="25%"><img src="https://github.com/2024-SMHRD-KDT-BigData-23/NTAS/assets/76952340/ada52a7c-d663-4b8e-8a92-717c26cf393d" height="250"/></td>
+    <td align="center" width="25%"><img src="https://github.com/2024-SMHRD-KDT-BigData-23/NTAS/assets/76952340/8c2c4b81-3598-4c93-b2ca-2a36b3faf89b" height="250"/></td>
+    <td align="center" width="25%"><img src="https://github.com/2024-SMHRD-KDT-BigData-23/NTAS/assets/76952340/aaae7886-cce2-4247-84e4-ff1cd435934e" height="250"/></td>
   </tr>
   
   <tr>
