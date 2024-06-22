@@ -13,10 +13,10 @@
 
 ## ⭐ 주요 기능
 <div width="100%">
-    <img width="25%" alt="image" src="https://github.com/2024-SMHRD-KDT-BigData-23/EmergencyRoomDashboard/assets/76952340/7274b085-cb74-442a-bd8a-c20cfe6ee872">
+    <img width="24%" alt="image" src="https://github.com/2024-SMHRD-KDT-BigData-23/EmergencyRoomDashboard/assets/76952340/7274b085-cb74-442a-bd8a-c20cfe6ee872">
     <img width="24%" alt="image" src="https://github.com/2024-SMHRD-KDT-BigData-23/EmergencyRoomDashboard/assets/76952340/66530d9a-4fd6-456d-b9ef-8a9c1627c951">
-    <img width="25%" alt="image" src="https://github.com/2024-SMHRD-KDT-BigData-23/EmergencyRoomDashboard/assets/76952340/9fa926e2-a365-48e6-abed-5b85ae3c2ac8">
-    <img width="25%" alt="image" src="https://github.com/2024-SMHRD-KDT-BigData-23/EmergencyRoomDashboard/assets/76952340/14159389-61d3-4554-a558-04865e54f414">
+    <img width="24%" alt="image" src="https://github.com/2024-SMHRD-KDT-BigData-23/EmergencyRoomDashboard/assets/76952340/9fa926e2-a365-48e6-abed-5b85ae3c2ac8">
+    <img width="24%" alt="image" src="https://github.com/2024-SMHRD-KDT-BigData-23/EmergencyRoomDashboard/assets/76952340/14159389-61d3-4554-a558-04865e54f414">
 </div>
 
 * 기능1 : 응급실의 응급 환자 데이터 업데이트 환경
@@ -28,12 +28,12 @@
 * 기능7 : 환자의 바이탈 시간별 확인 차트
 * 기능8 : 의료진이 환자의 배치를 결정할 수 있는 기능
 
-<div style="display: flex; justify-content: center; white-space: nowrap;">
-    <img width="20%" alt="image" src="https://github.com/2024-SMHRD-KDT-BigData-23/EmergencyRoomDashboard/assets/76952340/5ece1214-02e9-4ec3-9caa-b557eee1c87c">
-    <img width="20%" alt="image" src="https://github.com/2024-SMHRD-KDT-BigData-23/EmergencyRoomDashboard/assets/76952340/f68fe3af-1f3c-4fdf-b201-aee47761cd20">
-    <img width="20%" alt="image" src="https://github.com/2024-SMHRD-KDT-BigData-23/EmergencyRoomDashboard/assets/76952340/b712a99c-0da0-4e2b-961e-ef13ede575ac">
-    <img width="20%" alt="image" src="https://github.com/2024-SMHRD-KDT-BigData-23/EmergencyRoomDashboard/assets/76952340/c6c09e07-7640-4148-86c3-8eb298759a4a">
-    <img width="20%" alt="image" src="https://github.com/2024-SMHRD-KDT-BigData-23/EmergencyRoomDashboard/assets/76952340/955d15ac-4b8d-4a97-aa39-817c31109757">
+<div width="100%">
+    <img width="19%" alt="image" src="https://github.com/2024-SMHRD-KDT-BigData-23/EmergencyRoomDashboard/assets/76952340/5ece1214-02e9-4ec3-9caa-b557eee1c87c">
+    <img width="19%" alt="image" src="https://github.com/2024-SMHRD-KDT-BigData-23/EmergencyRoomDashboard/assets/76952340/f68fe3af-1f3c-4fdf-b201-aee47761cd20">
+    <img width="19%" alt="image" src="https://github.com/2024-SMHRD-KDT-BigData-23/EmergencyRoomDashboard/assets/76952340/b712a99c-0da0-4e2b-961e-ef13ede575ac">
+    <img width="19%" alt="image" src="https://github.com/2024-SMHRD-KDT-BigData-23/EmergencyRoomDashboard/assets/76952340/c6c09e07-7640-4148-86c3-8eb298759a4a">
+    <img width="19%" alt="image" src="https://github.com/2024-SMHRD-KDT-BigData-23/EmergencyRoomDashboard/assets/76952340/955d15ac-4b8d-4a97-aa39-817c31109757">
 </div>
 
 * 기능9 : 의료진 계정 관리 기능
